@@ -41,6 +41,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Mojio.Client\MojioClient.App.cs">
+      <Link>MojioClient.App.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.cs">
+      <Link>MojioClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.Mojio.cs">
+      <Link>MojioClient.Mojio.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.Signal.cs">
+      <Link>MojioClient.Signal.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.Storage.cs">
+      <Link>MojioClient.Storage.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.Trip.cs">
+      <Link>MojioClient.Trip.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.User.cs">
+      <Link>MojioClient.User.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio.Client\RSJsonSerializer.cs">
+      <Link>RSJsonSerializer.cs</Link>
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,9 +82,14 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Mojio.Client.csproj">
-      <Link>Mojio.Client.csproj</Link>
-    </Content>
+    <ProjectReference Include="..\Lib\RestSharp\RestSharp.MonoDroid\RestSharp.MonoDroid.csproj">
+      <Project>{1b662c38-984f-4b6a-89b5-aff7fcbe43a2}</Project>
+      <Name>RestSharp.MonoDroid</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mojio\" />
+    <Folder Include="RestSharp\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
