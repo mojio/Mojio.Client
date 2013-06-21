@@ -1,4 +1,5 @@
-﻿using Mojio.Events;
+﻿using Mojio;
+using Mojio.Events;
 using RestSharp;
 using System;
 using System.Collections.Generic;

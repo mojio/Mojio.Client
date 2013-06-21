@@ -14,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,8 +35,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Client.Android">
+      <HintPath>..\Components\signalR\Microsoft.AspNet.SignalR.Client.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.MonoDroid, Version=104.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\restsharp-104.1.0\lib\android\RestSharp.MonoDroid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +85,107 @@
       <Link>RSJsonSerializer.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Mojio\Address.cs">
+      <Link>Mojio\Address.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\App.cs">
+      <Link>Mojio\App.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\AuthenticationProvider.cs">
+      <Link>Mojio\AuthenticationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\CollectionNameAttribute.cs">
+      <Link>Mojio\CollectionNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Converters\EventConverter.cs">
+      <Link>Mojio\EventConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Counter.cs">
+      <Link>Mojio\Counter.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\CreditCard.cs">
+      <Link>Mojio\CreditCard.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Entity.cs">
+      <Link>Mojio\Entity.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\EventBroadcast.cs">
+      <Link>Mojio\EventBroadcast.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\Event.cs">
+      <Link>Mojio\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\EventType.cs">
+      <Link>Mojio\EventType.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\GPSEvent.cs">
+      <Link>Mojio\GPSEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\IgnitionEvent.cs">
+      <Link>Mojio\IgnitionEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\ITripEvent.cs">
+      <Link>Mojio\ITripEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\TripEvent.cs">
+      <Link>Mojio\TripEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Headers.cs">
+      <Link>Mojio\Headers.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\IClient.cs">
+      <Link>Mojio\IClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\ILog.cs">
+      <Link>Mojio\ILog.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Invoice.cs">
+      <Link>Mojio\Invoice.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\IOwner.cs">
+      <Link>Mojio\IOwner.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\IViewers.cs">
+      <Link>Mojio\IViewers.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Location.cs">
+      <Link>Mojio\Location.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Mojio.cs">
+      <Link>Mojio\Mojio.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Product.cs">
+      <Link>Mojio\Product.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Regions.cs">
+      <Link>Mojio\Regions.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Register.cs">
+      <Link>Mojio\Register.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Results.cs">
+      <Link>Mojio\Results.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Row.cs">
+      <Link>Mojio\Row.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Storage.cs">
+      <Link>Mojio\Storage.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Token.cs">
+      <Link>Mojio\Token.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Trip.cs">
+      <Link>Mojio\Trip.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\User.cs">
+      <Link>Mojio\User.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\UserCounter.cs">
+      <Link>Mojio\UserCounter.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\DataAnnotations.cs" />
+    <Compile Include="Attributes\Web.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -82,16 +196,15 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lib\RestSharp\RestSharp.MonoDroid\RestSharp.MonoDroid.csproj">
-      <Project>{1b662c38-984f-4b6a-89b5-aff7fcbe43a2}</Project>
-      <Name>RestSharp.MonoDroid</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mojio\" />
     <Folder Include="RestSharp\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Mojio\Mojio.csproj">
+      <Link>Mojio\Mojio.csproj</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

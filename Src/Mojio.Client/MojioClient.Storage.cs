@@ -18,7 +18,7 @@ namespace Mojio.Client
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool SetStored(BaseEntity entity, string key, dynamic value)
+        public bool SetStored(BaseEntity entity, string key, object value)
         {
             return SetStored(entity.GetType(), entity.IdToString, key, value);
         }
@@ -30,7 +30,7 @@ namespace Mojio.Client
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool SetStored(Type type, string id, string key, dynamic value)
+        public bool SetStored(Type type, string id, string key, object value)
         {
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.PUT);
