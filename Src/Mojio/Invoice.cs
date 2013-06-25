@@ -34,7 +34,6 @@ namespace Mojio
         public float? Tax { get; set; }
         public float? Shipping { get; set; }
 
-        [JsonIgnore]
         public float? Total
         {
             get
