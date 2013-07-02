@@ -11,6 +11,9 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+        public const string Sandbox = "http://sandbox.developer.moj.io/v1";
+        public const string Live = "http://developer.moj.io/v1";
+
         public int PageSize { get; set; }
         public int SessionTime { get; set; }
 
@@ -41,7 +44,7 @@ namespace Mojio.Client
         /// <param name="appId">Application ID</param>
         /// <param name="secretKey">Secret Key</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, string Url = "http://api.moj.io/v1")
+        public MojioClient(Guid appId, Guid secretKey, string Url = Live)
             : this(Url)
         {
             Begin(appId, secretKey);
