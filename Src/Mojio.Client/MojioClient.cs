@@ -58,7 +58,7 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <param name="tokenId">Session Token</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, Guid tokenId, string Url = "http://api.moj.io/v1")
+        public MojioClient(Guid appId, Guid secretKey, Guid? tokenId, string Url = "http://api.moj.io/v1")
             : this(Url)
         {
             Begin(appId, secretKey, tokenId);
@@ -123,14 +123,17 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <param name="tokenId">Session Token</param>
         /// <returns></returns>
-        public bool Begin(Guid appId, Guid secretKey, Guid tokenId )
+        public bool Begin(Guid appId, Guid secretKey, Guid? tokenId )
         {
-            var request = new RestRequest(Request("login", tokenId), Method.GET);
-            var response = RestClient.Execute<Token>(request);
-            if( response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId )
+            if (tokenId != null)
             {
-                Token = response.Data;
-                return true;
+                var request = new RestRequest(Request("login", tokenId.Value), Method.GET);
+                var response = RestClient.Execute<Token>(request);
+                if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId)
+                {
+                    Token = response.Data;
+                    return true;
+                }
             }
             return Begin(appId,secretKey);
         }
