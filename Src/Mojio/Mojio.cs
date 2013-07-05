@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mojio
 {
-    public class Mojio : StringEntity, IOwner,IViewers
+    public class Device : StringEntity, IOwner,IViewers
     {
         // TODO: MIGRATION remove TypeName and Type
         public static string TypeName = "Mojio";

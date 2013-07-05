@@ -18,7 +18,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Event> MojioEvents(string id,int page = 1)
         {
-            return GetBy<Event, Mojio>(id, page);
+            return GetBy<Event, Device>(id, page);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Trip> MojioTrips(string id, int page = 1)
         {
-            return GetBy<Trip, Mojio>(id, page);
+            return GetBy<Trip, Device>(id, page);
         }
     }
 }

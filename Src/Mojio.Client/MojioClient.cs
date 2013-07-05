@@ -25,7 +25,7 @@ namespace Mojio.Client
         {
             Map.Add(typeof(App), "apps");
             Map.Add(typeof(User), "users");
-            Map.Add(typeof(Mojio), "mojios");
+            Map.Add(typeof(Device), "mojios");
             Map.Add(typeof(Event), "events");
                 Map.Add(typeof(GPSEvent), "events");
                 Map.Add(typeof(TripEndEvent), "events");

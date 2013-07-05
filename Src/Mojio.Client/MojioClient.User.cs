@@ -317,9 +317,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Results<Mojio> UserMojios(Guid userId, int page = 1)
+        public Results<Device> UserMojios(Guid userId, int page = 1)
         {
-            return GetBy<Mojio, User>(userId, page);
+            return GetBy<Device, User>(userId, page);
         }
         
         /// <summary>
