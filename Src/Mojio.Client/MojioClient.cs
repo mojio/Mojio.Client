@@ -12,7 +12,7 @@ namespace Mojio.Client
     public partial class MojioClient
     {
         public const string Sandbox = "http://sandbox.developer.moj.io/v1";
-        public const string Live = "http://developer.moj.io/v1";
+        public const string Live = "https://developer.moj.io/v1";
 
         public int PageSize { get; set; }
         public int SessionTime { get; set; }
