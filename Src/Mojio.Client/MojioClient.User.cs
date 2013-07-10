@@ -379,7 +379,26 @@ namespace Mojio.Client
             return response.Data;
         }
 
+        public bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null)
+        {
+            HttpStatusCode code;
+            return SaveCreditCard(creditCard, out code, out message, userId);
+        }
+
+        public bool SaveCreditCard(CreditCard creditCard, out HttpStatusCode code, Guid? userId = null )
+        {
+            string message;
+            return SaveCreditCard(creditCard, out code, out message, userId);
+        }
+
         public bool SaveCreditCard(CreditCard creditCard, Guid? userId = null)
+        {
+            HttpStatusCode code;
+            string message;
+            return SaveCreditCard(creditCard, out code, out message, userId);
+        }
+
+        public bool SaveCreditCard(CreditCard creditCard, out HttpStatusCode code, out string message, Guid? userId = null )
         {
             if (userId == null)
                 userId = CurrentUser.Id;
@@ -389,6 +408,9 @@ namespace Mojio.Client
             request.AddBody(creditCard);
 
             var response = RestClient.Execute<bool>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.Data;
         }
     }
