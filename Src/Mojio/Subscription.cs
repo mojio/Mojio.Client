@@ -21,7 +21,7 @@ namespace Mojio
         Windows
     }
 
-    public class PushSubscription : GuidEntity
+    public class PushSubscription : StringEntity
     {
         public override string Type
         {
