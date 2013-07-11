@@ -11,11 +11,11 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
-        static Dictionary<Type, SubscriptionType> PushTypeMap = new Dictionary<SubscriptionType, string>()
+        static Dictionary<SubscriptionType, string> PushTypeMap = new Dictionary<SubscriptionType, string>()
         {
             { SubscriptionType.Mojio , "Mojios" },
-            { SubscriptionType.User },
-            { SubscriptionType.Trip }
+            { SubscriptionType.User, "Users" },
+            { SubscriptionType.Trip, "Trips" }
         };
 
         const string PushController = "notify";
@@ -27,10 +27,11 @@ namespace Mojio.Client
         {
             var request = GetRequest(Request(Map[typeof(T)], id, "notify"), Method.POST);
 
-            request.AddBody(entity);
+            request.AddBody(events);
 
-            var response = RestClient.Execute<T>(request);
-            return response.Data;
+            var response = RestClient.Execute(request);
+
+            return;
         }
 
         public void GetSubscriptions()
