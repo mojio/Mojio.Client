@@ -8,11 +8,6 @@ namespace Mojio
 {
     public class Storage : GuidEntity
     {
-        public override string Type
-        {
-            get { return "Storage"; }
-        }
-
         public Guid OwnerAppId { get; set; }
         //public Guid? OwnerUserId { get; set; }
 

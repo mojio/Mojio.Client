@@ -9,15 +9,6 @@ namespace Mojio
 {
     public partial class User : GuidEntity
     {
-        public static string TypeName = "User";
-        public override string Type
-        {
-            get
-            {
-                return TypeName;
-            }
-        }
-
         public string UserName { get; set; }
 
         [Display(Name="First Name")]

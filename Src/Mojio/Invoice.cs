@@ -9,16 +9,6 @@ namespace Mojio
 {
     public class Invoice : GuidEntity , IOwner
     {
-        // TODO: MIGRATION remove TypeName and Type
-        public static string TypeName = "Invoice";
-        public override string Type
-        {
-            get
-            {
-                return TypeName;
-            }
-        }
-
         public Guid BuyerId { get; set; }
         public Guid? AppId { get; set; }
 

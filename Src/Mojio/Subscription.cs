@@ -18,24 +18,36 @@ namespace Mojio
     {
         Apple,
         Android,
-        Windows
+        Windows,
+        Post,
+        SignalR
     }
 
-    public class PushSubscription : StringEntity
+    public class Notify : GuidEntity, IOwner
     {
-        public override string Type
-        {
-            get { return "Push"; }
-        }
+        public PushType Type { get; set; }
+        public string Receiver { get; set; }
 
-        public PushType DeviceType { get; set; }
-
-        public string DeviceId { get; set; }
+        public Guid AppId { get; set; }
+        public Guid? OwnerId { get; set; }
 
         public EventType[] Events { get; set; }
 
-        public SubscriptionType SubscriptionType { get; set; }
+        public SubscriptionType EntityType { get; set; }
+        public object EntityId { get; set; }
+    }
 
-        public object SubscriptionId { get; set; }
+    public class NotifyApple : Notify
+    {
+        public NotifyApple(string id)
+        {
+            Type = PushType.Apple;
+            Receiver = id;
+        }
+
+        public string NotificationId {
+            get { return Receiver; }
+            set { Receiver = value; }
+        }
     }
 }

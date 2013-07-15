@@ -8,11 +8,6 @@ namespace Mojio
 {
     public class Token : GuidEntity
     {
-        public override string Type
-        {
-            get { return "AT"; }
-        }
-
         public Guid AppId { get; set; }
         public Guid? UserId { get; set; }
         public DateTime ValidUntil { get; set; }
