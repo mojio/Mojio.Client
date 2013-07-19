@@ -20,7 +20,7 @@ namespace Mojio.Client
 
         const string PushController = "notify";
         public string PushRegistrationId { get; set; }
-        public PushType PushRegistrationType { get; set; }
+        public NotifyType PushRegistrationType { get; set; }
 
 
         public void SubscribePush<T>(object id, EventType events )

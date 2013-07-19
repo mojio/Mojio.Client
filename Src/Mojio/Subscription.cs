@@ -14,7 +14,7 @@ namespace Mojio
         User,
     }
 
-    public enum PushType
+    public enum NotifyType
     {
         Apple,
         Android,
@@ -23,31 +23,17 @@ namespace Mojio
         SignalR
     }
 
-    public class Notify : GuidEntity, IOwner
+    public partial class Subscription : GuidEntity, IOwner
     {
-        public PushType Type { get; set; }
-        public string Receiver { get; set; }
+        public NotifyType NotifyType { get; set; }
+        public string Notify { get; set; }
 
         public Guid AppId { get; set; }
         public Guid? OwnerId { get; set; }
 
-        public EventType[] Events { get; set; }
+        public EventType Event { get; set; }
 
         public SubscriptionType EntityType { get; set; }
         public object EntityId { get; set; }
-    }
-
-    public class NotifyApple : Notify
-    {
-        public NotifyApple(string id)
-        {
-            Type = PushType.Apple;
-            Receiver = id;
-        }
-
-        public string NotificationId {
-            get { return Receiver; }
-            set { Receiver = value; }
-        }
     }
 }
