@@ -14,7 +14,7 @@ namespace Mojio
         User,
     }
 
-    public enum NotifyType
+    public enum ChannelType
     {
         Apple,
         Android,
@@ -25,8 +25,8 @@ namespace Mojio
 
     public partial class Subscription : GuidEntity, IOwner
     {
-        public NotifyType NotifyType { get; set; }
-        public string Notify { get; set; }
+        public ChannelType ChannelType { get; set; }
+        public string ChannelTarget { get; set; }
 
         public Guid AppId { get; set; }
         public Guid? OwnerId { get; set; }
