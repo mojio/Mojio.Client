@@ -10,16 +10,6 @@ namespace Mojio
 {
     public partial class App : GuidEntity
     {
-        // TODO: MIGRATION remove TypeName and Type
-        public static string TypeName = "App";
-        public override string Type
-        {
-            get
-            {
-                return TypeName;
-            }
-        }
-
         /// <summary>
         /// app name
         /// </summary>
@@ -41,11 +31,5 @@ namespace Mojio
         /// total number of downloads
         /// </summary>
         public int? Downloads { get; set; }
-
-        //TODO: MIGRATION These fields are moved to AppPrivate
-        /// <summary>
-        /// secret key
-        /// </summary>
-        public Guid SecretKey { get; set; }
     }
 }

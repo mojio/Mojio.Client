@@ -13,12 +13,11 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
-        // TODO: temporary till new subscription functionality comes in.
-        static Dictionary<Type, string> SubscriptionMap = new Dictionary<Type, string>()
+        static Dictionary<Type, SubscriptionType> SubscriptionMap = new Dictionary<Type, SubscriptionType>()
         {
-            { typeof(Device), "Mojio" },
-            { typeof(User), "User" },
-            { typeof(Trip), "Trip" }
+            { typeof(Device), SubscriptionType.Mojio },
+            { typeof(User), SubscriptionType.User },
+            { typeof(Trip), SubscriptionType.Trip }
         };
 
         public delegate void MojioEventHandler(Event evt);
@@ -110,7 +109,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Unsubscribe<T>(string[] id, EventType[] events)
         {
-            Hub.Invoke("Unsubscribe", /*Token.Id,*/ typeof(T).Name, id, events);
+            Hub.Invoke("Unsubscribe", /*Token.Id,*/ SubscriptionMap[typeof(T)], id, events);
             return true;
         }
 

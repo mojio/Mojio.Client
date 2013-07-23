@@ -231,6 +231,29 @@ namespace Mojio.Client
         }
 
         /// <summary>
+        /// Extend token expiry date.
+        /// </summary>
+        /// <param name="minutes">Exipry time in minutes</param>
+        /// <returns></returns>
+        public bool ExtendSession(int minutes)
+        {
+            if (Token == null)
+                return false; // Can only "Extend" if already authenticated app.
+
+            var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
+            request.AddParameter("minutes",minutes);
+
+            var response = RestClient.Execute<Token>(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Token = response.Data;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Generate basic request.  Adds the session token to header if exists.
         /// </summary>
         /// <param name="resource">Resource URL</param>

@@ -10,16 +10,6 @@ namespace Mojio.Events
     [JsonConverter(typeof(EventConverter))]
     public class Event : GuidEntity, IOwner
     {
-        // TODO: MIGRATION remove TypeName and Type
-        public static string TypeName = "Event";
-        public override string Type
-        {
-            get
-            {
-                return TypeName;
-            }
-        }
-        
         public string MojioId { get; set; }
         public Guid? OwnerId { get; set; }
 

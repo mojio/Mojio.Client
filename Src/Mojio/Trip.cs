@@ -7,15 +7,6 @@ namespace Mojio
 {
     public class Trip : GuidEntity
     {
-        public static string TypeName = "Trip";
-        public override string Type
-        {
-            get
-            {
-                return TypeName;
-            }
-        }
-
         /// <summary>
         /// mojio id
         /// </summary>
