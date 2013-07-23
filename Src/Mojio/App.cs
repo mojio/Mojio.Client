@@ -20,16 +20,32 @@ namespace Mojio
             }
         }
 
+        /// <summary>
+        /// app name
+        /// </summary>
         [Display(Name = "Display Name")]
         [StringLength(32, MinimumLength=5, ErrorMessage="Name has to be between 5 and 32 characters")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// description
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// record creation timestamp
+        /// </summary>
         public DateTime CreationDate { get; set; }
+
+        /// <summary>
+        /// total number of downloads
+        /// </summary>
         public int? Downloads { get; set; }
 
         //TODO: MIGRATION These fields are moved to AppPrivate
+        /// <summary>
+        /// secret key
+        /// </summary>
         public Guid SecretKey { get; set; }
     }
 }

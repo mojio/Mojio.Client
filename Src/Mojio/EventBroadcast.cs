@@ -8,7 +8,14 @@ namespace Mojio
 {
     public class EventBroadcast
     {
+        /// <summary>
+        /// event id
+        /// </summary>
         public Guid EventId { get; set; }
+
+        /// <summary>
+        /// event type
+        /// </summary>
         public EventType EventType { get; set; }
     }
 }

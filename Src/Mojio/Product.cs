@@ -20,18 +20,49 @@ namespace Mojio
             }
         }
 
+        /// <summary>
+        /// app id
+        /// </summary>
         public Guid AppId { get; set; }
-        public string Name { get; set; }        
+
+        /// <summary>
+        /// name
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// description
+        /// </summary>
         public string Description { get; set; }
         
+        /// <summary>
+        /// shippable?
+        /// </summary>
         public bool? Shipping { get; set; }
+
+        /// <summary>
+        /// taxable?
+        /// </summary>
         public bool? Taxable { get; set; }
         
+        /// <summary>
+        /// price
+        /// </summary>
         public float Price { get; set; }
+
+        /// <summary>
+        /// discontinued?
+        /// </summary>
         public bool Discontinued { get; set; }
 
+        /// <summary>
+        /// owner id
+        /// </summary>
         public Guid? OwnerId { get;set; }
 
+        /// <summary>
+        /// record creation timestamp
+        /// </summary>
         public DateTime CreationDate { get; set; }
     }
 }

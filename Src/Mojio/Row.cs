@@ -7,8 +7,19 @@ namespace Mojio
 {
     public class Row<T>
     {
+        /// <summary>
+        /// id
+        /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// key
+        /// </summary>
         public object Key { get; set; }
+
+        /// <summary>
+        /// value
+        /// </summary>
         public T Value { get; set; }
     }
 

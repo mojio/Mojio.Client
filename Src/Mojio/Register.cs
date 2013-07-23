@@ -17,18 +17,27 @@ namespace Mojio
         public const int PasswordMaxLength = 16;
         public const string PasswordError = "Must contain uppercase, lowercase and numbers";
 
+        /// <summary>
+        /// username
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [Display(Name = "User name")]
         [RegularExpression(UsernameRegEx, ErrorMessage = UsernameError)]
         [StringLength(16, MinimumLength = 6, ErrorMessage = "Must be 6 to 16 characters")]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// email address
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
+        /// <summary>
+        /// password
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [MembershipPassword(ErrorMessage = PasswordError)]
         //[RegularExpression(PasswordRegEx, ErrorMessage=PasswordError)]
@@ -40,11 +49,17 @@ namespace Mojio
 
     public class ChangePassword
     {
+        /// <summary>
+        /// current password
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
+        /// <summary>
+        /// new password
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -56,15 +71,24 @@ namespace Mojio
 
     public class ResetPassword
     {
+        /// <summary>
+        /// username OR email address
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [Display(Name = "Email/Username")]
         public string UserNameOrEmail { get; set; }
 
+        /// <summary>
+        /// password
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.Password)]
         [Display(Name = "New Password")]
         public string Password { get; set; }
 
+        /// <summary>
+        /// reset token
+        /// </summary>
         [Required(ErrorMessage = "Required")]
         [Display(Name = "Token")]
         public string ResetToken { get; set; }

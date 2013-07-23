@@ -14,6 +14,9 @@ namespace Mojio
             get { return null; }
         }
 
+        /// <summary>
+        /// sequential index
+        /// </summary>
         public int Seq { get; set; }
     }
 }

@@ -8,7 +8,14 @@ namespace Mojio
 {
     public class AuthenticationProvider
     {
+        /// <summary>
+        /// provider
+        /// </summary>
         public string Provider { get; set; }
+
+        /// <summary>
+        /// provider user id
+        /// </summary>
         public string ProviderUserId { get; set; }
     }
 }
