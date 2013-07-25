@@ -58,7 +58,7 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <param name="tokenId">Session Token</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, Guid? tokenId, string Url = "http://api.moj.io/v1")
+        public MojioClient(Guid appId, Guid secretKey, Guid? tokenId, string Url = Live)
             : this(Url)
         {
             Begin(appId, secretKey, tokenId);
@@ -72,7 +72,7 @@ namespace Mojio.Client
         /// <param name="userOrEmail">User's name or email</param>
         /// <param name="passsword">User's password.</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, string userOrEmail, string password, string Url = "http://api.moj.io/v1")
+        public MojioClient(Guid appId, Guid secretKey, string userOrEmail, string password, string Url = Live)
             : this(Url)
         {
             Begin(appId, secretKey, userOrEmail, password);
@@ -83,7 +83,7 @@ namespace Mojio.Client
         /// Client must call Begin, or supply set a valid Token.
         /// </summary>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(string Url = "http://api.moj.io/v1")
+        public MojioClient(string Url = Live)
         {
             PageSize = 10;
             SessionTime = 24 * 60;

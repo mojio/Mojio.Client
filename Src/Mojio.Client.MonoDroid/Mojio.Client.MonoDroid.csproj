@@ -187,6 +187,7 @@
     </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
+    <Compile Include="MojioClient.AndroidGcm.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
