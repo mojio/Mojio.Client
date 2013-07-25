@@ -7,6 +7,9 @@ namespace Mojio
     [AttributeUsage(AttributeTargets.Class)]
     public class CollectionNameAttribute : Attribute
     {
+        /// <summary>
+        /// name
+        /// </summary>
         public string Name { get; set; }
 
         public CollectionNameAttribute(string name)

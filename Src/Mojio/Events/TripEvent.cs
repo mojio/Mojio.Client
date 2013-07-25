@@ -12,18 +12,48 @@ namespace Mojio.Events
     }
 
     [CollectionNameAttribute(typeof(Event))]
-    public class TripEndEvent : TripEvent
+    public class TripEndEvent : TripStatusEvent
     {
         public TripEndEvent()
         {
             EventType = Events.EventType.TripEnd;
         }
 
-        public bool InProgress { get; set; }
-        public float Distance { get; set; }
-        public Guid? PreviousTrip { get; set; }
-        public Guid StartTrigger { get; set; }
         public Guid? EndTrigger { get; set; }
-        public DateTime? StartTime { get; set; }
+    }
+
+    [CollectionNameAttribute(typeof(Event))]
+    public class TripStartEvent : TripStatusEvent
+    {
+        public TripStartEvent()
+        {
+            EventType = Events.EventType.TripStart;
+        }
+
+        public Guid StartTrigger { get; set; }
+    }
+
+    [CollectionNameAttribute(typeof(Event))]
+    public class TripStatusEvent : TripEvent
+    {
+        public TripStatusEvent()
+        {
+            EventType = Events.EventType.TripStatus;
+        }
+
+        public Location Location { get; set; }
+        public float Heading { get; set; }
+
+        public float Distance { get; set; }
+        public float Fuel { get; set; }
+
+        public float MaxSpeed { get; set; }
+        public float AverageSpeed { get; set; }
+
+        public float MovingTime { get; set; }
+        public float IdleTime { get; set; }
+        public float StopTime { get; set; }
+
+        public float Odometer { get; set; }
     }
 }

@@ -14,9 +14,6 @@ namespace Mojio
         [JsonProperty(PropertyName = "_deleted")]
         public bool Delete { get; set; }
 
-        // TODO: MIGRATION remove Type
-        public abstract string Type { get; }
-
         [JsonIgnore]
         public abstract string IdToString { get; }
     }

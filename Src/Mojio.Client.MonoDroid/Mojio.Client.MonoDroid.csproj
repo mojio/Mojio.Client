@@ -173,6 +173,9 @@
     <Compile Include="..\Mojio\Storage.cs">
       <Link>Mojio\Storage.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Subscription.cs">
+      <Link>Mojio\Subscription.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Token.cs">
       <Link>Mojio\Token.cs</Link>
     </Compile>

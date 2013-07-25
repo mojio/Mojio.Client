@@ -7,6 +7,9 @@ namespace Mojio
 {
     public interface IOwner
     {
+        /// <summary>
+        /// owner id
+        /// </summary>
         Guid? OwnerId { get; set; }
     }
 

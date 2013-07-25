@@ -38,6 +38,21 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(SolutionDir)/packages/Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PushSharp.Android">
+      <HintPath>..\..\..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Apple">
+      <HintPath>..\..\..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Core">
+      <HintPath>..\..\..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Windows">
+      <HintPath>..\..\..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.WindowsPhone">
+      <HintPath>..\..\..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.WindowsPhone.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>$(SolutionDir)/packages/RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
@@ -55,6 +70,9 @@
     </Compile>
     <Compile Include="MojioClient.cs" />
     <Compile Include="MojioClient.Mojio.cs">
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MojioClient.Push.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="MojioClient.Signal.cs">

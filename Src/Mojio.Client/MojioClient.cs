@@ -31,6 +31,8 @@ namespace Mojio.Client
                 Map.Add(typeof(TripEndEvent), "events");
                 Map.Add(typeof(IgnitionEvent), "events");
                 Map.Add(typeof(TripEvent), "events");
+                Map.Add(typeof(TripStatusEvent), "events");
+                Map.Add(typeof(HardEvent), "events");
 
             Map.Add(typeof(Trip), "trips");
             Map.Add(typeof(Product), "products");
@@ -225,6 +227,29 @@ namespace Mojio.Client
             {
                 Token = response.Data;
                 ResetCurrentUser();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Extend token expiry date.
+        /// </summary>
+        /// <param name="minutes">Exipry time in minutes</param>
+        /// <returns></returns>
+        public bool ExtendSession(int minutes)
+        {
+            if (Token == null)
+                return false; // Can only "Extend" if already authenticated app.
+
+            var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
+            request.AddParameter("minutes",minutes);
+
+            var response = RestClient.Execute<Token>(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Token = response.Data;
                 return true;
             }
             return false;

@@ -7,6 +7,9 @@ namespace Mojio
 {
     public interface IViewers
     {
+        /// <summary>
+        /// list of viewers
+        /// </summary>
         Guid[] Viewers { get; set; }
     }
 }
