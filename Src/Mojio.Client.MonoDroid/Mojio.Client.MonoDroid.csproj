@@ -122,6 +122,9 @@
     <Compile Include="..\Mojio\Events\GPSEvent.cs">
       <Link>Mojio\GPSEvent.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\HardEvent.cs">
+      <Link>Mojio\HardEvent.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Events\IgnitionEvent.cs">
       <Link>Mojio\IgnitionEvent.cs</Link>
     </Compile>
