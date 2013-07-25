@@ -52,6 +52,7 @@ namespace Mojio.Events
 
         public float MovingTime { get; set; }
         public float IdleTime { get; set; }
+        public float StartTime { get; set; }
         public float StopTime { get; set; }
 
         public float Odometer { get; set; }
