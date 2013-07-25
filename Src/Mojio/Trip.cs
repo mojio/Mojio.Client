@@ -45,7 +45,22 @@ namespace Mojio
         /// <summary>
         /// idle percentage
         /// </summary>
-        public float? IdlePercent { get; set; }        
+        public float? IdlePercent { get { return IdleTime / (MovingTime+IdleTime+StopTime); } }
+
+        /// <summary>
+        /// time moving
+        /// </summary>
+        public float? MovingTime { get; set; }
+
+        /// <summary>
+        /// idle time
+        /// </summary>
+        public float? IdleTime { get; set; }
+
+        /// <summary>
+        /// time stopped
+        /// </summary>
+        public float? StopTime { get; set; }
 
         /// <summary>
         /// start location

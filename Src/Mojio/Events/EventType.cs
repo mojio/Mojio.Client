@@ -7,20 +7,32 @@ namespace Mojio.Events
 {
     public enum EventType
     {
-        Information = 1000,
+        Information = 100,
         MojioOn,
+        MojioIdle,
+        MojioWake,
         IgnitionOn,
         IgnitionOff,
-        GPS,
+
+        GPS = 1005,
         FenceEntered,
         FenceExited,
         TripEnd,
+        TripStart,
+        TripStatus,
 
         Warning = 30000,
         MILWarning,
 
+        ConnectionLost = 40000,
+
         Alert = 100000,
         Accident,
         Tow,
+        HardAcceleration,
+        HardBreak,
+        HardRight,
+        HardLeft,
+        Speed
     }
 }

@@ -31,6 +31,8 @@ namespace Mojio.Client
                 Map.Add(typeof(TripEndEvent), "events");
                 Map.Add(typeof(IgnitionEvent), "events");
                 Map.Add(typeof(TripEvent), "events");
+                Map.Add(typeof(TripStatusEvent), "events");
+                Map.Add(typeof(HardEvent), "events");
 
             Map.Add(typeof(Trip), "trips");
             Map.Add(typeof(Product), "products");

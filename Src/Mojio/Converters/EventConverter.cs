@@ -44,13 +44,20 @@ namespace Mojio.Converters
 
             switch (eventType)
             {
+                case EventType.TripStart:
+                case EventType.TripEnd:
+                case EventType.TripStatus:
+                    return new TripStatusEvent();
                 case EventType.IgnitionOn:
                 case EventType.IgnitionOff:
                     return new IgnitionEvent();
                 case EventType.GPS:
                     return new GPSEvent();
-                case EventType.TripEnd:
-                    return new TripEndEvent();
+                case EventType.HardAcceleration:
+                case EventType.HardBreak:
+                case EventType.HardLeft:
+                case EventType.HardRight:
+                    return new HardEvent();
                 default:
                     return new Event();
             }

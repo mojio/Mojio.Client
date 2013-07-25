@@ -36,4 +36,14 @@ namespace Mojio
         public SubscriptionType EntityType { get; set; }
         public object EntityId { get; set; }
     }
+
+    public partial class HardSubscription : Subscription
+    {
+        public float MaxForce { get; set; }
+    }
+
+    public partial class SpeedSucbscription : Subscription
+    {
+        public float MaxSpeed { get; set; }
+    }
 }
