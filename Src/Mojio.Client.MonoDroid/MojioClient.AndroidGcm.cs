@@ -13,36 +13,6 @@ using System.Threading.Tasks;
 
 namespace Mojio.Client
 {
-    public enum SubscriptionType
-    {
-        Mojio = 1,
-        Trip,
-        User,
-    }
-
-    public enum ChannelType
-    {
-        Apple,
-        Android,
-        Windows,
-        Post,
-        SignalR
-    }
-
-    public partial class Subscription : GuidEntity, IOwner
-    {
-        public ChannelType ChannelType { get; set; }
-        public string ChannelTarget { get; set; }
-
-        public Guid AppId { get; set; }
-        public Guid? OwnerId { get; set; }
-
-        public EventType Event { get; set; }
-
-        public SubscriptionType EntityType { get; set; }
-        public object EntityId { get; set; }
-    }
-
     public partial class MojioClient
     {
         const string SharedPreferencesName = "MojioClientPreferences";
