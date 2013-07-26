@@ -16,57 +16,57 @@ namespace Mojio.Events
         Information = 100,
 
         /// <summary>
-        /// mojio on
+        /// mojio on (device)
         /// </summary>
         MojioOn,
 
         /// <summary>
-        /// mojio idle
+        /// mojio idle (device)
         /// </summary>
         MojioIdle,
 
         /// <summary>
-        /// mojio awake
+        /// mojio awake (device)
         /// </summary>
         MojioWake,
 
         /// <summary>
-        /// ignition on
+        /// ignition on (device)
         /// </summary>
         IgnitionOn,
 
         /// <summary>
-        /// ignition off
+        /// ignition off (device)
         /// </summary>
         IgnitionOff,
 
         /// <summary>
-        /// GPS
+        /// GPS (device)
         /// </summary>
         GPS = 1005,
 
         /// <summary>
-        /// fence entered
+        /// fence enter (device)
         /// </summary>
         FenceEntered,
 
         /// <summary>
-        /// fence exited
+        /// fence exit (device)
         /// </summary>
         FenceExited,
 
         /// <summary>
-        /// trip end
+        /// trip end (device)
         /// </summary>
         TripEnd,
 
         /// <summary>
-        /// trip start
+        /// trip start (device)
         /// </summary>
         TripStart,
 
         /// <summary>
-        /// trip status
+        /// trip status (device)
         /// </summary>
         TripStatus,
 
@@ -76,12 +76,12 @@ namespace Mojio.Events
         Warning = 30000,
 
         /// <summary>
-        /// MIL warning
+        /// malfunction indicator light warning (device)
         /// </summary>
         MILWarning,
 
         /// <summary>
-        /// connection lost
+        /// connection lost (server)
         /// </summary>
         ConnectionLost = 40000,
 
@@ -91,37 +91,37 @@ namespace Mojio.Events
         Alert = 100000,
 
         /// <summary>
-        /// accident
+        /// accident (device)
         /// </summary>
         Accident,
 
         /// <summary>
-        /// tow
+        /// tow (device)
         /// </summary>
         Tow,
 
         /// <summary>
-        /// hard acceleration
+        /// hard acceleration (device)
         /// </summary>
         HardAcceleration,
 
         /// <summary>
-        /// hard brake
+        /// hard brake (device)
         /// </summary>
         HardBrake,
 
         /// <summary>
-        /// hard right
+        /// hard right (device)
         /// </summary>
         HardRight,
 
         /// <summary>
-        /// hard left
+        /// hard left (device)
         /// </summary>
         HardLeft,
         
         /// <summary>
-        /// speed
+        /// device-defined excessive speed (device)
         /// </summary>
         Speed
     }
