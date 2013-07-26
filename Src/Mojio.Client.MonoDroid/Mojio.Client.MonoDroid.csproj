@@ -173,6 +173,9 @@
     <Compile Include="..\Mojio\Storage.cs">
       <Link>Mojio\Storage.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Subscription.cs">
+      <Link>Mojio\Subscription.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Token.cs">
       <Link>Mojio\Token.cs</Link>
     </Compile>
@@ -187,6 +190,7 @@
     </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
+    <Compile Include="MojioClient.Push.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -9,16 +9,6 @@ namespace Mojio
 {
     public class Device : StringEntity, IOwner,IViewers
     {
-        // TODO: MIGRATION remove TypeName and Type
-        public static string TypeName = "Mojio";
-        public override string Type
-        {
-            get
-            {
-                return TypeName;
-            }
-        }
-
         /// <summary>
         /// device serial number
         /// </summary>
