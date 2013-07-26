@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Mojio.Events
 {
+    /// <summary>
+    /// GPS event
+    /// </summary>
     [CollectionNameAttribute(typeof(Event))]
     public class GPSEvent : TripEvent
     {
@@ -14,9 +17,19 @@ namespace Mojio.Events
             Location = new Location();
         }
 
+        /// <summary>
+        /// location
+        /// </summary>
         public Location Location { get; set; }
 
+        /// <summary>
+        /// heading
+        /// </summary>
         public float? Heading { get; set; }
+
+        /// <summary>
+        /// speed
+        /// </summary>
         public float? Speed { get; set; }
     }
 }

@@ -54,7 +54,7 @@ namespace Mojio.Converters
                 case EventType.GPS:
                     return new GPSEvent();
                 case EventType.HardAcceleration:
-                case EventType.HardBreak:
+                case EventType.HardBrake:
                 case EventType.HardLeft:
                 case EventType.HardRight:
                     return new HardEvent();
