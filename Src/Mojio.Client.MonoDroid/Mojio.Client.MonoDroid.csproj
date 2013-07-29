@@ -122,6 +122,9 @@
     <Compile Include="..\Mojio\Events\GPSEvent.cs">
       <Link>Mojio\GPSEvent.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\HardEvent.cs">
+      <Link>Mojio\HardEvent.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Events\IgnitionEvent.cs">
       <Link>Mojio\IgnitionEvent.cs</Link>
     </Compile>
@@ -190,7 +193,7 @@
     </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
-    <Compile Include="MojioClient.Push.cs" />
+    <Compile Include="MojioClient.AndroidGcm.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
