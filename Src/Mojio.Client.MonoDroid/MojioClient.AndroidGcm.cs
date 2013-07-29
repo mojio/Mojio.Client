@@ -40,7 +40,7 @@ namespace Mojio.Client
                 Begin(appId, secretKey);
         }
 
-        protected Subscription SubscribeGcm(string registrationId, Subscription sub)
+        public Subscription SubscribeGcm(string registrationId, Subscription sub)
         {
             sub.ChannelType = ChannelType.Android;
             sub.ChannelTarget = registrationId;

@@ -38,6 +38,8 @@ namespace Mojio.Client
             Map.Add(typeof(Product), "products");
 
             Map.Add(typeof(Invoice), "orders");
+
+            Map.Add(typeof(Subscription), "subscriptions");
         }
 
         /// <summary>
