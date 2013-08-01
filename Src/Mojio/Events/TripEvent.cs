@@ -101,6 +101,7 @@ namespace Mojio.Events
         /// idle time
         /// </summary>
         public float IdleTime { get; set; }
+        public float StartTime { get; set; }
 
         /// <summary>
         /// stop time

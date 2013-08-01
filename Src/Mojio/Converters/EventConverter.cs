@@ -44,6 +44,8 @@ namespace Mojio.Converters
 
             switch (eventType)
             {
+                case EventType.MojioOn:
+                    return new MojioOnEvent();
                 case EventType.TripStart:
                 case EventType.TripEnd:
                 case EventType.TripStatus:
