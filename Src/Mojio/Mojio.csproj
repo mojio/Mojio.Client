@@ -66,6 +66,7 @@
     <Compile Include="Events\EventType.cs" />
     <Compile Include="Events\GPSEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
+    <Compile Include="Events\MojioOnEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
