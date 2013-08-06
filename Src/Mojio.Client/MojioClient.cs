@@ -539,5 +539,11 @@ namespace Mojio.Client
         {
             throw new Exception(errorMessage);
         }
+
+        public T Deserialize<T>(string content)
+        {
+            var serializer = new RSJsonSerializer();
+            return serializer.Deserialize<T>(content);
+        }
     }
 }

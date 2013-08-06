@@ -31,16 +31,21 @@ namespace Mojio.Client
             Serializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
         }
 
-        public T Deserialize<T>(RestSharp.IRestResponse response)
+        public T Deserialize<T>(string content)
         {
             //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
-            using (var stringReader = new StringReader(response.Content) )
+            using (var stringReader = new StringReader(content) )
             {
                 using (var jsonReader = new JsonTextReader(stringReader))
                 {
                     return Serializer.Deserialize<T>(jsonReader);
                 }
             }
+        }
+
+        public T Deserialize<T>(RestSharp.IRestResponse response)
+        {
+            return Deserialize<T>(response.Content);
         }
 
         public string Serialize(object obj)
