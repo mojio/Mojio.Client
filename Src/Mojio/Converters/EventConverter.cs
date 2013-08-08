@@ -63,8 +63,6 @@ namespace Mojio.Converters
                 case EventType.HardLeft:
                 case EventType.HardRight:
                     return new HardEvent();
-                case EventType.MojioOn:
-                    return new TripEvent();
                 default:
                     return new Event();
             }
