@@ -18,40 +18,6 @@ namespace Mojio.Events
     }
 
     /// <summary>
-    /// trip end event
-    /// </summary>
-    [CollectionNameAttribute(typeof(Event))]
-    public class TripEndEvent : TripStatusEvent
-    {
-        public TripEndEvent()
-        {
-            EventType = Events.EventType.TripEnd;
-        }
-
-        /// <summary>
-        /// end trigger
-        /// </summary>
-        public Guid? EndTrigger { get; set; }
-    }
-
-    /// <summary>
-    /// trip start event
-    /// </summary>
-    [CollectionNameAttribute(typeof(Event))]
-    public class TripStartEvent : TripStatusEvent
-    {
-        public TripStartEvent()
-        {
-            EventType = Events.EventType.TripStart;
-        }
-
-        /// <summary>
-        /// start trigger
-        /// </summary>
-        public Guid StartTrigger { get; set; }
-    }
-
-    /// <summary>
     /// trip status event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
@@ -70,7 +36,7 @@ namespace Mojio.Events
         /// <summary>
         /// heading degrees
         /// </summary>
-        public float Heading { get; set; }
+        public short Heading { get; set; }
 
         /// <summary>
         /// distance
@@ -81,6 +47,11 @@ namespace Mojio.Events
         /// fuel
         /// </summary>
         public float Fuel { get; set; }
+
+        /// <summary>
+        /// Current speed
+        /// </summary>
+        public float Speed { get; set; }
 
         /// <summary>
         /// max speed
@@ -101,7 +72,6 @@ namespace Mojio.Events
         /// idle time
         /// </summary>
         public float IdleTime { get; set; }
-        public float StartTime { get; set; }
 
         /// <summary>
         /// stop time

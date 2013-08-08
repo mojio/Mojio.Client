@@ -48,7 +48,7 @@ namespace Mojio.Events
         /// <summary>
         /// fence enter (device)
         /// </summary>
-        FenceEntered,
+        FenceEntered = 1006,
 
         /// <summary>
         /// fence exit (device)

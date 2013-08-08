@@ -28,7 +28,6 @@ namespace Mojio.Client
             Map.Add(typeof(Device), "mojios");
             Map.Add(typeof(Event), "events");
                 Map.Add(typeof(GPSEvent), "events");
-                Map.Add(typeof(TripEndEvent), "events");
                 Map.Add(typeof(IgnitionEvent), "events");
                 Map.Add(typeof(TripEvent), "events");
                 Map.Add(typeof(TripStatusEvent), "events");
