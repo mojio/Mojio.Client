@@ -34,7 +34,7 @@ namespace Mojio
         public EventType Event { get; set; }
 
         public SubscriptionType EntityType { get; set; }
-        public object EntityId { get; set; }
+        public string EntityId { get; set; }
     }
 
     public partial class HardSubscription : Subscription

@@ -32,4 +32,13 @@ namespace Mojio.Events
         /// </summary>
         public float? Speed { get; set; }
     }
+
+    /// <summary>
+    /// Fence Event
+    /// </summary>
+    [CollectionNameAttribute(typeof(Event))]
+    public class FenceEvent : TripEvent
+    {
+
+    }
 }

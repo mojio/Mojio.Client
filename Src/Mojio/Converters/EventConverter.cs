@@ -53,6 +53,9 @@ namespace Mojio.Converters
                 case EventType.IgnitionOn:
                 case EventType.IgnitionOff:
                     return new IgnitionEvent();
+                case EventType.FenceEntered:
+                case EventType.FenceExited:
+                    return new FenceEvent();
                 case EventType.GPS:
                     return new GPSEvent();
                 case EventType.HardAcceleration:
@@ -60,6 +63,8 @@ namespace Mojio.Converters
                 case EventType.HardLeft:
                 case EventType.HardRight:
                     return new HardEvent();
+                case EventType.MojioOn:
+                    return new TripEvent();
                 default:
                     return new Event();
             }
