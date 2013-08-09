@@ -35,6 +35,9 @@ namespace Mojio
 
         public SubscriptionType EntityType { get; set; }
         public string EntityId { get; set; }
+
+        public int Interval { get; set; }
+        public DateTime LastMessage { get; set; }
     }
 
     public partial class HardSubscription : Subscription
@@ -42,8 +45,14 @@ namespace Mojio
         public float MaxForce { get; set; }
     }
 
-    public partial class SpeedSucbscription : Subscription
+    public partial class SpeedSubscription : Subscription
     {
+        public SpeedSubscription()
+        {
+            // Set default interval
+            Interval = 60;
+        }
+
         public float MaxSpeed { get; set; }
     }
 }
