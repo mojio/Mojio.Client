@@ -61,7 +61,7 @@ namespace Mojio.Events
         /// <summary>
         /// average speed
         /// </summary>
-        public float AverageSpeed { get; set; }
+        public float Altitude { get; set; }
 
         /// <summary>
         /// moving time

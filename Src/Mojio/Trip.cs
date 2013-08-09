@@ -30,7 +30,15 @@ namespace Mojio
         /// <summary>
         /// average speed
         /// </summary>
-        public float? AverageSpeed { get; set; }
+        public float? AverageSpeed
+        {
+            get
+            {
+                if( Distance != null && MovingTime != null && MovingTime > 0)
+                    return Distance / MovingTime * 3.6F;    // m/s => km/h
+                return null;
+            }
+        }
 
         /// <summary>
         /// fuel consumed
