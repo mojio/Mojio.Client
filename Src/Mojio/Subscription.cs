@@ -37,7 +37,7 @@ namespace Mojio
         public string EntityId { get; set; }
 
         public int Interval { get; set; }
-        public DateTime LastMessage { get; set; }
+        public DateTime? LastMessage { get; set; }
     }
 
     public partial class HardSubscription : Subscription
