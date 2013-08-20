@@ -131,6 +131,9 @@
     <Compile Include="..\Mojio\Events\ITripEvent.cs">
       <Link>Mojio\ITripEvent.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\MojioOnEvent.cs">
+      <Link>Mojio\MojioOnEvent.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Events\TripEvent.cs">
       <Link>Mojio\TripEvent.cs</Link>
     </Compile>
