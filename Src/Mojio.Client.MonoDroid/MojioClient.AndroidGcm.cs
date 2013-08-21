@@ -38,6 +38,10 @@ namespace Mojio.Client
             }
             else
                 Begin(appId, secretKey);
+
+			var edits = preferences.Edit();
+			edits.PutString(TokenPreferenceName, Token.Id.ToString());
+			edits.Commit ();
         }
 
         public Subscription SubscribeGcm(string registrationId, Subscription sub)

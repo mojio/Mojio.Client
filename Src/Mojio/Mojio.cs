@@ -7,18 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mojio
 {
-    public class Device : StringEntity, IOwner,IViewers
+    public partial class Device : StringEntity, IOwner,IViewers
     {
         /// <summary>
         /// device serial number
         /// </summary>
         [JsonIgnore]
         public string Serial { get { return Id; } set { Id = value; } }
-
-        /// <summary>
-        /// device PIN
-        /// </summary>
-        public int PIN { get; set; }
 
         /// <summary>
         /// owner id
@@ -51,6 +46,7 @@ namespace Mojio
         /// </summary>
         public DateTime LastContactTime { get; set; }
 
+        // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// list of viewer ids
         /// </summary>
