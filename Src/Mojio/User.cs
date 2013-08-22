@@ -57,11 +57,6 @@ namespace Mojio
         /// <summary>
         /// most recent login timestamp
         /// </summary>
-        public DateTime LastLoginDate { get; set; }
-
-        /// <summary>
-        /// most recent password timestamp
-        /// </summary>
-        public DateTime LastPasswordChangedDate { get; set; }
+        public DateTime LastLoginDate { get; set; }        
     }
 }
