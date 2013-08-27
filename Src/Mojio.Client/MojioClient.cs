@@ -192,8 +192,35 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool SetUser(string userOrEmail, string password)
         {
+            HttpStatusCode ignore;
+            return SetUser(userOrEmail, password, out ignore);
+        }
+
+        /// <summary>
+        /// Authenticate a user and update the current session token.
+        /// </summary>
+        /// <param name="userOrEmail"></param>
+        /// <param name="password"></param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public bool SetUser(string userOrEmail, string password, out HttpStatusCode code)
+        {
+            string ignore;
+            return SetUser(userOrEmail, password, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Authenticate a user and update the current session token.
+        /// </summary>
+        /// <param name="userOrEmail"></param>
+        /// <param name="password"></param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message)
+        {
             if (Token == null)
-                return false; // Can only "Login" if already authenticated app.
+                throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
             var request = GetRequest(Request("login", userOrEmail, "setuser"), Method.GET);
 
@@ -202,6 +229,9 @@ namespace Mojio.Client
             request.AddParameter("minutes", SessionTime);
 
             var response = RestClient.Execute<Token>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 Token = response.Data;
@@ -217,8 +247,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool ClearUser()
         {
-            if (Token == null)
-                return false; // Can only "Login" if already authenticated app.
+            if (Token == null) 
+                throw new Exception("Valid session must be initialized first.");
 
             var request = GetRequest(Request("login", Token.Id, "logout"), Method.GET);
 
@@ -240,13 +270,40 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool ExtendSession(int minutes)
         {
+            HttpStatusCode ignore;
+            return ExtendSession(minutes, out ignore);
+        }
+
+        /// <summary>
+        /// Extend token expiry date.
+        /// </summary>
+        /// <param name="minutes">Exipry time in minutes</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public bool ExtendSession(int minutes, out HttpStatusCode code)
+        {
+            string ignore;
+            return ExtendSession(minutes, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Extend token expiry date.
+        /// </summary>
+        /// <param name="minutes">Exipry time in minutes</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public bool ExtendSession(int minutes, out HttpStatusCode code, out string message)
+        {
             if (Token == null)
-                return false; // Can only "Extend" if already authenticated app.
+                throw new Exception("No session to extend."); // Can only "Extend" if already authenticated app.
 
             var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
             request.AddParameter("minutes",minutes);
 
-            var response = RestClient.Execute<Token>(request);
+            var response = RestClient.Execute<Token>(request); 
+            code = response.StatusCode;
+            message = response.Content;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -282,6 +339,35 @@ namespace Mojio.Client
         public T Create<T>(T entity)
             where T : new()
         {
+            HttpStatusCode ignore;
+            return Create<T>(entity, out ignore);
+        }
+
+        /// <summary>
+        /// Create a new entity through API.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Entity to create</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public T Create<T>(T entity, out HttpStatusCode code)
+            where T : new()
+        {
+            string ignore;
+            return Create<T>(entity, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Create a new entity through API.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Entity to create</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public T Create<T>(T entity, out HttpStatusCode code, out string message)
+            where T : new()
+        {
             if (typeof(T) == typeof(User))
             {
                 // Cannot create user with this generic method
@@ -294,6 +380,9 @@ namespace Mojio.Client
             request.AddBody(entity);
 
             var response = RestClient.Execute<T>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.Data;
         }
 
@@ -306,7 +395,36 @@ namespace Mojio.Client
         public bool Delete<T>(T entity)
             where T : BaseEntity
         {
-            return Delete<T>(entity.IdToString);
+            HttpStatusCode ignore;
+            return Delete<T>(entity, out ignore);
+        }
+
+        /// <summary>
+        /// Delete an entity through the API.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Entity to delete</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public bool Delete<T>(T entity, out HttpStatusCode code)
+            where T : BaseEntity
+        {
+            string ignore;
+            return Delete<T>(entity, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Delete an entity through the API.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Entity to delete</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public bool Delete<T>(T entity, out HttpStatusCode code, out string message)
+            where T : BaseEntity
+        {
+            return Delete<T>(entity.IdToString, out code, out message);
         }
 
         /// <summary>
@@ -317,9 +435,39 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Delete<T>(object id)
         {
+            HttpStatusCode ignore;
+            return Delete<T>(id, out ignore);
+        }
+
+        /// <summary>
+        /// Delete an entity by Entity ID.
+        /// </summary>
+        /// <typeparam name="T">Entity Type</typeparam>
+        /// <param name="id">Entity ID</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public bool Delete<T>(object id, out HttpStatusCode code)
+        {
+            string ignore;
+            return Delete<T>(id, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Delete an entity by Entity ID.
+        /// </summary>
+        /// <typeparam name="T">Entity Type</typeparam>
+        /// <param name="id">Entity ID</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public bool Delete<T>(object id, out HttpStatusCode code, out string message)
+        {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action, id), Method.DELETE);
             var response = RestClient.Execute(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
 
@@ -329,7 +477,36 @@ namespace Mojio.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Updated Entity</param>
         /// <returns></returns>
-        public T Update<T>(T entity )
+        public T Update<T>(T entity)
+            where T : BaseEntity, new()
+        {
+            HttpStatusCode ignore;
+            return Update<T>(entity, out ignore);
+        }
+
+        /// <summary>
+        /// Update/save an entity.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Updated Entity</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public T Update<T>(T entity, out HttpStatusCode code)
+            where T : BaseEntity, new()
+        {
+            string ignore;
+            return Update<T>(entity, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Update/save an entity.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">Updated Entity</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public T Update<T>(T entity, out HttpStatusCode code, out string message)
             where T : BaseEntity, new()
         {
             string action = Map[typeof(T)];
@@ -337,6 +514,9 @@ namespace Mojio.Client
             request.AddBody(entity);
 
             var response = RestClient.Execute<T>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.Data;
         }
 
@@ -349,9 +529,41 @@ namespace Mojio.Client
         public T Get<T>(object id)
             where T : new()
         {
+            HttpStatusCode ignore;
+            return Get<T>(id, out ignore);
+        }
+
+        /// <summary>
+        /// Get an entity by ID.
+        /// </summary>
+        /// <typeparam name="T">Entity Type</typeparam>
+        /// <param name="id">Entity ID</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public T Get<T>(object id, out HttpStatusCode code)
+            where T : new()
+        {
+            string ignore;
+            return Get<T>(id, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Get an entity by ID.
+        /// </summary>
+        /// <typeparam name="T">Entity Type</typeparam>
+        /// <param name="id">Entity ID</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public T Get<T>(object id, out HttpStatusCode code, out string message)
+            where T : new()
+        {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action, id), Method.GET);
             var response = RestClient.Execute<T>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.Data;
         }
 
@@ -366,7 +578,40 @@ namespace Mojio.Client
         public Results<M> GetBy<M, T>(T entity, int page = 1)
             where T : BaseEntity, new()
         {
-            return GetBy<M, T>(entity.IdToString, page);
+            HttpStatusCode ignore;
+            return GetBy<M, T>(entity, out ignore, page);
+        }
+
+        /// <summary>
+        /// Get a collection of M entities associated to a particular entity.
+        /// </summary>
+        /// <typeparam name="M">Entity type to fetch</typeparam>
+        /// <typeparam name="T">Entity type to search by</typeparam>
+        /// <param name="entity">Entity to search by</param>
+        /// <param name="code">Response code</param>
+        /// <param name="page">Pagenation page</param>
+        /// <returns></returns>
+        public Results<M> GetBy<M, T>(T entity, out HttpStatusCode code, int page = 1)
+            where T : BaseEntity, new()
+        {
+            string ignore;
+            return GetBy<M, T>(entity, out code, out ignore, page);
+        }
+
+        /// <summary>
+        /// Get a collection of M entities associated to a particular entity.
+        /// </summary>
+        /// <typeparam name="M">Entity type to fetch</typeparam>
+        /// <typeparam name="T">Entity type to search by</typeparam>
+        /// <param name="entity">Entity to search by</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <param name="page">Pagenation page</param>
+        /// <returns></returns>
+        public Results<M> GetBy<M, T>(T entity, out HttpStatusCode code, out string message, int page = 1)
+            where T : BaseEntity, new()
+        {
+            return GetBy<M, T>(entity.IdToString, out code, out message, page);
         }
 
         /// <summary>
@@ -378,7 +623,42 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M,T>(object id , int page = 1, string action = null)
+        public Results<M> GetBy<M, T>(object id, int page = 1, string action = null)
+            where T : new()
+        {
+            HttpStatusCode ignore;
+            return GetBy<M, T>(id, out ignore, page, action);
+        }
+
+        /// <summary>
+        /// Get a collection of M entities associated to a particular entity.
+        /// </summary>
+        /// <typeparam name="M">Entity type to fetch</typeparam>
+        /// <typeparam name="T">Entity type to search by</typeparam>
+        /// <param name="id">Id of entity to search by</param>
+        /// <param name="code">Response code</param>
+        /// <param name="action">Specific action name to call</param>
+        /// <param name="page">Pagenation page</param>
+        /// <returns></returns>
+        public Results<M> GetBy<M, T>(object id, out HttpStatusCode code, int page = 1, string action = null)
+            where T : new()
+        {
+            string ignore;
+            return GetBy<M, T>(id, out code, out ignore, page, action);
+        }
+
+        /// <summary>
+        /// Get a collection of M entities associated to a particular entity.
+        /// </summary>
+        /// <typeparam name="M">Entity type to fetch</typeparam>
+        /// <typeparam name="T">Entity type to search by</typeparam>
+        /// <param name="id">Id of entity to search by</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <param name="action">Specific action name to call</param>
+        /// <param name="page">Pagenation page</param>
+        /// <returns></returns>
+        public Results<M> GetBy<M,T>(object id, out HttpStatusCode code, out string message, int page = 1, string action = null)
             where T : new()
         {
             string controller = Map[typeof(T)];
@@ -392,6 +672,9 @@ namespace Mojio.Client
             request.AddParameter("pageSize", PageSize);
 
             var response = RestClient.Execute<Results<M>>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.Data;
         }
 
@@ -404,6 +687,35 @@ namespace Mojio.Client
         public Results<T> Get<T>(int page = 1)
             where T : new()
         {
+            HttpStatusCode ignore;
+            return Get<T>(out ignore, page);
+        }
+
+        /// <summary>
+        /// Get a collection of entities available to the current session.
+        /// </summary>
+        /// <typeparam name="T">Entity type</typeparam>
+        /// <param name="code">Response code</param>
+        /// <param name="page">Page</param>
+        /// <returns></returns>
+        public Results<T> Get<T>(out HttpStatusCode code, int page = 1)
+            where T : new()
+        {
+            string ignore;
+            return Get<T>(out code, out ignore, page);
+        }
+
+        /// <summary>
+        /// Get a collection of entities available to the current session.
+        /// </summary>
+        /// <typeparam name="T">Entity type</typeparam>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <param name="page">Page</param>
+        /// <returns></returns>
+        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1)
+            where T : new()
+        {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action), Method.GET);
 
@@ -411,6 +723,9 @@ namespace Mojio.Client
             request.AddParameter("pageSize", PageSize);
 
             var response = RestClient.Execute<Results<T>>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
             return response.Data;
         }
 
