@@ -1,7 +1,7 @@
 Mojio.Client
 ============
 
-We have build a simple C# client to communicate with Mojio API.
+In order to create our store and apps, we have built a simple C# client library to help us interact with our API. It occurred to us that maybe other people would like to develop in C# as well.  So we have published our Mojio Client on github for anyone to use and play around with!
 
 
 Installation
