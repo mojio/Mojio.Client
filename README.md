@@ -23,7 +23,7 @@ Initializing the Client
 
 To get started using the client, you must first create a new instance of the MojioClient object.  This is where you will need to pass in the Application ID and Secret Key, as well as the developer environment you are using (Sandbox, or Live).
 
-```
+```csharp
 using Mojio.Client;
 
 Guid appID = new Guid("{APPID}");
@@ -41,7 +41,7 @@ Authenticate a Mojio User
 
 Now that your MojioClient is associated with your app, you can get started making some calls.  However, many of our API calls also require an authorized user to be associated with the client sesion.  In order to authenticate a user, you must pass in the users name or email along with their password.
 
-```
+```csharp
 // ...
 // Authenticate specific user
 client.SetUser( "demo@example.com", "mypassword");
@@ -56,7 +56,7 @@ Fetching Data
 
 To retrieve a set of a particular Mojio entities, you can use the "Get" method.  The returned results will depend on what user and application your client session is authorized as. Lists of data will be returned in a paginated form.  You are able to set the page size and request a particular page.  In order to keep response times fast, it is recommended to keep the page size low.
 
-```
+```csharp
 // ...
 // Set default page size
 client.PageSize = 15;
@@ -77,7 +77,7 @@ Fetch a specific Entity
 
 By passing in the ID of an entity (often a GUID), you can fetch just that single entity from the database.
 
-```
+```csharp
 // ...
 string mojioId = "123451234512345"; // Mojio IMEI
 	
@@ -93,7 +93,7 @@ Update an Entity
 
 If you want to update and save an entity, you need to first load the entity from the API, make your changes, and then save it back.  Typically only the owner of an entity will be authorized to save changes and not all properties of an entity will be editable (for example, for an App, only the Name and Description properties can be changed).
 
-```
+```csharp
 // ...
 Device mojio = client.Get<Device>("123451234512345");
 
@@ -109,7 +109,7 @@ Get a list of child entities
 
 If you want to fetch all the entities associated with another entity, you can call the GetBy method.  For example, if you want to fetch all the events associated with a mojio device.
 
-```
+```csharp
 // ...
 string mojioId = "123451234512345";
 
@@ -128,7 +128,7 @@ Using the Mojio Storage
 
 With the Mojio API, you are able to store your own private data within our database as key value pairs.  These key value pairs will only be accessible by your application, and you can associate them with any Mojio entities (ex: Mojio Device, Application, User, Trip, Event, Invoice, Product).
 
-```
+```csharp
 // ...
 Guid userId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");  // Some user's ID
 string key = "EyeColour";	// Key to store
@@ -147,7 +147,7 @@ Using SignalR to listen for events
 
 Instead of continuously polling the API to see if any new events have come in, our API has a signalR service you can subscribe to in order to be sent new event notifications as they happen.
 
-```
+```csharp
     // ...
     // The Mojio ID you wish to listen to
     Guid mojioId = "123451234512345";
