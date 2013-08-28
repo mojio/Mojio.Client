@@ -44,15 +44,39 @@ namespace Mojio.Client
 			edits.Commit ();
         }
 
-        public Subscription SubscribeGcm(string registrationId, Subscription sub)
+		public Subscription SubscribeGcm(string registrationId, Subscription sub)
+		{
+			HttpStatusCode ignore;
+			return SubscribeGcm (registrationId, sub, out ignore);
+		}
+
+		public Subscription SubscribeGcm(string registrationId, Subscription sub, out HttpStatusCode code)
+		{
+			string ignore;
+			return SubscribeGcm (registrationId, sub, out code, out ignore);
+		}
+
+		public Subscription SubscribeGcm(string registrationId, Subscription sub, out HttpStatusCode code, out string message)
         {
             sub.ChannelType = ChannelType.Android;
             sub.ChannelTarget = registrationId;
 
-            return Subscribe(sub);
+            return Subscribe(sub, out code, out message);
         }
 
-        protected Subscription Subscribe(Subscription subscription)
+		protected Subscription Subscribe(Subscription subscription )
+		{
+			HttpStatusCode ignore;
+			return Subscribe(subscription, out ignore);
+		}
+
+		protected Subscription Subscribe(Subscription subscription, out HttpStatusCode code )
+		{
+			string ignore;
+			return Subscribe(subscription, out code, out ignore);
+		}
+
+        protected Subscription Subscribe(Subscription subscription, out HttpStatusCode code, out string message )
         {
             if (subscription.ChannelType == ChannelType.SignalR)
                 throw new Exception("SignalR should not be subscribed this way");
@@ -60,7 +84,7 @@ namespace Mojio.Client
             subscription.AppId = Token.AppId;
             subscription.OwnerId = Token.UserId;
 
-            return Create(subscription);
+            return Create(subscription, out code, out message);
         }
     }
 }
