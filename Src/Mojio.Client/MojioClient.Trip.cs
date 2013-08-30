@@ -34,7 +34,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Event> TripEvents(Guid id, int page = 1 )
         {
-            return GetBy<Event, User>(id, page);
+            return GetBy<Event, Trip>(id, page);
         }
     }
 }
