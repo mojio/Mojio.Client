@@ -219,16 +219,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message)
         {
-            if (Token == null)
-                throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
-
-            var request = GetRequest(Request("login", userOrEmail, "setuser"), Method.GET);
-
-            //request.AddParameter("userOrEmail", userOrEmail);
-            request.AddParameter("password", password);
-            request.AddParameter("minutes", SessionTime);
-
-            var response = RestClient.Execute<Token>(request);
+            var response = SetUserAsync(userOrEmail, password).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -239,6 +230,20 @@ namespace Mojio.Client
                 return true;
             }
             return false;
+        }
+
+        public async Task<IRestResponse<Token>> SetUserAsync(string userOrEmail, string password)
+        {
+            if (Token == null)
+                throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
+
+            var request = GetRequest(Request("login", userOrEmail, "setuser"), Method.GET);
+
+            //request.AddParameter("userOrEmail", userOrEmail);
+            request.AddParameter("password", password);
+            request.AddParameter("minutes", SessionTime);
+
+            return await RequestAsync<Token>(request);
         }
 
         /// <summary>
@@ -293,15 +298,10 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public bool ExtendSession(int minutes, out HttpStatusCode code, out string message)
+        public bool ExtendSession(int minutes, out HttpStatusCode code, out string message )
         {
-            if (Token == null)
-                throw new Exception("No session to extend."); // Can only "Extend" if already authenticated app.
+            var response = ExtendSessionAsync(minutes).Result;
 
-            var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
-            request.AddParameter("minutes",minutes);
-
-            var response = RestClient.Execute<Token>(request); 
             code = response.StatusCode;
             message = response.Content;
 
@@ -311,6 +311,17 @@ namespace Mojio.Client
                 return true;
             }
             return false;
+        }
+
+        public async Task<IRestResponse<Token>> ExtendSessionAsync(int minutes)
+        {
+            if (Token == null)
+                throw new Exception("No session to extend."); // Can only "Extend" if already authenticated app.
+
+            var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
+            request.AddParameter("minutes", minutes);
+
+            return await RequestAsync<Token>(request);
         }
 
         /// <summary>
@@ -330,6 +341,27 @@ namespace Mojio.Client
             return request;
         }
 
+        public async Task<IRestResponse> RequestAsync(RestRequest request)
+        {
+            var tcs = new TaskCompletionSource<IRestResponse>();
+            RestClient.ExecuteAsync(request, response =>
+            {
+                tcs.SetResult(response);
+            });
+            return await tcs.Task;
+        }
+
+        public async Task<IRestResponse<T>> RequestAsync<T>(RestRequest request)
+            where T : new()
+        {
+            var tcs = new TaskCompletionSource<IRestResponse<T>>();
+            RestClient.ExecuteAsync<T>(request, response =>
+            {
+                tcs.SetResult(response);
+            });
+            return await tcs.Task;
+        }
+
         /// <summary>
         /// Create a new entity through API.
         /// </summary>
@@ -337,7 +369,7 @@ namespace Mojio.Client
         /// <param name="entity">Entity to create</param>
         /// <returns></returns>
         public T Create<T>(T entity)
-            where T : new()
+            where T : BaseEntity, new()
         {
             HttpStatusCode ignore;
             return Create<T>(entity, out ignore);
@@ -351,7 +383,7 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <returns></returns>
         public T Create<T>(T entity, out HttpStatusCode code)
-            where T : new()
+            where T : BaseEntity, new()
         {
             string ignore;
             return Create<T>(entity, out code, out ignore);
@@ -366,7 +398,17 @@ namespace Mojio.Client
         /// <param name="message">Response message</param>
         /// <returns></returns>
         public T Create<T>(T entity, out HttpStatusCode code, out string message)
-            where T : new()
+            where T : BaseEntity, new()
+        {
+            var response = CreateAsync(entity).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public async Task<IRestResponse<T>> CreateAsync<T>(T entity)
+            where T : BaseEntity, new()
         {
             if (typeof(T) == typeof(User))
             {
@@ -379,11 +421,7 @@ namespace Mojio.Client
 
             request.AddBody(entity);
 
-            var response = RestClient.Execute<T>(request);
-            code = response.StatusCode;
-            message = response.Content;
-
-            return response.Data;
+            return await RequestAsync<T>(request);
         }
 
         /// <summary>
@@ -462,13 +500,19 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Delete<T>(object id, out HttpStatusCode code, out string message)
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id), Method.DELETE);
-            var response = RestClient.Execute(request);
+            var response = DeleteAsync<T>(id).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        public async Task<IRestResponse> DeleteAsync<T>(object id)
+        {
+            string action = Map[typeof(T)];
+            var request = GetRequest(Request(action, id), Method.DELETE);
+
+            return await RequestAsync(request);
         }
 
         /// <summary>
@@ -509,15 +553,21 @@ namespace Mojio.Client
         public T Update<T>(T entity, out HttpStatusCode code, out string message)
             where T : BaseEntity, new()
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action,entity.IdToString), Method.PUT);
-            request.AddBody(entity);
-
-            var response = RestClient.Execute<T>(request);
+            var response = UpdateAsync<T>(entity).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
+        }
+
+        public async Task<IRestResponse<T>> UpdateAsync<T>(T entity)
+            where T : BaseEntity, new()
+        {
+            string action = Map[typeof(T)];
+            var request = GetRequest(Request(action, entity.IdToString), Method.PUT);
+            request.AddBody(entity);
+
+            return await RequestAsync<T>(request);
         }
 
         /// <summary>
@@ -558,13 +608,20 @@ namespace Mojio.Client
         public T Get<T>(object id, out HttpStatusCode code, out string message)
             where T : new()
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id), Method.GET);
-            var response = RestClient.Execute<T>(request);
+            var response = GetAsync<T>(id).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
+        }
+
+        public async Task<IRestResponse<T>> GetAsync<T>(object id)
+            where T : new()
+        {
+            string action = Map[typeof(T)];
+            var request = GetRequest(Request(action, id), Method.GET);
+
+            return await RequestAsync<T>(request);
         }
 
         /// <summary>
@@ -661,9 +718,19 @@ namespace Mojio.Client
         public Results<M> GetBy<M,T>(object id, out HttpStatusCode code, out string message, int page = 1, string action = null)
             where T : new()
         {
+            var response = GetByAsync<M, T>(id, page, action).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public async Task<IRestResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null)
+            where T : new()
+        {
             string controller = Map[typeof(T)];
 
-            if( action == null )
+            if (action == null)
                 action = Map[typeof(M)];
 
             var request = GetRequest(Request(controller, id, action), Method.GET);
@@ -671,11 +738,7 @@ namespace Mojio.Client
             request.AddParameter("page", page);
             request.AddParameter("pageSize", PageSize);
 
-            var response = RestClient.Execute<Results<M>>(request);
-            code = response.StatusCode;
-            message = response.Content;
-
-            return response.Data;
+            return await RequestAsync<Results<M>>(request);
         }
 
         /// <summary>
@@ -716,17 +779,23 @@ namespace Mojio.Client
         public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1)
             where T : new()
         {
+            var response = GetAsync<T>(page).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public async Task<IRestResponse<Results<T>>> GetAsync<T>(int page = 1)
+            where T : new()
+        {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action), Method.GET);
 
             request.AddParameter("page", page);
             request.AddParameter("pageSize", PageSize);
 
-            var response = RestClient.Execute<Results<T>>(request);
-            code = response.StatusCode;
-            message = response.Content;
-
-            return response.Data;
+            return await RequestAsync<Results<T>>(request);
         }
 
         /// <summary>
