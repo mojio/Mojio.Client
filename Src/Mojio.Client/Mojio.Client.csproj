@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -89,10 +91,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSJsonSerializer.cs" />
+    <Compile Include="MojioResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mojio\Mojio.csproj">
-      <Project>{faeccbe3-5e0c-4140-90f0-ff35059673e9}</Project>
+      <Project>{FAECCBE3-5E0C-4140-90F0-FF35059673E9}</Project>
       <Name>Mojio</Name>
     </ProjectReference>
   </ItemGroup>

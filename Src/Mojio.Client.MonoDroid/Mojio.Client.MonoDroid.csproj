@@ -34,7 +34,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
@@ -47,45 +46,50 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="RestSharp.MonoDroid">
-      <HintPath>..\Components\restsharp-104.1.0\lib\android\RestSharp.MonoDroid.dll</HintPath>
+      <HintPath>..\..\..\..\Components\restsharp-104.1.0\lib\android\RestSharp.MonoDroid.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Mojio.Client\MojioClient.App.cs">
-      <Link>MojioClient.App.cs</Link>
+      <Link>Mojio.Client\MojioClient.App.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.cs">
-      <Link>MojioClient.cs</Link>
+      <Link>Mojio.Client\MojioClient.cs</Link>
     </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.Mojio.cs">
-      <Link>MojioClient.Mojio.cs</Link>
+      <Link>Mojio.Client\MojioClient.Mojio.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.Signal.cs">
-      <Link>MojioClient.Signal.cs</Link>
+      <Link>Mojio.Client\MojioClient.Signal.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.Storage.cs">
-      <Link>MojioClient.Storage.cs</Link>
+      <Link>Mojio.Client\MojioClient.Storage.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.Trip.cs">
-      <Link>MojioClient.Trip.cs</Link>
+      <Link>Mojio.Client\MojioClient.Trip.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.User.cs">
-      <Link>MojioClient.User.cs</Link>
+      <Link>Mojio.Client\MojioClient.User.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Mojio.Client\RSJsonSerializer.cs">
-      <Link>RSJsonSerializer.cs</Link>
+      <Link>Mojio.Client\RSJsonSerializer.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Attributes\DataAnnotations.cs" />
+    <Compile Include="Attributes\Web.cs" />
+    <Compile Include="MojioClient.AndroidGcm.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\Mojio\Address.cs">
       <Link>Mojio\Address.cs</Link>
     </Compile>
@@ -98,9 +102,6 @@
     <Compile Include="..\Mojio\CollectionNameAttribute.cs">
       <Link>Mojio\CollectionNameAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Mojio\Converters\EventConverter.cs">
-      <Link>Mojio\EventConverter.cs</Link>
-    </Compile>
     <Compile Include="..\Mojio\Counter.cs">
       <Link>Mojio\Counter.cs</Link>
     </Compile>
@@ -112,30 +113,6 @@
     </Compile>
     <Compile Include="..\Mojio\EventBroadcast.cs">
       <Link>Mojio\EventBroadcast.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\Event.cs">
-      <Link>Mojio\Event.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\EventType.cs">
-      <Link>Mojio\EventType.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\GPSEvent.cs">
-      <Link>Mojio\GPSEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\HardEvent.cs">
-      <Link>Mojio\HardEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\IgnitionEvent.cs">
-      <Link>Mojio\IgnitionEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\ITripEvent.cs">
-      <Link>Mojio\ITripEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\MojioOnEvent.cs">
-      <Link>Mojio\MojioOnEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\TripEvent.cs">
-      <Link>Mojio\TripEvent.cs</Link>
     </Compile>
     <Compile Include="..\Mojio\Headers.cs">
       <Link>Mojio\Headers.cs</Link>
@@ -194,25 +171,48 @@
     <Compile Include="..\Mojio\UserCounter.cs">
       <Link>Mojio\UserCounter.cs</Link>
     </Compile>
-    <Compile Include="Attributes\DataAnnotations.cs" />
-    <Compile Include="Attributes\Web.cs" />
-    <Compile Include="MojioClient.AndroidGcm.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Mojio\Converters\EventConverter.cs">
+      <Link>Mojio\Converters\EventConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\Event.cs">
+      <Link>Mojio\Events\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\EventType.cs">
+      <Link>Mojio\Events\EventType.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\GPSEvent.cs">
+      <Link>Mojio\Events\GPSEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\HardEvent.cs">
+      <Link>Mojio\Events\HardEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\IgnitionEvent.cs">
+      <Link>Mojio\Events\IgnitionEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\ITripEvent.cs">
+      <Link>Mojio\Events\ITripEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\MojioOnEvent.cs">
+      <Link>Mojio\Events\MojioOnEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\SpeedEvent.cs">
+      <Link>Mojio\Events\SpeedEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\TripEvent.cs">
+      <Link>Mojio\Events\TripEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioClient.Push.cs">
+      <Link>Mojio.Client\MojioClient.Push.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\MojioResponse.cs">
+      <Link>Mojio.Client\MojioResponse.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RestSharp\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Mojio\Mojio.csproj">
-      <Link>Mojio\Mojio.csproj</Link>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -223,4 +223,20 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <XamarinComponentReference Include="json.net">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>4.5.11</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="restsharp">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>104.1.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mojio\" />
+    <Folder Include="Mojio.Client\" />
+  </ItemGroup>
 </Project>

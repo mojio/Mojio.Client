@@ -1,14 +1,9 @@
+/**
+ * MonoDroid does not currently ship with System.Web.Security.
+ * 
+ * This file is used to add empty container class to allow Mojio.Client to build.
+ */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace System.Web.Security
 {

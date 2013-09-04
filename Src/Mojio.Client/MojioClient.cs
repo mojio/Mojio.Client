@@ -232,7 +232,7 @@ namespace Mojio.Client
             return false;
         }
 
-        public async Task<IRestResponse<Token>> SetUserAsync(string userOrEmail, string password)
+		public async Task<MojioResponse<Token>> SetUserAsync(string userOrEmail, string password)
         {
             if (Token == null)
                 throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
@@ -313,7 +313,7 @@ namespace Mojio.Client
             return false;
         }
 
-        public async Task<IRestResponse<Token>> ExtendSessionAsync(int minutes)
+		public async Task<MojioResponse<Token>> ExtendSessionAsync(int minutes)
         {
             if (Token == null)
                 throw new Exception("No session to extend."); // Can only "Extend" if already authenticated app.
@@ -341,23 +341,30 @@ namespace Mojio.Client
             return request;
         }
 
-        public async Task<IRestResponse> RequestAsync(RestRequest request)
+		public async Task<MojioResponse> RequestAsync(RestRequest request)
         {
-            var tcs = new TaskCompletionSource<IRestResponse>();
+			var tcs = new TaskCompletionSource<MojioResponse>();
             RestClient.ExecuteAsync(request, response =>
             {
-                tcs.SetResult(response);
+				tcs.SetResult(new MojioResponse {
+					Content = response.Content,
+					StatusCode = response.StatusCode
+				});
             });
             return await tcs.Task;
         }
 
-        public async Task<IRestResponse<T>> RequestAsync<T>(RestRequest request)
+		public async Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
             where T : new()
         {
-            var tcs = new TaskCompletionSource<IRestResponse<T>>();
+			var tcs = new TaskCompletionSource<MojioResponse<T>>();
             RestClient.ExecuteAsync<T>(request, response =>
             {
-                tcs.SetResult(response);
+                tcs.SetResult(new MojioResponse<T> {
+					Data = response.Data,
+					Content = response.Content,
+					StatusCode = response.StatusCode
+				});
             });
             return await tcs.Task;
         }
@@ -407,7 +414,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public async Task<IRestResponse<T>> CreateAsync<T>(T entity)
+		public async Task<MojioResponse<T>> CreateAsync<T>(T entity)
             where T : BaseEntity, new()
         {
             if (typeof(T) == typeof(User))
@@ -507,7 +514,7 @@ namespace Mojio.Client
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        public async Task<IRestResponse> DeleteAsync<T>(object id)
+		public async Task<MojioResponse> DeleteAsync<T>(object id)
         {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action, id), Method.DELETE);
@@ -560,7 +567,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public async Task<IRestResponse<T>> UpdateAsync<T>(T entity)
+		public async Task<MojioResponse<T>> UpdateAsync<T>(T entity)
             where T : BaseEntity, new()
         {
             string action = Map[typeof(T)];
@@ -615,7 +622,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public async Task<IRestResponse<T>> GetAsync<T>(object id)
+		public async Task<MojioResponse<T>> GetAsync<T>(object id)
             where T : new()
         {
             string action = Map[typeof(T)];
@@ -725,7 +732,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public async Task<IRestResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null)
+		public async Task<MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null)
             where T : new()
         {
             string controller = Map[typeof(T)];
@@ -786,7 +793,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public async Task<IRestResponse<Results<T>>> GetAsync<T>(int page = 1)
+		public async Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1)
             where T : new()
         {
             string action = Map[typeof(T)];
