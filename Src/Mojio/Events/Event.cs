@@ -7,11 +7,34 @@ using System.Text;
 
 namespace Mojio.Events
 {
+    public interface IEvent
+    {
+        /// <summary>
+        /// mojio Id
+        /// </summary>
+        string MojioId { get; set; }
+
+        /// <summary>
+        /// owner Id
+        /// </summary>
+        Guid? OwnerId { get; set; }
+
+        /// <summary>
+        /// event type
+        /// </summary>
+        EventType EventType { get; set; }
+
+        /// <summary>
+        /// event timestamp
+        /// </summary>
+        DateTime Time { get; set; }
+    }
+
     /// <summary>
     /// event
     /// </summary>
     [JsonConverter(typeof(EventConverter))]
-    public class Event : GuidEntity, IOwner
+    public class Event : GuidEntity, IEvent, IOwner
     {
         /// <summary>
         /// mojio Id

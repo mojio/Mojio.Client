@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mojio.Events
 {
-    public interface ITripEvent
+    public interface ITripEvent : IEvent
     {
         Guid? TripId { get; set; }
     }

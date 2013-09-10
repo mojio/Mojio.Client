@@ -9,8 +9,13 @@ namespace Mojio.Events
     /// <summary>
     /// hard event
     /// </summary>
-    public class SpeedEvent : TripEvent
-    {
+    public class SpeedEvent : Event,ITripEvent
+    {        
+        /// <summary>
+        /// trip id
+        /// </summary>
+        public Guid? TripId { get; set; }
+
         /// <summary>
         /// current speed
         /// </summary>
