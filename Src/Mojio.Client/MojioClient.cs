@@ -224,11 +224,8 @@ namespace Mojio.Client
             message = response.Content;
 
             if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Token = response.Data;
-                ResetCurrentUser();
                 return true;
-            }
+
             return false;
         }
 
@@ -243,7 +240,15 @@ namespace Mojio.Client
             request.AddParameter("password", password);
             request.AddParameter("minutes", SessionTime);
 
-            return await RequestAsync<Token>(request);
+            var response = await RequestAsync<Token>(request);
+
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				Token = response.Data;
+				ResetCurrentUser();
+			}
+
+			return response;
         }
 
         /// <summary>
@@ -305,12 +310,7 @@ namespace Mojio.Client
             code = response.StatusCode;
             message = response.Content;
 
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Token = response.Data;
-                return true;
-            }
-            return false;
+            return response.StatusCode == HttpStatusCode.OK
         }
 
 		public async Task<MojioResponse<Token>> ExtendSessionAsync(int minutes)
@@ -321,7 +321,12 @@ namespace Mojio.Client
             var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
             request.AddParameter("minutes", minutes);
 
-            return await RequestAsync<Token>(request);
+            var response = await RequestAsync<Token>(request);
+
+			if (response.StatusCode == HttpStatusCode.OK)
+				Token = response.Data;
+
+			return response;
         }
 
         /// <summary>
