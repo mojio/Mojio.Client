@@ -5,17 +5,41 @@ using System.Text;
 
 namespace Mojio.Events
 {
+    public interface IGPSEvent
+    {
+        /// <summary>
+        /// location
+        /// </summary>
+        Location Location { get; set; }
+
+        /// <summary>
+        /// heading
+        /// </summary>
+        short Heading { get; set; }
+
+        /// <summary>
+        /// altitude
+        /// </summary>
+        float Altitude { get; set; }
+    }
+
+    // TODO: DEPRECATED.  Being replaced by all TripStatusEvent
     /// <summary>
     /// GPS event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class GPSEvent : TripEvent
+    public class GPSEvent : Event,ITripEvent,IGPSEvent
     {
         public GPSEvent()
         {
             EventType = EventType.GPS;
             Location = new Location();
         }
+
+        /// <summary>
+        /// trip id
+        /// </summary>
+        public Guid? TripId { get; set; }
 
         /// <summary>
         /// location
@@ -25,20 +49,23 @@ namespace Mojio.Events
         /// <summary>
         /// heading
         /// </summary>
-        public float? Heading { get; set; }
+        public short Heading { get; set; }
 
         /// <summary>
-        /// speed
+        /// altitude
         /// </summary>
-        public float? Speed { get; set; }
+        public float Altitude { get; set; }
     }
 
     /// <summary>
     /// Fence Event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class FenceEvent : TripEvent
+    public class FenceEvent : Event,ITripEvent
     {
-
+        /// <summary>
+        /// Trip ID
+        /// </summary>
+        public Guid? TripId { get; set; }
     }
 }

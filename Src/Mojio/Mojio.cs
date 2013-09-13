@@ -31,10 +31,16 @@ namespace Mojio
         /// </summary>
         public bool? IgnitionOn { get; set; }
         
+        // TODO: Deprecate
         /// <summary>
         /// most recent GPS event
         /// </summary>
         public Guid? LastGPSEvent { get; set; }
+
+        /// <summary>
+        /// last known location
+        /// </summary>
+        public Location LastLocation { get; set; }
 
         /// <summary>
         /// current trip id

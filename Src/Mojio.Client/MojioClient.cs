@@ -9,6 +9,40 @@ using System.Threading.Tasks;
 
 namespace Mojio.Client
 {
+    public class MapEntity
+    {
+        static Dictionary<Type, string> Map = new Dictionary<Type, string>();
+
+        public void Add(Type type, string controller){
+            Map.Add(type, controller);
+        }
+
+        public string this[Type type]
+        {
+            get
+            {
+                if( Map.ContainsKey(type))
+                    return Map[type];
+
+                foreach (var pair in Map)
+                {
+                    if (type.IsSubclassOf(pair.Key))
+                    {
+                        // Lets add it now... might be faster?
+                        Add(type, pair.Value);
+                        return pair.Value;
+                    }
+                }
+
+                return null;
+            }
+            set
+            {
+                Add(type, value);
+            }
+        }
+    }
+
     public partial class MojioClient
     {
         public const string Sandbox = "http://sandbox.developer.moj.io/v1";
@@ -20,18 +54,18 @@ namespace Mojio.Client
         RestClient RestClient;
         public Token Token;
 
-        static Dictionary<Type, string> Map = new Dictionary<Type, string>();
+        static MapEntity Map = new MapEntity();
         static MojioClient()
         {
             Map.Add(typeof(App), "apps");
             Map.Add(typeof(User), "users");
             Map.Add(typeof(Device), "mojios");
             Map.Add(typeof(Event), "events");
-                Map.Add(typeof(GPSEvent), "events");
-                Map.Add(typeof(IgnitionEvent), "events");
-                Map.Add(typeof(TripEvent), "events");
-                Map.Add(typeof(TripStatusEvent), "events");
-                Map.Add(typeof(HardEvent), "events");
+                //Map.Add(typeof(GPSEvent), "events");
+                //Map.Add(typeof(IgnitionEvent), "events");
+                //Map.Add(typeof(ITripEvent), "events");
+                //Map.Add(typeof(TripStatusEvent), "events");
+                //Map.Add(typeof(HardEvent), "events");
 
             Map.Add(typeof(Trip), "trips");
             Map.Add(typeof(Product), "products");
