@@ -35,5 +35,10 @@ namespace Mojio
                 Lat = value[1];
             }
         }
+
+        public bool IsEmpty()
+        {
+            return Lat == 0.0F && Lng == 0.0F;
+        }
     }
 }
