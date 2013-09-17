@@ -24,8 +24,8 @@ namespace Mojio.Client
             Serializer = new Newtonsoft.Json.JsonSerializer
             {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Include,
-                DefaultValueHandling = DefaultValueHandling.Include
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore
             };
 
             Serializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
