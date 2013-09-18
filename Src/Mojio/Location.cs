@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,28 @@ namespace Mojio
         /// longitiude coordinate
         /// </summary>
         public float Lng { get; set; }
+
+        /// <summary>
+        /// Geospatial coordinates. Used by MongoDB.
+        /// Axis order: Longitude, Latitude
+        /// </summary>
+        [JsonIgnore]
+        public float[] Coordinates
+        {
+            get
+            {
+                return new float[] { Lng, Lat };
+            }
+            set
+            {
+                Lng = value[0];
+                Lat = value[1];
+            }
+        }
+
+        public bool IsEmpty()
+        {
+            return Lat == 0.0F && Lng == 0.0F;
+        }
     }
 }

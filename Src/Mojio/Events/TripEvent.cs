@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Mojio.Events
 {
+    // TODO: Deprecated
     /// <summary>
     /// trip event
     /// </summary>
@@ -21,12 +22,17 @@ namespace Mojio.Events
     /// trip status event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class TripStatusEvent : TripEvent
+    public class TripStatusEvent : Event, ITripEvent, IGPSEvent
     {
         public TripStatusEvent()
         {
             EventType = Events.EventType.TripStatus;
         }
+
+        /// <summary>
+        /// trip id
+        /// </summary>
+        public Guid? TripId { get; set; }
 
         /// <summary>
         /// location
