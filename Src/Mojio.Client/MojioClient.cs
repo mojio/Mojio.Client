@@ -344,7 +344,7 @@ namespace Mojio.Client
             code = response.StatusCode;
             message = response.Content;
 
-            return response.StatusCode == HttpStatusCode.OK
+			return response.StatusCode == HttpStatusCode.OK;
         }
 
 		public async Task<MojioResponse<Token>> ExtendSessionAsync(int minutes)
