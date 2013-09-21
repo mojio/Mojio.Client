@@ -11,6 +11,11 @@ namespace Mojio.Events
     public enum EventType
     {
         /// <summary>
+        /// diagnostic event (device or server)
+        /// </summary>
+        Log = 1,
+
+        /// <summary>
         /// information
         /// </summary>
         Information = 100,
