@@ -7,56 +7,61 @@ using RestSharp;
 using System.Reflection;
 
 namespace Mojio.Client.Linq
-{/*
-	public class MojioQueryProvider : IQueryProvider 
+{
+	public class MojioQueryProvider : IQueryProvider  
 	{
-        RestRequest _request;
+        String _action;
         MojioClient _client;
-        public MojioQueryProvider(MojioClient client, RestRequest request)
+
+        IDictionary<string, string> _criteria;
+        int _offset = 0;
+        int _limit = 20;
+        string _order = null;
+        bool _desc = true;
+
+        int _count = -1;
+
+        IDictionary<string, string> criteria;
+
+        public MojioQueryProvider(MojioClient client, string action)
         {
-            _request = request;
+            _action = action;
             _client = client;
         }
 
-		#region IQueryProvider implementation
+        IQueryable<S> IQueryProvider.CreateQuery<S>(Expression expression)
+        {
+            Type elementType = TypeHelper.GetElementType(typeof(S));
 
-		public IQueryable CreateQuery (Expression expression)
-		{
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-            
-            var elementType = TypeHelper.GetElementType(expression.Type);
+            if (typeof(S).IsSubclassOf(typeof(BaseEntity)))
+                return (IQueryable<S>)Activator.CreateInstance(typeof(MojioQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
+            else
+                throw new Exception("Ahaha");
+                //return (IQueryable<S>)Activator.CreateInstance(typeof(IQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
+        }
+
+        IQueryable IQueryProvider.CreateQuery(Expression expression)
+        {
+            Type elementType = TypeHelper.GetElementType(expression.Type);
             try
             {
-                var queryableType = typeof(MojioQueryable<>).MakeGenericType(elementType);
-                return (IQueryable)Activator.CreateInstance(queryableType, new object[] { this, expression });
+                return (IQueryable)Activator.CreateInstance(typeof(MojioQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
             }
-            catch (TargetInvocationException ex)
+            catch (TargetInvocationException tie)
             {
-                throw ex.InnerException;
+                throw tie.InnerException;
             }
+        }
 
-            return null;
-		}
+        S IQueryProvider.Execute<S>(Expression expression)
+        {
+            _criteria = null;
 
-		public IQueryable<TElement> CreateQuery<TElement> (Expression expression)
-		{
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-            if (!typeof(IQueryable<TElement>).IsAssignableFrom(expression.Type))
-            {
-                throw new ArgumentOutOfRangeException("expression");
-            }
+            return (S)this.Execute(expression);
+        }
 
-            return new MojioQueryable<TElement>(this, expression);
-		}
-
-		public object Execute (Expression expression)
-		{
+        public object Execute(Expression expression)
+        {
             if (expression == null)
             {
                 throw new ArgumentNullException("expression");
@@ -65,42 +70,97 @@ namespace Mojio.Client.Linq
             var callExpression = expression as MethodCallExpression;
             if (callExpression != null)
             {
+                if( callExpression.Method.Name != "Where")
+                    Execute(callExpression.Arguments[0]);
+
                 switch (callExpression.Method.Name)
                 {
                     case "Skip":
+                        _offset = (int) ((ConstantExpression) callExpression.Arguments[1]).Value;
+                        break;
+                    case "Take":
+                        _limit = (int) ((ConstantExpression) callExpression.Arguments[1]).Value;
+                        break;
+                    case "Where":
+                        _count = -1;
 
-                        var pageSize = 5;
-                        var skip = callExpression.Arguments.First<int>();
-                        _request.AddParameter("Page", skip / PageSize);
+                        if (_criteria == null)
+                            _criteria = new Dictionary<string, string>();
+
+                        var criteria = new MojioCriteriaTranslator().Translate(callExpression);
+
+                        foreach (var pair in criteria)
+                            _criteria.Add(pair);
+                        break;
+                    case "Any":
+                        return Count() > 0;
+                    case "Count":
+                        return Count();
+                    case "OrderByDescending":
+                        _order = MojioTranslate.GetMemberName(callExpression.Arguments[1]);
+                        _desc = true;
+                        break;
+                    case "OrderByAscending":
+                    case "OrderBy":
+                        _order = MojioTranslate.GetMemberName(callExpression.Arguments[1]);
+                        _desc = false;
+                        break;
                 }
             }
 
-            var translatedQuery = MongoQueryTranslator.Translate(this, expression);
-            return translatedQuery.Execute();
-		}
+            return this;
+        }
 
-		public TResult Execute<TResult> (Expression expression)
-		{
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-            if (!typeof(TResult).IsAssignableFrom(expression.Type))
-            {
-                throw new ArgumentException("Argument expression is not valid.");
-            }
+        private int Count()
+        {
+            if (_count != -1)
+                return _count;
 
-            var result = Execute(expression);
-            if (result == null)
-            {
-                return default(TResult);
-            }
-            else
-            {
-                return (TResult)result;
-            }
-		}
+            var request = _client.GetRequest(_action, Method.GET);
 
-		#endregion
-	}*/
+            request.AddParameter("offset", 0);
+            request.AddParameter("limit", 0);
+            request.AddParameter("criteria", BuildCriteriaString());
+
+            var response = _client.RequestAsync<Results>(request).Result;
+
+            return _count = response.Data.TotalRows;
+        }
+
+        public IEnumerable<T> Fetch<T>(Expression expression = null)
+            where T : BaseEntity, new()
+        {
+            _limit = 20;
+            _offset = 0;
+            _criteria = null;
+
+            Execute(expression);
+
+            var request = _client.GetRequest(_action, Method.GET);
+
+            request.AddParameter("offset", _offset);
+            request.AddParameter("limit", _limit);
+            request.AddParameter("criteria", BuildCriteriaString());
+
+            if( _order != null )
+                request.AddParameter("sortBy", _order);
+
+            request.AddParameter("desc", _desc);
+
+            var response = _client.RequestAsync<Results<T>>(request).Result;
+
+            return response.Data.Data;
+        }
+
+        public string BuildCriteriaString()
+        {
+            string criteria = "";
+
+            if (_criteria != null)
+                foreach (var f in _criteria)
+                    criteria += f.Key + "=" + f.Value + ";";
+
+            return criteria;
+        }
+    }
 }

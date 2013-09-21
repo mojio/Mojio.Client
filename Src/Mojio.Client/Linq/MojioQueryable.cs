@@ -3,11 +3,12 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq.Expressions;
+using RestSharp;
 
 namespace Mojio.Client.Linq
 {
-    /*
-    public class MojioQueryable<TData> : IQueryable<TData>
+    public class MojioQueryable<TData> : IQueryable<TData>, IOrderedQueryable<TData>
+        where TData : BaseEntity, new()
     {
         // private fields
         private MojioQueryProvider _provider;
@@ -38,42 +39,40 @@ namespace Mojio.Client.Linq
         }
 
         #region IEnumerable implementation
+
         public IEnumerator<TData> GetEnumerator()
         {
-            return ((IEnumerable<TData>)_provider.Execute(_expression)).GetEnumerator();
+            return _provider.Fetch<TData>(_expression).GetEnumerator();
         }
         #endregion
 
-        #region IEnumerable implementation
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)_provider.Execute(_expression)).GetEnumerator();
+            return _provider.Fetch<TData>(_expression).GetEnumerator();
         }
-        #endregion
 
-        #region IQueryable implementation
-        public Expression Expression
-        {
-            get
-            {
-                return _expression;
-            }
-        }
-        public Type ElementType
+        Type IQueryable.ElementType
         {
             get
             {
                 return typeof(TData);
             }
         }
-        public IQueryProvider Provider
+
+        Expression IQueryable.Expression
+        {
+            get
+            {
+                return _expression;
+            }
+        }
+
+        IQueryProvider IQueryable.Provider
         {
             get
             {
                 return _provider;
             }
         }
-        #endregion
     }
-     */
 }
