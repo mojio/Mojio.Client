@@ -65,6 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Linq\MojioQueryable.cs" />
+    <Compile Include="Linq\MojioQueryProvider.cs" />
+    <Compile Include="Linq\MojioCriteriaTranslator.cs" />
+    <Compile Include="Linq\TypeHelper.cs" />
     <Compile Include="MojioClient.App.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
@@ -87,6 +91,7 @@
     <Compile Include="MojioClient.User.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="MojioRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSJsonSerializer.cs" />
   </ItemGroup>
