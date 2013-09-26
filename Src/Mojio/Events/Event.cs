@@ -55,11 +55,5 @@ namespace Mojio.Events
         /// event timestamp
         /// </summary>
         public DateTime Time { get; set; }
-
-        public void EnsureId()
-        {
-            if (Id == Guid.Empty)
-                Id = Guid.NewGuid();
-        }
     }
 }

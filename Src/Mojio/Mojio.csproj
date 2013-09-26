@@ -60,11 +60,11 @@
     <Compile Include="CreditCard.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventBroadcast.cs" />
+    <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Converters\EventConverter.cs" />
     <Compile Include="Events\EventType.cs" />
-    <Compile Include="Events\GPSEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
     <Compile Include="Events\Log.cs" />
     <Compile Include="Events\PowerEvent.cs" />
@@ -74,7 +74,6 @@
     <Compile Include="IClient.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="IOwner.cs" />
-    <Compile Include="Events\ITripEvent.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Mojio.cs" />

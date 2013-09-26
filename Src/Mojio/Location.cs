@@ -40,5 +40,10 @@ namespace Mojio
         {
             return Lat == 0.0F && Lng == 0.0F;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Lat: {0}, Lng: {1}", Lat, Lng);
+        }
     }
 }

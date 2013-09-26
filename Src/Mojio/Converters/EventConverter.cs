@@ -56,8 +56,6 @@ namespace Mojio.Converters
                 case EventType.FenceEntered:
                 case EventType.FenceExited:
                     return new FenceEvent();
-                case EventType.GPS:
-                    return new GPSEvent();
                 case EventType.HardAcceleration:
                 case EventType.HardBrake:
                 case EventType.HardLeft:

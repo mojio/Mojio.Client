@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Mojio.Events
 {
-    public interface ITripEvent : IEvent
+    [CollectionNameAttribute(typeof(Event))]
+    public class FenceEvent : TripEvent
     {
-        Guid? TripId { get; set; }
     }
 }
