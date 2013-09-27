@@ -307,6 +307,23 @@ namespace Mojio.Client
             return false;
         }
 
+		public async Task<MojioResponse<Token>> ClearUserAsync()
+		{
+			if (Token == null) 
+				throw new Exception("Valid session must be initialized first.");
+
+			var request = GetRequest(Request("login", Token.Id, "logout"), Method.GET);
+			var response = await RequestAsync<Token> (request);
+
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				Token = response.Data;
+				ResetCurrentUser();
+			}
+
+			return response;
+		}
+
         /// <summary>
         /// Extend token expiry date.
         /// </summary>
