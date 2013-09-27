@@ -45,7 +45,7 @@ namespace Mojio.Converters
             switch (eventType)
             {
                 case EventType.MojioOn:
-                    return new MojioOnEvent();
+                    return new PowerEvent();
                 case EventType.TripStart:
                 case EventType.TripEnd:
                 case EventType.TripStatus:
@@ -56,8 +56,6 @@ namespace Mojio.Converters
                 case EventType.FenceEntered:
                 case EventType.FenceExited:
                     return new FenceEvent();
-                case EventType.GPS:
-                    return new GPSEvent();
                 case EventType.HardAcceleration:
                 case EventType.HardBrake:
                 case EventType.HardLeft:

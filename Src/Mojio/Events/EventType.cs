@@ -11,6 +11,11 @@ namespace Mojio.Events
     public enum EventType
     {
         /// <summary>
+        /// diagnostic event (device or server)
+        /// </summary>
+        Log = 1,
+
+        /// <summary>
         /// information
         /// </summary>
         Information = 100,
@@ -41,14 +46,14 @@ namespace Mojio.Events
         IgnitionOff,
 
         /// <summary>
-        /// GPS (device)
+        /// GPS update (device)
         /// </summary>
-        GPS = 1005,
+        TripEvent = 1005,
 
         /// <summary>
         /// fence enter (device)
         /// </summary>
-        FenceEntered = 1006,
+        FenceEntered,
 
         /// <summary>
         /// fence exit (device)

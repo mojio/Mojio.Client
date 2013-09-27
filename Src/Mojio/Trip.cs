@@ -20,6 +20,11 @@ namespace Mojio
         /// <summary>
         /// end timestamp
         /// </summary>
+        public DateTime? LastUpdatedTime { get; set; }
+
+        /// <summary>
+        /// end timestamp
+        /// </summary>
         public DateTime? EndTime { get; set; }
 
         /// <summary>
@@ -28,17 +33,9 @@ namespace Mojio
         public float? MaxSpeed { get; set; }
 
         /// <summary>
-        /// average speed
+        /// maximum rpm
         /// </summary>
-        public float? AverageSpeed
-        {
-            get
-            {
-                if( Distance != null && MovingTime != null && MovingTime > 0)
-                    return Distance / MovingTime * 3.6F;    // m/s => km/h
-                return null;
-            }
-        }
+        public int? MaxRPM { get; set; }
 
         /// <summary>
         /// fuel consumed
@@ -49,11 +46,6 @@ namespace Mojio
         /// distance travelled
         /// </summary>
         public float? Distance { get; set; }
-
-        /// <summary>
-        /// idle percentage
-        /// </summary>
-        public float? IdlePercent { get { return IdleTime / (MovingTime+IdleTime+StopTime); } }
 
         /// <summary>
         /// time moving
@@ -78,6 +70,12 @@ namespace Mojio
         /// <summary>
         /// end location
         /// </summary>
-        public Location EndLocation { get; set; }        
+        public Location EndLocation { get; set; }
+
+
+        /// <summary>
+        /// Forcefully Ended the trip
+        /// </summary>
+        public bool? ForcefullyEnded { get; set; }
     }
 }

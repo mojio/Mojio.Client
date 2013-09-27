@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Mojio.Events
 {
     [CollectionNameAttribute(typeof(Event))]
-    public class MojioOnEvent : Event
+    public class FenceEvent : TripEvent
     {
-        public MojioOnEvent()
-        {
-            EventType = EventType.MojioOn;
-        }
     }
 }

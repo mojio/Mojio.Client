@@ -32,6 +32,11 @@ namespace Mojio
 
     public abstract class GuidEntity : Entity<Guid>
     {
+        public void EnsureId()
+        {
+            if (Id == Guid.Empty)
+                Id = Guid.NewGuid();
+        }
     }
 
     public abstract class StringEntity : Entity<string>

@@ -1,4 +1,5 @@
-﻿using Mojio.Events;
+﻿using Mojio.Client.Linq;
+using Mojio.Events;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -798,8 +799,8 @@ namespace Mojio.Client
 
             var request = GetRequest(Request(controller, id, action), Method.GET);
 
-            request.AddParameter("page", page);
-            request.AddParameter("pageSize", PageSize);
+            request.AddParameter("offset", Math.Max(0,(page-1))*PageSize);
+            request.AddParameter("limit", PageSize);
 
             return await RequestAsync<Results<M>>(request);
         }
@@ -855,8 +856,8 @@ namespace Mojio.Client
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action), Method.GET);
 
-            request.AddParameter("page", page);
-            request.AddParameter("pageSize", PageSize);
+            request.AddParameter("offset", Math.Max(0, (page - 1)) * PageSize);
+            request.AddParameter("limit", PageSize);
 
             return await RequestAsync<Results<T>>(request);
         }
@@ -990,6 +991,16 @@ namespace Mojio.Client
         {
             var serializer = new RSJsonSerializer();
             return serializer.Deserialize<T>(content);
+        }
+
+        public MojioQueryable<T> Queryable<T>()
+            where T : BaseEntity, new()
+        {
+            string action = Map[typeof(T)];
+            var request = GetRequest(Request(action), Method.GET);
+
+            var provider = new MojioQueryProvider(this, Request(action) );
+            return new MojioQueryable<T>(provider);
         }
     }
 }

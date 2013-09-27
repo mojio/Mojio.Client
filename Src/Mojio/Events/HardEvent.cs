@@ -9,14 +9,9 @@ namespace Mojio.Events
     /// <summary>
     /// hard event
     /// </summary>
-    public class HardEvent : Event, ITripEvent
+    public class HardEvent : TripEvent
     {
         // TODO: Should we inclue GPS data?  ex: IGPSEvent
-
-        /// <summary>
-        /// trip id
-        /// </summary>
-        public Guid? TripId { get; set; }
 
         /// <summary>
         /// force

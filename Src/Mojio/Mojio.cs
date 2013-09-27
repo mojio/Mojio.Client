@@ -10,16 +10,10 @@ namespace Mojio
     public partial class Device : StringEntity, IOwner,IViewers
     {
         /// <summary>
-        /// device serial number
-        /// </summary>
-        [JsonIgnore]
-        public string Serial { get { return Id; } set { Id = value; } }
-
-        /// <summary>
         /// owner id
         /// </summary>
         [Display(Name = "Owner")]
-        public Guid? OwnerId { get; set; }      
+        public Guid? OwnerId { get; set; }
 
         /// <summary>
         /// device name
@@ -31,11 +25,15 @@ namespace Mojio
         /// </summary>
         public bool? IgnitionOn { get; set; }
         
-        // TODO: Deprecate
         /// <summary>
-        /// most recent GPS event
+        /// most recent trip event
         /// </summary>
-        public Guid? LastGPSEvent { get; set; }
+        public Guid? LastTripEvent { get; set; }
+
+        /// <summary>
+        /// Last location time
+        /// </summary>
+        public DateTime? LastLocationTime { get; set; }
 
         /// <summary>
         /// last known location
