@@ -5,6 +5,7 @@ using System.Collections;
 using System.Linq.Expressions;
 using RestSharp;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Mojio.Client.Linq
 {
@@ -20,8 +21,6 @@ namespace Mojio.Client.Linq
         bool _desc = true;
 
         int _count = -1;
-
-        IDictionary<string, string> criteria;
 
         public MojioQueryProvider(MojioClient client, string action)
         {
@@ -127,7 +126,13 @@ namespace Mojio.Client.Linq
             return _count = response.Data.TotalRows;
         }
 
-        public IEnumerable<T> Fetch<T>(Expression expression = null)
+		public IEnumerable<T> Fetch<T>(Expression expression = null)
+			where T : BaseEntity, new()
+		{
+			return FetchAsync<T> (expression).Result;
+		}
+
+        public async Task<IEnumerable<T>> FetchAsync<T>(Expression expression = null)
             where T : BaseEntity, new()
         {
             _limit = 20;
@@ -147,8 +152,10 @@ namespace Mojio.Client.Linq
 
             request.AddParameter("desc", _desc);
 
-            var response = _client.RequestAsync<Results<T>>(request).Result;
+            var response = await _client.RequestAsync<Results<T>>(request);
 
+			// Update count
+			_count = response.Data.TotalRows;
             return response.Data.Data;
         }
 

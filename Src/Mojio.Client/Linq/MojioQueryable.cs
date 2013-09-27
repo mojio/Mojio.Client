@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq.Expressions;
 using RestSharp;
+using System.Threading.Tasks;
 
 namespace Mojio.Client.Linq
 {
@@ -13,6 +14,18 @@ namespace Mojio.Client.Linq
         // private fields
         private MojioQueryProvider _provider;
         private Expression _expression;
+
+		public MojioQueryProvider Provider {
+			get {
+				return _provider;
+			}
+		}
+
+		public Expression Expression {
+			get {
+				return _expression;
+			}
+		}
 
         public MojioQueryable(MojioQueryProvider provider)
         {
@@ -37,6 +50,11 @@ namespace Mojio.Client.Linq
             _provider = provider;
             _expression = expression;
         }
+
+		public async Task<IEnumerable<TData>> FetchAsync()
+		{
+			return await _provider.FetchAsync<TData>(_expression);
+		}
 
         #region IEnumerable implementation
 

@@ -12,11 +12,6 @@ namespace Mojio.Events
     public class SpeedEvent : TripEvent
     {        
         /// <summary>
-        /// trip id
-        /// </summary>
-        public Guid? TripId { get; set; }
-
-        /// <summary>
         /// current speed
         /// </summary>
         public float Speed { get; set; }
