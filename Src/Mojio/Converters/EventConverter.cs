@@ -44,6 +44,8 @@ namespace Mojio.Converters
 
             switch (eventType)
             {
+                case EventType.MojioIdle:
+                case EventType.MojioWake:
                 case EventType.MojioOn:
                     return new PowerEvent();
                 case EventType.TripStart:
@@ -61,6 +63,11 @@ namespace Mojio.Converters
                 case EventType.HardLeft:
                 case EventType.HardRight:
                     return new HardEvent();
+                case EventType.Speed:
+                    return new SpeedEvent();
+
+                case EventType.TripEvent:
+                    return new TripEvent();
                 default:
                     return new Event();
             }
