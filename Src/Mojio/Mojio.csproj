@@ -61,6 +61,7 @@
     <Compile Include="CreditCard.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventBroadcast.cs" />
+    <Compile Include="Events\ActionType.cs" />
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\Event.cs" />

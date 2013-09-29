@@ -39,5 +39,15 @@ namespace Mojio.Events
         /// message
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// action type
+        /// </summary>
+        public ActionType? ActionType { get; set; }
+
+        /// <summary>
+        /// user id
+        /// </summary>
+        public Guid? UserId { get; set; }
     }
 }
