@@ -123,7 +123,12 @@ namespace Mojio.Client.Linq
 
             var response = _client.RequestAsync<Results>(request).Result;
 
-            return _count = response.Data.TotalRows;
+			if (response.Data == null)
+				_count = 0;
+			else
+            	_count = response.Data.TotalRows;
+
+			return _count;
         }
 
 		public IEnumerable<T> Fetch<T>(Expression expression = null)
@@ -153,6 +158,9 @@ namespace Mojio.Client.Linq
             request.AddParameter("desc", _desc);
 
             var response = await _client.RequestAsync<Results<T>>(request);
+
+			if (response.Data == null)
+				throw new Exception ("Invalid request response [" + response.StatusCode.ToString () + "]");
 
 			// Update count
 			_count = response.Data.TotalRows;
