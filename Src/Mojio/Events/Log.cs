@@ -49,5 +49,9 @@ namespace Mojio.Events
         /// user id
         /// </summary>
         public Guid? UserId { get; set; }
+
+        public string ControllerName { get; set; }
+
+        public string ActionName { get; set; }
     }
 }
