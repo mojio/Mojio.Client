@@ -264,7 +264,7 @@ namespace Mojio.Client
             return false;
         }
 
-		public async Task<MojioResponse<Token>> SetUserAsync(string userOrEmail, string password)
+		public Task<MojioResponse<Token>> SetUserAsync(string userOrEmail, string password)
         {
             if (Token == null)
                 throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
@@ -275,15 +275,18 @@ namespace Mojio.Client
             request.AddParameter("password", password);
             request.AddParameter("minutes", SessionTime);
 
-            var response = await RequestAsync<Token>(request);
+            var task = RequestAsync<Token>(request);
+            task.ContinueWith(r =>
+            {
+                var response = r.Result;
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Token = response.Data;
+                    ResetCurrentUser();
+                }
+            });
 
-			if (response.StatusCode == HttpStatusCode.OK)
-			{
-				Token = response.Data;
-				ResetCurrentUser();
-			}
-
-			return response;
+			return task;
         }
 
         /// <summary>
@@ -292,37 +295,33 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool ClearUser()
         {
-            if (Token == null) 
-                throw new Exception("Valid session must be initialized first.");
-
-            var request = GetRequest(Request("login", Token.Id, "logout"), Method.GET);
-
-            var response = RestClient.Execute<Token>(request);
+            var response = ClearUserAsync().Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Token = response.Data;
-                ResetCurrentUser();
                 return true;
-            }
+
             return false;
         }
 
-		public async Task<MojioResponse<Token>> ClearUserAsync()
+		public Task<MojioResponse<Token>> ClearUserAsync()
 		{
 			if (Token == null) 
 				throw new Exception("Valid session must be initialized first.");
 
 			var request = GetRequest(Request("login", Token.Id, "logout"), Method.GET);
-			var response = await RequestAsync<Token> (request);
 
-			if (response.StatusCode == HttpStatusCode.OK)
-			{
-				Token = response.Data;
-				ResetCurrentUser();
-			}
+			var task = RequestAsync<Token> (request);
+            task.ContinueWith(r =>
+            {
+                var response = r.Result;
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Token = response.Data;
+                    ResetCurrentUser();
+                }
+            });
 
-			return response;
+			return task;
 		}
 
         /// <summary>
@@ -365,7 +364,7 @@ namespace Mojio.Client
 			return response.StatusCode == HttpStatusCode.OK;
         }
 
-		public async Task<MojioResponse<Token>> ExtendSessionAsync(int minutes)
+		public Task<MojioResponse<Token>> ExtendSessionAsync(int minutes)
         {
             if (Token == null)
                 throw new Exception("No session to extend."); // Can only "Extend" if already authenticated app.
@@ -373,12 +372,16 @@ namespace Mojio.Client
             var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
             request.AddParameter("minutes", minutes);
 
-            var response = await RequestAsync<Token>(request);
+            var task = RequestAsync<Token>(request);
 
-			if (response.StatusCode == HttpStatusCode.OK)
-				Token = response.Data;
+            task.ContinueWith(r =>
+            {
+                var response = r.Result;
+                if (response.StatusCode == HttpStatusCode.OK)
+                    Token = response.Data;
+            });
 
-			return response;
+			return task;
         }
 
         /// <summary>
@@ -398,32 +401,51 @@ namespace Mojio.Client
             return request;
         }
 
-		public async Task<MojioResponse> RequestAsync(RestRequest request)
+		public Task<MojioResponse> RequestAsync(RestRequest request)
         {
 			var tcs = new TaskCompletionSource<MojioResponse>();
-            RestClient.ExecuteAsync(request, response =>
+            try
             {
-				tcs.SetResult(new MojioResponse {
-					Content = response.Content,
-					StatusCode = response.StatusCode
-				});
-            });
-            return await tcs.Task;
+                RestClient.ExecuteAsync(request, response =>
+                {
+                    tcs.SetResult(new MojioResponse
+                    {
+                        Content = response.Content,
+                        StatusCode = response.StatusCode
+                    });
+                });
+            }
+            catch (Exception e)
+            {
+                tcs.SetException(e);
+            }
+            return tcs.Task;
         }
 
-		public async Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
+		public Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
             where T : new()
         {
 			var tcs = new TaskCompletionSource<MojioResponse<T>>();
-            RestClient.ExecuteAsync<T>(request, response =>
+            try
             {
-                tcs.SetResult(new MojioResponse<T> {
-					Data = response.Data,
-					Content = response.Content,
-					StatusCode = response.StatusCode
-				});
-            });
-            return await tcs.Task;
+                RestClient.ExecuteAsync<T>(request, response =>
+                {
+                    var r = new MojioResponse<T>
+                    {
+                        Data = response.Data,
+                        Content = response.Content,
+                        StatusCode = response.StatusCode
+                    };
+
+                    if (!tcs.TrySetResult(r))
+                        tcs.TrySetException(new Exception("Ah"));
+                });
+            }
+            catch (Exception e)
+            {
+                tcs.SetException(e);
+            }
+            return tcs.Task;
         }
 
         /// <summary>
@@ -471,7 +493,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-		public async Task<MojioResponse<T>> CreateAsync<T>(T entity)
+		public Task<MojioResponse<T>> CreateAsync<T>(T entity)
             where T : BaseEntity, new()
         {
             if (typeof(T) == typeof(User))
@@ -485,7 +507,7 @@ namespace Mojio.Client
 
             request.AddBody(entity);
 
-            return await RequestAsync<T>(request);
+            return RequestAsync<T>(request);
         }
 
         /// <summary>
@@ -571,12 +593,12 @@ namespace Mojio.Client
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
 
-		public async Task<MojioResponse> DeleteAsync<T>(object id)
+		public Task<MojioResponse> DeleteAsync<T>(object id)
         {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action, id), Method.DELETE);
 
-            return await RequestAsync(request);
+            return RequestAsync(request);
         }
 
         /// <summary>
@@ -624,14 +646,14 @@ namespace Mojio.Client
             return response.Data;
         }
 
-		public async Task<MojioResponse<T>> UpdateAsync<T>(T entity)
+		public Task<MojioResponse<T>> UpdateAsync<T>(T entity)
             where T : BaseEntity, new()
         {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action, entity.IdToString), Method.PUT);
             request.AddBody(entity);
 
-            return await RequestAsync<T>(request);
+            return RequestAsync<T>(request);
         }
 
         /// <summary>
@@ -672,20 +694,23 @@ namespace Mojio.Client
         public T Get<T>(object id, out HttpStatusCode code, out string message)
             where T : new()
         {
-            var response = GetAsync<T>(id).Result;
+            var task = GetAsync<T>(id);
+            task.Wait();
+
+            var response = task.Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-		public async Task<MojioResponse<T>> GetAsync<T>(object id)
+		public Task<MojioResponse<T>> GetAsync<T>(object id)
             where T : new()
         {
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action, id), Method.GET);
 
-            return await RequestAsync<T>(request);
+            return RequestAsync<T>(request);
         }
 
         /// <summary>
@@ -789,7 +814,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-		public async Task<MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null)
+		public Task<MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null)
             where T : new()
         {
             string controller = Map[typeof(T)];
@@ -802,7 +827,7 @@ namespace Mojio.Client
             request.AddParameter("offset", Math.Max(0,(page-1))*PageSize);
             request.AddParameter("limit", PageSize);
 
-            return await RequestAsync<Results<M>>(request);
+            return RequestAsync<Results<M>>(request);
         }
 
         /// <summary>
@@ -850,7 +875,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-		public async Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1)
+		public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1)
             where T : new()
         {
             string action = Map[typeof(T)];
@@ -859,7 +884,7 @@ namespace Mojio.Client
             request.AddParameter("offset", Math.Max(0, (page - 1)) * PageSize);
             request.AddParameter("limit", PageSize);
 
-            return await RequestAsync<Results<T>>(request);
+            return RequestAsync<Results<T>>(request);
         }
 
         /// <summary>
