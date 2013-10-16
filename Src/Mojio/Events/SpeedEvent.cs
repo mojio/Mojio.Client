@@ -9,6 +9,7 @@ namespace Mojio.Events
     /// <summary>
     /// hard event
     /// </summary>
+    [CollectionNameAttribute(typeof(Event))]
     public class SpeedEvent : TripEvent
     {        
         /// <summary>
