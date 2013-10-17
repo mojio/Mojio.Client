@@ -20,8 +20,6 @@ namespace Mojio.Client.Linq
         string _order = null;
         bool _desc = true;
 
-        int _count = -1;
-
         public MojioQueryProvider(MojioClient client, string action)
         {
             _action = action;
@@ -35,8 +33,7 @@ namespace Mojio.Client.Linq
             if (typeof(S).IsSubclassOf(typeof(BaseEntity)))
                 return (IQueryable<S>)Activator.CreateInstance(typeof(MojioQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
             else
-                throw new Exception("Ahaha");
-                //return (IQueryable<S>)Activator.CreateInstance(typeof(IQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
+                return (IQueryable<S>)Activator.CreateInstance(typeof(IQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
         }
 
         IQueryable IQueryProvider.CreateQuery(Expression expression)
@@ -81,8 +78,6 @@ namespace Mojio.Client.Linq
                         _limit = (int) ((ConstantExpression) callExpression.Arguments[1]).Value;
                         break;
                     case "Where":
-                        _count = -1;
-
                         if (_criteria == null)
                             _criteria = new Dictionary<string, string>();
 
@@ -112,23 +107,20 @@ namespace Mojio.Client.Linq
 
         private int Count()
         {
-            if (_count != -1)
-                return _count;
-
             var request = _client.GetRequest(_action, Method.GET);
 
             request.AddParameter("offset", 0);
             request.AddParameter("limit", 0);
             request.AddParameter("criteria", BuildCriteriaString());
 
-            var response = _client.RequestAsync<Results>(request).Result;
+			var task = _client.RequestAsync<Results> (request);
+			task.Wait ();
+			var response = task.Result;
 
 			if (response.Data == null)
-				_count = 0;
-			else
-            	_count = response.Data.TotalRows;
+				throw new Exception ("Error loading count.");
 
-			return _count;
+			return response.Data.TotalRows;
         }
 
 		public IEnumerable<T> Fetch<T>(Expression expression = null)
@@ -162,8 +154,6 @@ namespace Mojio.Client.Linq
 			if (response.Data == null)
 				throw new Exception ("Invalid request response [" + response.StatusCode.ToString () + "]");
 
-			// Update count
-			_count = response.Data.TotalRows;
             return response.Data.Data;
         }
 

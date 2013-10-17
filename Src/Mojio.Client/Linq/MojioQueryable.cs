@@ -53,20 +53,20 @@ namespace Mojio.Client.Linq
 
 		public async Task<IEnumerable<TData>> FetchAsync()
 		{
-			return await _provider.FetchAsync<TData>(_expression);
+			return await this.Provider.FetchAsync<TData>(_expression);
 		}
 
         #region IEnumerable implementation
 
         public IEnumerator<TData> GetEnumerator()
         {
-            return _provider.Fetch<TData>(_expression).GetEnumerator();
+			return this.Provider.Fetch<TData>(_expression).GetEnumerator();
         }
         #endregion
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _provider.Fetch<TData>(_expression).GetEnumerator();
+            return this.Provider.Fetch<TData>(_expression).GetEnumerator();
         }
 
         Type IQueryable.ElementType

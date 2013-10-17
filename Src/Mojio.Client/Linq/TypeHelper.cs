@@ -32,6 +32,7 @@ namespace Mojio.Client.Linq
             return source.Contains(value);
         }
     }
+
     internal static class TypeHelper
     {
         internal static Type GetElementType(Type seqType)
