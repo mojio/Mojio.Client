@@ -77,10 +77,10 @@ namespace Mojio.Client.Linq
 
             if (type.IsSubclassOf(typeof(Enum)))
                 return Enum.GetName(type, constant.Value);
-            else if (constant.Type == type)
+            else //if (constant.Type == type)
                 return constant.Value.ToString();
-            else
-                throw new Exception("Type missmatch");
+            //else
+                //throw new Exception("Type missmatch");
         }
 
         public static ConstantExpression EvaluateSubtree(Expression e)
