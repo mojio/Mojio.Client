@@ -279,7 +279,8 @@ namespace Mojio.Client
             request.AddParameter("minutes", SessionTime);
 
             var task = RequestAsync<Token>(request);
-            task.ContinueWith(r =>
+
+            return task.ContinueWith<MojioResponse<Token>>(r =>
             {
                 var response = r.Result;
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -287,9 +288,9 @@ namespace Mojio.Client
                     Token = response.Data;
                     ResetCurrentUser();
                 }
-            });
 
-			return task;
+                return response;
+            });
         }
 
         /// <summary>
@@ -314,7 +315,7 @@ namespace Mojio.Client
 			var request = GetRequest(Request("login", Token.Id, "logout"), Method.GET);
 
 			var task = RequestAsync<Token> (request);
-            task.ContinueWith(r =>
+            return task.ContinueWith<MojioResponse<Token>>(r =>
             {
                 var response = r.Result;
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -322,9 +323,9 @@ namespace Mojio.Client
                     Token = response.Data;
                     ResetCurrentUser();
                 }
-            });
 
-			return task;
+                return response;
+            });
 		}
 
         /// <summary>
@@ -377,14 +378,14 @@ namespace Mojio.Client
 
             var task = RequestAsync<Token>(request);
 
-            task.ContinueWith(r =>
+            return task.ContinueWith<MojioResponse<Token>>(r =>
             {
                 var response = r.Result;
                 if (response.StatusCode == HttpStatusCode.OK)
                     Token = response.Data;
-            });
 
-			return task;
+                return response;
+            });
         }
 
         /// <summary>
