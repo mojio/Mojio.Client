@@ -184,15 +184,18 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <returns></returns>
         public bool Begin(Guid appId, Guid secretKey)
-        {
-            var request = new RestRequest(Request("login", appId, "begin"), Method.GET);
-            request.AddParameter("secretKey", secretKey);
-            var response = RestClient.Execute<Token>(request);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Token = response.Data;
-                return true;
-            }
+		{
+			var request = new RestRequest (Request ("login", appId, "begin"), Method.GET);
+			request.AddParameter ("secretKey", secretKey);
+			var response = RestClient.Execute<Token> (request);
+			if (response.StatusCode == HttpStatusCode.OK) {
+				Token = response.Data;
+				return true;
+			} else if (response.StatusCode == HttpStatusCode.Unauthorized)
+				throw new UnauthorizedAccessException ("Invalid AppID/Secret Key");
+			else if (response.ErrorException != null)
+				throw response.ErrorException;
+
             return false;
         }
 
