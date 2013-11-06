@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Mojio.Client.Linq
 {
-	public class MojioQueryProvider : IQueryProvider  
+	public class MojioQueryProvider<TData> : IQueryProvider  
+		where TData : BaseEntity,new()
 	{
         String _action;
         MojioClient _client;
@@ -26,14 +27,9 @@ namespace Mojio.Client.Linq
             _client = client;
         }
 
-        IQueryable<S> IQueryProvider.CreateQuery<S>(Expression expression)
+		IQueryable<S> IQueryProvider.CreateQuery<S>(Expression expression)
         {
-            Type elementType = TypeHelper.GetElementType(typeof(S));
-
-            if (typeof(S).IsSubclassOf(typeof(BaseEntity)))
-                return (IQueryable<S>)Activator.CreateInstance(typeof(MojioQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
-            else
-                return (IQueryable<S>)Activator.CreateInstance(typeof(IQueryable<>).MakeGenericType(elementType), new object[] { this, expression });
+			return (IQueryable<S>) new MojioQueryable<TData> (this, expression);
         }
 
         IQueryable IQueryProvider.CreateQuery(Expression expression)
@@ -53,7 +49,12 @@ namespace Mojio.Client.Linq
         {
             _criteria = null;
 
-            return (S)this.Execute(expression);
+			if (expression == null)
+			{
+				throw new ArgumentNullException("expression");
+			}
+
+			return (S) Execute (expression);
         }
 
         public object Execute(Expression expression)
@@ -86,10 +87,6 @@ namespace Mojio.Client.Linq
                         foreach (var pair in criteria)
                             _criteria.Add(pair);
                         break;
-                    case "Any":
-                        return Count() > 0;
-                    case "Count":
-                        return Count();
                     case "OrderByDescending":
                         _order = MojioTranslate.GetMemberName(callExpression.Arguments[1]);
                         _desc = true;
@@ -99,6 +96,23 @@ namespace Mojio.Client.Linq
                         _order = MojioTranslate.GetMemberName(callExpression.Arguments[1]);
                         _desc = false;
                         break;
+
+					case "First":
+						_offset = 0;
+						_limit = 1;
+						return Fetch ().First ();
+						break;
+					case "FirstOrDefault":
+						_offset = 0;
+						_limit = 1;
+						return Fetch ().FirstOrDefault ();
+						break;
+					case "Count":
+						return Count ();
+						break;
+					case "Any":
+						return Count () > 0;
+						break;
                 }
             }
 
@@ -123,20 +137,20 @@ namespace Mojio.Client.Linq
 			return response.Data.TotalRows;
         }
 
-		public IEnumerable<T> Fetch<T>(Expression expression = null)
-			where T : BaseEntity, new()
+		public IEnumerable<TData> Fetch(Expression expression = null)
 		{
-			return FetchAsync<T> (expression).Result;
+			return FetchAsync (expression).Result;
 		}
 
-        public async Task<IEnumerable<T>> FetchAsync<T>(Expression expression = null)
-            where T : BaseEntity, new()
-        {
-            _limit = 20;
-            _offset = 0;
-            _criteria = null;
+        public async Task<IEnumerable<TData>> FetchAsync(Expression expression = null)
+		{
+			if (expression != null) {
+				_limit = 20;
+				_offset = 0;
+				_criteria = null;
 
-            Execute(expression);
+				Execute (expression);
+			}
 
             var request = _client.GetRequest(_action, Method.GET);
 
@@ -149,7 +163,7 @@ namespace Mojio.Client.Linq
 
             request.AddParameter("desc", _desc);
 
-            var response = await _client.RequestAsync<Results<T>>(request);
+            var response = await _client.RequestAsync<Results<TData>>(request);
 
 			if (response.Data == null)
 				throw new Exception ("Invalid request response [" + response.StatusCode.ToString () + "]");

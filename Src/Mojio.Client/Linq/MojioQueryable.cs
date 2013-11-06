@@ -12,10 +12,10 @@ namespace Mojio.Client.Linq
         where TData : BaseEntity, new()
     {
         // private fields
-        private MojioQueryProvider _provider;
+        private MojioQueryProvider<TData> _provider;
         private Expression _expression;
 
-		public MojioQueryProvider Provider {
+		public MojioQueryProvider<TData> Provider {
 			get {
 				return _provider;
 			}
@@ -27,7 +27,7 @@ namespace Mojio.Client.Linq
 			}
 		}
 
-        public MojioQueryable(MojioQueryProvider provider)
+		public MojioQueryable(MojioQueryProvider<TData> provider)
         {
             if (provider == null)
             {
@@ -37,7 +37,7 @@ namespace Mojio.Client.Linq
             _expression = Expression.Constant(this);
         }
 
-        public MojioQueryable(MojioQueryProvider provider, Expression expression)
+		public MojioQueryable(MojioQueryProvider<TData> provider, Expression expression)
         {
             if (provider == null)
             {
@@ -53,20 +53,20 @@ namespace Mojio.Client.Linq
 
 		public async Task<IEnumerable<TData>> FetchAsync()
 		{
-			return await this.Provider.FetchAsync<TData>(_expression);
+			return await this.Provider.FetchAsync(_expression);
 		}
 
         #region IEnumerable implementation
 
         public IEnumerator<TData> GetEnumerator()
         {
-			return this.Provider.Fetch<TData>(_expression).GetEnumerator();
+			return this.Provider.Fetch(_expression).GetEnumerator();
         }
         #endregion
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.Provider.Fetch<TData>(_expression).GetEnumerator();
+            return this.Provider.Fetch(_expression).GetEnumerator();
         }
 
         Type IQueryable.ElementType

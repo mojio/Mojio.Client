@@ -1028,7 +1028,7 @@ namespace Mojio.Client
             string action = Map[typeof(T)];
             var request = GetRequest(Request(action), Method.GET);
 
-            var provider = new MojioQueryProvider(this, Request(action) );
+            var provider = new MojioQueryProvider<T>(this, Request(action) );
             return new MojioQueryable<T>(provider);
         }
     }

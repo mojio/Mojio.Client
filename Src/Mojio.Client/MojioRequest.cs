@@ -9,8 +9,6 @@ namespace Mojio.Client
 
         public int Skip { get; set; }
 
-        public Type GetType { get; set; }
-
         public Type From { get; set; }
 
         public string[] Segments { get; set; }
