@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7FC78FA0-161A-44B6-8029-0D18DE00FCD5}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Mojio.Client.MonoTouch</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Mojio.Client.MonoTouch</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\mojio.client\linq\MojioQueryable.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\MojioQueryable.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio.client\linq\MojioQueryProvider.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\MojioQueryProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio.client\linq\TypeHelper.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\TypeHelper.cs</Link>
+    </Compile>
+    <BundleResource Include="..\Mojio.Client\MojioClient.App.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.App.cs</Link>
+    </BundleResource>
+    <Compile Include="..\mojio.client\MojioClient.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.cs</Link>
+    </Compile>
+    <BundleResource Include="..\Mojio.Client\MojioClient.Mojio.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.Mojio.cs</Link>
+    </BundleResource>
+    <Compile Include="..\mojio.client\MojioClient.Push.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.Push.cs</Link>
+    </Compile>
+    <BundleResource Include="..\Mojio.Client\MojioClient.Signal.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.Signal.cs</Link>
+    </BundleResource>
+    <BundleResource Include="..\Mojio.Client\MojioClient.Storage.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.Storage.cs</Link>
+    </BundleResource>
+    <BundleResource Include="..\Mojio.Client\MojioClient.Trip.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.Trip.cs</Link>
+    </BundleResource>
+    <Compile Include="..\Mojio.Client\MojioClient.User.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioClient.User.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio.client\MojioRequest.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio.client\MojioResponse.cs">
+      <Link>Mojio.Client\Mojio.Client\MojioResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\RSJsonSerializer.cs">
+      <Link>Mojio.Client\Mojio.Client\RSJsonSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Address.cs">
+      <Link>Mojio\Address.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\App.cs">
+      <Link>Mojio\App.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\AuthenticationProvider.cs">
+      <Link>Mojio\AuthenticationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\CollectionNameAttribute.cs">
+      <Link>Mojio\CollectionNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\converters\EventConverter.cs">
+      <Link>Mojio\Converters\EventConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Counter.cs">
+      <Link>Mojio\Counter.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\CreditCard.cs">
+      <Link>Mojio\CreditCard.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Entity.cs">
+      <Link>Mojio\Entity.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\EventBroadcast.cs">
+      <Link>Mojio\EventBroadcast.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\ActionType.cs">
+      <Link>Mojio\Events\ActionType.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\Event.cs">
+      <Link>Mojio\Events\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\EventType.cs">
+      <Link>Mojio\Events\EventType.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\FenceEvent.cs">
+      <Link>Mojio\Events\FenceEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\HardEvent.cs">
+      <Link>Mojio\Events\HardEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\IgnitionEvent.cs">
+      <Link>Mojio\Events\IgnitionEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\Log.cs">
+      <Link>Mojio\Events\Log.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\PowerEvent.cs">
+      <Link>Mojio\Events\PowerEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\SpeedEvent.cs">
+      <Link>Mojio\Events\SpeedEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\events\TripEvent.cs">
+      <Link>Mojio\Events\TripEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Headers.cs">
+      <Link>Mojio\Headers.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\IClient.cs">
+      <Link>Mojio\IClient.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\ILog.cs">
+      <Link>Mojio\ILog.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Invoice.cs">
+      <Link>Mojio\Invoice.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\IOwner.cs">
+      <Link>Mojio\IOwner.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\IViewers.cs">
+      <Link>Mojio\IViewers.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Location.cs">
+      <Link>Mojio\Location.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Mojio.cs">
+      <Link>Mojio\Mojio.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Product.cs">
+      <Link>Mojio\Product.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Regions.cs">
+      <Link>Mojio\Regions.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Register.cs">
+      <Link>Mojio\Register.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Results.cs">
+      <Link>Mojio\Results.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Row.cs">
+      <Link>Mojio\Row.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Storage.cs">
+      <Link>Mojio\Storage.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Subscription.cs">
+      <Link>Mojio\Subscription.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Token.cs">
+      <Link>Mojio\Token.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\Trip.cs">
+      <Link>Mojio\Trip.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\User.cs">
+      <Link>Mojio\User.cs</Link>
+    </Compile>
+    <Compile Include="..\mojio\UserCounter.cs">
+      <Link>Mojio\UserCounter.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\DataAnnotations.cs" />
+    <Compile Include="Attributes\Web.cs" />
+    <Compile Include="Mojio.Client\Mojio.Client\Linq\MojioCriteriaTranslator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="json.net">
+      <Visible>False</Visible>
+      <Version>4.5.11</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="restsharp">
+      <Visible>False</Visible>
+      <Version>104.1.0</Version>
+    </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Client.iOS">
+      <HintPath>..\Components\signalR\Microsoft.AspNet.SignalR.Client.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.MonoTouch">
+      <HintPath>..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+</Project>

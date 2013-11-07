@@ -241,20 +241,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Mojio\" />
-    <Folder Include="Mojio.Client\" />
-    <Folder Include="Mojio\Events\" />
-    <Folder Include="Mojio.Client\Mojio.Client\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <XamarinComponentReference Include="restsharp">
-      <InstallationInProgress>False</InstallationInProgress>
       <Version>104.1.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="json.net">
-      <InstallationInProgress>False</InstallationInProgress>
       <Version>4.5.11</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
