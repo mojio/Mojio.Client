@@ -441,8 +441,7 @@ namespace Mojio.Client
                         StatusCode = response.StatusCode
                     };
 
-                    if (!tcs.TrySetResult(r))
-                        tcs.TrySetException(new Exception("Ah"));
+					tcs.SetResult(r);
                 });
             }
             catch (Exception e)
