@@ -134,7 +134,6 @@ namespace Mojio.Client.Linq
     class MojioCriteriaTranslator : ExpressionVisitor
     {
         IDictionary<string,string> criteria;
-        bool orMember;
 
         internal IDictionary<string, string> Translate(Expression expression)
         {

@@ -101,18 +101,14 @@ namespace Mojio.Client.Linq
 						_offset = 0;
 						_limit = 1;
 						return Fetch ().First ();
-						break;
 					case "FirstOrDefault":
 						_offset = 0;
 						_limit = 1;
 						return Fetch ().FirstOrDefault ();
-						break;
 					case "Count":
 						return Count ();
-						break;
 					case "Any":
 						return Count () > 0;
-						break;
                 }
             }
 
