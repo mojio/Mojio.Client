@@ -66,16 +66,10 @@ namespace Mojio.Client
         /// <returns></returns>
         public User RegisterUser(string username, string email, string password, out HttpStatusCode code, out string message)
         {
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action), Method.POST);
-            request.AddBody(new
-            {
-                UserName = username,
-                Email = email,
-                Password = password
-            });
+			var task = RegisterUserAsync (username, email, password);
 
-            var response = RestClient.Execute<User>(request);
+			var response = task.Result;
+
             message = response.Content;
             code = response.StatusCode;
 
@@ -84,6 +78,28 @@ namespace Mojio.Client
 
             return response.Data;
         }
+
+		/// <summary>
+		/// Async Register a new user with Mojio.
+		/// </summary>
+		/// <param name="username">Username</param>
+		/// <param name="email">Email address</param>
+		/// <param name="password">Password</param>
+		/// <returns></returns>
+		public Task<MojioResponse<User>> RegisterUserAsync(string username, string email, string password)
+		{
+			string action = Map[typeof(User)];
+			var request = GetRequest(Request(action), Method.POST);
+			request.AddBody(new
+				{
+					UserName = username,
+					Email = email,
+					Password = password
+				});
+
+			var task = RequestAsync<User>(request);
+			return task;
+		}
 
         User _currentUser;
         public User CurrentUser
