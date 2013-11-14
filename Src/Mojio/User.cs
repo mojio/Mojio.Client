@@ -59,4 +59,24 @@ namespace Mojio
         /// </summary>
         public DateTime LastLoginDate { get; set; }        
     }
+
+    //$HarshKumar - 14/Nov/2013 - Added this enum - START
+    public enum ImageSize
+    {
+        Small,
+        Medium,
+        Large
+    }
+   
+    public class UserImage : GuidEntity
+    {
+        public string ImageType { get; set; }
+
+        public ImageSize? ImageSize { get; set; }
+
+        public byte[] Image { get; set; }
+    }
+
+   
+    //$HarshKumar - 14/Nov/2013 - Added this enum - END
 }

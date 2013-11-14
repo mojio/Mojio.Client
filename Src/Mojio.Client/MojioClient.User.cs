@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
+
 
 namespace Mojio.Client
 {
@@ -429,5 +431,32 @@ namespace Mojio.Client
 
             return response.Data;
         }
+
+        //$HarshKumar - 14/Nov/2013 - Added these Methods - START
+        public HttpResponseMessage GetImage(Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "UserImage"), Method.GET);
+
+            var response = RestClient.Execute<HttpResponseMessage>(request);
+            return response.Data;
+        }
+
+        public bool AddImage(UserImage userImage, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "UserImage"), Method.POST);
+            request.AddBody(userImage);
+
+            var response = RestClient.Execute(request);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+        //$HarshKumar - 14/Nov/2013 - Added these Methods - END
     }
 }
