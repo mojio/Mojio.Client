@@ -460,5 +460,17 @@ namespace Mojio.Client
 
             return response.Data;
         }
+
+        public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.GET);
+            request.AddParameter("size", size);
+            var response = RestClient.Execute(request);
+            return ASCIIEncoding.ASCII.GetBytes(response.Content);
+        }
     }
 }
