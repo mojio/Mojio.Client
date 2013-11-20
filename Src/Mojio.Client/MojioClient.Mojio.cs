@@ -30,5 +30,33 @@ namespace Mojio.Client
         {
             return GetBy<Trip, Device>(id, page);
         }
+
+        public Results<MMY> GetAllMakes(string id)
+        {
+              string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, id, "mmy"), Method.GET);
+
+            var response = RestClient.Execute<Results<MMY>>(request);
+            return response.Data;
+        }
+        public  Results<MMY> GetModels(string id,string make)
+        {
+             string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, id, "mmy"), Method.GET);
+            request.AddParameter("make", make);
+
+            var response = RestClient.Execute<Results<MMY>>(request);
+            return response.Data;
+        }
+        public Results<MMY> GetYears(string id, string make, string model)
+        {
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, id, "mmy"), Method.GET);
+            request.AddParameter("make", make);
+            request.AddParameter("model", model);
+
+            var response = RestClient.Execute<Results<MMY>>(request);
+            return response.Data;
+        }
     }
 }
