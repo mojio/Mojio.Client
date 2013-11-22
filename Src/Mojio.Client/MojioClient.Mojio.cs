@@ -6,8 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Office.Interop.Excel;
-
 namespace Mojio.Client
 {
     public partial class MojioClient
@@ -33,20 +31,20 @@ namespace Mojio.Client
         }
 
         //public Results<MMY> GetAllMakes(string id)
-        public MMY GetAllMakes(string id)
+        public MMY GetAllMakes()
         {
               string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, id, "mmy"), Method.GET);
+            var request = GetRequest(Request(action, null, "mmy"), Method.GET);
 
             //var response = RestClient.Execute<Results<MMY>>(request);
             var response = RestClient.Execute<MMY>(request);
             return response.Data;
         }
         //public  Results<MMY> GetModels(string id,string make)
-        public MMY GetModels(string id, string make)
+        public MMY GetModels(string make)
         {
              string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, id, "mmy"), Method.GET);
+            var request = GetRequest(Request(action, null, "mmy"), Method.GET);
             request.AddParameter("make", make);
 
             //var response = RestClient.Execute<Results<MMY>>(request);
@@ -54,10 +52,10 @@ namespace Mojio.Client
             return response.Data;
         }
         //public Results<MMY> GetYears(string id, string make, string model)
-        public MMY GetYears(string id, string make, string model)
+        public MMY GetYears(string make, string model)
         {
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, id, "mmy"), Method.GET);
+            var request = GetRequest(Request(action, null, "mmy"), Method.GET);
             request.AddParameter("make", make);
             request.AddParameter("model", model);
 
@@ -65,11 +63,11 @@ namespace Mojio.Client
             var response = RestClient.Execute<MMY>(request);
             return response.Data;
         }
-        public bool SaveMMY(_Worksheet xlWorkSheet)
-        {
+        public bool AddMMY(MMY[] listMMY)
+        {           
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, null, "mmy"), Method.POST);
-            request.AddBody(xlWorkSheet);
+            request.AddBody(listMMY);
 
             var response = RestClient.Execute<bool>(request);
             
