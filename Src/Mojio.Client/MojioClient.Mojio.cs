@@ -31,39 +31,38 @@ namespace Mojio.Client
         }
 
         //public Results<MMY> GetAllMakes(string id)
-        public MMY GetAllMakes()
+        public Make GetAllMakes()
         {
               string action = Map[typeof(User)];
             var request = GetRequest(Request(action, null, "mmy"), Method.GET);
 
             //var response = RestClient.Execute<Results<MMY>>(request);
-            var response = RestClient.Execute<MMY>(request);
+            var response = RestClient.Execute<Make>(request);
             return response.Data;
         }
         //public  Results<MMY> GetModels(string id,string make)
-        public MMY GetModels(string make)
+        public Model GetModels(string make)
         {
              string action = Map[typeof(User)];
             var request = GetRequest(Request(action, null, "mmy"), Method.GET);
             request.AddParameter("make", make);
 
             //var response = RestClient.Execute<Results<MMY>>(request);
-            var response = RestClient.Execute<MMY>(request);
+            var response = RestClient.Execute<Model>(request);
             return response.Data;
         }
         //public Results<MMY> GetYears(string id, string make, string model)
-        public MMY GetYears(string make, string model)
+        public Model GetYears(string model)
         {
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, null, "mmy"), Method.GET);
-            request.AddParameter("make", make);
-            request.AddParameter("model", model);
+             request.AddParameter("model", model);
 
             //var response = RestClient.Execute<Results<MMY>>(request);
-            var response = RestClient.Execute<MMY>(request);
+            var response = RestClient.Execute<Model>(request);
             return response.Data;
         }
-        public bool AddMMY(MMY[] listMMY)
+        public bool AddMMY(Make[] listMMY)
         {           
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, null, "mmy"), Method.POST);
