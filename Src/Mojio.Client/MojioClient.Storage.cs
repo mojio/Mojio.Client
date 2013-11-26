@@ -59,6 +59,11 @@ namespace Mojio.Client
 
             var response = RestClient.Execute(request);
 
+            // Invalid response.
+            // TODO: we should add methods to pass back the HttpStatusCode and message
+            if (response.StatusCode != HttpStatusCode.OK)
+                return null;
+
             // TODO: This isn't exactly a good way of doing this. But we need an 
             //   alternative way to get string responses.
             var deserializer = new RSJsonSerializer();
