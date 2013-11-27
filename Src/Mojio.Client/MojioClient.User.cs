@@ -12,6 +12,35 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <returns>Request response</returns>
+		/// <param name="access_token">Facebook access_token.</param>
+		public Task<MojioResponse<Token>> FacebookLoginAsync(string access_token)
+		{
+			if (Token == null)
+				throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
+
+			var request = GetRequest(Request("login", "facebook", "setexternaluser"), Method.GET);
+
+			//request.AddParameter("userOrEmail", userOrEmail);
+			request.AddParameter("accessToken", access_token);
+
+			var task = RequestAsync<Token>(request);
+			return task.ContinueWith<MojioResponse<Token>>(r =>
+				{
+					var response = r.Result;
+					if (response.StatusCode == HttpStatusCode.OK)
+					{
+						Token = response.Data;
+						ResetCurrentUser();
+					}
+
+					return response;
+				});
+		}
+
         /// <summary>
         /// Register a new user with Mojio.
         /// </summary>
