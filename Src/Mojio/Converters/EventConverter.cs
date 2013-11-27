@@ -39,8 +39,12 @@ namespace Mojio.Converters
             // default type
             EventType eventType = EventType.Information;
 
-            if (jsonObject["EventType"] != null)
-                eventType = jsonObject["EventType"].ToObject<EventType>(serializer);
+            if (jsonObject["EventType"] != null )
+                if (!Enum.TryParse<EventType>(jsonObject["EventType"].ToString(), true, out eventType))
+                {
+                    // TODO: log parsing error here.
+                    eventType = EventType.Information;
+                }
 
             switch (eventType)
             {
