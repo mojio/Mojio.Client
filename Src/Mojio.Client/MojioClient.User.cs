@@ -12,6 +12,97 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token)
+		{
+			string message;
+			HttpStatusCode code;
+
+			return FacebookLogin(access_token, out code , out message );
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <param name="code">Http response status code</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token, out HttpStatusCode code)
+		{
+			string message;
+
+			return FacebookLogin(access_token, out code , out message );
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <param name="message">Http response content</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token, out string message)
+		{
+			HttpStatusCode code;
+
+			return FacebookLogin(access_token, out code , out message );
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <param name="message">Http response content</param>
+		/// <param name="code">Http response status code</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token, out HttpStatusCode code, out string message)
+		{
+			var task = FacebookLoginAsync (access_token);
+			task.RunSynchronously ();
+
+			var response = task.Result;
+
+			message = response.Content;
+			code = response.StatusCode;
+
+			if (response.StatusCode != HttpStatusCode.OK)
+				return null;
+
+			return response.Data;
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <returns>Request response</returns>
+		/// <param name="access_token">Facebook access_token.</param>
+		public Task<MojioResponse<Token>> FacebookLoginAsync(string access_token)
+		{
+			if (Token == null)
+				throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
+
+			var request = GetRequest(Request("login", "facebook", "setexternaluser"), Method.GET);
+
+			//request.AddParameter("userOrEmail", userOrEmail);
+			request.AddParameter("accessToken", access_token);
+
+			var task = RequestAsync<Token>(request);
+			return task.ContinueWith<MojioResponse<Token>>(r =>
+				{
+					var response = r.Result;
+					if (response.StatusCode == HttpStatusCode.OK)
+					{
+						Token = response.Data;
+						ResetCurrentUser();
+					}
+
+					return response;
+				});
+		}
+
         /// <summary>
         /// Register a new user with Mojio.
         /// </summary>
