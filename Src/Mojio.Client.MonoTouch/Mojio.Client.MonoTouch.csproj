@@ -142,6 +142,9 @@
     <Compile Include="..\mojio\ILog.cs">
       <Link>Mojio\ILog.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\ImageSize.cs">
+      <Link>Mojio\ImageSize.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\Invoice.cs">
       <Link>Mojio\Invoice.cs</Link>
     </Compile>
