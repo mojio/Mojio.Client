@@ -520,5 +520,48 @@ namespace Mojio.Client
 
             return response.Data;
         }
+
+        public bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.POST);
+            request.AddBody(data);
+
+            var response = RestClient.Execute<bool>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public bool DeleteImage(out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.DELETE);
+
+            var response = RestClient.Execute<bool>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.GET);
+            request.AddParameter("size", size);
+            var response = RestClient.Execute(request);
+            return ASCIIEncoding.ASCII.GetBytes(response.Content);
+        }
     }
 }

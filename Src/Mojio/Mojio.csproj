@@ -75,6 +75,7 @@
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ILog.cs" />
+    <Compile Include="ImageSize.cs" />
     <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
