@@ -55,5 +55,10 @@ namespace Mojio
         /// list of viewer ids
         /// </summary>
         public Guid[] Viewers { get; set; }
+
+        public string Make { set; get; }
+        public string Model { get; set; }
+
+        public int Year { get; set; }
     }
 }
