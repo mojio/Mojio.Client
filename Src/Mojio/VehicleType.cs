@@ -8,11 +8,11 @@ namespace Mojio
 {
     public class VehicleType : StringEntity
     {     
-        public string Make
-        {
-            get { return Id; }
-            set { Id = value; }
-        }
+        //public string Make
+        //{
+        //    get { return Id; }
+        //    set { Id = value; }
+        //}
 
         public VehicleModelYear[] Models { get; set; }
     }
