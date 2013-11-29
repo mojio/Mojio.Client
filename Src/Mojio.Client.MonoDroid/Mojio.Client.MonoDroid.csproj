@@ -225,6 +225,9 @@
     <Compile Include="..\Mojio\Events\ActionType.cs">
       <Link>Mojio\Events\ActionType.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\ImageSize.cs">
+      <Link>Mojio\ImageSize.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

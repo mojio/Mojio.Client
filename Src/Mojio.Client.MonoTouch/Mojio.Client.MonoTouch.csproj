@@ -142,6 +142,9 @@
     <Compile Include="..\mojio\ILog.cs">
       <Link>Mojio\ILog.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\ImageSize.cs">
+      <Link>Mojio\ImageSize.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\Invoice.cs">
       <Link>Mojio\Invoice.cs</Link>
     </Compile>
@@ -210,10 +213,10 @@
       <HintPath>..\Components\signalR\Microsoft.AspNet.SignalR.Client.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp.MonoTouch">
-      <HintPath>..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
+      <HintPath>..\..\..\..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
