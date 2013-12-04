@@ -30,5 +30,48 @@ namespace Mojio.Client
         {
             return GetBy<Trip, Device>(id, page);
         }
+
+        public bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Device id is required");
+
+            string action = Map[typeof(Device)];
+            var request = GetRequest(Request(action, id, "image"), Method.POST);
+            request.AddBody(data);
+
+            var response = RestClient.Execute<bool>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public bool DeleteDeviceImage(string id, out HttpStatusCode code, out string message)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Device id is required");
+
+            string action = Map[typeof(Device)];
+            var request = GetRequest(Request(action, id, "image"), Method.DELETE);
+
+            var response = RestClient.Execute<bool>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentException("Device id is required");
+
+            string action = Map[typeof(Device)];
+            var request = GetRequest(Request(action, id, "image"), Method.GET);
+            request.AddParameter("size", size);
+            var response = RestClient.Execute(request);
+            return ASCIIEncoding.ASCII.GetBytes(response.Content);
+        }
     }
 }
