@@ -116,7 +116,22 @@ namespace Mojio.Client.Linq
         }
 
         private int Count()
-        {
+		{
+			var request = CountAsync ();
+			request.Wait ();
+			return request.Result;
+		}
+
+		public Task<int> CountAsync(Expression expression = null)
+		{
+			if (expression != null) {
+				_limit = 20;
+				_offset = 0;
+				_criteria = null;
+
+				Execute (expression);
+			}
+
             var request = _client.GetRequest(_action, Method.GET);
 
             request.AddParameter("offset", 0);
@@ -124,13 +139,15 @@ namespace Mojio.Client.Linq
             request.AddParameter("criteria", BuildCriteriaString());
 
 			var task = _client.RequestAsync<Results> (request);
-			task.Wait ();
-			var response = task.Result;
 
-			if (response.Data == null)
-				throw new Exception ("Error loading count.");
+			return task.ContinueWith (r => { 
+				var response = r.Result;
 
-			return response.Data.TotalRows;
+				if (response.Data == null)
+					throw new Exception ("Error loading count.");
+
+				return response.Data.TotalRows;
+			});
         }
 
 		public IEnumerable<TData> Fetch(Expression expression = null)

@@ -51,6 +51,11 @@ namespace Mojio.Client.Linq
             _expression = expression;
         }
 
+		public Task<int> CountAsync()
+		{
+			return this.Provider.CountAsync (_expression);
+		}
+
 		public Task<IEnumerable<TData>> FetchAsync()
 		{
 			return this.Provider.FetchAsync(_expression);
