@@ -36,9 +36,18 @@ namespace Mojio
             }
         }
 
-        public bool IsEmpty()
+        public bool IsValid
         {
-            return Lat == 0.0F && Lng == 0.0F;
+            get
+            {
+                return Lat == float.NaN || Lng == float.NaN;
+            }
+        }
+
+        public Location()
+        {
+            Lat = float.NaN;
+            Lng = float.NaN;
         }
 
         public override string ToString()
