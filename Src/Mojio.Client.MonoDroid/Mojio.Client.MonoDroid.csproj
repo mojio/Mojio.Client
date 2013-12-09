@@ -54,6 +54,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Mojio.Client\IMojioClient.cs">
+      <Link>Mojio.Client\Mojio.Client\IMojioClient.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.App.cs">
       <Link>Mojio.Client\Mojio.Client\MojioClient.App.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>

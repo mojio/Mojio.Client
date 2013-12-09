@@ -1,6 +1,7 @@
 ﻿using Mojio.Events;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Utilities;
 using System;
 
 namespace Mojio.Converters
@@ -9,7 +10,11 @@ namespace Mojio.Converters
     {
         public override bool CanConvert(Type objectType)
         {
+#if PORTABLE
             return typeof(Event).IsAssignableFrom(objectType);
+#else
+            return true;
+#endif
         }
 
         public override object ReadJson(JsonReader reader, Type objectType,
