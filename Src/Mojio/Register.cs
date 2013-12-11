@@ -32,7 +32,7 @@ namespace Mojio
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Not a valid email address")]
         public string Email { get; set; }
 
         /// <summary>
