@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMojioClient.cs" />
     <Compile Include="Linq\MojioQueryable.cs" />
     <Compile Include="Linq\MojioQueryProvider.cs" />
     <Compile Include="Linq\MojioCriteriaTranslator.cs" />

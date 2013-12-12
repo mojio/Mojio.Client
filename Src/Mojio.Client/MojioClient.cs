@@ -44,7 +44,7 @@ namespace Mojio.Client
         }
     }
 
-    public partial class MojioClient
+    public partial class MojioClient : IMojioClient
     {
         public const string Sandbox = "http://sandbox.developer.moj.io/v1";
         public const string Live = "https://developer.moj.io/v1";
