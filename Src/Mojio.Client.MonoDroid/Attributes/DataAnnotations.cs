@@ -9,12 +9,12 @@ namespace System.ComponentModel.DataAnnotations
 {
     class RequiredAttribute : Attribute
     {
-        public string ErrorMessage;
+        public string ErrorMessage { get; set; }
     }
 
     class DisplayAttribute : Attribute
     {
-        public string Name;
+        public string Name { get; set; }
     }
 
     class RegularExpressionAttribute : Attribute
@@ -28,8 +28,8 @@ namespace System.ComponentModel.DataAnnotations
 
     class StringLengthAttribute : Attribute
     {
-        public int MinimumLength;
-        public string ErrorMessage;
+        public int MinimumLength { get; set; }
+        public string ErrorMessage { get; set; }
 
         public StringLengthAttribute(int len)
         {
@@ -38,7 +38,8 @@ namespace System.ComponentModel.DataAnnotations
 
     class DataTypeAttribute : Attribute
     {
-        public string ErrorMessage;
+
+        public string ErrorMessage { get; set; }
 
         public DataTypeAttribute(DataType type)
         {
@@ -53,6 +54,7 @@ namespace System.ComponentModel.DataAnnotations
 
     class EmailAddressAttribute : Attribute
     {
+        public string ErrorMessage { get; set; }
     }
 
     class MembershipPasswordAttribute : Attribute
@@ -61,8 +63,8 @@ namespace System.ComponentModel.DataAnnotations
     }
 
     class MaxLengthAttribute : Attribute
-    {
-        public string ErrorMessage;
+    {        
+        public string ErrorMessage { get; set; }
         public MaxLengthAttribute(int len)
         {
         }
@@ -70,6 +72,6 @@ namespace System.ComponentModel.DataAnnotations
 
     class CreditCardAttribute : Attribute
     {
-        public string ErrorMessage;
+        public string ErrorMessage { get; set; }
     }
 }
