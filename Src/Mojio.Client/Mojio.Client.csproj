@@ -72,6 +72,13 @@
     <Compile Include="Linq\MojioQueryProvider.cs" />
     <Compile Include="Linq\MojioCriteriaTranslator.cs" />
     <Compile Include="Linq\TypeHelper.cs" />
+    <Compile Include="MockMojioClient.cs" />
+    <Compile Include="MockMojioClient.Mojio.cs">
+      <DependentUpon>MockMojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MockMojioClient.Trip.cs">
+      <DependentUpon>MockMojioClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="MojioClient.App.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
@@ -107,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MockMojioResources\MojioDeviceImg\MojioDevice1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
