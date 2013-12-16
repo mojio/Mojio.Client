@@ -45,6 +45,9 @@ namespace Mojio.Client
             //message = response.Content;
 
             //return response.Data;
+            code = HttpStatusCode.OK;
+            message = "";
+            return true;
             
         }
 
@@ -61,6 +64,9 @@ namespace Mojio.Client
             //message = response.Content;
 
             //return response.Data;
+            code = HttpStatusCode.OK;
+            message = "";
+            return true;
         }
 
         public byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small)
