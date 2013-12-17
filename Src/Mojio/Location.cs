@@ -40,7 +40,7 @@ namespace Mojio
         {
             get
             {
-                return Lat == float.NaN || Lng == float.NaN;
+                return Lat != float.NaN || Lng != float.NaN;
             }
         }
 
