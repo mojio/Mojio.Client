@@ -74,6 +74,11 @@ namespace Mojio.Events
         public float? MaxSpeed { get; set; }
 
         /// <summary>
+        /// average speed
+        /// </summary>
+        public float? AverageSpeed { get; set; }
+
+        /// <summary>
         /// moving time
         /// </summary>
         public float? MovingTime { get; set; }
