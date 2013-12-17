@@ -13,7 +13,7 @@ namespace Mojio.Converters
 #if PORTABLE
             return typeof(Event).IsAssignableFrom(objectType);
 #else
-            return true;
+            return typeof(Event).IsAssignableFrom(objectType);
 #endif
         }
 
