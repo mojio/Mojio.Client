@@ -14,6 +14,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="app">Application Entity</param>
         /// <returns></returns>
+        
         public Guid SecretKey(App app)
         {
             // TODO: make this restricted and remove from public client
@@ -32,7 +33,7 @@ namespace Mojio.Client
             //var request = GetRequest(Request(action, appId, "secret"), Method.GET);
 
             //var response = RestClient.Execute<Guid>(request);
-            return Guid.Empty;
+            return Guid.NewGuid();
 
         }
 
@@ -43,7 +44,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<User> AppViewers(Guid appId, int page = 1)
         {
-            return GetBy<User, App>(appId, page);
+            //return GetBy<User, App>(appId, page);
+            return UsersResult;
         }
 
         /// <summary>
@@ -53,7 +55,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<User> AppOwners(Guid appId, int page = 1)
         {
-            return GetBy<User, App>(appId, page, "admins");
+            //return GetBy<User, App>(appId, page, "admins");
+            return UsersResult;
         }
     }
 }

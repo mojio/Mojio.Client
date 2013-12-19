@@ -244,7 +244,7 @@ namespace Mojio.Client
             //code = response.StatusCode;
             //message = response.Content;
             code = HttpStatusCode.OK;
-            message ="";
+            message ="Password Changed Successfully.";
             //if (response.StatusCode != HttpStatusCode.OK)
             //    return false;
             return true;
@@ -312,7 +312,7 @@ namespace Mojio.Client
             //    ThrowError(response.Content);
             //}
             code = HttpStatusCode.OK;
-            message = "";
+            message = "Password reset successfully.";
             return true;
         }
 
@@ -423,7 +423,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<App> UserApps(Guid userId, int page = 1)
         {
-            return GetBy<App, User>(userId, page);
+            //return GetBy<App, User>(userId, page);
+            return AppsResult;
         }
 
         /// <summary>
@@ -433,7 +434,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Device> UserMojios(Guid userId, int page = 1)
         {
-            return GetBy<Device, User>(userId, page);
+            //return GetBy<Device, User>(userId, page);
+            return DevicesResult;
         }
 
         /// <summary>
@@ -443,7 +445,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Trip> UserTrips(Guid userId, int page = 1)
         {
-            return GetBy<Trip, User>(userId, page);
+            //return GetBy<Trip, User>(userId, page);
+            return TripsResult;
         }
 
         /// <summary>
@@ -453,20 +456,14 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Event> UserEvents(Guid userId, int page = 1)
         {
-            return GetBy<Event, User>(userId, page);
+           // return GetBy<Event, User>(userId, page);
+            return EventsResult;
         }
 
         public Address GetShipping(Guid? userId = null)
         {
-            //if (userId == null)
-            //    userId = CurrentUser.Id;
-
-            //string action = Map[typeof(User)];
-            //var request = GetRequest(Request(action, userId, "shipping"), Method.GET);
-
-            //var response = RestClient.Execute<Address>(request);
-            //return response.Data;
-            return null;
+           
+            return Address;
         }
 
         public bool SaveShipping(Address shipping, Guid? userId = null)
@@ -480,20 +477,16 @@ namespace Mojio.Client
 
             //var response = RestClient.Execute(request);
             //return response.StatusCode == HttpStatusCode.OK;
-            return true;
+            if (shipping == null)
+                return true;
+            else
+                return false;
         }
 
         public CreditCard GetCreditCard(Guid? userId = null)
         {
-            //if (userId == null)
-            //    userId = CurrentUser.Id;
-
-            //string action = Map[typeof(User)];
-            //var request = GetRequest(Request(action, userId, "creditcard"), Method.GET);
-
-            //var response = RestClient.Execute<CreditCard>(request);
-            //return response.Data;
-            return null;
+            
+            return CreditCard;
         }
 
         public bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null)
@@ -529,9 +522,19 @@ namespace Mojio.Client
             //message = response.Content;
 
             //return response.Data;
-            code = HttpStatusCode.OK;
-            message = "";
-            return true;
+            if (creditCard == null)
+            {
+                code = HttpStatusCode.OK;
+                message = "Saved";
+                return true;
+            }
+            else
+
+            {
+                code = HttpStatusCode.BadRequest;
+                message = "Not Saved";
+                return false; 
+            }
         }
 
         public bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
@@ -573,15 +576,14 @@ namespace Mojio.Client
 
         public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
         {
-            //if (userId == null)
-            //    userId = CurrentUser.Id;
+           
+            var assembly = GetType().Assembly;
+            var stream = assembly.GetManifestResourceStream("Mojio.Client.MockMojioResources.MojioDeviceImg.Baby.jpg");
+            byte[] buffer = new byte[stream.Length];
+            stream.Read(buffer, 0, (int)stream.Length);
 
-            //string action = Map[typeof(User)];
-            //var request = GetRequest(Request(action, userId, "image"), Method.GET);
-            //request.AddParameter("size", size);
-            //var response = RestClient.Execute(request);
-            //return ASCIIEncoding.ASCII.GetBytes(response.Content);
-            return null;
+            return buffer;
+           
         }
     }
 }

@@ -18,7 +18,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Event> MojioEvents(string id, int page = 1)
         {
-            return GetBy<Event, Device>(id, page);
+            //return GetBy<Event, Device>(id, page);
+            return EventsResult;
         }
 
         /// <summary>
@@ -28,7 +29,9 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Trip> MojioTrips(string id, int page = 1)
         {
-            return GetBy<Trip, Device>(id, page);
+            //return GetBy<Trip, Device>(id, page);
+            
+            return TripsResult;
         }
 
         public bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
@@ -75,7 +78,7 @@ namespace Mojio.Client
                 throw new ArgumentException("Device id is required");
 
             var assembly = GetType().Assembly;
-            var stream = assembly.GetManifestResourceStream("Mojio.Web.Api.Test.MockMojioResources.MojioDeviceImg.MojioDevice1.jpg");
+            var stream = assembly.GetManifestResourceStream("Mojio.Client.MockMojioResources.MojioUserImg.Baby.jpg");
             byte[] buffer = new byte[stream.Length];
             stream.Read(buffer, 0, (int)stream.Length);
 

@@ -47,7 +47,7 @@ namespace Mojio.Client
         }
         private Trip MergeMany(Guid id, Guid[] trips)
         {
-            var dbTrip = (from e in Trip
+            var dbTrip = (from e in Trips
                          where e.Id.Equals(id)
                          select e).ToList().FirstOrDefault();
 
@@ -56,7 +56,7 @@ namespace Mojio.Client
 
             foreach (Guid mergeId in trips)
             {
-                var trip = (from e in Trip
+                var trip = (from e in Trips
                            where e.Id.Equals(mergeId)
                             select e).ToList().FirstOrDefault();
 

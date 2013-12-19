@@ -23,16 +23,198 @@ namespace Mojio.Client
 
         MockClientController.MockLoginController LoginController = new MockClientController.MockLoginController();
         public List<TripEvent> TripEvent = new List<TripEvent>();
-        public List<Trip> Trip = new List<Trip>();
+        public List<Trip> Trips = new List<Trip>();
+        
         Guid tripId1 = Guid.NewGuid();
         Guid tripId2 = Guid.NewGuid();
         Guid ownerId = Guid.NewGuid();
         string mojioId = "Mojio1";
+        Address Address;
+        CreditCard CreditCard;
+        Device Device;
+        App App;
+        User User;
+        List<Event> Events=new List<Event>();
+        List<Device> Devices = new List<Device>();
+        List<App> Apps = new List<App>();
+        List<User> Users = new List<User>();
+        Event Event;
+         Results<Event> EventsResult ;
+         Results<Trip> TripsResult;
+         Results<Device> DevicesResult;
+         Results<App> AppsResult;
+         Results<User> UsersResult;
         
+
+         private void LoadMockMojioData()
+         {
+
+             #region TripEvent
+             TripEvent te = new TripEvent
+             {
+                 MojioId = mojioId,
+                 OwnerId = ownerId,
+                 EventType = EventType.IgnitionOn,
+                 Time = DateTime.Now, //ToDo
+                 TripId = tripId1
+             };
+             TripEvent.Add(te);
+             #endregion
+
+             #region Trip
+             Trip t = new Trip
+             {
+                 Id = tripId1,
+                 MojioId = mojioId,
+                 StartTime = DateTime.Now,
+                 StartLocation = new Location
+                 {
+                     Lat = 100.00F,
+                     Lng = 200.00F
+                 },
+                 EndLocation = new Location
+                 {
+                     Lat = 500.00F,
+                     Lng = 800.00F
+                 }
+             };
+             Trips.Add(t);
+             t = new Trip
+             {
+                 Id = tripId2,
+                 MojioId = mojioId,
+                 StartTime = DateTime.Now,
+                 StartLocation = new Location
+                 {
+                     Lat = 50.00F,
+                     Lng = 200.00F
+                 },
+                 EndLocation = new Location
+                 {
+                     Lat = 700.00F,
+                     Lng = 800.00F
+                 }
+             };
+             Trips.Add(t);
+             #endregion
+
+             #region Address
+             Address = new Address
+             {
+                 Address1 = "Address1",
+                 Address2 = "Address2",
+                 City = "City",
+                 State = "State",
+                 Country = "Country",
+                 Zip = "000000"
+             };
+             #endregion
+
+             #region CreditCard
+             CreditCard = new CreditCard
+             {
+                 Address = Address,
+                 CardNumber = "123456789",
+                 CVV = 123,
+                 ExpiryMonth = 10,
+                 ExpiryYear = 2015,
+                 Id = "12345",
+                 NameOnCard = "Mojio Group",
+                 Type = "VISA"
+             };
+             #endregion
+
+             #region Event
+             Event = new Event
+             {
+                 Id = Guid.NewGuid(),
+                 MojioId = "MojioID",
+                 EventType = EventType.IgnitionOn
+             };
+             Events.Add(Event);
+             #endregion
+
+             #region Device
+             Device = new Device
+             {
+                 Id = "Entity ID",
+                 IgnitionOn = true,
+                 LastContactTime = DateTime.Now
+
+             };
+             Devices.Add(Device);
+             #endregion
+
+             #region App
+             App = new App
+             {
+                Id=Guid.NewGuid(),
+                CreationDate=DateTime.Now,
+                Name="AppName",
+                Description="AppDescription"
+             };
+             Apps.Add(App);
+             #endregion
+
+             #region User
+             User = new User
+             {
+                 Id=Guid.NewGuid(),
+                 UserName="User Name",
+                 FirstName="First Name",
+                 Email="mail@moj.io",
+                 CreationDate=DateTime.Now,
+                 LastName="Last Name"                 
+             };
+             Users.Add(User);
+             #endregion
+
+             #region Result for Event
+             EventsResult = new Results<Event>
+             {
+                 Data = Events,
+                 TotalRows = Events.Count()
+             };
+             #endregion
+
+             #region Result for Trip
+             TripsResult = new Results<Trip>
+             {
+                 Data = Trips,
+                 TotalRows = Trips.Count()
+             };
+             #endregion
+
+             #region Result for Device
+             DevicesResult = new Results<Device>
+             {
+                 Data = Devices,
+                 TotalRows = Devices.Count()
+             };
+             #endregion
+
+             #region Result for App
+             AppsResult = new Results<App>
+             {
+                 Data = Apps,
+                 TotalRows = Apps.Count()
+             };
+             #endregion
+
+             #region Result for User
+             UsersResult = new Results<User>
+             {
+                 Data = Users,
+                 TotalRows = Users.Count()
+             };
+             #endregion
+
+         }
+
         #endregion
 
 
-        public Token Token;
+        public Token Token {get;set;}
 
         static MapEntity Map = new MapEntity();
 
@@ -892,62 +1074,7 @@ namespace Mojio.Client
                 Data = paged.ToArray()
             };
         }
-        private void LoadMockMojioData()
-        {
-            
-            #region TripEvent
-            TripEvent te = new TripEvent
-            {
-                MojioId = mojioId,
-                OwnerId = ownerId,
-                EventType = EventType.IgnitionOn,
-                Time = DateTime.Now, //ToDo
-                TripId = tripId1
-            };
-           TripEvent.Add(te);
-            #endregion
-
-            #region Trip
-            Trip t= new Trip
-            {
-                Id=tripId1,
-                MojioId = mojioId,
-                StartTime = DateTime.Now,
-                StartLocation = new Location
-                {
-                    Lat = 100.00F,
-                    Lng = 200.00F
-                },
-                EndLocation = new Location
-                {
-                    Lat = 500.00F,
-                    Lng = 800.00F
-                }
-            };
-            Trip.Add(t);
-             t = new Trip
-            {
-                Id = tripId2,
-                MojioId = mojioId,
-                StartTime = DateTime.Now,
-                StartLocation = new Location
-                {
-                    Lat = 50.00F,
-                    Lng = 200.00F
-                },
-                EndLocation = new Location
-                {
-                    Lat = 700.00F,
-                    Lng = 800.00F
-                }
-            };
-            Trip.Add(t);
-            #endregion
-
-           
-
-        }
-
+        
         
     }
 }

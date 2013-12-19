@@ -18,6 +18,7 @@ namespace Mojio.Client
         bool ChangePassword(string oldPassword, string newPassword, out HttpStatusCode code, out string message);
         bool ChangePassword(string oldPassword, string newPassword, out string message);
         bool ClearUser();
+       
         Task<Client.MojioResponse<Token>> ClearUserAsync();
         T Create<T>(T entity) where T : BaseEntity, new();
         T Create<T>(T entity, out HttpStatusCode code) where T : BaseEntity, new();
@@ -30,6 +31,8 @@ namespace Mojio.Client
         bool Delete<T>(T entity) where T : BaseEntity;
         bool Delete<T>(T entity, out HttpStatusCode code) where T : BaseEntity;
         bool Delete<T>(T entity, out HttpStatusCode code, out string message) where T : BaseEntity;
+        bool DeleteStored(BaseEntity entity, string key);
+        bool DeleteStored(Type type, string id, string key);
         Task<Client.MojioResponse> DeleteAsync<T>(object id);
         bool DeleteImage(out HttpStatusCode code, out string message, Guid? userId = null);
         bool ExtendSession(int minutes);
@@ -60,6 +63,10 @@ namespace Mojio.Client
         byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null);
         Address GetShipping(Guid? userId = null);
         void GetSubscriptions();
+        string GetStored(BaseEntity entity, string key);
+        T GetStored<T>(BaseEntity entity, string key) where T : new() ;
+        string GetStored(Type type, string id, string key);
+        T GetStored<T>(Type type, string id, string key) where T : new();
         bool IsLoggedIn();
         int PageSize { get; set; }
         bool PasswordReset(ResetPassword reset);
@@ -89,9 +96,12 @@ namespace Mojio.Client
         bool SaveShipping(Address shipping, Guid? userId = null);
         int SessionTime { get; set; }
         bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null);
+        bool SetStored(BaseEntity entity, string key, object value);
+        bool SetStored(Type type, string id, string key, object value);
         bool SetUser(string userOrEmail, string password);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message);
+        Token Token { get; set; }
         Task<Client.MojioResponse<Token>> SetUserAsync(string userOrEmail, string password);
         void SubscribePush<T>(object id, Events.EventType events);
         void ThrowError(string errorMessage);
