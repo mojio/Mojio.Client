@@ -188,7 +188,7 @@ namespace Mojio.Client
             MojioResponse<User> m = new MojioResponse<User> { 
             Content="User Data",
             Data=u,
-            StatusCode=HttpStatusCode.OK
+            StatusCode=HttpStatusCode.Created
             };
             var task = RequestAsync<User>(m);
             return task;

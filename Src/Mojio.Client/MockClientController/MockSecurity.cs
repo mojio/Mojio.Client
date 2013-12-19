@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Web;
-using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-//using Mojio.Web.Api.Controllers;
-//using System.Web.Mvc;
-using System.Web.Security;
 using Mojio;
 
 namespace Mojio.Client.MockClientController
@@ -27,6 +20,7 @@ namespace Mojio.Client.MockClientController
         public const int UserTokenWindow = 43829;
 
         public static Token Token;
+        public static App App;
         public static void LoadMockMojioData()
         {
             #region Token
@@ -38,7 +32,13 @@ namespace Mojio.Client.MockClientController
             };
 
             #endregion
+
+            
         }
+
+        
+
+        
         public static Token GetToken(Guid tokenId)
         {
             LoadMockMojioData();
@@ -73,74 +73,74 @@ namespace Mojio.Client.MockClientController
 
         // This is it - this function does all the authorization checking
         //public static bool IsAuthorized(HttpActionContext actionContext, bool checkUser = false, Roles roles = Roles.None)
-        public static bool IsAuthorized(HttpActionContext actionContext, bool checkUser = false)
-        {
-            //actionContext.ActionDescriptor.ActionName
-            //actionContext.ActionDescriptor.ControllerDescriptor.ControllerName
-            //actionContext.ActionDescriptor
-            // ReflectedHttpActionDescriptor 
-            //Guid? appId = null;
-            App app = null;
-            Token token = null;
+        //public static bool IsAuthorized(HttpActionContext actionContext, bool checkUser = false)
+        //{
+        //    //actionContext.ActionDescriptor.ActionName
+        //    //actionContext.ActionDescriptor.ControllerDescriptor.ControllerName
+        //    //actionContext.ActionDescriptor
+        //    // ReflectedHttpActionDescriptor 
+        //    //Guid? appId = null;
+        //    App app = null;
+        //    Token token = null;
 
-            // Method 1: Session
-            if (HttpContext.Current != null &&
-                HttpContext.Current.Session != null)
-            {
-                token = HttpContext.Current.Session[MojioAppSession] as Token;
-            }
+        //    // Method 1: Session
+        //    if (HttpContext.Current != null &&
+        //        HttpContext.Current.Session != null)
+        //    {
+        //        token = HttpContext.Current.Session[MojioAppSession] as Token;
+        //    }
 
-            // Method 2: Session token in header
-            IEnumerable<string> items;
-            if (actionContext.Request.Headers.TryGetValues(Headers.MojioAPITokenHeader, out items))
-            {
-                Guid tokenId;
-                if (items != null &&
-                    items.Count() == 1 &&
-                    Guid.TryParse(items.First(), out tokenId))
-                {
-                    token = GetToken(tokenId);
-                }
-            }
+        //    // Method 2: Session token in header
+        //    IEnumerable<string> items;
+        //    if (actionContext.Request.Headers.TryGetValues(Headers.MojioAPITokenHeader, out items))
+        //    {
+        //        Guid tokenId;
+        //        if (items != null &&
+        //            items.Count() == 1 &&
+        //            Guid.TryParse(items.First(), out tokenId))
+        //        {
+        //            token = GetToken(tokenId);
+        //        }
+        //    }
 
-            // Method 3: AppId & SecretKey sent each time in Basic Authentication header
-            if (actionContext.Request.Headers.Authorization != null)
-            {
-                string authToken = actionContext.Request.Headers.Authorization.Parameter;
-                string decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
+        //    // Method 3: AppId & SecretKey sent each time in Basic Authentication header
+        //    if (actionContext.Request.Headers.Authorization != null)
+        //    {
+        //        string authToken = actionContext.Request.Headers.Authorization.Parameter;
+        //        string decodedToken = Encoding.UTF8.GetString(Convert.FromBase64String(authToken));
 
-                string appIdString = decodedToken.Substring(0, decodedToken.IndexOf(":"));
-                string secretKeyString = decodedToken.Substring(decodedToken.IndexOf(":") + 1);
+        //        string appIdString = decodedToken.Substring(0, decodedToken.IndexOf(":"));
+        //        string secretKeyString = decodedToken.Substring(decodedToken.IndexOf(":") + 1);
 
-                app = GetApp(new Guid(appIdString), new Guid(secretKeyString));
-                if (app != null && !checkUser)
-                {
-                    token = new Token
-                    {
-                        Id = Guid.NewGuid(),
-                        AppId = app.Id
-                    };
-                }
-            }
+        //        app = GetApp(new Guid(appIdString), new Guid(secretKeyString));
+        //        if (app != null && !checkUser)
+        //        {
+        //            token = new Token
+        //            {
+        //                Id = Guid.NewGuid(),
+        //                AppId = app.Id
+        //            };
+        //        }
+        //    }
 
-            if (token != null)
-            {
-                if (checkUser && !token.UserId.HasValue)
-                    return false;
+        //    if (token != null)
+        //    {
+        //        if (checkUser && !token.UserId.HasValue)
+        //            return false;
 
-                //BaseController controller = actionContext.ControllerContext.Controller as BaseController;
+        //        //BaseController controller = actionContext.ControllerContext.Controller as BaseController;
 
-                //if (!CheckRole(controller.CurrentUser ?? (token.UserId.HasValue ? UsersController.IntGet(token.UserId.Value) : null), roles))
-                //    return false; // did not pass
+        //        //if (!CheckRole(controller.CurrentUser ?? (token.UserId.HasValue ? UsersController.IntGet(token.UserId.Value) : null), roles))
+        //        //    return false; // did not pass
 
-                //if (controller != null)
-                //    controller.SecurityContext = token;
+        //        //if (controller != null)
+        //        //    controller.SecurityContext = token;
 
-                //return CheckRestricted(actionContext.ActionDescriptor as ReflectedHttpActionDescriptor, token.AppId, app, controller);
-            }
+        //        //return CheckRestricted(actionContext.ActionDescriptor as ReflectedHttpActionDescriptor, token.AppId, app, controller);
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         //internal static bool CheckRole(User user, Roles? roles)
         //{
@@ -200,17 +200,27 @@ namespace Mojio.Client.MockClientController
 
         static App GetApp(Guid appId, Guid secretKey)
         {
-            throw new NotImplementedException();
+            App = new App
+            {
+                CreationDate = DateTime.Now,
+                Name = "TestApp",
+                Description = "Test Description"
+            };
+
+            if (App == null)
+                return null;
+            else
+                return App;
+
+            
         }
 
         public static bool Authorize(Guid appId, Guid secretKey)
         {
             App app = GetApp(appId, secretKey);
-            if (HttpContext.Current != null &&
-                HttpContext.Current.Session != null)
+            if (app!= null)
             {
-                HttpContext.Current.Session[MojioAppSession] = new Token { AppId = appId };
-                return true;
+               return true;
             }
             return false;
         }
@@ -234,20 +244,7 @@ namespace Mojio.Client.MockClientController
 
         public static bool AuthorizeUser(Token token, string username, string password)
         {
-            //if (token != null)
-            //{
-            //    MojioMembershipProvider provider = Membership.Provider as MojioMembershipProvider;
-            //    Guid? userId;
-            //    if (provider.ValidateUser(username, password, out userId))
-            //    {
-            //        token.UserId = userId;
-            //        BaseController.TokenDatabase.Save(token);
-
-            //        return true;
-            //    }
-            //}
-            //return false;
-            throw new NotImplementedException();
+            return true;
         }
 
         public static bool AuthorizeExternalUser(Token token, string externalSystemKey, string externalUserId, string email)

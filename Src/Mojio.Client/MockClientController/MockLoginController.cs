@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Security;
+
 using Newtonsoft.Json;
 using System.Web;
-using System.Web.Http;
+
 using System.Net;
-using System.Net.Http;
+
 
 namespace Mojio.Client.MockClientController
 {
@@ -28,7 +28,7 @@ namespace Mojio.Client.MockClientController
             // Method 2: Token in header
             var result = MockSecurity.AuthorizeToken(id, secretKey, minutes);
             if (result == null)
-                ThrowError(HttpStatusCode.Unauthorized, "Invalid credentials");
+                ThrowError("Invalid credentials");
             return result;
         }
 
@@ -47,8 +47,8 @@ namespace Mojio.Client.MockClientController
             // Method 2: Token in header
             var result = MockSecurity.AuthorizeToken(id, secretKey, userOrEmail, password, minutes);
             if (result == null)
-                ThrowError(HttpStatusCode.Unauthorized, "Invalid credentials");
-            FormsAuthentication.SetAuthCookie(userOrEmail, false);
+                ThrowError( "Invalid credentials");
+            //FormsAuthentication.SetAuthCookie(userOrEmail, false);
             return result;
         }
 
@@ -63,8 +63,8 @@ namespace Mojio.Client.MockClientController
         {
             var result = MockSecurity.AuthorizeUser(SecurityContext, id, password);
             if (!result)
-                ThrowError(HttpStatusCode.Unauthorized, "Invalid credentials");
-            FormsAuthentication.SetAuthCookie(id, false);
+                ThrowError("Invalid credentials");
+            //FormsAuthentication.SetAuthCookie(id, false);
 
             return SecurityContext;
         }
@@ -122,7 +122,7 @@ namespace Mojio.Client.MockClientController
             var token = MockSecurity.Token;
 
             if (token == null || token.Id == Guid.Empty || token.ValidUntil < DateTime.UtcNow)
-                ThrowError(HttpStatusCode.NotFound, "Not a valid token");
+                ThrowError( "Not a valid token");
 
             return token;
         }
@@ -159,22 +159,20 @@ namespace Mojio.Client.MockClientController
        
         public void End(Guid Id)
         {
-            if (HttpContext.Current != null &&
-                HttpContext.Current.Session != null)            
-                HttpContext.Current.Session.Abandon();
+            //if (HttpContext.Current != null &&
+            //    HttpContext.Current.Session != null)            
+            //    HttpContext.Current.Session.Abandon();
 
             //TokenDatabase.Delete(SecurityContext);
 
             // TODO: Clear session cookie?
             //Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
         }
-        protected static void ThrowError(HttpStatusCode statusCode, string message = null)
+        protected static void ThrowError(string errorMessage)
         {
-            HttpResponseMessage response = new HttpResponseMessage(statusCode);
-            if (message != null)
-                response.Content = new StringContent(message);
-            throw new HttpResponseException(response);
+            throw new Exception(errorMessage);
         }
+        
 
     }
 
