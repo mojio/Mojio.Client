@@ -115,7 +115,11 @@ namespace Mojio.Client
         {
             string message;
             HttpStatusCode code;
-
+            if (User != null)
+            {
+                if (User.UserName == username.ToLower() || User.Email == email.ToLower())
+                    return null;
+            }
             return RegisterUser(username, email, password, out code, out message);
         }
 
@@ -180,16 +184,29 @@ namespace Mojio.Client
         /// <returns></returns>
         public Task<MojioResponse<User>> RegisterUserAsync(string username, string email, string password)
         {
-
-             User u = new User() {
-             UserName=username,
-             Email=email
-             };
-            MojioResponse<User> m = new MojioResponse<User> { 
-            Content="User Data",
-            Data=u,
-            StatusCode=HttpStatusCode.Created
-            };
+            LoadMockUser();
+            
+            MojioResponse<User> m;
+            if(email.Contains('@'))
+            {
+                User.UserName = username;
+                User.Email = email;
+                m = new MojioResponse<User> 
+                { 
+                Content="User Data",
+                Data=User,
+                StatusCode=HttpStatusCode.Created
+                };
+            }
+            else
+            {
+                m = new MojioResponse<User>
+                {
+                    Content = "Null",
+                    Data = null,
+                    StatusCode = HttpStatusCode.Forbidden
+                };
+            }
             var task = RequestAsync<User>(m);
             return task;
             
@@ -201,10 +218,10 @@ namespace Mojio.Client
             get
             {
                 if (_currentUser != null)
-                    return _currentUser;
+                    return User;
                 if (Token.UserId != null)
                     _currentUser = Get<User>(Token.UserId.Value);
-                return _currentUser;
+                return User;
             }
         }
 
@@ -232,22 +249,37 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool ChangePassword(string oldPassword, string newPassword, out HttpStatusCode code, out string message)
         {
-            //string action = Map[typeof(User)];
-            //var request = GetRequest(Request(action, Token.UserId, "ChangePassword"), Method.PUT);
-            //request.AddBody(new
-            //{
-            //    oldPassword = oldPassword,
-            //    newPassword = newPassword
-            //});
 
-            //var response = RestClient.Execute(request);
-            //code = response.StatusCode;
-            //message = response.Content;
-            code = HttpStatusCode.OK;
-            message ="Password Changed Successfully.";
-            //if (response.StatusCode != HttpStatusCode.OK)
-            //    return false;
-            return true;
+            
+            if ( changePassword==null  )
+            {
+                changePassword = new ChangePassword
+                {
+                    NewPassword = newPassword,
+                    OldPassword = oldPassword
+                };
+                code = HttpStatusCode.OK;
+                message = "Password Changed Successfully.";
+                return true;
+            }
+            else if (changePassword.NewPassword != newPassword)
+            {
+                changePassword = new ChangePassword
+                {
+                    NewPassword = newPassword,
+                    OldPassword = oldPassword
+                };
+                code = HttpStatusCode.OK;
+                message = "Password Changed Successfully.";
+                return true;
+            }
+            else
+            {
+                code = HttpStatusCode.Forbidden;
+                message = "Password Not Changed.";
+                return false;
+            }
+
         }
 
         /// <summary>
@@ -424,6 +456,13 @@ namespace Mojio.Client
         public Results<App> UserApps(Guid userId, int page = 1)
         {
             //return GetBy<App, User>(userId, page);
+            
+            Apps.Add(App);
+            AppsResult = new Results<App>
+            {
+                Data = Apps,
+                TotalRows=Apps.Count
+            };
             return AppsResult;
         }
 
@@ -435,6 +474,11 @@ namespace Mojio.Client
         public Results<Device> UserMojios(Guid userId, int page = 1)
         {
             //return GetBy<Device, User>(userId, page);
+            Devices.Add(Device);
+            DevicesResult = new Results<Device> { 
+             Data=Devices.AsEnumerable(),
+             TotalRows=Devices.Count()
+            };
             return DevicesResult;
         }
 
@@ -446,6 +490,11 @@ namespace Mojio.Client
         public Results<Trip> UserTrips(Guid userId, int page = 1)
         {
             //return GetBy<Trip, User>(userId, page);
+            TripsResult = new Results<Trip>
+            {
+                Data = Trips.AsEnumerable(),
+                TotalRows = Trips.Count
+            };
             return TripsResult;
         }
 
@@ -456,8 +505,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public Results<Event> UserEvents(Guid userId, int page = 1)
         {
-           // return GetBy<Event, User>(userId, page);
-            return EventsResult;
+           return GetBy<Event, User>(userId, page);
+            //return EventsResult;
         }
 
         public Address GetShipping(Guid? userId = null)
@@ -477,7 +526,8 @@ namespace Mojio.Client
 
             //var response = RestClient.Execute(request);
             //return response.StatusCode == HttpStatusCode.OK;
-            if (shipping == null)
+            Address = shipping;
+            if (shipping != null)
                 return true;
             else
                 return false;
@@ -492,12 +542,14 @@ namespace Mojio.Client
         public bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null)
         {
             HttpStatusCode code;
+            CreditCard = creditCard;
             return SaveCreditCard(creditCard, out code, out message, userId);
         }
 
         public bool SaveCreditCard(CreditCard creditCard, out HttpStatusCode code, Guid? userId = null)
         {
             string message;
+            
             return SaveCreditCard(creditCard, out code, out message, userId);
         }
 
@@ -505,7 +557,8 @@ namespace Mojio.Client
         {
             HttpStatusCode code;
             string message;
-            return SaveCreditCard(creditCard, out code, out message, userId);
+            CreditCard = creditCard;
+            return SaveCreditCard(CreditCard, out code, out message, userId);
         }
 
         public bool SaveCreditCard(CreditCard creditCard, out HttpStatusCode code, out string message, Guid? userId = null)
@@ -522,7 +575,8 @@ namespace Mojio.Client
             //message = response.Content;
 
             //return response.Data;
-            if (creditCard == null)
+            
+            if (creditCard != null)
             {
                 code = HttpStatusCode.OK;
                 message = "Saved";
@@ -539,18 +593,7 @@ namespace Mojio.Client
 
         public bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            //if (userId == null)
-            //    userId = CurrentUser.Id;
-
-            //string action = Map[typeof(User)];
-            //var request = GetRequest(Request(action, userId, "image"), Method.POST);
-            //request.AddBody(data);
-
-            //var response = RestClient.Execute<bool>(request);
-            //code = response.StatusCode;
-            //message = response.Content;
-
-            //return response.Data;
+            UserImage = data;
             code = HttpStatusCode.OK;
             message = "";
             return true;
@@ -558,17 +601,7 @@ namespace Mojio.Client
 
         public bool DeleteImage(out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            //if (userId == null)
-            //    userId = CurrentUser.Id;
-
-            //string action = Map[typeof(User)];
-            //var request = GetRequest(Request(action, userId, "image"), Method.DELETE);
-
-            //var response = RestClient.Execute<bool>(request);
-            //code = response.StatusCode;
-            //message = response.Content;
-
-            //return response.Data;
+            UserImage = null;
             code = HttpStatusCode.OK;
             message = "";
             return true;
@@ -576,14 +609,7 @@ namespace Mojio.Client
 
         public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
         {
-           
-            var assembly = GetType().Assembly;
-            var stream = assembly.GetManifestResourceStream("Mojio.Client.MockMojioResources.MojioDeviceImg.Baby.jpg");
-            byte[] buffer = new byte[stream.Length];
-            stream.Read(buffer, 0, (int)stream.Length);
-
-            return buffer;
-           
-        }
+            return UserImage;
+       }
     }
 }

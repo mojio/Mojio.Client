@@ -20,6 +20,12 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool SetStored(BaseEntity entity, string key, object value)
         {
+            Storage = new Storage
+            {
+                EntityId=entity.IdToString,
+                Key=key,
+                Value=value               
+            };
             return SetStored(entity.GetType(), entity.IdToString, key, value);
         }
 
@@ -31,14 +37,7 @@ namespace Mojio.Client
         /// <param name="value"></param>
         /// <returns></returns>
         public bool SetStored(Type type, string id, string key, object value)
-        {
-            //string action = Map[type];
-            //var request = GetRequest(Request(action, id, "store", key), Method.PUT);
-            //request.AddBody(value);
-
-            //var response = RestClient.Execute(request);
-            //return response.StatusCode == HttpStatusCode.OK
-            //    || response.StatusCode == HttpStatusCode.Created;
+        {            
             return true;
         }
 
@@ -55,21 +54,10 @@ namespace Mojio.Client
 
         public string GetStored(Type type, string id, string key)
         {
-            //string action = Map[type];
-            //var request = GetRequest(Request(action, id, "store", key), Method.GET);
-
-            //var response = RestClient.Execute(request);
-
-            //// Invalid response.
-            //// TODO: we should add methods to pass back the HttpStatusCode and message
-            //if (response.StatusCode != HttpStatusCode.OK)
-            //    return null;
-
-            //// TODO: This isn't exactly a good way of doing this. But we need an 
-            ////   alternative way to get string responses.
-            //var deserializer = new RSJsonSerializer();
-            //return deserializer.Deserialize<string>(response);
-            return null;
+            if (Storage == null)
+                return null;
+            else
+            return Storage.Value.ToString();
         }
 
         public T GetStored<T>(Type type, string id, string key)

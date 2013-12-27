@@ -31,6 +31,7 @@ namespace Mojio.Client
         bool Delete<T>(T entity) where T : BaseEntity;
         bool Delete<T>(T entity, out HttpStatusCode code) where T : BaseEntity;
         bool Delete<T>(T entity, out HttpStatusCode code, out string message) where T : BaseEntity;
+        bool DeleteDeviceImage(string id, out HttpStatusCode code, out string message);
         bool DeleteStored(BaseEntity entity, string key);
         bool DeleteStored(Type type, string id, string key);
         Task<Client.MojioResponse> DeleteAsync<T>(object id);
@@ -38,6 +39,8 @@ namespace Mojio.Client
         bool ExtendSession(int minutes);
         bool ExtendSession(int minutes, out HttpStatusCode code);
         bool ExtendSession(int minutes, out HttpStatusCode code, out string message);
+        //delegate void MojioEventHandler(Events.Event evt);
+        //event MojioEventHandler EventHandler;
         Task<Client.MojioResponse<Token>> ExtendSessionAsync(int minutes);
         Token FacebookLogin(string access_token);
         Token FacebookLogin(string access_token, out HttpStatusCode code);
@@ -60,6 +63,7 @@ namespace Mojio.Client
         Results<M> GetBy<M, T>(T entity, int page = 1) where T : BaseEntity, new();
         Task<Client.MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null) where T : new();
         CreditCard GetCreditCard(Guid? userId = null);
+        byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small);
         byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null);
         Address GetShipping(Guid? userId = null);
         void GetSubscriptions();
@@ -68,6 +72,9 @@ namespace Mojio.Client
         string GetStored(Type type, string id, string key);
         T GetStored<T>(Type type, string id, string key) where T : new();
         bool IsLoggedIn();
+        Trip MergeTrips(Trip intoTrip, Trip fromTrip);
+        Results<Trip> MojioTrips(string id, int page = 1);
+        Results<Events.Event> MojioEvents(string id, int page = 1);
         int PageSize { get; set; }
         bool PasswordReset(ResetPassword reset);
         bool PasswordReset(ResetPassword reset, out HttpStatusCode code);
@@ -75,6 +82,7 @@ namespace Mojio.Client
         bool PasswordReset(ResetPassword reset, out string message);
         string PushRegistrationId { get; set; }
         ChannelType PushRegistrationType { get; set; }
+        Linq.MojioQueryable<T> Queryable<T>() where T : BaseEntity,new();
         User RegisterUser(string username, string email, string password);
         User RegisterUser(string username, string email, string password, out HttpStatusCode code);
         User RegisterUser(string username, string email, string password, out HttpStatusCode code, out string message);
@@ -94,7 +102,11 @@ namespace Mojio.Client
         bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null);
         bool SaveCreditCard(CreditCard creditCard, Guid? userId = null);
         bool SaveShipping(Address shipping, Guid? userId = null);
+        Guid SecretKey(App app);
+        Guid SecretKey(Guid appId);
+
         int SessionTime { get; set; }
+        bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message);
         bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null);
         bool SetStored(BaseEntity entity, string key, object value);
         bool SetStored(Type type, string id, string key, object value);
@@ -103,8 +115,11 @@ namespace Mojio.Client
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message);
         Token Token { get; set; }
         Task<Client.MojioResponse<Token>> SetUserAsync(string userOrEmail, string password);
+        Task Subscribe<T>(string id, Events.EventType[] events);
+        Task Subscribe<T>(string[] id, Events.EventType[] events);
         void SubscribePush<T>(object id, Events.EventType events);
         void ThrowError(string errorMessage);
+        Results<Events.Event> TripEvents(Guid id, int page = 1);
         T Update<T>(T entity) where T : BaseEntity, new();
         T Update<T>(T entity, out HttpStatusCode code) where T : BaseEntity, new();
         T Update<T>(T entity, out HttpStatusCode code, out string message) where T : BaseEntity, new();

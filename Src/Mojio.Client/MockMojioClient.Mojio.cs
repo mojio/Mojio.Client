@@ -19,6 +19,10 @@ namespace Mojio.Client
         public Results<Event> MojioEvents(string id, int page = 1)
         {
             //return GetBy<Event, Device>(id, page);
+            EventsResult = new Results<Event> { 
+             Data=Events.AsEnumerable(),
+             TotalRows=Events.Count
+            };
             return EventsResult;
         }
 
@@ -30,7 +34,11 @@ namespace Mojio.Client
         public Results<Trip> MojioTrips(string id, int page = 1)
         {
             //return GetBy<Trip, Device>(id, page);
-            
+            TripsResult = new Results<Trip>
+            {
+                Data=Trips.AsEnumerable(),
+                TotalRows=Trips.Count
+            };
             return TripsResult;
         }
 
@@ -48,6 +56,7 @@ namespace Mojio.Client
             //message = response.Content;
 
             //return response.Data;
+            DeviceImage = data;
             code = HttpStatusCode.OK;
             message = "";
             return true;
@@ -67,6 +76,7 @@ namespace Mojio.Client
             //message = response.Content;
 
             //return response.Data;
+            DeviceImage = null;
             code = HttpStatusCode.OK;
             message = "";
             return true;
@@ -74,15 +84,8 @@ namespace Mojio.Client
 
         public byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentException("Device id is required");
-
-            var assembly = GetType().Assembly;
-            var stream = assembly.GetManifestResourceStream("Mojio.Client.MockMojioResources.MojioUserImg.Baby.jpg");
-            byte[] buffer = new byte[stream.Length];
-            stream.Read(buffer, 0, (int)stream.Length);
-
-            return buffer;
+           
+            return DeviceImage;
         }
     }
 }

@@ -237,6 +237,7 @@ namespace Mojio.Client.MockClientController
         {
             Token token = IntAuthorizeToken(appId, secretKey, minutes);
             if (AuthorizeUser(token, username, password))
+                token.UserId = Guid.NewGuid();
                 return token;
 
             return null;
@@ -258,7 +259,7 @@ namespace Mojio.Client.MockClientController
 
             if (app != null)
             {
-                Token appToken = new Token { AppId = appId, ValidUntil = DateTime.UtcNow.AddMinutes(minutes) };
+                Token appToken = new Token { AppId = appId, ValidUntil = DateTime.UtcNow.AddMinutes(minutes)};
                 return appToken;
             }
             return null;
