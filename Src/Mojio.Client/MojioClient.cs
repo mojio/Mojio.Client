@@ -1021,7 +1021,7 @@ namespace Mojio.Client
             return serializer.Deserialize<T>(content);
         }
 
-        public MojioQueryable<T> Queryable<T>()
+        public IQueryable<T> Queryable<T>()
             where T : BaseEntity, new()
         {
             string action = Map[typeof(T)];
