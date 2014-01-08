@@ -861,76 +861,76 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Delete<T>(object id, out HttpStatusCode code, out string message)
         {
-            //var response = DeleteAsync<T>(id).Result;
+            //var response = DeleteAsync<T>(id).Result;            
             code = HttpStatusCode.OK;
             message = "Deleted";
-            if (typeof(T).Name == "User")
-            {
-                User=null;
-                Users = null;
-            }
-            else if (typeof(T).Name == "App")
-            {
-                 App = null;
-                 Apps = null;
-            }
-            else if (typeof(T).Name == "Device")
-            {
-                 Device = null;
-                 Devices = null;
-            }
-            else if (typeof(T).Name == "Product")
-            {
-                Product = null;
-                Products = null;
-            }
-            else if (typeof(T).Name == "Address")
-            {
-                Address = null;
-            }
-            else if (typeof(T).Name == "CreditCard")
-            {
-                CreditCard = null;
-            }
-            else if (typeof(T).Name == "Storage")
-            {
-                Storage = null;
-            }
-            else if (typeof(T).Name == "TripEvent")
-            {
+            //if (typeof(T).Name == "User")
+            //{
+            //    User=null;
+            //    Users = null;
+            //}
+            //else if (typeof(T).Name == "App")
+            //{
+            //     App = null;
+            //     Apps = null;
+            //}
+            //else if (typeof(T).Name == "Device")
+            //{
+            //     Device = null;
+            //     Devices = null;
+            //}
+            //else if (typeof(T).Name == "Product")
+            //{
+            //    Product = null;
+            //    Products = null;
+            //}
+            //else if (typeof(T).Name == "Address")
+            //{
+            //    Address = null;
+            //}
+            //else if (typeof(T).Name == "CreditCard")
+            //{
+            //    CreditCard = null;
+            //}
+            //else if (typeof(T).Name == "Storage")
+            //{
+            //    Storage = null;
+            //}
+            //else if (typeof(T).Name == "TripEvent")
+            //{
                 
-                TripEvent = null;
-            }
-            else if (typeof(T).Name == "Subscription")
-            {
-                Subscriptions = null;
-                Subscription = null;
-            }
-            else if (typeof(T).Name == "Trip")
-            {
-               Trip = null;
-               Trips=null;
-            }
-            else if (typeof(T).Name == "TripStatusEvent")
-            {
-                TripStatusEvent = null;
-                TripStatusEvents=null;
-            }
-            else if (typeof(T).Name == "HardEvent")
-            {
-               HardEvent =null;
-                HardEvents=null;
-            }
-            else if (typeof(T).Name == "IgnitionEvent")
-            {
-                IgnitionEvent = null;
-                IgnitionEvents=null;
-            }
-            else if (typeof(T).Name == "Event")
-            {
-                Event = null;
-                Events= null;
-            }
+            //    TripEvent = null;
+            //}
+            //else if (typeof(T).Name == "Subscription")
+            //{
+            //    Subscriptions = null;
+            //    Subscription = null;
+            //}
+            //else if (typeof(T).Name == "Trip")
+            //{
+            //   Trip = null;
+            //   Trips=null;
+            //}
+            //else if (typeof(T).Name == "TripStatusEvent")
+            //{
+            //    TripStatusEvent = null;
+            //    TripStatusEvents=null;
+            //}
+            //else if (typeof(T).Name == "HardEvent")
+            //{
+            //   HardEvent =null;
+            //    HardEvents=null;
+            //}
+            //else if (typeof(T).Name == "IgnitionEvent")
+            //{
+            //    IgnitionEvent = null;
+            //    IgnitionEvents=null;
+            //}
+            //else if (typeof(T).Name == "Event")
+            //{
+            //    Event = null;
+            //    Events= null;
+            //}
 
            // return response.StatusCode == System.Net.HttpStatusCode.OK;
             return true;
@@ -1210,13 +1210,7 @@ namespace Mojio.Client
 		public Task<MojioResponse<T>> GetAsync<T>(object id)
             where T : new()
         {
-           //// throw new NotImplementedException();
-           // object temp = null;
-           // if (typeof(T).Name == "User")
-           // {
-           //     User.Id = new Guid(id.ToString());
-           //     temp = User;
-           // }
+           
             object data=null;
             if (typeof(T).Name == "User")
             {

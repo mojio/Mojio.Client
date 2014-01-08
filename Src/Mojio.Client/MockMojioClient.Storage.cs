@@ -83,6 +83,7 @@ namespace Mojio.Client
 
             //var response = RestClient.Execute(request);
             //return response.StatusCode == HttpStatusCode.OK;
+            Storage = null;
             return true;
         }
     }
