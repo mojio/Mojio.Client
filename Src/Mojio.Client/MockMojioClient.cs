@@ -45,6 +45,7 @@ namespace Mojio.Client
         IgnitionEvent IgnitionEvent;
         FenceEvent FenceEvent;
         bool logged=false;
+        string UserorEmail;
         ChangePassword changePassword;
         List<Guid> Owners=new List<Guid>();
         List<Guid> Viewers = new List<Guid>();
@@ -417,6 +418,8 @@ namespace Mojio.Client
             //HttpStatusCode ignore;
             //return SetUser(userOrEmail, password, out ignore);
             logged = true;
+            UserorEmail = userOrEmail;
+            
             return true;
         }
 
@@ -629,16 +632,19 @@ namespace Mojio.Client
                 savedData=User;
             }
             else if (typeof(T).Name == "App")
-            {
-                if (App == null)
-                {
+            {                
                     object temp = entity;
                     App = (App)temp;
-                    Apps.Add(App);
-                    savedData = App;
-                }
-                else
-                    savedData = null;
+                    if (App.Id != Guid.Empty)
+                    {
+                        Apps.Add(App);
+                        savedData = App;
+                    }
+                    else
+                    { 
+                      savedData = null;
+                    }
+               
             }
             else if (typeof(T).Name == "Device")
             {
@@ -695,9 +701,20 @@ namespace Mojio.Client
             else if (typeof(T).Name == "Subscription")
             {
                 object temp = entity;
-                Subscription = (Subscription)temp;
-                Subscriptions.Add(Subscription);
-                savedData = Subscription;
+                if (Subscription != null)
+                {
+                    Guid TempId = Subscription.Id;
+                    Subscription = (Subscription)temp;
+                    if (TempId != Subscription.Id)
+                        Subscriptions.Add(Subscription);
+                    savedData = Subscription;
+                }
+                else
+                {
+                    Subscription = (Subscription)temp;
+                    Subscriptions.Add(Subscription);
+                    savedData = Subscription;
+                }
             }
             else if (typeof(T).Name == "Trip")
             {
@@ -861,7 +878,6 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Delete<T>(object id, out HttpStatusCode code, out string message)
         {
-            //var response = DeleteAsync<T>(id).Result;            
             code = HttpStatusCode.OK;
             message = "Deleted";
             //if (typeof(T).Name == "User")
@@ -1514,63 +1530,75 @@ namespace Mojio.Client
             where T : new()
         {
             object data = null;
+            int count=0;
             if (typeof(T).Name == "User")
             {
-                Users.Add(User);
+               
+                count=Users.Count;
                 data = Users.AsEnumerable();
             }
             else if (typeof(T).Name == "App")
             {
 
-                Apps.Add(App);
+                
+                count = Apps.Count;
                 data = Apps.AsEnumerable();
             }
             else if (typeof(T).Name == "Device")
             {
 
-                Devices.Add(Device);
+               
+                count = Devices.Count;
                 data = Devices.AsEnumerable();
             }
             else if (typeof(T).Name == "Product")
             {
 
-                Products.Add(Product);
+                
+                count = Products.Count;
                 data = Products.AsEnumerable();
             }
             else if (typeof(T).Name == "Subscription")
             {
 
-                Subscriptions.Add(Subscription);
+                
+                count = Subscriptions.Count;
                 data = Subscriptions.AsEnumerable();
             }
             else if (typeof(T).Name == "Trip")
             {
                 data = Trips.AsEnumerable();
+                count = Trips.Count;
             }
             else if (typeof(T).Name == "TripStatusEvent")
             {
                 data = TripStatusEvents.AsEnumerable();
+                count = TripStatusEvents.Count;
             }
             else if (typeof(T).Name == "HardEvent")
             {
                 data = HardEvents.AsEnumerable();
+                count = HardEvents.Count;
             }
             else if (typeof(T).Name == "IgnitionEvent")
             {
                 data = IgnitionEvents.AsEnumerable();
+                count = IgnitionEvents.Count;
             } 
             else if (typeof(T).Name == "Event")
             {
                 data = Events.AsEnumerable();
+                count = Events.Count;
             }
             else if (typeof(T).Name == "FenceEvent")
             {
                 data = FenceEvents.AsEnumerable();
+                count = FenceEvents.Count;
             }
 
             Results<T> results = new Results<T>
             {
-                TotalRows = 1,
+                TotalRows = count,
                 Data = (IEnumerable<T>)data
             };
 
@@ -1693,14 +1721,13 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool RemoveViewer<T>(object id, Guid userId)
         {
-
-
             if (logged)
-            {
+            {                       
                 if (!Viewers.Contains<Guid>(userId))
-                    return false;
-                Viewers.Remove(userId);
-                return true;
+                        return false;
+                    Viewers.Remove(userId);
+                    return true;
+                
             }
             else
                 return false;

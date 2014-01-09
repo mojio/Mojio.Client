@@ -86,6 +86,7 @@ namespace Mojio.Client
                 HubConnection.Start().Wait();
 
             return Hub.Invoke("Subscribe", Token.Id, SubscriptionMap[typeof(T)], id, events);
+           
         }
 
         /// <summary>

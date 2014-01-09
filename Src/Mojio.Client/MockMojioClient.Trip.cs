@@ -67,13 +67,13 @@ namespace Mojio.Client
         }
         private bool IntMerge(Trip intoTrip, Trip fromTrip)
         {
-            // Already merged.
-            if (intoTrip.Id == fromTrip.Id)
-                return false;
+            //// Already merged.
+            //if (intoTrip.Id == fromTrip.Id)
+            //    return false;
 
-            // Must be the same mojio device!
-            if (fromTrip.MojioId != intoTrip.MojioId)
-                return false;
+            //// Must be the same mojio device!
+            //if (fromTrip.MojioId != intoTrip.MojioId)
+            //    return false;
 
             if (fromTrip.MaxSpeed > intoTrip.MaxSpeed)
                 intoTrip.MaxSpeed = fromTrip.MaxSpeed;
@@ -92,7 +92,7 @@ namespace Mojio.Client
 
             // TODO: Calculate Average Speed and Idle Percent.
             intoTrip.Distance += fromTrip.Distance;
-
+            Trip = null;
             return true;
         }
 

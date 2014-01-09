@@ -474,7 +474,7 @@ namespace Mojio.Client
         public Results<Device> UserMojios(Guid userId, int page = 1)
         {
             //return GetBy<Device, User>(userId, page);
-            Devices.Add(Device);
+            //Devices.Add(Device);
             DevicesResult = new Results<Device> { 
              Data=Devices.AsEnumerable(),
              TotalRows=Devices.Count()
