@@ -155,7 +155,7 @@ namespace Mojio.Client.Linq
 			return FetchAsync (expression).Result;
 		}
 
-        public async Task<IEnumerable<TData>> FetchAsync(Expression expression = null)
+        public Task<IEnumerable<TData>> FetchAsync(Expression expression = null)
 		{
 			if (expression != null) {
 				_limit = 20;
@@ -176,13 +176,18 @@ namespace Mojio.Client.Linq
 
             request.AddParameter("desc", _desc);
 
-            var response = await _client.RequestAsync<Results<TData>>(request);
+            var task = _client.RequestAsync<Results<TData>>(request);
 
-			if (response.Data == null)
-				throw new Exception ("Invalid request response [" + response.StatusCode.ToString () + "]");
+            return task.ContinueWith<IEnumerable<TData>>(r =>
+            {
+                var response = r.Result;
 
-            return response.Data.Data;
-        }
+                if (response.Data == null)
+                    throw new Exception("Invalid request response [" + response.StatusCode.ToString() + "]");
+
+                return response.Data.Data;
+            });
+		}
 
         public string BuildCriteriaString()
         {

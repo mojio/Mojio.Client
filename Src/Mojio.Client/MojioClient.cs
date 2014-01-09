@@ -432,14 +432,23 @@ namespace Mojio.Client
 			var tcs = new TaskCompletionSource<MojioResponse<T>>();
             try
             {
-                RestClient.ExecuteAsync<T>(request, response =>
+                var task = RestClient.ExecuteAsync<T>(request, response =>
                 {
-                    var r = new MojioResponse<T>
-                    {
-                        Data = response.Data,
-                        Content = response.Content,
-                        StatusCode = response.StatusCode
-                    };
+                    MojioResponse<T> r;
+
+                    if( !String.IsNullOrEmpty(response.ErrorMessage) )
+                        r = new MojioResponse<T>
+                        {
+                            Content = response.ErrorMessage,
+                            StatusCode = HttpStatusCode.InternalServerError
+                        };
+                    else
+                        r = new MojioResponse<T>
+                        {
+                            Data = response.Data,
+                            Content = response.Content,
+                            StatusCode = response.StatusCode
+                        };
 
 					tcs.SetResult(r);
                 });
