@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mojio
 {
-    public class Trip : GuidEntity
+    public partial class Trip : GuidEntity
     {
         /// <summary>
         /// mojio id
