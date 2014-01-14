@@ -128,6 +128,11 @@ namespace Mojio.Events
         /// <summary>
         /// device-defined excessive speed (device)
         /// </summary>
-        Speed
+        Speed,
+
+        /// <summary>
+        /// device-defined diagnostics event
+        /// </summary>
+        Diagnostic,
     }
 }

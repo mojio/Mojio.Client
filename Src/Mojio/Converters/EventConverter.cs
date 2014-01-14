@@ -77,6 +77,8 @@ namespace Mojio.Converters
 
                 case EventType.TripEvent:
                     return new TripEvent();
+                case EventType.Diagnostic:
+                    return new DiagnosticEvent();
                 default:
                     return new Event();
             }
