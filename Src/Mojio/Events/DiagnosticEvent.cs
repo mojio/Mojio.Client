@@ -17,7 +17,12 @@ namespace Mojio.Events
         /// <summary>
         /// Diagnostic Trouble Code(s)
         /// </summary>
-        public string[] DTC { get; set; }
+        public string DTC { get; set; }
+
+        /// <summary>
+        /// Diagnostic Trouble Code Description
+        /// </summary>
+        public string Description { get; set; }
 
         /// <summary>
         /// Malfunction Indicator Lamp (Check engine light)
@@ -25,3 +30,5 @@ namespace Mojio.Events
         public bool MilStatus { get; set; }
     }
 }
+
+
