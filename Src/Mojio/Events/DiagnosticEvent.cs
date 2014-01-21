@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Mojio;
 
 namespace Mojio.Events
 {
@@ -15,14 +16,15 @@ namespace Mojio.Events
         }
 
         /// <summary>
-        /// Diagnostic Trouble Code(s)
+        /// Diagnostic Trouble Code
         /// </summary>
-        public string DTC { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public string Code { get; set; }
 
         /// <summary>
-        /// Diagnostic Trouble Code Description
+        /// Diagnostic Trouble Code Attribute
         /// </summary>
-        public string Description { get; set; }
+        public DTC DiagnosticTroubleCode { get; set; }
 
         /// <summary>
         /// Malfunction Indicator Lamp (Check engine light)
