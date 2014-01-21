@@ -561,7 +561,7 @@ namespace Mojio.Client
             var request = GetRequest(Request(action, userId, "image"), Method.GET);
             request.AddParameter("size", size);
             var response = RestClient.Execute(request);
-            return ASCIIEncoding.ASCII.GetBytes(response.Content);
+            return response.RawBytes;
         }
     }
 }
