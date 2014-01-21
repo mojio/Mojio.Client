@@ -56,6 +56,11 @@ namespace Mojio
         /// </summary>
         public DateTime LastContactTime { get; set; }
 
+        /// <summary>
+        /// Malfunction Indicator Lamp (Check Engine Light)
+        /// </summary>
+        public bool? MilStatus { get; set; }
+
         // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// list of viewer ids
