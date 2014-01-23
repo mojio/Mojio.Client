@@ -15,21 +15,28 @@ namespace Mojio.Events
             EventType = Events.EventType.Diagnostic;
         }
 
+        public DiagnosticEvent(string[] DTCs)
+        {
+            EventType = Events.EventType.Diagnostic;
+            this.DTCCodes = DTCs;
+        }
+
         /// <summary>
         /// Diagnostic Trouble Code
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
-        public string Code { get; set; }
+        public string[] DTCCodes { get; set; }
 
         /// <summary>
         /// Diagnostic Trouble Code Attribute
         /// </summary>
-        public DTC DiagnosticTroubleCode { get; set; }
+        public DTC[] DTCs { get; set; }
 
         /// <summary>
         /// Malfunction Indicator Lamp (Check engine light)
         /// </summary>
         public bool MilStatus { get; set; }
+
     }
 }
 

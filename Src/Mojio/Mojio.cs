@@ -61,6 +61,19 @@ namespace Mojio
         /// </summary>
         public bool? MilStatus { get; set; }
 
+        /// <summary>
+        /// Latest DTC report of vehicle.  
+        /// 
+        /// Note: This is not stored in dB.  Only active DTC Code(s) are
+        /// stored in Device Private in dB.
+        /// </summary>
+        public DTC[] DTCs { get; set; }
+
+        /// <summary>
+        /// Boolean flag to indicate DTCs have been viewed.
+        /// </summary>
+        public bool DTCsViewed { get; set; }
+
         // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// list of viewer ids
