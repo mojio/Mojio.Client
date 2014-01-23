@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mojio.Client.Linq
 {
-	public class MojioQueryable<TData> : IQueryable<TData>, IOrderedQueryable<TData>
+	public class MojioQueryable<TData> : IMojioQueryable<TData>, IQueryable<TData>, IOrderedQueryable<TData>
         where TData : BaseEntity, new()
     {
         // private fields

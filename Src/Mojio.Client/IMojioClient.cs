@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mojio.Client.Linq;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -105,6 +106,6 @@ namespace Mojio.Client
         Results<Events.Event> UserEvents(Guid userId, int page = 1);
         Results<Device> UserMojios(Guid userId, int page = 1);
         Results<Trip> UserTrips(Guid userId, int page = 1);
-        IQueryable<T> Queryable<T>() where T : BaseEntity, new();
+        IMojioQueryable<T> Queryable<T>() where T : BaseEntity, new();
     }
 }
