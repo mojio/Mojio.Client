@@ -90,7 +90,9 @@ namespace Mojio.Client
         bool SaveShipping(Address shipping, Guid? userId = null);
         int SessionTime { get; set; }
         bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null);
+        byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small);        
         bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message);
+
         bool SetUser(string userOrEmail, string password);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message);
