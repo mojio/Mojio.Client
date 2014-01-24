@@ -24,4 +24,18 @@ namespace Mojio
         public string Description { get; set; }
         public string Source { get; set; }
     }
+
+
+    public class DTCStatus
+    {
+        /// <summary>
+        /// Time of when diagnostics were updated.
+        /// </summary>
+        public DateTime TimeStamp { get; set; }
+
+        /// <summary>
+        /// String array of active DTC's.  
+        /// </summary>
+        public string[] Codes { get; set; }
+    }
 }
