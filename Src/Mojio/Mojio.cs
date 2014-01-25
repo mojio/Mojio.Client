@@ -61,6 +61,11 @@ namespace Mojio
         /// </summary>
         public bool? MilStatus { get; set; }
 
+        /// <summary>
+        /// Public boolean flag to indicate DTC faults have been detected
+        /// </summary>
+        public bool FaultsDetected { get; set; }
+
         // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// list of viewer ids
