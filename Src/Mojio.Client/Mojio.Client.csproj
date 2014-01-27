@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMojioClient.cs" />
+    <Compile Include="Linq\Extensions.cs" />
+    <Compile Include="Linq\IMojioQueryable.cs" />
     <Compile Include="Linq\MojioQueryable.cs" />
     <Compile Include="Linq\MojioQueryProvider.cs" />
     <Compile Include="Linq\MojioCriteriaTranslator.cs" />
