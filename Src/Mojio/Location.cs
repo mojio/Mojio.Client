@@ -27,6 +27,11 @@ namespace Mojio
         {
             get
             {
+                if (!IsValid)
+                {
+                    return null;
+                }
+
                 return new float[] { Lng, Lat };
             }
             set
