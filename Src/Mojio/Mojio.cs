@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace Mojio
         /// <summary>
         /// owner id
         /// </summary>
-        [Display(Name = "Owner")]
+        [Display (Name = "Owner")]
         public Guid? OwnerId { get; set; }
 
         /// <summary>
@@ -20,17 +20,17 @@ namespace Mojio
         /// </summary>
         public string Name { get; set; }
 
-		/// <summary>
-		/// license plate
-		/// </summary>
-		/// <value>The license plate.</value>
-		public string LicensePlate { get; set; }
+        /// <summary>
+        /// license plate
+        /// </summary>
+        /// <value>The license plate.</value>
+        public string LicensePlate { get; set; }
 
         /// <summary>
         /// optional is ignition on?
         /// </summary>
         public bool? IgnitionOn { get; set; }
-        
+
         /// <summary>
         /// most recent trip event
         /// </summary>
@@ -45,6 +45,11 @@ namespace Mojio
         /// last known location
         /// </summary>
         public Location LastLocation { get; set; }
+
+        /// <summary>
+        /// last known speed
+        /// </summary>
+        public float LastSpeed { get; set; }
 
         /// <summary>
         /// current trip id
@@ -65,7 +70,6 @@ namespace Mojio
         /// Public boolean flag to indicate DTC faults have been detected
         /// </summary>
         public bool FaultsDetected { get; set; }
-
         // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// list of viewer ids
