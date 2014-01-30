@@ -1039,5 +1039,63 @@ namespace Mojio.Client
             var provider = new MojioQueryProvider<T>(this, Request(action) );
             return new MojioQueryable<T>(provider);
         }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <returns></returns>
+        public bool ClearSubscriptions(ChannelType channel, String target)
+        {
+            HttpStatusCode ignore;
+            return ClearSubscriptions(channel, target, out ignore);
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code)
+        {
+            string ignore;
+            return ClearSubscriptions(channel, target, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code, out string message)
+        {
+            var response = ClearSubscriptionsAsync(channel, target).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <returns></returns>
+        public Task<MojioResponse> ClearSubscriptionsAsync(ChannelType channel, String target)
+        {
+            string action = Map[typeof(Subscription)];
+            var request = GetRequest(Request(action), Method.DELETE);
+            request.AddParameter("channel", channel);
+            request.AddParameter("target", target);
+
+            return RequestAsync(request);
+        }
     }
 }
