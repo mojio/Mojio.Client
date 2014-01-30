@@ -523,6 +523,14 @@ namespace Mojio.Client
 
         public bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
         {
+            var result = SetImageAsync(data, mimetype, userId).Result;
+            code = result.StatusCode;
+            message = result.Content;
+            return result.Data;
+        }
+
+        public Task<MojioResponse<bool>> SetImageAsync(byte[] data, string mimetype, Guid? userId = null)
+        {
             if (userId == null)
                 userId = CurrentUser.Id;
 
@@ -530,11 +538,7 @@ namespace Mojio.Client
             var request = GetRequest(Request(action, userId, "image"), Method.POST);
             request.AddBody(data);
 
-            var response = RestClient.Execute<bool>(request);
-            code = response.StatusCode;
-            message = response.Content;
-
-            return response.Data;
+            return RequestAsync<bool>(request);
         }
 
         public bool DeleteImage(out HttpStatusCode code, out string message, Guid? userId = null)
@@ -554,17 +558,35 @@ namespace Mojio.Client
 
         public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
         {
+            var task = GetImageAsync(size, userId);
+            return task.Result;
+        }
+
+        public Task<byte[]> GetImageAsync(ImageSize size = ImageSize.Small, Guid? userId = null)
+        {
             if (userId == null)
                 userId = CurrentUser.Id;
 
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, userId, "image"), Method.GET);
             request.AddParameter("size", size);
-            var response = RestClient.Execute(request);
 
-            if (response.StatusCode == HttpStatusCode.OK)
-                return response.RawBytes;
-            return null;
+            var tcs = new TaskCompletionSource<byte[]>();
+            try
+            {
+                RestClient.ExecuteAsync(request, response =>
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        tcs.SetResult(response.RawBytes);
+                    else
+                        tcs.SetResult(null);
+                });
+            }
+            catch (Exception ex)
+            {
+                tcs.SetException(ex);
+            }
+            return tcs.Task;
         }
     }
 }

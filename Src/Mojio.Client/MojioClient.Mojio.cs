@@ -33,6 +33,14 @@ namespace Mojio.Client
 
         public bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
         {
+            var result = SetDeviceImageAsync(id, data, mimetype).Result;
+            code = result.StatusCode;
+            message = result.Content;
+            return result.Data;
+        }
+
+        public Task<MojioResponse<bool>> SetDeviceImageAsync(string id, byte[] data, string mimetype)
+        {
             if (string.IsNullOrEmpty(id))
                 throw new ArgumentException("Device id is required");
 
@@ -40,10 +48,7 @@ namespace Mojio.Client
             var request = GetRequest(Request(action, id, "image"), Method.POST);
             request.AddBody(data);
 
-            var response = RestClient.Execute<bool>(request);
-            code = response.StatusCode;
-            message = response.Content;
-            return response.Data;
+            return RequestAsync<bool>(request);
         }
 
         public bool DeleteDeviceImage(string id, out HttpStatusCode code, out string message)
@@ -63,16 +68,35 @@ namespace Mojio.Client
 
         public byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small)
         {
+            var task = GetDeviceImageAsync(id, size);
+            return task.Result; // Will block
+        }
+
+        public Task<byte[]> GetDeviceImageAsync(string id, ImageSize size = ImageSize.Small)
+        {
             if (string.IsNullOrEmpty(id))
                 throw new ArgumentException("Device id is required");
 
             string action = Map[typeof(Device)];
             var request = GetRequest(Request(action, id, "image"), Method.GET);
             request.AddParameter("size", size);
-            var response = RestClient.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
-                return response.RawBytes;
-            return null;
+
+            var tcs = new TaskCompletionSource<byte[]>();
+            try
+            {
+                RestClient.ExecuteAsync(request, response =>
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                            tcs.SetResult(response.RawBytes);
+                        else
+                            tcs.SetResult(null);
+                    });
+            }
+            catch(Exception ex)
+            {
+                tcs.SetException(ex);
+            }
+            return tcs.Task;
         }
     }
 }

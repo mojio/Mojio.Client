@@ -60,6 +60,7 @@ namespace Mojio.Client
         Task<Client.MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null) where T : new();
         CreditCard GetCreditCard(Guid? userId = null);
         byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null);
+        Task<byte[]> GetImageAsync(ImageSize size = ImageSize.Small, Guid? userId = null);
         Address GetShipping(Guid? userId = null);
         void GetSubscriptions();
         bool IsLoggedIn();
@@ -91,8 +92,12 @@ namespace Mojio.Client
         bool SaveShipping(Address shipping, Guid? userId = null);
         int SessionTime { get; set; }
         bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null);
-        byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small);        
+        Task<MojioResponse<bool>> SetImageAsync(byte[] data, string mimetype, Guid? userId = null);
+        byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small);
+        Task<byte[]> GetDeviceImageAsync(string id, ImageSize size = ImageSize.Small);
+        
         bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message);
+        Task<MojioResponse<bool>> SetDeviceImageAsync(string id, byte[] data, string mimetype);
 
         bool SetUser(string userOrEmail, string password);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code);
