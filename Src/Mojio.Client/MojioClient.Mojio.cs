@@ -43,7 +43,6 @@ namespace Mojio.Client
             var response = RestClient.Execute<bool>(request);
             code = response.StatusCode;
             message = response.Content;
-
             return response.Data;
         }
 
@@ -71,7 +70,9 @@ namespace Mojio.Client
             var request = GetRequest(Request(action, id, "image"), Method.GET);
             request.AddParameter("size", size);
             var response = RestClient.Execute(request);
-            return response.RawBytes;
+            if (response.StatusCode == HttpStatusCode.OK)
+                return response.RawBytes;
+            return null;
         }
     }
 }
