@@ -114,5 +114,10 @@ namespace Mojio.Client
         Results<Device> UserMojios(Guid userId, int page = 1);
         Results<Trip> UserTrips(Guid userId, int page = 1);
         IMojioQueryable<T> Queryable<T>() where T : BaseEntity, new();
+
+        bool ClearSubscriptions(ChannelType channel, String target);
+        bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code);
+        bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code, out string message);
+        Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
     }
 }
