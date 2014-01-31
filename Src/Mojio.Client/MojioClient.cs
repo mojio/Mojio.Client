@@ -436,7 +436,7 @@ namespace Mojio.Client
                 {
                     MojioResponse<T> r;
 
-                    if( !response.StatusCode )
+                        if( response.StatusCode == 0 )
                         r = new MojioResponse<T>
                         {
                             Content = response.ErrorMessage,
