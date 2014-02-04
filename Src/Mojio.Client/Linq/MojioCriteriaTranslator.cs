@@ -133,7 +133,8 @@ namespace Mojio.Client.Linq
 
     class MojioCriteriaTranslator : ExpressionVisitor
     {
-        IDictionary<string,string> criteria;
+        public const string DateStringFormat = "yyyy.MM.dd HH:mm:ss";
+        IDictionary<string, string> criteria;
 
         internal IDictionary<string, string> Translate(Expression expression)
         {
@@ -167,7 +168,7 @@ namespace Mojio.Client.Linq
             throw new NotSupportedException(string.Format("The method '{0}' is not supported", m.Method.Name));
         }
 
-        private void AddCriteria(Expression left, Expression right)
+        private void AddCriteria(Expression left, Expression right, ExpressionType type = ExpressionType.Equal)
         {
             var memberExpression = MojioTranslate.GetMember(left);
 
@@ -177,9 +178,64 @@ namespace Mojio.Client.Linq
             var key = memberExpression.Member.Name;
 
             var constant = MojioTranslate.EvaluateSubtree(right);
-            string value = MojioTranslate.GetValue(constant, memberExpression.Type);
 
-            criteria.Add(key, value);
+            if (type == ExpressionType.Equal) {
+                string value = MojioTranslate.GetValue(constant, memberExpression.Type);
+
+                criteria.Add (key, value);
+            } else if (constant.Value is DateTime) {
+                AddDateRange (key, constant, type);
+            }
+        }
+
+        private void AddDateRange (string key, ConstantExpression value, ExpressionType type){
+            var dateCheck = value.Value as DateTime?;
+
+            if (!dateCheck.HasValue) {
+                return;
+            }
+
+            var date = dateCheck.Value;
+
+            string[] range = null;
+            if (criteria.ContainsKey (key)) {
+                string currentValue;
+                if (criteria.TryGetValue (key, out currentValue)) {
+                    // Value already exists, lets fetch the current criteria.
+                    if (!currentValue.Contains ('-')) {
+                        throw new ArgumentException ("Huh? We have already performed an equals on this parameter");
+                    }
+
+                    range = currentValue.Split ('-');
+
+                    // Remove old value
+                    criteria.Remove (key);
+                }
+            }
+
+            // No current range found.  Init an empty array.
+            if (range == null)
+                range = new string[2];
+
+            switch (type) {
+            case ExpressionType.GreaterThan:
+                // non-breaking pass through is intended
+                date.AddSeconds (1);
+            case ExpressionType.GreaterThanOrEqual:
+                range [0] = date.ToString (DateStringFormat);
+                break;
+
+            case ExpressionType.LessThan:
+                // non-breaking pass through is intended
+                date.AddSeconds (-1);
+            case ExpressionType.LessThanOrEqual:
+                range [1] = date.ToString (DateStringFormat);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException ("Invalid expression type.");
+            }
+
+            criteria.Add (key, String.Join ("-", range));
         }
 
         protected override Expression VisitBinary(BinaryExpression b)
@@ -194,6 +250,12 @@ namespace Mojio.Client.Linq
                     break;
                 case ExpressionType.Or:
                     // We could maybe check if b.Left exists?
+                    break;
+                case ExpressionType.GreaterThan:
+                case ExpressionType.LessThan:
+                case ExpressionType.GreaterThanOrEqual:
+                case ExpressionType.LessThanOrEqual:
+                    AddCriteria (b.Left, b.Right, b.NodeType);
                     break;
                 case ExpressionType.Equal:
                     // Equals is what we want!
