@@ -219,15 +219,15 @@ namespace Mojio.Client.Linq
 
             switch (type) {
             case ExpressionType.GreaterThan:
-                // non-breaking pass through is intended
                 date.AddSeconds (1);
+                goto case ExpressionType.GreaterThanOrEqual;
             case ExpressionType.GreaterThanOrEqual:
                 range [0] = date.ToString (DateStringFormat);
                 break;
 
             case ExpressionType.LessThan:
-                // non-breaking pass through is intended
                 date.AddSeconds (-1);
+                goto case ExpressionType.LessThanOrEqual;
             case ExpressionType.LessThanOrEqual:
                 range [1] = date.ToString (DateStringFormat);
                 break;
