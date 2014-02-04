@@ -25,6 +25,14 @@ namespace Mojio
 
     public partial class Subscription : GuidEntity, IOwner
     {
+        public Subscription() {
+        }
+
+        public Subscription(EventType type)
+        {
+            Event = type;
+        }
+
         public ChannelType ChannelType { get; set; }
         public string ChannelTarget { get; set; }
 
@@ -42,14 +50,25 @@ namespace Mojio
 
     public partial class HardSubscription : Subscription
     {
+        public HardSubscription() {
+        }
+
+        public HardSubscription(EventType type, float maxForce = 1f) : base(type)
+        {
+            MaxForce = maxForce;
+        }
+
         public float MaxForce { get; set; }
     }
 
     public partial class SpeedSubscription : Subscription
     {
-        public SpeedSubscription()
+        public SpeedSubscription() {
+        }
+
+        public SpeedSubscription(float maxSpeed = 65f, int interval = 60) : base(EventType.Speed)
         {
-            // Set default interval
+            MaxSpeed = maxSpeed;
             Interval = 60;
         }
 
