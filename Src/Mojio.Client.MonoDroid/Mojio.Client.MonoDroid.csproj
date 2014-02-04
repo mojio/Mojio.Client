@@ -231,6 +231,18 @@
     <Compile Include="..\Mojio\ImageSize.cs">
       <Link>Mojio\ImageSize.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
+      <Link>Mojio\Events\DiagnosticEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\DTC.cs">
+      <Link>Mojio\DTC.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\Extensions.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\IMojioQueryable.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\IMojioQueryable.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
