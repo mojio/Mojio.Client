@@ -1,4 +1,6 @@
-﻿using Mojio.Events;
+﻿using Mojio.Converters;
+using Mojio.Events;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace Mojio
         SignalR
     }
 
+    [JsonConverter(typeof(SubscriptionConverter))]
     public partial class Subscription : GuidEntity, IOwner
     {
         public Subscription() {
@@ -48,6 +51,7 @@ namespace Mojio
         public DateTime? LastMessage { get; set; }
     }
 
+    [CollectionNameAttribute(typeof(Subscription))]
     public partial class HardSubscription : Subscription
     {
         public HardSubscription() {
@@ -61,6 +65,7 @@ namespace Mojio
         public float MaxForce { get; set; }
     }
 
+    [CollectionNameAttribute(typeof(Subscription))]
     public partial class SpeedSubscription : Subscription
     {
         public SpeedSubscription() {
