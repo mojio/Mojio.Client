@@ -10,11 +10,7 @@ namespace Mojio.Converters
     {
         public override bool CanConvert(Type objectType)
         {
-#if PORTABLE
             return typeof(Event).IsAssignableFrom(objectType);
-#else
-            return typeof(Event).IsAssignableFrom(objectType);
-#endif
         }
 
         public override object ReadJson(JsonReader reader, Type objectType,
