@@ -219,14 +219,14 @@ namespace Mojio.Client.Linq
 
             switch (type) {
             case ExpressionType.GreaterThan:
-                date.AddSeconds (1);
+                date = date.AddSeconds (1);
                 goto case ExpressionType.GreaterThanOrEqual;
             case ExpressionType.GreaterThanOrEqual:
                 range [0] = date.ToString (DateStringFormat);
                 break;
 
             case ExpressionType.LessThan:
-                date.AddSeconds (-1);
+                date = date.AddSeconds (-1.0);
                 goto case ExpressionType.LessThanOrEqual;
             case ExpressionType.LessThanOrEqual:
                 range [1] = date.ToString (DateStringFormat);
