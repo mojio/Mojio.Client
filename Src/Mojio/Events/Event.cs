@@ -28,6 +28,11 @@ namespace Mojio.Events
         /// event timestamp
         /// </summary>
         DateTime Time { get; set; }
+
+        /// <summary>
+        /// location
+        /// </summary>
+        Location Location { get; set; }
     }
 
     /// <summary>
@@ -55,5 +60,10 @@ namespace Mojio.Events
         /// event timestamp
         /// </summary>
         public DateTime Time { get; set; }
+
+        /// <summary>
+        /// location
+        /// </summary>
+        public Location Location { get; set; }
     }
 }

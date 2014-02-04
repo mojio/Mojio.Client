@@ -20,11 +20,6 @@ namespace Mojio.Events
         public Guid? TripId { get; set; }
 
         /// <summary>
-        /// location
-        /// </summary>
-        public Location Location { get; set; }
-
-        /// <summary>
         /// altitude
         /// </summary>
         public float? Altitude { get; set; }
