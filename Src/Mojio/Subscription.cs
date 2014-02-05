@@ -23,20 +23,55 @@ namespace Mojio
         SignalR
     }
 
+    interface IReferenceCounter
+    {
+        void IncrementCount ();
+
+        void DecrementCount ();
+    }
+
+    public partial class Subscription : IReferenceCounter
+    {
+        private int _counter = 0;
+
+        public int Counter { 
+            get { return _counter; } 
+            set {
+                _counter = value;
+                if (_counter < 0)
+                    _counter = 0;
+            }
+        }
+
+        public void IncrementCount ()
+        {
+            Counter += 1;
+        }
+
+        public void DecrementCount ()
+        {
+            Counter -= 1;
+        }
+    }
+
     public partial class Subscription : GuidEntity, IOwner
     {
         public ChannelType ChannelType { get; set; }
+
         public string ChannelTarget { get; set; }
 
         public Guid AppId { get; set; }
+
         public Guid? OwnerId { get; set; }
 
         public EventType Event { get; set; }
 
         public SubscriptionType EntityType { get; set; }
+
         public string EntityId { get; set; }
 
         public int Interval { get; set; }
+
         public DateTime? LastMessage { get; set; }
     }
 
@@ -47,7 +82,7 @@ namespace Mojio
 
     public partial class SpeedSubscription : Subscription
     {
-        public SpeedSubscription()
+        public SpeedSubscription ()
         {
             // Set default interval
             Interval = 60;
