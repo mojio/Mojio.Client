@@ -94,6 +94,9 @@
     <Compile Include="..\mojio\converters\EventConverter.cs">
       <Link>Mojio\Converters\EventConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Converters\SubscriptionConverter.cs">
+      <Link>Mojio\Converters\SubscriptionConverter.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\Counter.cs">
       <Link>Mojio\Counter.cs</Link>
     </Compile>
