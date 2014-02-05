@@ -37,6 +37,12 @@
     <Compile Include="..\Mojio.Client\IMojioClient.cs">
       <Link>Mojio.Client\Mojio.Client\IMojioClient.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio.Client\Linq\Extensions.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\IMojioQueryable.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\IMojioQueryable.cs</Link>
+    </Compile>
     <Compile Include="..\mojio.client\linq\MojioQueryable.cs">
       <Link>Mojio.Client\Mojio.Client\Linq\MojioQueryable.cs</Link>
     </Compile>
@@ -103,6 +109,9 @@
     <Compile Include="..\mojio\CreditCard.cs">
       <Link>Mojio\CreditCard.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\DTC.cs">
+      <Link>Mojio\DTC.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\Entity.cs">
       <Link>Mojio\Entity.cs</Link>
     </Compile>
@@ -111,6 +120,9 @@
     </Compile>
     <Compile Include="..\mojio\events\ActionType.cs">
       <Link>Mojio\Events\ActionType.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
+      <Link>Mojio\Events\DiagnosticEvent.cs</Link>
     </Compile>
     <Compile Include="..\mojio\events\Event.cs">
       <Link>Mojio\Events\Event.cs</Link>
