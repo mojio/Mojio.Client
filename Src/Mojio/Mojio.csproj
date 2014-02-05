@@ -57,6 +57,7 @@
     <Compile Include="App.cs" />
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
+    <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="DTC.cs" />
