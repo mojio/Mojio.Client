@@ -1,5 +1,4 @@
-﻿using Mojio.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp.Deserializers;
 using RestSharp.Serializers;
 using System;
@@ -30,8 +29,6 @@ namespace Mojio.Client
             };
 
             Serializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-            Serializer.Converters.Add(new EventConverter());
-            Serializer.Converters.Add(new SubscriptionConverter());
         }
 
         public T Deserialize<T>(string content)
