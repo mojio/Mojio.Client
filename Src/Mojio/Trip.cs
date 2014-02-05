@@ -38,9 +38,14 @@ namespace Mojio
         public int? MaxRPM { get; set; }
 
         /// <summary>
-        /// fuel consumed
+        /// fuel level (percent 0 - 100)
         /// </summary>
-        public float? Fuel { get; set; }
+        public float? FuelLevel { get; set; }
+
+        /// <summary>
+        /// fuel efficiency (liters per 100km)
+        /// </summary>
+        public float? FuelEfficiency { get; set; }
 
         /// <summary>
         /// distance travelled
