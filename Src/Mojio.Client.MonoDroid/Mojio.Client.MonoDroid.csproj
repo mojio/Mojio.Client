@@ -88,6 +88,9 @@
       <Link>Mojio.Client\Mojio.Client\RSJsonSerializer.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Mojio\Converters\SubscriptionConverter.cs">
+      <Link>Mojio\Converters\SubscriptionConverter.cs</Link>
+    </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
     <Compile Include="MojioClient.AndroidGcm.cs" />
@@ -230,6 +233,18 @@
     </Compile>
     <Compile Include="..\Mojio\ImageSize.cs">
       <Link>Mojio\ImageSize.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
+      <Link>Mojio\Events\DiagnosticEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\DTC.cs">
+      <Link>Mojio\DTC.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\Extensions.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\IMojioQueryable.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\IMojioQueryable.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

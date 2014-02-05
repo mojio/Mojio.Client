@@ -77,10 +77,10 @@ namespace Mojio.Client.Linq
 
             if (type.IsSubclassOf(typeof(Enum)))
                 return Enum.GetName(type, constant.Value);
-            else if (constant.Type == type)
+            else //if (constant.Type == type)
                 return constant.Value.ToString();
-            else
-                throw new Exception("Type missmatch");
+            //else
+            //    throw new Exception("Type missmatch");
         }
 
         public static ConstantExpression EvaluateSubtree(Expression e)
@@ -133,8 +133,8 @@ namespace Mojio.Client.Linq
 
     class MojioCriteriaTranslator : ExpressionVisitor
     {
+        public const string DateStringFormat = "yyyy.MM.dd HH:mm:ss";
         IDictionary<string, string> criteria;
-        bool orMember;
 
         internal IDictionary<string, string> Translate(Expression expression)
         {
@@ -168,7 +168,7 @@ namespace Mojio.Client.Linq
             }
         }
 
-        private void AddCriteria(Expression left, Expression right)
+        private void AddCriteria(Expression left, Expression right, ExpressionType type = ExpressionType.Equal)
         {
             var memberExpression = MojioTranslate.GetMember(left);
 
@@ -178,9 +178,73 @@ namespace Mojio.Client.Linq
             var key = memberExpression.Member.Name;
 
             var constant = MojioTranslate.EvaluateSubtree(right);
-            string value = MojioTranslate.GetValue(constant, memberExpression.Type);
 
-            criteria.Add(key, value);
+            if (type == ExpressionType.Equal)
+            {
+                string value = MojioTranslate.GetValue(constant, memberExpression.Type);
+
+                criteria.Add(key, value);
+            }
+            else if (constant.Value is DateTime)
+            {
+                AddDateRange(key, constant, type);
+            }
+        }
+
+        private void AddDateRange(string key, ConstantExpression value, ExpressionType type)
+        {
+            var dateCheck = value.Value as DateTime?;
+
+            if (!dateCheck.HasValue)
+            {
+                return;
+            }
+
+            var date = dateCheck.Value;
+
+            string[] range = null;
+            if (criteria.ContainsKey(key))
+            {
+                string currentValue;
+                if (criteria.TryGetValue(key, out currentValue))
+                {
+                    // Value already exists, lets fetch the current criteria.
+                    if (!currentValue.Contains('-'))
+                    {
+                        throw new ArgumentException("Huh? We have already performed an equals on this parameter");
+                    }
+
+                    range = currentValue.Split('-');
+
+                    // Remove old value
+                    criteria.Remove(key);
+                }
+            }
+
+            // No current range found.  Init an empty array.
+            if (range == null)
+                range = new string[2];
+
+            switch (type)
+            {
+                case ExpressionType.GreaterThan:
+                    date = date.AddSeconds(1);
+                    goto case ExpressionType.GreaterThanOrEqual;
+                case ExpressionType.GreaterThanOrEqual:
+                    range[0] = date.ToString(DateStringFormat);
+                    break;
+
+                case ExpressionType.LessThan:
+                    date = date.AddSeconds(-1.0);
+                    goto case ExpressionType.LessThanOrEqual;
+                case ExpressionType.LessThanOrEqual:
+                    range[1] = date.ToString(DateStringFormat);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("Invalid expression type.");
+            }
+
+            criteria.Add(key, String.Join("-", range));
         }
 
         protected override void VisitBinary(BinaryExpression b)
@@ -195,6 +259,12 @@ namespace Mojio.Client.Linq
                     break;
                 case ExpressionType.Or:
                     // We could maybe check if b.Left exists?
+                    break;
+                case ExpressionType.GreaterThan:
+                case ExpressionType.LessThan:
+                case ExpressionType.GreaterThanOrEqual:
+                case ExpressionType.LessThanOrEqual:
+                    AddCriteria(b.Left, b.Right, b.NodeType);
                     break;
                 case ExpressionType.Equal:
                     // Equals is what we want!

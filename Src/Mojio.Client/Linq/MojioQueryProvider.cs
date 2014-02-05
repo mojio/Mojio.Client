@@ -67,8 +67,7 @@ namespace Mojio.Client.Linq
             var callExpression = expression as MethodCallExpression;
             if (callExpression != null)
             {
-                if( callExpression.Method.Name != "Where")
-                    Execute(callExpression.Arguments[0]);
+                Execute(callExpression.Arguments[0]);
 
                 switch (callExpression.Method.Name)
                 {

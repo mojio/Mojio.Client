@@ -20,11 +20,6 @@ namespace Mojio.Events
         public Guid? TripId { get; set; }
 
         /// <summary>
-        /// location
-        /// </summary>
-        public Location Location { get; set; }
-
-        /// <summary>
         /// altitude
         /// </summary>
         public float? Altitude { get; set; }
@@ -59,9 +54,14 @@ namespace Mojio.Events
         public float? Distance { get; set; }
 
         /// <summary>
-        /// fuel
+        /// fuel level (percent 0 - 100)
         /// </summary>
-        public float? Fuel { get; set; }
+        public float? FuelLevel { get; set; }
+
+        /// <summary>
+        /// fuel efficiency (liters per 100km)
+        /// </summary>
+        public float? FuelEfficiency { get; set; }
 
         /// <summary>
         /// Current speed

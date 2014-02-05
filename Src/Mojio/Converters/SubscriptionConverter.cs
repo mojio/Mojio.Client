@@ -6,11 +6,11 @@ using System;
 
 namespace Mojio.Converters
 {
-    public class EventConverter : JsonConverter
+    public class SubscriptionConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(Event).IsAssignableFrom(objectType);
+            return typeof(Subscription).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType,
@@ -35,13 +35,13 @@ namespace Mojio.Converters
             throw new NotImplementedException();
         }
 
-        protected Event Create(Type objectType, JObject jsonObject,JsonSerializer serializer)
+        protected Subscription Create(Type objectType, JObject jsonObject, JsonSerializer serializer)
         {
             // default type
             EventType eventType = EventType.Information;
 
-            if (jsonObject["EventType"] != null )
-                if (!Enum.TryParse<EventType>(jsonObject["EventType"].ToString(), true, out eventType))
+            if (jsonObject["Event"] != null)
+                if (!Enum.TryParse<EventType>(jsonObject["Event"].ToString(), true, out eventType))
                 {
                     // TODO: log parsing error here.
                     eventType = EventType.Information;
@@ -49,34 +49,16 @@ namespace Mojio.Converters
 
             switch (eventType)
             {
-                case EventType.MojioIdle:
-                case EventType.MojioWake:
-                case EventType.MojioOn:
-                    return new PowerEvent();
-                case EventType.TripStart:
-                case EventType.TripEnd:
-                case EventType.TripStatus:
-                    return new TripStatusEvent();
-                case EventType.IgnitionOn:
-                case EventType.IgnitionOff:
-                    return new IgnitionEvent();
-                case EventType.FenceEntered:
-                case EventType.FenceExited:
-                    return new FenceEvent();
                 case EventType.HardAcceleration:
                 case EventType.HardBrake:
                 case EventType.HardLeft:
                 case EventType.HardRight:
-                    return new HardEvent();
+                    return new HardSubscription();
                 case EventType.Speed:
-                    return new SpeedEvent();
+                    return new SpeedSubscription();
 
-                case EventType.TripEvent:
-                    return new TripEvent();
-                case EventType.Diagnostic:
-                    return new DiagnosticEvent();
                 default:
-                    return new Event();
+                    return new Subscription();
             }
         }
     }
