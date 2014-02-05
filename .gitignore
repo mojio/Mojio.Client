@@ -109,3 +109,4 @@ UpgradeLog*.XML
 /Src/Mojio.Client.MonoDroid/Resources/Resource.Designer.cs
 
 /Src/Components
+.idea
