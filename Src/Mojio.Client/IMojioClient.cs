@@ -19,6 +19,7 @@ namespace Mojio.Client
         bool ChangePassword(string oldPassword, string newPassword, out HttpStatusCode code);
         bool ChangePassword(string oldPassword, string newPassword, out HttpStatusCode code, out string message);
         bool ChangePassword(string oldPassword, string newPassword, out string message);
+		Task<Client.MojioResponse<T>> ClaimAsync<T>(T entity, int? pin) where T : BaseEntity, new();
         bool ClearUser();
         Task<Client.MojioResponse<Token>> ClearUserAsync();
         T Create<T>(T entity) where T : BaseEntity, new();

@@ -552,6 +552,18 @@ namespace Mojio.Client
             return RequestAsync<T>(request);
         }
 
+		public Task<MojioResponse<T>> ClaimAsync<T>(T entity, int? pin)
+			where T : BaseEntity, new()
+		{
+			string controller = Map[typeof(T)];
+
+			var request = GetRequest(Request(controller, entity.IdToString, "claim"), Method.GET);
+
+			request.AddParameter("pin", pin);
+
+			return RequestAsync<T>(request);
+		}
+
         /// <summary>
         /// Delete an entity through the API.
         /// </summary>
