@@ -52,6 +52,11 @@ namespace Mojio
         public float LastSpeed { get; set; }
 
         /// <summary>
+        /// last mileage
+        /// </summary>
+        public float LastFuelEfficiency { get; set; }
+
+        /// <summary>
         /// current trip id
         /// </summary>
         public Guid? CurrentTrip { get; set; }
