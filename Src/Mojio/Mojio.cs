@@ -52,6 +52,11 @@ namespace Mojio
         public float LastSpeed { get; set; }
 
         /// <summary>
+        /// last known fuel level
+        /// </summary>
+        public float? FuelLevel { get; set; }
+
+        /// <summary>
         /// last mileage
         /// </summary>
         public float LastFuelEfficiency { get; set; }

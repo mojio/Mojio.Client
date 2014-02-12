@@ -100,49 +100,34 @@ namespace Mojio.Events
         /// Max RPM
         /// </summary>
         public int? MaxRPM { get; set; }
+
+        /// <summary>
+        /// stop time
+        /// </summary>
+        public float? Odometer { get; set; }
     }
 
     /// <summary>
     /// trip end event
     /// </summary>
     [CollectionNameAttribute (typeof(Event))]
-    public class TripEndEvent : TripEvent
+    public class TripEndEvent : TripStatusEvent
     {
         public TripEndEvent ()
         {
             EventType = Events.EventType.TripEnd;
         }
-
-        /// <summary>
-        /// fuel level (percent 0 - 100)
-        /// </summary>
-        public float? FuelLevel { get; set; }
-
-        /// <summary>
-        /// stop time
-        /// </summary>
-        public float? Odometer { get; set; }
     }
 
     /// <summary>
     /// trip start event
     /// </summary>
     [CollectionNameAttribute (typeof(Event))]
-    public class TripStartEvent : TripEvent
+    public class TripStartEvent : TripStatusEvent
     {
         public TripStartEvent ()
         {
             EventType = Events.EventType.TripStart;
         }
-
-        /// <summary>
-        /// fuel level (percent 0 - 100)
-        /// </summary>
-        public float? FuelLevel { get; set; }
-
-        /// <summary>
-        /// stop time
-        /// </summary>
-        public float? Odometer { get; set; }
     }
 }
