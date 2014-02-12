@@ -184,7 +184,7 @@ namespace Mojio.Client.Linq
                 if (response.Data == null)
                     throw new Exception("Invalid request response [" + response.StatusCode.ToString() + "]");
 
-                return response.Data.Data;
+                return response.Data.Data ?? new TData[] {};
             });
 		}
 
