@@ -136,9 +136,10 @@ namespace Mojio.Client.Linq
         public const string DateStringFormat = "yyyy.MM.dd HH:mm:ss";
         IDictionary<string, string> criteria;
 
-        internal IDictionary<string, string> Translate(Expression expression)
+        internal IDictionary<string, string> Translate(Expression expression, IDictionary<string,string> currentCriteria = null)
         {
-            criteria = new Dictionary<string,string>();
+            criteria = currentCriteria ?? new Dictionary<string, string>();
+
             Visit(expression);
 
             return criteria;
