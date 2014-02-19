@@ -463,17 +463,29 @@ namespace Mojio.Client
                     RestClient.ExecuteAsync<T> (request, response => {
                         MojioResponse<T> r;
 
-                        if (response.StatusCode == 0)
+                        if (response.StatusCode == 0) {
                             r = new MojioResponse<T> {
-                                Content = response.ErrorMessage,
+                                ErrorMessage = response.ErrorMessage,
+                                Content = response.Content,
                                 StatusCode = HttpStatusCode.InternalServerError
                             };
-                        else
+                        } else {
                             r = new MojioResponse<T> {
                                 Data = response.Data,
                                 Content = response.Content,
                                 StatusCode = response.StatusCode
                             };
+
+                            if( response.Data == null ){
+                                try {
+                                    var error = Deserialize<String>(response.Content);
+                                    r.ErrorMessage = error;
+                                } catch( Exception ) {
+                                    // Exception thrown.  I don't think we need to do anything with it though.
+                                    r.ErrorMessage = "No content";
+                                }
+                            }
+                        }
 
                         tcs.SetResult (r);
                     });
