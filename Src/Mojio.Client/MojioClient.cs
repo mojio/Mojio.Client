@@ -126,8 +126,6 @@ namespace Mojio.Client
             PageSize = 10;
             SessionTime = 24 * 60;
 
-            MaxConnections = 5;
-
             RestClient = new RestClient(Url);
             RestClient.AddHandler("application/json", new RSJsonSerializer());
         }
