@@ -78,13 +78,7 @@ namespace Mojio.Client.Linq
                         _limit = (int) ((ConstantExpression) callExpression.Arguments[1]).Value;
                         break;
                     case "Where":
-                        if (_criteria == null)
-                            _criteria = new Dictionary<string, string>();
-
-                        var criteria = new MojioCriteriaTranslator().Translate(callExpression);
-
-                        foreach (var pair in criteria)
-                            _criteria.Add(pair);
+                        _criteria = new MojioCriteriaTranslator().Translate(callExpression, _criteria);
                         break;
                     case "OrderByDescending":
                         _order = MojioTranslate.GetMemberName(callExpression.Arguments[1]);
@@ -184,7 +178,7 @@ namespace Mojio.Client.Linq
                 if (response.Data == null)
                     throw new Exception("Invalid request response [" + response.StatusCode.ToString() + "]");
 
-                return response.Data.Data;
+                return response.Data.Data ?? new TData[] {};
             });
 		}
 
