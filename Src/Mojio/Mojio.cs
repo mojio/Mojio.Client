@@ -67,6 +67,11 @@ namespace Mojio
         public Guid? CurrentTrip { get; set; }
 
         /// <summary>
+        /// current trip id
+        /// </summary>
+        public Guid? LastTrip { get; set; }
+
+        /// <summary>
         /// most recent communication time
         /// </summary>
         public DateTime LastContactTime { get; set; }
@@ -85,5 +90,13 @@ namespace Mojio
         /// list of viewer ids
         /// </summary>
         public Guid[] Viewers { get; set; }
+
+        private CarState _state = CarState.Off;
+
+        public CarState State
+        {
+            get { return _state; }
+        }
+
     }
 }

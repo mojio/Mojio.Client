@@ -29,7 +29,6 @@ namespace Mojio.Events
         /// </summary>
         public short? Heading { get; set; }
 
-        public bool? TimeIsApprox { get; set; }
         // This property is not saved
         [JsonIgnore]
         public bool? ForceTripEnd { get; set; }

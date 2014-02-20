@@ -65,5 +65,10 @@ namespace Mojio.Events
         /// location
         /// </summary>
         public Location Location { get; set; }
+
+        /// <summary>
+        /// TimeIsApproximate
+        /// </summary>
+        public bool? TimeIsApprox { get; set; }
     }
 }
