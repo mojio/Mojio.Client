@@ -61,4 +61,24 @@ namespace Mojio
         /// </summary>
         public Address Address { get; set; }
     }
+    public class BetaPayment
+    {
+        public CreditCard CreditCard { get; set; }
+
+        [MustBeTrue(ErrorMessage = "Please agree to the terms.")]
+        [Display(Name = "I agree to have $10.00 charged to my credit card.")]
+        public bool AuthorizeCharge { get; set; }
+    }
+
+    /// <summary>
+    /// Validation attribute that demands that a boolean value must be true.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
+    public class MustBeTrueAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            return value != null && value is bool && (bool)value;
+        }
+    }
 }
