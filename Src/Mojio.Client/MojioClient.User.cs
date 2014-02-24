@@ -311,12 +311,14 @@ namespace Mojio.Client
                 code = response.StatusCode;
                 message = response.Content;
 
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    ThrowError(response.Content);
+                if (response.StatusCode != HttpStatusCode.OK) {
+                    ThrowError (response.Content);
                 }
 
                 return response.Data;
+            } else {
+                code = HttpStatusCode.InternalServerError;
+                message = "Internal server error.";
             }
 
             return false;
