@@ -285,6 +285,15 @@ namespace Mojio.Client
             return ChangePassword(oldPassword, newPassword, out code, out message);
         }
 
+        public Task<MojioResponse<bool>> RequestPasswordResetAsync(string userNameOrEmail, string returnUrl = null)
+        {
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userNameOrEmail, "ResetPassword"), Method.POST);
+            request.AddBody(returnUrl);
+
+            return RequestAsync<bool> (request);
+        }
+
         /// <summary>
         /// Send a password reset request to user's email.
         /// </summary>
@@ -295,20 +304,22 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool RequestPasswordReset(string userNameOrEmail, string returnUrl, out HttpStatusCode code, out string message)
         {
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userNameOrEmail, "ResetPassword"), Method.POST);
-            request.AddBody(returnUrl);
+            var task = RequestPasswordResetAsync (userNameOrEmail, returnUrl);
+            var response = task.Result;
 
-            var response = RestClient.Execute(request);
-            code = response.StatusCode;
-            message = response.Content;
+            if (response != null) {
+                code = response.StatusCode;
+                message = response.Content;
 
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                ThrowError(response.Content);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    ThrowError(response.Content);
+                }
+
+                return response.Data;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
