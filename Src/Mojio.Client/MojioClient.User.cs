@@ -487,7 +487,35 @@ namespace Mojio.Client
             return response.StatusCode == HttpStatusCode.OK;
         }
 
+        public CreditCard GetCreditCard(out string message, Guid? userId = null)
+        {
+            HttpStatusCode code;
+            return GetCreditCard(out code, out message, userId);
+        }
+
+        public CreditCard GetCreditCard(out HttpStatusCode code, Guid? userId = null)
+        {
+            string message;
+            return GetCreditCard(out code, out message, userId);
+        }
+
         public CreditCard GetCreditCard(Guid? userId = null)
+        {
+            HttpStatusCode code;
+            string message;
+            return GetCreditCard(out code, out message, userId);
+        }
+
+        public CreditCard GetCreditCard(out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            var response = GetCreditCardAsync(userId).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public Task<MojioResponse<CreditCard>> GetCreditCardAsync(Guid? userId = null)
         {
             if (userId == null)
                 userId = CurrentUser.Id;
@@ -495,8 +523,7 @@ namespace Mojio.Client
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, userId, "creditcard"), Method.GET);
 
-            var response = RestClient.Execute<CreditCard>(request);
-            return response.Data;
+            return RequestAsync<CreditCard>(request);
         }
 
         public bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null)
@@ -532,6 +559,45 @@ namespace Mojio.Client
             message = response.Content;
 
             return response.Data;
+        }
+
+        public bool DeleteCreditCard(out string message, Guid? userId = null)
+        {
+            HttpStatusCode code;
+            return DeleteCreditCard(out code, out message, userId);
+        }
+
+        public bool DeleteCreditCard(out HttpStatusCode code, Guid? userId = null)
+        {
+            string message;
+            return DeleteCreditCard(out code, out message, userId);
+        }
+
+        public bool DeleteCreditCard(Guid? userId = null)
+        {
+            HttpStatusCode code;
+            string message;
+            return DeleteCreditCard(out code, out message, userId);
+        }
+
+        public bool DeleteCreditCard(out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            var response = DeleteCreditCardAsync(userId).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public Task<MojioResponse<bool>> DeleteCreditCardAsync(Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "creditcard"), Method.DELETE);
+
+            return RequestAsync<bool> (request);
         }
 
         public bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
