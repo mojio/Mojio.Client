@@ -95,11 +95,11 @@ namespace Mojio
         /// <summary>
         /// Address where the trip started
         /// </summary>
-        public float StartMilage { get; set; }
+        public float? StartMilage { get; set; }
 
         /// <summary>
         /// Milage where the trip ended
         /// </summary>
-        public float EndMilage { get; set; }
+        public float? EndMilage { get; set; }
     }
 }
