@@ -54,6 +54,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Mojio.Client\IMojioClient.cs">
+      <Link>Mojio.Client\Mojio.Client\IMojioClient.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio.Client\MojioClient.App.cs">
       <Link>Mojio.Client\Mojio.Client\MojioClient.App.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
@@ -84,6 +87,9 @@
     <Compile Include="..\Mojio.Client\RSJsonSerializer.cs">
       <Link>Mojio.Client\Mojio.Client\RSJsonSerializer.cs</Link>
       <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mojio\Converters\SubscriptionConverter.cs">
+      <Link>Mojio\Converters\SubscriptionConverter.cs</Link>
     </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
@@ -224,6 +230,21 @@
     </Compile>
     <Compile Include="..\Mojio\Events\ActionType.cs">
       <Link>Mojio\Events\ActionType.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\ImageSize.cs">
+      <Link>Mojio\ImageSize.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
+      <Link>Mojio\Events\DiagnosticEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\DTC.cs">
+      <Link>Mojio\DTC.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\Extensions.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\IMojioQueryable.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\IMojioQueryable.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

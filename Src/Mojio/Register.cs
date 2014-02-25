@@ -12,9 +12,9 @@ namespace Mojio
     {
         public const string UsernameRegEx = "^[a-zA-Z0-9_]*$";
         public const string UsernameError = "numbers, upper, lower case and underscore allowed";
-        public const string PasswordRegEx = @"(?=^[^\s]{8,16}$)((?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z]))^.*";
+        public const string PasswordRegEx = @"(?=^[^\s]{8,32}$)((?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z]))^.*";
         public const int PasswordMinLength = 8;
-        public const int PasswordMaxLength = 16;
+        public const int PasswordMaxLength = 32;
         public const string PasswordError = "Must contain uppercase, lowercase and numbers";
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Mojio
         [Required(ErrorMessage = "Required")]
         [Display(Name = "User name")]
         [RegularExpression(UsernameRegEx, ErrorMessage = UsernameError)]
-        [StringLength(16, MinimumLength = 6, ErrorMessage = "Must be 6 to 16 characters")]
+        [StringLength(32, MinimumLength = 6, ErrorMessage = "Must be 6 to 32 characters")]
         public string UserName { get; set; }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Mojio
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Not a valid email address")]
         public string Email { get; set; }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Mojio
         [MembershipPassword(ErrorMessage = PasswordError)]
         //[RegularExpression(PasswordRegEx, ErrorMessage=PasswordError)]
         [DataType(DataType.Password)]
-        [StringLength(16, MinimumLength = 8, ErrorMessage = "Must be 8 to 16 characters")]
+        [StringLength(32, MinimumLength = 8, ErrorMessage = "Must be 8 to 32 characters")]
         [Display(Name = "Password")]
         public string Password { get; set; }
     }

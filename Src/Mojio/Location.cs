@@ -27,6 +27,11 @@ namespace Mojio
         {
             get
             {
+                if (!IsValid)
+                {
+                    return null;
+                }
+
                 return new float[] { Lng, Lat };
             }
             set
@@ -36,9 +41,19 @@ namespace Mojio
             }
         }
 
-        public bool IsEmpty()
+        public bool IsValid
         {
-            return Lat == 0.0F && Lng == 0.0F;
+            get
+            {
+                // f#@$!ing floating numbers.
+                return !(Lat != Lat || Lng != Lng);
+            }
+        }
+
+        public Location()
+        {
+            Lat = float.NaN;
+            Lng = float.NaN;
         }
 
         public override string ToString()

@@ -12,7 +12,7 @@ namespace Mojio
         /// <summary>
         /// owner id
         /// </summary>
-        [Display(Name = "Owner")]
+        [Display (Name = "Owner")]
         public Guid? OwnerId { get; set; }
 
         /// <summary>
@@ -21,10 +21,16 @@ namespace Mojio
         public string Name { get; set; }
 
         /// <summary>
+        /// license plate
+        /// </summary>
+        /// <value>The license plate.</value>
+        public string LicensePlate { get; set; }
+
+        /// <summary>
         /// optional is ignition on?
         /// </summary>
         public bool? IgnitionOn { get; set; }
-        
+
         /// <summary>
         /// most recent trip event
         /// </summary>
@@ -41,6 +47,21 @@ namespace Mojio
         public Location LastLocation { get; set; }
 
         /// <summary>
+        /// last known speed
+        /// </summary>
+        public float LastSpeed { get; set; }
+
+        /// <summary>
+        /// last known fuel level
+        /// </summary>
+        public float? FuelLevel { get; set; }
+
+        /// <summary>
+        /// last mileage
+        /// </summary>
+        public float LastFuelEfficiency { get; set; }
+
+        /// <summary>
         /// current trip id
         /// </summary>
         public Guid? CurrentTrip { get; set; }
@@ -50,6 +71,15 @@ namespace Mojio
         /// </summary>
         public DateTime LastContactTime { get; set; }
 
+        /// <summary>
+        /// Malfunction Indicator Lamp (Check Engine Light)
+        /// </summary>
+        public bool? MilStatus { get; set; }
+
+        /// <summary>
+        /// Public boolean flag to indicate DTC faults have been detected
+        /// </summary>
+        public bool FaultsDetected { get; set; }
         // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// list of viewer ids

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mojio.Client.Linq
 {
-	public class MojioQueryable<TData> : IQueryable<TData>, IOrderedQueryable<TData>
+	public class MojioQueryable<TData> : IMojioQueryable<TData>, IQueryable<TData>, IOrderedQueryable<TData>
         where TData : BaseEntity, new()
     {
         // private fields
@@ -50,6 +50,11 @@ namespace Mojio.Client.Linq
             _provider = provider;
             _expression = expression;
         }
+
+		public Task<int> CountAsync()
+		{
+			return this.Provider.CountAsync (_expression);
+		}
 
 		public Task<IEnumerable<TData>> FetchAsync()
 		{

@@ -12,6 +12,97 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token)
+		{
+			string message;
+			HttpStatusCode code;
+
+			return FacebookLogin(access_token, out code , out message );
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <param name="code">Http response status code</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token, out HttpStatusCode code)
+		{
+			string message;
+
+			return FacebookLogin(access_token, out code , out message );
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <param name="message">Http response content</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token, out string message)
+		{
+			HttpStatusCode code;
+
+			return FacebookLogin(access_token, out code , out message );
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <param name="access_token">Facebook access_token</param>
+		/// <param name="message">Http response content</param>
+		/// <param name="code">Http response status code</param>
+		/// <returns></returns>
+		public Token FacebookLogin(string access_token, out HttpStatusCode code, out string message)
+		{
+			var task = FacebookLoginAsync (access_token);
+			task.RunSynchronously ();
+
+			var response = task.Result;
+
+			message = response.Content;
+			code = response.StatusCode;
+
+			if (response.StatusCode != HttpStatusCode.OK)
+				return null;
+
+			return response.Data;
+		}
+
+		/// <summary>
+		/// Login to mojio using a valid facebook access_token
+		/// </summary>
+		/// <returns>Request response</returns>
+		/// <param name="access_token">Facebook access_token.</param>
+		public Task<MojioResponse<Token>> FacebookLoginAsync(string access_token)
+		{
+			if (Token == null)
+				throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
+
+			var request = GetRequest(Request("login", "facebook", "setexternaluser"), Method.GET);
+
+			//request.AddParameter("userOrEmail", userOrEmail);
+			request.AddParameter("accessToken", access_token);
+
+			var task = RequestAsync<Token>(request);
+			return task.ContinueWith<MojioResponse<Token>>(r =>
+				{
+					var response = r.Result;
+					if (response.StatusCode == HttpStatusCode.OK)
+					{
+						Token = response.Data;
+						ResetCurrentUser();
+					}
+
+					return response;
+				});
+		}
+
         /// <summary>
         /// Register a new user with Mojio.
         /// </summary>
@@ -194,6 +285,15 @@ namespace Mojio.Client
             return ChangePassword(oldPassword, newPassword, out code, out message);
         }
 
+        public Task<MojioResponse<bool>> RequestPasswordResetAsync(string userNameOrEmail, string returnUrl = null)
+        {
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userNameOrEmail, "ResetPassword"), Method.POST);
+            request.AddBody(returnUrl);
+
+            return RequestAsync<bool> (request);
+        }
+
         /// <summary>
         /// Send a password reset request to user's email.
         /// </summary>
@@ -204,20 +304,24 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool RequestPasswordReset(string userNameOrEmail, string returnUrl, out HttpStatusCode code, out string message)
         {
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userNameOrEmail, "ResetPassword"), Method.POST);
-            request.AddBody(returnUrl);
+            var task = RequestPasswordResetAsync (userNameOrEmail, returnUrl);
+            var response = task.Result;
 
-            var response = RestClient.Execute(request);
-            code = response.StatusCode;
-            message = response.Content;
+            if (response != null) {
+                code = response.StatusCode;
+                message = response.Content;
 
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                ThrowError(response.Content);
+                if (response.StatusCode != HttpStatusCode.OK) {
+                    ThrowError (response.Content);
+                }
+
+                return response.Data;
+            } else {
+                code = HttpStatusCode.InternalServerError;
+                message = "Internal server error.";
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -383,7 +487,35 @@ namespace Mojio.Client
             return response.StatusCode == HttpStatusCode.OK;
         }
 
+        public CreditCard GetCreditCard(out string message, Guid? userId = null)
+        {
+            HttpStatusCode code;
+            return GetCreditCard(out code, out message, userId);
+        }
+
+        public CreditCard GetCreditCard(out HttpStatusCode code, Guid? userId = null)
+        {
+            string message;
+            return GetCreditCard(out code, out message, userId);
+        }
+
         public CreditCard GetCreditCard(Guid? userId = null)
+        {
+            HttpStatusCode code;
+            string message;
+            return GetCreditCard(out code, out message, userId);
+        }
+
+        public CreditCard GetCreditCard(out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            var response = GetCreditCardAsync(userId).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public Task<MojioResponse<CreditCard>> GetCreditCardAsync(Guid? userId = null)
         {
             if (userId == null)
                 userId = CurrentUser.Id;
@@ -391,8 +523,7 @@ namespace Mojio.Client
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, userId, "creditcard"), Method.GET);
 
-            var response = RestClient.Execute<CreditCard>(request);
-            return response.Data;
+            return RequestAsync<CreditCard>(request);
         }
 
         public bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null)
@@ -428,6 +559,113 @@ namespace Mojio.Client
             message = response.Content;
 
             return response.Data;
+        }
+
+        public bool DeleteCreditCard(out string message, Guid? userId = null)
+        {
+            HttpStatusCode code;
+            return DeleteCreditCard(out code, out message, userId);
+        }
+
+        public bool DeleteCreditCard(out HttpStatusCode code, Guid? userId = null)
+        {
+            string message;
+            return DeleteCreditCard(out code, out message, userId);
+        }
+
+        public bool DeleteCreditCard(Guid? userId = null)
+        {
+            HttpStatusCode code;
+            string message;
+            return DeleteCreditCard(out code, out message, userId);
+        }
+
+        public bool DeleteCreditCard(out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            var response = DeleteCreditCardAsync(userId).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public Task<MojioResponse<bool>> DeleteCreditCardAsync(Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "creditcard"), Method.DELETE);
+
+            return RequestAsync<bool> (request);
+        }
+
+        public bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            var result = SetImageAsync(data, mimetype, userId).Result;
+            code = result.StatusCode;
+            message = result.Content;
+            return result.Data;
+        }
+
+        public Task<MojioResponse<bool>> SetImageAsync(byte[] data, string mimetype, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.POST);
+            request.AddBody(data);
+
+            return RequestAsync<bool>(request);
+        }
+
+        public bool DeleteImage(out HttpStatusCode code, out string message, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.DELETE);
+
+            var response = RestClient.Execute<bool>(request);
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.Data;
+        }
+
+        public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
+        {
+            var task = GetImageAsync(size, userId);
+            return task.Result;
+        }
+
+        public Task<byte[]> GetImageAsync(ImageSize size = ImageSize.Small, Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "image"), Method.GET);
+            request.AddParameter("size", size);
+
+            var tcs = new TaskCompletionSource<byte[]>();
+            try
+            {
+                RestClient.ExecuteAsync(request, response =>
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        tcs.SetResult(response.RawBytes);
+                    else
+                        tcs.SetResult(null);
+                });
+            }
+            catch (Exception ex)
+            {
+                tcs.SetException(ex);
+            }
+            return tcs.Task;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mojio
 {
-    public class Trip : GuidEntity
+    public partial class Trip : GuidEntity
     {
         /// <summary>
         /// mojio id
@@ -38,9 +38,14 @@ namespace Mojio
         public int? MaxRPM { get; set; }
 
         /// <summary>
-        /// fuel consumed
+        /// fuel level (percent 0 - 100)
         /// </summary>
-        public float? Fuel { get; set; }
+        public float? FuelLevel { get; set; }
+
+        /// <summary>
+        /// fuel efficiency (liters per 100km)
+        /// </summary>
+        public float? FuelEfficiency { get; set; }
 
         /// <summary>
         /// distance travelled
@@ -72,6 +77,15 @@ namespace Mojio
         /// </summary>
         public Location EndLocation { get; set; }
 
+        /// <summary>
+        /// Address where the trip started
+        /// </summary>
+        public Address StartAddress { get; set; }
+
+        /// <summary>
+        /// Address where the trip ended
+        /// </summary>
+        public Address EndAddress { get; set; }
 
         /// <summary>
         /// Forcefully Ended the trip

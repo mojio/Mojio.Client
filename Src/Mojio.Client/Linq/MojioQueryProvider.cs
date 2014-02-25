@@ -67,8 +67,7 @@ namespace Mojio.Client.Linq
             var callExpression = expression as MethodCallExpression;
             if (callExpression != null)
             {
-                if( callExpression.Method.Name != "Where")
-                    Execute(callExpression.Arguments[0]);
+                Execute(callExpression.Arguments[0]);
 
                 switch (callExpression.Method.Name)
                 {
@@ -79,13 +78,7 @@ namespace Mojio.Client.Linq
                         _limit = (int) ((ConstantExpression) callExpression.Arguments[1]).Value;
                         break;
                     case "Where":
-                        if (_criteria == null)
-                            _criteria = new Dictionary<string, string>();
-
-                        var criteria = new MojioCriteriaTranslator().Translate(callExpression);
-
-                        foreach (var pair in criteria)
-                            _criteria.Add(pair);
+                        _criteria = new MojioCriteriaTranslator().Translate(callExpression, _criteria);
                         break;
                     case "OrderByDescending":
                         _order = MojioTranslate.GetMemberName(callExpression.Arguments[1]);
@@ -116,7 +109,22 @@ namespace Mojio.Client.Linq
         }
 
         private int Count()
-        {
+		{
+			var request = CountAsync ();
+			request.Wait ();
+			return request.Result;
+		}
+
+		public Task<int> CountAsync(Expression expression = null)
+		{
+			if (expression != null) {
+				_limit = 20;
+				_offset = 0;
+				_criteria = null;
+
+				Execute (expression);
+			}
+
             var request = _client.GetRequest(_action, Method.GET);
 
             request.AddParameter("offset", 0);
@@ -124,13 +132,15 @@ namespace Mojio.Client.Linq
             request.AddParameter("criteria", BuildCriteriaString());
 
 			var task = _client.RequestAsync<Results> (request);
-			task.Wait ();
-			var response = task.Result;
 
-			if (response.Data == null)
-				throw new Exception ("Error loading count.");
+			return task.ContinueWith (r => { 
+				var response = r.Result;
 
-			return response.Data.TotalRows;
+				if (response.Data == null)
+					throw new Exception ("Error loading count.");
+
+				return response.Data.TotalRows;
+			});
         }
 
 		public IEnumerable<TData> Fetch(Expression expression = null)
@@ -138,7 +148,7 @@ namespace Mojio.Client.Linq
 			return FetchAsync (expression).Result;
 		}
 
-        public async Task<IEnumerable<TData>> FetchAsync(Expression expression = null)
+        public Task<IEnumerable<TData>> FetchAsync(Expression expression = null)
 		{
 			if (expression != null) {
 				_limit = 20;
@@ -159,13 +169,18 @@ namespace Mojio.Client.Linq
 
             request.AddParameter("desc", _desc);
 
-            var response = await _client.RequestAsync<Results<TData>>(request);
+            var task = _client.RequestAsync<Results<TData>>(request);
 
-			if (response.Data == null)
-				throw new Exception ("Invalid request response [" + response.StatusCode.ToString () + "]");
+            return task.ContinueWith<IEnumerable<TData>>(r =>
+            {
+                var response = r.Result;
 
-            return response.Data.Data;
-        }
+                if (response.Data == null)
+                    throw new Exception("Invalid request response [" + response.StatusCode.ToString() + "]");
+
+                return response.Data.Data ?? new TData[] {};
+            });
+		}
 
         public string BuildCriteriaString()
         {

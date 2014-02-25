@@ -34,6 +34,15 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Mojio.Client\IMojioClient.cs">
+      <Link>Mojio.Client\Mojio.Client\IMojioClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\Extensions.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio.Client\Linq\IMojioQueryable.cs">
+      <Link>Mojio.Client\Mojio.Client\Linq\IMojioQueryable.cs</Link>
+    </Compile>
     <Compile Include="..\mojio.client\linq\MojioQueryable.cs">
       <Link>Mojio.Client\Mojio.Client\Linq\MojioQueryable.cs</Link>
     </Compile>
@@ -91,11 +100,17 @@
     <Compile Include="..\mojio\converters\EventConverter.cs">
       <Link>Mojio\Converters\EventConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Converters\SubscriptionConverter.cs">
+      <Link>Mojio\Converters\SubscriptionConverter.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\Counter.cs">
       <Link>Mojio\Counter.cs</Link>
     </Compile>
     <Compile Include="..\mojio\CreditCard.cs">
       <Link>Mojio\CreditCard.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\DTC.cs">
+      <Link>Mojio\DTC.cs</Link>
     </Compile>
     <Compile Include="..\mojio\Entity.cs">
       <Link>Mojio\Entity.cs</Link>
@@ -105,6 +120,9 @@
     </Compile>
     <Compile Include="..\mojio\events\ActionType.cs">
       <Link>Mojio\Events\ActionType.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
+      <Link>Mojio\Events\DiagnosticEvent.cs</Link>
     </Compile>
     <Compile Include="..\mojio\events\Event.cs">
       <Link>Mojio\Events\Event.cs</Link>
@@ -141,6 +159,9 @@
     </Compile>
     <Compile Include="..\mojio\ILog.cs">
       <Link>Mojio\ILog.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\ImageSize.cs">
+      <Link>Mojio\ImageSize.cs</Link>
     </Compile>
     <Compile Include="..\mojio\Invoice.cs">
       <Link>Mojio\Invoice.cs</Link>
@@ -210,10 +231,10 @@
       <HintPath>..\Components\signalR\Microsoft.AspNet.SignalR.Client.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp.MonoTouch">
-      <HintPath>..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
+      <HintPath>..\..\..\..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

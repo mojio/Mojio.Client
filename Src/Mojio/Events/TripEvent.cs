@@ -6,23 +6,18 @@ using System.Text;
 
 namespace Mojio.Events
 {
-        /// <summary>
+    /// <summary>
     /// trip status event
     /// </summary>
-    [CollectionNameAttribute(typeof(Event))]
+    [CollectionNameAttribute (typeof(Event))]
     public class TripEvent : Event
     {
-        public TripEvent()
+        public TripEvent ()
         {
             EventType = Events.EventType.TripEvent;
         }
 
         public Guid? TripId { get; set; }
-
-        /// <summary>
-        /// location
-        /// </summary>
-        public Location Location { get; set; }
 
         /// <summary>
         /// altitude
@@ -34,9 +29,7 @@ namespace Mojio.Events
         /// </summary>
         public short? Heading { get; set; }
 
-
         public bool? TimeIsApprox { get; set; }
-
         // This property is not saved
         [JsonIgnore]
         public bool? ForceTripEnd { get; set; }
@@ -45,10 +38,10 @@ namespace Mojio.Events
     /// <summary>
     /// trip status event
     /// </summary>
-    [CollectionNameAttribute(typeof(Event))]
+    [CollectionNameAttribute (typeof(Event))]
     public class TripStatusEvent : TripEvent
     {
-        public TripStatusEvent()
+        public TripStatusEvent ()
         {
             EventType = Events.EventType.TripStatus;
         }
@@ -59,9 +52,14 @@ namespace Mojio.Events
         public float? Distance { get; set; }
 
         /// <summary>
-        /// fuel
+        /// fuel level (percent 0 - 100)
         /// </summary>
-        public float? Fuel { get; set; }
+        public float? FuelLevel { get; set; }
+
+        /// <summary>
+        /// fuel efficiency (liters per 100km)
+        /// </summary>
+        public float? FuelEfficiency { get; set; }
 
         /// <summary>
         /// Current speed
@@ -72,6 +70,11 @@ namespace Mojio.Events
         /// max speed
         /// </summary>
         public float? MaxSpeed { get; set; }
+
+        /// <summary>
+        /// average speed
+        /// </summary>
+        public float? AverageSpeed { get; set; }
 
         /// <summary>
         /// moving time
@@ -97,5 +100,34 @@ namespace Mojio.Events
         /// Max RPM
         /// </summary>
         public int? MaxRPM { get; set; }
+
+        /// <summary>
+        /// stop time
+        /// </summary>
+        public float? Odometer { get; set; }
+    }
+
+    /// <summary>
+    /// trip end event
+    /// </summary>
+    [CollectionNameAttribute (typeof(Event))]
+    public class TripEndEvent : TripStatusEvent
+    {
+        public TripEndEvent ()
+        {
+            EventType = Events.EventType.TripEnd;
+        }
+    }
+
+    /// <summary>
+    /// trip start event
+    /// </summary>
+    [CollectionNameAttribute (typeof(Event))]
+    public class TripStartEvent : TripStatusEvent
+    {
+        public TripStartEvent ()
+        {
+            EventType = Events.EventType.TripStart;
+        }
     }
 }

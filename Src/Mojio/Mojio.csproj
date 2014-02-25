@@ -57,11 +57,14 @@
     <Compile Include="App.cs" />
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
+    <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
+    <Compile Include="DTC.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventBroadcast.cs" />
     <Compile Include="Events\ActionType.cs" />
+    <Compile Include="Events\DiagnosticEvent.cs" />
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\Event.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ILog.cs" />
+    <Compile Include="ImageSize.cs" />
     <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />

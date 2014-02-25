@@ -44,7 +44,7 @@ namespace Mojio.Client
         }
     }
 
-    public partial class MojioClient
+    public partial class MojioClient : IMojioClient
     {
         public const string Sandbox = "http://sandbox.developer.moj.io/v1";
         public const string Live = "https://developer.moj.io/v1";
@@ -425,29 +425,46 @@ namespace Mojio.Client
             }
             return tcs.Task;
         }
-
-		public Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
+            
+        public Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
             where T : new()
         {
 			var tcs = new TaskCompletionSource<MojioResponse<T>>();
-            try
-            {
-                RestClient.ExecuteAsync<T>(request, response =>
-                {
-                    var r = new MojioResponse<T>
-                    {
-                        Data = response.Data,
-                        Content = response.Content,
-                        StatusCode = response.StatusCode
-                    };
 
-					tcs.SetResult(r);
+            try {
+                RestClient.ExecuteAsync<T> (request, response => {
+                    MojioResponse<T> r;
+
+                    if (response.StatusCode == 0) {
+                        r = new MojioResponse<T> {
+                            ErrorMessage = response.ErrorMessage,
+                            Content = response.Content,
+                            StatusCode = HttpStatusCode.InternalServerError
+                        };
+                    } else {
+                        r = new MojioResponse<T> {
+                            Data = response.Data,
+                            Content = response.Content,
+                            StatusCode = response.StatusCode
+                        };
+
+                        if( response.Data == null ){
+                            try {
+                                var error = Deserialize<String>(response.Content);
+                                r.ErrorMessage = error;
+                            } catch( Exception ) {
+                                // Exception thrown.  I don't think we need to do anything with it though.
+                                r.ErrorMessage = "No content";
+                            }
+                        }
+                    }
+
+                    tcs.SetResult (r);
                 });
+            } catch (Exception e) {
+                tcs.SetException (e);
             }
-            catch (Exception e)
-            {
-                tcs.SetException(e);
-            }
+
             return tcs.Task;
         }
 
@@ -512,6 +529,18 @@ namespace Mojio.Client
 
             return RequestAsync<T>(request);
         }
+
+		public Task<MojioResponse<T>> ClaimAsync<T>(T entity, int? pin)
+			where T : BaseEntity, new()
+		{
+			string controller = Map[typeof(T)];
+
+			var request = GetRequest(Request(controller, entity.IdToString, "claim"), Method.GET);
+
+			request.AddParameter("pin", pin);
+
+			return RequestAsync<T>(request);
+		}
 
         /// <summary>
         /// Delete an entity through the API.
@@ -1021,7 +1050,7 @@ namespace Mojio.Client
             return serializer.Deserialize<T>(content);
         }
 
-        public MojioQueryable<T> Queryable<T>()
+        public IMojioQueryable<T> Queryable<T>()
             where T : BaseEntity, new()
         {
             string action = Map[typeof(T)];
@@ -1029,6 +1058,64 @@ namespace Mojio.Client
 
             var provider = new MojioQueryProvider<T>(this, Request(action) );
             return new MojioQueryable<T>(provider);
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <returns></returns>
+        public bool ClearSubscriptions(ChannelType channel, String target)
+        {
+            HttpStatusCode ignore;
+            return ClearSubscriptions(channel, target, out ignore);
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <param name="code">Response code</param>
+        /// <returns></returns>
+        public bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code)
+        {
+            string ignore;
+            return ClearSubscriptions(channel, target, out code, out ignore);
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <param name="code">Response code</param>
+        /// <param name="message">Response message</param>
+        /// <returns></returns>
+        public bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code, out string message)
+        {
+            var response = ClearSubscriptionsAsync(channel, target).Result;
+            code = response.StatusCode;
+            message = response.Content;
+
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        /// <summary>
+        /// Clear all subscriptions for specific channel and target
+        /// </summary>
+        /// <param name="channel">Channel type</param>
+        /// <param name="target">target string</param>
+        /// <returns></returns>
+        public Task<MojioResponse> ClearSubscriptionsAsync(ChannelType channel, String target)
+        {
+            string action = Map[typeof(Subscription)];
+            var request = GetRequest(Request(action), Method.DELETE);
+            request.AddParameter("channel", channel);
+            request.AddParameter("target", target);
+
+            return RequestAsync(request);
         }
     }
 }
