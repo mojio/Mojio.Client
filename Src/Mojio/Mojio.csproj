@@ -56,10 +56,12 @@
     <Compile Include="Address.cs" />
     <Compile Include="App.cs" />
     <Compile Include="AuthenticationProvider.cs" />
+    <Compile Include="CarState.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
+    <Compile Include="DeviceConfiguration.cs" />
     <Compile Include="DTC.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventBroadcast.cs" />

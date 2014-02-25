@@ -67,6 +67,11 @@ namespace Mojio
         public Guid? CurrentTrip { get; set; }
 
         /// <summary>
+        /// current trip id
+        /// </summary>
+        public Guid? LastTrip { get; set; }
+
+        /// <summary>
         /// most recent communication time
         /// </summary>
         public DateTime LastContactTime { get; set; }
@@ -77,7 +82,7 @@ namespace Mojio
         public bool? MilStatus { get; set; }
 
         /// <summary>
-        /// Public boolean flag to indicate DTC faults have been detected
+        /// public boolean flag to indicate DTC faults have been detected
         /// </summary>
         public bool FaultsDetected { get; set; }
         // TODO: Maybe Viewers should be in private?
@@ -85,5 +90,13 @@ namespace Mojio
         /// list of viewer ids
         /// </summary>
         public Guid[] Viewers { get; set; }
+
+        private CarState _state = CarState.Off;
+
+        public CarState State
+        {
+            get { return _state; }
+        }
+
     }
 }
