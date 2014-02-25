@@ -7,6 +7,8 @@ namespace Mojio.Client
 	{
 		public HttpStatusCode StatusCode { get; set; }
 
+        public string ErrorMessage { get; set; }
+
 		public string Content { get; set; }
 	}
 

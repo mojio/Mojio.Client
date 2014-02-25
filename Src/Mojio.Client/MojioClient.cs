@@ -52,8 +52,6 @@ namespace Mojio.Client
         public int PageSize { get; set; }
         public int SessionTime { get; set; }
 
-        public int MaxConnections { get; set; }
-
         RestClient RestClient;
         public Token Token;
 
@@ -127,8 +125,6 @@ namespace Mojio.Client
         {
             PageSize = 10;
             SessionTime = 24 * 60;
-
-            MaxConnections = 5;
 
             RestClient = new RestClient(Url);
             RestClient.AddHandler("application/json", new RSJsonSerializer());
@@ -429,63 +425,45 @@ namespace Mojio.Client
             }
             return tcs.Task;
         }
-
-        Queue<Func<Task>> _requestQueue = new Queue<Func<Task>> ();
-        int _currentRequests = 0;
-
-        private void ProcessQueue()
-        {
-            if (!_requestQueue.Any ()) {
-                return;
-            }
-
-            if (_currentRequests > MaxConnections) {
-                return;
-            }
-
-            var func = _requestQueue.Dequeue ();
-
-            _currentRequests++;
-            var task = func.Invoke ();
-            task.ContinueWith (t => {
-                _currentRequests--;
-                ProcessQueue ();
-            });
-        }
-
-		public Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
+            
+        public Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
             where T : new()
         {
 			var tcs = new TaskCompletionSource<MojioResponse<T>>();
 
-            _requestQueue.Enqueue (() => {
-                try {
-                    RestClient.ExecuteAsync<T> (request, response => {
-                        MojioResponse<T> r;
+            try {
+                RestClient.ExecuteAsync<T> (request, response => {
+                    MojioResponse<T> r;
 
-                        if (response.StatusCode == 0)
-                            r = new MojioResponse<T> {
-                                Content = response.ErrorMessage,
-                                StatusCode = HttpStatusCode.InternalServerError
-                            };
-                        else
-                            r = new MojioResponse<T> {
-                                Data = response.Data,
-                                Content = response.Content,
-                                StatusCode = response.StatusCode
-                            };
+                    if (response.StatusCode == 0) {
+                        r = new MojioResponse<T> {
+                            ErrorMessage = response.ErrorMessage,
+                            Content = response.Content,
+                            StatusCode = HttpStatusCode.InternalServerError
+                        };
+                    } else {
+                        r = new MojioResponse<T> {
+                            Data = response.Data,
+                            Content = response.Content,
+                            StatusCode = response.StatusCode
+                        };
 
-                        tcs.SetResult (r);
-                    });
-                } catch (Exception e) {
-                    tcs.SetException (e);
-                }
+                        if( response.Data == null ){
+                            try {
+                                var error = Deserialize<String>(response.Content);
+                                r.ErrorMessage = error;
+                            } catch( Exception ) {
+                                // Exception thrown.  I don't think we need to do anything with it though.
+                                r.ErrorMessage = "No content";
+                            }
+                        }
+                    }
 
-                return tcs.Task;
-            });
-
-            // Process queue
-            ProcessQueue();
+                    tcs.SetResult (r);
+                });
+            } catch (Exception e) {
+                tcs.SetException (e);
+            }
 
             return tcs.Task;
         }
