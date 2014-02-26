@@ -75,12 +75,22 @@ namespace Mojio
         /// <summary>
         /// end location
         /// </summary>
+        public Location CurrentLocation { get; set; }
+
+        /// <summary>
+        /// end location
+        /// </summary>
         public Location EndLocation { get; set; }
 
         /// <summary>
         /// Address where the trip started
         /// </summary>
         public Address StartAddress { get; set; }
+
+        /// <summary>
+        /// Address where the trip ended
+        /// </summary>
+        public Address CurrentAddress { get; set; }
 
         /// <summary>
         /// Address where the trip ended
