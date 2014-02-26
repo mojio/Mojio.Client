@@ -85,8 +85,6 @@ namespace Mojio.Events
             EventType = Events.EventType.TripStatus;
         }
 
-
-
         /// <summary>
         /// max speed
         /// </summary>
