@@ -25,7 +25,7 @@ namespace Mojio
         //[Required(ErrorMessage = "Required")]
         [Display(Name = "User name")]
         [RegularExpression(UsernameRegEx, ErrorMessage = UsernameError)]
-        [StringLength(UserNameMaxLength, ErrorMessage = "Must be {2} to {0} characters", MinimumLength = UserNameMinLength)]
+        [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength, ErrorMessage = "{0} must be {2} to {1} characters")]
         public string UserName { get; set; }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Mojio
         [MembershipPassword(ErrorMessage = PasswordError)]
         //[RegularExpression(PasswordRegEx, ErrorMessage=PasswordError)]
         [DataType(DataType.Password)]
-        [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "Must be {1} to {0} characters")]
+        [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "{0} must be {2} to {1} characters")]
         [Display(Name = "Password")]
         public string Password { get; set; }
     }
