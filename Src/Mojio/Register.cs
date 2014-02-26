@@ -22,7 +22,7 @@ namespace Mojio
         /// <summary>
         /// username
         /// </summary>
-        [Required(ErrorMessage = "Required")]
+        //[Required(ErrorMessage = "Required")]
         [Display(Name = "User name")]
         [RegularExpression(UsernameRegEx, ErrorMessage = UsernameError)]
         [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength, ErrorMessage = "Must be {1} to {0} characters")]
