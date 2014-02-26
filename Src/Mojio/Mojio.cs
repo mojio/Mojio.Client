@@ -91,12 +91,6 @@ namespace Mojio
         /// </summary>
         public Guid[] Viewers { get; set; }
 
-        private CarState _state = CarState.Off;
-
-        public CarState State
-        {
-            get { return _state; }
-        }
 
     }
 }
