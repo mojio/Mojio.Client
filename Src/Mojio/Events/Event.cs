@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Mojio.Events
 {
-   public interface IEvent
+    public interface IEvent
     {
         /// <summary>
         /// mojio Id
@@ -38,7 +38,7 @@ namespace Mojio.Events
     /// <summary>
     /// event
     /// </summary>
-    [JsonConverter(typeof(EventConverter))]
+    [JsonConverter (typeof(EventConverter))]
     public class Event : GuidEntity, IEvent, IOwner, ICloneable
     {
         /// <summary>
@@ -71,9 +71,9 @@ namespace Mojio.Events
         /// </summary>
         public bool? TimeIsApprox { get; set; }
 
-        public object Clone()
+        public object Clone ()
         {
-            return this.MemberwiseClone();
+            return this.MemberwiseClone ();
         }
     }
 }
