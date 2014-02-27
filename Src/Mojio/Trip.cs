@@ -73,6 +73,11 @@ namespace Mojio
         public Location StartLocation { get; set; }
 
         /// <summary>
+        /// last known location
+        /// </summary>
+        public Location LastKnownLocation { get; set; }
+
+        /// <summary>
         /// end location
         /// </summary>
         public Location EndLocation { get; set; }
@@ -81,6 +86,11 @@ namespace Mojio
         /// Address where the trip started
         /// </summary>
         public Address StartAddress { get; set; }
+
+        /// <summary>
+        /// Last Known Address.
+        /// </summary>
+        public Address LastKnownAddress { get; set; }
 
         /// <summary>
         /// Address where the trip ended
