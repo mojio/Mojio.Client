@@ -29,22 +29,14 @@ namespace Mojio.Events
         /// </summary>
         public short? Heading { get; set; }
 
-        public bool? TimeIsApprox { get; set; }
+        /// <summary>
+        /// Battery Voltage
+        /// </summary>
+        public float? BatteryVoltage { get; set; }
+
         // This property is not saved
         [JsonIgnore]
         public bool? ForceTripEnd { get; set; }
-    }
-
-    /// <summary>
-    /// trip status event
-    /// </summary>
-    [CollectionNameAttribute (typeof(Event))]
-    public class TripStatusEvent : TripEvent
-    {
-        public TripStatusEvent ()
-        {
-            EventType = Events.EventType.TripStatus;
-        }
 
         /// <summary>
         /// distance
@@ -65,6 +57,33 @@ namespace Mojio.Events
         /// Current speed
         /// </summary>
         public float? Speed { get; set; }
+
+        /// <summary>
+        /// stop time
+        /// </summary>
+        public float? Odometer { get; set; }
+
+        /// <summary>
+        /// RPM
+        /// </summary>
+        public int? RPM { get; set; }
+
+        /// <summary>
+        /// Address of this location
+        /// </summary>
+        public Address Address { get; set; }
+    }
+
+    /// <summary>
+    /// trip status event
+    /// </summary>
+    [CollectionNameAttribute (typeof(Event))]
+    public class TripStatusEvent : TripEvent
+    {
+        public TripStatusEvent ()
+        {
+            EventType = Events.EventType.TripStatus;
+        }
 
         /// <summary>
         /// max speed
@@ -91,20 +110,14 @@ namespace Mojio.Events
         /// </summary>
         public float? StopTime { get; set; }
 
-        /// <summary>
-        /// RPM
-        /// </summary>
-        public int? RPM { get; set; }
+
 
         /// <summary>
         /// Max RPM
         /// </summary>
         public int? MaxRPM { get; set; }
 
-        /// <summary>
-        /// stop time
-        /// </summary>
-        public float? Odometer { get; set; }
+
     }
 
     /// <summary>
@@ -127,6 +140,11 @@ namespace Mojio.Events
     {
         public TripStartEvent ()
         {
+            EventType = Events.EventType.TripStart;
+        }
+        public TripStartEvent(TripEvent tripEvent)
+        {
+
             EventType = Events.EventType.TripStart;
         }
     }

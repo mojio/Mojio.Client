@@ -6,17 +6,27 @@ using System.Text;
 
 namespace Mojio
 {
-    public class Location
+    public class Location : ICloneable
     {
         /// <summary>
         /// latitude coordinate
         /// </summary>
-        public float Lat { get; set; }
+         public float Lat { get; set; }
 
         /// <summary>
         /// longitiude coordinate
         /// </summary>
         public float Lng { get; set; }
+
+        /// <summary>
+        /// Was the data obtained from a locked gps reading.
+        /// </summary>
+        public bool FromLockedGPS { get; set; }
+
+        /// <summary>
+        /// possible error area of the lat lon data.  0 is undiluted.
+        /// </summary>
+        public float Dilution { get; set; }
 
         /// <summary>
         /// Geospatial coordinates. Used by MongoDB.
@@ -59,6 +69,10 @@ namespace Mojio
         public override string ToString()
         {
             return string.Format("Lat: {0}, Lng: {1}", Lat, Lng);
+        }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

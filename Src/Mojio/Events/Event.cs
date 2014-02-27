@@ -38,8 +38,8 @@ namespace Mojio.Events
     /// <summary>
     /// event
     /// </summary>
-    [JsonConverter(typeof(EventConverter))]
-    public class Event : GuidEntity, IEvent, IOwner
+    [JsonConverter (typeof(EventConverter))]
+    public class Event : GuidEntity, IEvent, IOwner, ICloneable
     {
         /// <summary>
         /// mojio Id
@@ -65,5 +65,15 @@ namespace Mojio.Events
         /// location
         /// </summary>
         public Location Location { get; set; }
+
+        /// <summary>
+        /// TimeIsApproximate
+        /// </summary>
+        public bool? TimeIsApprox { get; set; }
+
+        public object Clone ()
+        {
+            return this.MemberwiseClone ();
+        }
     }
 }
