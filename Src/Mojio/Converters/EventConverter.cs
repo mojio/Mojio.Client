@@ -69,6 +69,7 @@ namespace Mojio.Converters
             case EventType.Speed:
                 return new SpeedEvent ();
 
+            case EventType.Accident:
             case EventType.TripEvent:
                 return new TripEvent ();
             case EventType.Diagnostic:
