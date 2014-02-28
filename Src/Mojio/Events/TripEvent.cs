@@ -72,6 +72,25 @@ namespace Mojio.Events
         /// Address of this location
         /// </summary>
         public Address Address { get; set; }
+
+        public override string ToString()
+        {
+            string str = base.ToString()+", ";
+
+            str += string.Format("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
+                this.Altitude,
+                this.Heading,
+                this.BatteryVoltage,
+                this.Distance,
+                this.FuelLevel,
+                this.FuelEfficiency,
+                this.Speed,
+                this.Odometer,
+                this.RPM,
+                this.Address == null ? "nodata" : this.Address.ToString());
+
+            return str;
+        }
     }
 
     /// <summary>
@@ -110,14 +129,25 @@ namespace Mojio.Events
         /// </summary>
         public float? StopTime { get; set; }
 
-
-
         /// <summary>
         /// Max RPM
         /// </summary>
         public int? MaxRPM { get; set; }
 
+        public override string ToString()
+        {
+            string str = base.ToString() + ", TripEvent-> ";
 
+            str += string.Format("MaxSpeed {0}, AveSpeed {1}, MovingTime {2}, IdleTime {3}, StopTime {4}, MaxRPM {5}",
+                this.MaxSpeed,
+                this.AverageSpeed,
+                this.MovingTime,
+                this.IdleTime,
+                this.StopTime,
+                this.MaxRPM);
+
+            return str;
+        }
     }
 
     /// <summary>
@@ -129,6 +159,11 @@ namespace Mojio.Events
         public TripEndEvent ()
         {
             EventType = Events.EventType.TripEnd;
+        }
+
+        public override string ToString()
+        {
+            return "TripEnd:" + base.ToString();
         }
     }
 
@@ -144,8 +179,11 @@ namespace Mojio.Events
         }
         public TripStartEvent(TripEvent tripEvent)
         {
-
             EventType = Events.EventType.TripStart;
+        }
+        public override string ToString()
+        {
+            return "TripStart:" + base.ToString();
         }
     }
 }
