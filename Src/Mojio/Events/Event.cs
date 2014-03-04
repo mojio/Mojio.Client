@@ -75,5 +75,33 @@ namespace Mojio.Events
         {
             return this.MemberwiseClone ();
         }
+
+        public override string ToString()
+        {
+            try
+            {
+                string str = "MojioEvent-> ";
+
+                if (this.Location != null && this.Location.IsValid)
+                    return str + string.Format("Type: {0}, Lat {1}, Lng {2}, Time {3}",
+                        this.EventType.ToString(),
+                        this.Location.Lat,
+                        this.Location.Lng,
+                        this.Time != null ? this.Time.ToString() : "nodata"
+                     );
+                else
+                    return str + string.Format("Type: {0}, Lat {1}, Lng {2}, Time {3}",
+                        this.EventType.ToString(),
+                        "nodata",
+                        "nodata",
+                        this.Time != null ? this.Time.ToString() : "nodata"
+                    );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ex.Message;
+            }
+        }
     }
 }

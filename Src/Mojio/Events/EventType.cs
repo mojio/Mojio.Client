@@ -134,5 +134,10 @@ namespace Mojio.Events
         /// device-defined diagnostics event
         /// </summary>
         Diagnostic,
+
+        /// <summary>
+        /// trip status (device)
+        /// </summary>
+        OffStatus,
     }
 }
