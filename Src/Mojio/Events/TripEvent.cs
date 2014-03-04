@@ -75,21 +75,29 @@ namespace Mojio.Events
 
         public override string ToString()
         {
-            string str = base.ToString()+", ";
+            try
+            {
+                string str = base.ToString() + ", ";
 
-            str += string.Format("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
-                this.Altitude,
-                this.Heading,
-                this.BatteryVoltage,
-                this.Distance,
-                this.FuelLevel,
-                this.FuelEfficiency,
-                this.Speed,
-                this.Odometer,
-                this.RPM,
-                this.Address == null ? "nodata" : this.Address.ToString());
+                str += string.Format("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
+                    this.Altitude,
+                    this.Heading,
+                    this.BatteryVoltage,
+                    this.Distance,
+                    this.FuelLevel,
+                    this.FuelEfficiency,
+                    this.Speed,
+                    this.Odometer,
+                    this.RPM,
+                    this.Address == null ? "nodata" : this.Address.ToString());
 
-            return str;
+                return str;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ex.Message;
+            }
         }
     }
 
@@ -136,17 +144,25 @@ namespace Mojio.Events
 
         public override string ToString()
         {
-            string str = base.ToString() + ", TripEvent-> ";
+            try
+            {
+                string str = base.ToString() + ", TripEvent-> ";
 
-            str += string.Format("MaxSpeed {0}, AveSpeed {1}, MovingTime {2}, IdleTime {3}, StopTime {4}, MaxRPM {5}",
-                this.MaxSpeed,
-                this.AverageSpeed,
-                this.MovingTime,
-                this.IdleTime,
-                this.StopTime,
-                this.MaxRPM);
+                str += string.Format("MaxSpeed {0}, AveSpeed {1}, MovingTime {2}, IdleTime {3}, StopTime {4}, MaxRPM {5}",
+                    this.MaxSpeed,
+                    this.AverageSpeed,
+                    this.MovingTime,
+                    this.IdleTime,
+                    this.StopTime,
+                    this.MaxRPM);
 
-            return str;
+                return str;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ex.Message;
+            }
         }
     }
 
