@@ -101,6 +101,17 @@ namespace Mojio.Events
         }
     }
 
+        /// <summary>
+    /// off status event 
+    /// </summary>
+    [CollectionNameAttribute(typeof(Event))]
+    public class OffStatusEvent : TripEvent
+    {
+        public OffStatusEvent()
+        {
+            EventType = Events.EventType.OffStatus;
+        }
+    }
     /// <summary>
     /// trip status event
     /// </summary>
