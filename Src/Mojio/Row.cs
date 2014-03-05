@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Mojio
 {
+    /// <summary>
+    /// Row
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Row<T>
     {
         /// <summary>
@@ -23,6 +27,9 @@ namespace Mojio
         public T Value { get; set; }
     }
 
+    /// <summary>
+    /// Row
+    /// </summary>
     public class Row : Row<object>
     {
 

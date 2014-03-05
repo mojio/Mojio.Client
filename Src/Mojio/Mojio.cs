@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mojio
 {
+    /// <summary>
+    /// Device
+    /// </summary>
     public partial class Device : StringEntity, IOwner,IViewers
     {
         /// <summary>

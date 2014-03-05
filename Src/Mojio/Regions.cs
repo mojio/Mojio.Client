@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// Regions
+    /// </summary>
     public class Regions
     {
+        /// <summary>Gets or sets the countries.</summary>
+        /// <value>The countries.</value>
         public static Dictionary<string, string> Countries { get; set; }
+
+        /// <summary>Gets or sets the provinces.</summary>
+        /// <value>The provinces.</value>
         public static Dictionary<string, Dictionary<string, string>> Provinces { get; set; }
 
+        /// <summary>USA</summary>
         public const string USA = "US";
+        /// <summary>Canada</summary>
         public const string Canada = "CA";
 
         static Regions()

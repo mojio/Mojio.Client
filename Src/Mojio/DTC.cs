@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DTC:StringEntity
     {
         /// <summary>
@@ -16,16 +19,27 @@ namespace Mojio
             this.Description = "Unknown DTC";
         }
 
+        /// <summary>Gets or sets the code.</summary>
+        /// <value>The code.</value>
         public string Code
         {
             get { return Id; }
             set { Id = value; }
         }
+        
+        /// <summary>Gets or sets the description.</summary>
+        /// <value>The description.</value>
         public string Description { get; set; }
+        
+        /// <summary>Gets or sets the source.</summary>
+        /// <value>The source.</value>
         public string Source { get; set; }
     }
 
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class DTCStatus
     {
         /// <summary>

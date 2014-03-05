@@ -11,10 +11,8 @@ namespace Mojio.Events
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
     public class SpeedEvent : TripEvent
-    {        
-        /// <summary>
-        /// current speed
-        /// </summary>
+    {
+        /// <summary>current speed</summary>
         public float Speed { get; set; }
     }
 }

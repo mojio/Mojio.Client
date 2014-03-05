@@ -7,17 +7,29 @@ using System.Threading.Tasks;
 
 namespace Mojio.Events
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Log : Event
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public enum Levels
         {
+            /// <summary>The debug</summary>
             Debug,
+            /// <summary>The information</summary>
             Info,
+            /// <summary>The warning</summary>
             Warning,
+            /// <summary>The error</summary>
             Error,
+            /// <summary>The fatal</summary>
             Fatal
         }
 
+        /// <summary>Initializes a new instance of the <see cref="Log"/> class.</summary>
         public Log()
         {
             EventType = Events.EventType.Log;
@@ -45,8 +57,12 @@ namespace Mojio.Events
         /// </summary>
         public Guid? UserId { get; set; }
 
+        /// <summary>Gets or sets the name of the controller.</summary>
+        /// <value>The name of the controller.</value>
         public string ControllerName { get; set; }
 
+        /// <summary>Gets or sets the name of the action.</summary>
+        /// <value>The name of the action.</value>
         public string ActionName { get; set; }
     }
 }

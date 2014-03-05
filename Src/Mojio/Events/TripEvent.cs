@@ -12,11 +12,16 @@ namespace Mojio.Events
     [CollectionNameAttribute (typeof(Event))]
     public class TripEvent : Event
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TripEvent"/> class.
+        /// </summary>
         public TripEvent ()
         {
             EventType = Events.EventType.TripEvent;
         }
 
+        /// <summary>Gets or sets the trip identifier.</summary>
+        /// <value>The trip identifier.</value>
         public Guid? TripId { get; set; }
 
         /// <summary>
@@ -35,6 +40,8 @@ namespace Mojio.Events
         public float? BatteryVoltage { get; set; }
 
         // This property is not saved
+        /// <summary>Gets or sets the force trip end.</summary>
+        /// <value>The force trip end.</value>
         [JsonIgnore]
         public bool? ForceTripEnd { get; set; }
 
@@ -118,6 +125,9 @@ namespace Mojio.Events
     [CollectionNameAttribute (typeof(Event))]
     public class TripStatusEvent : TripEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TripStatusEvent"/> class.
+        /// </summary>
         public TripStatusEvent ()
         {
             EventType = Events.EventType.TripStatus;
@@ -183,6 +193,9 @@ namespace Mojio.Events
     [CollectionNameAttribute (typeof(Event))]
     public class TripEndEvent : TripStatusEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TripEndEvent"/> class.
+        /// </summary>
         public TripEndEvent ()
         {
             EventType = Events.EventType.TripEnd;
@@ -200,10 +213,18 @@ namespace Mojio.Events
     [CollectionNameAttribute (typeof(Event))]
     public class TripStartEvent : TripStatusEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
+        /// </summary>
         public TripStartEvent ()
         {
             EventType = Events.EventType.TripStart;
         }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
+        /// </summary>
+        /// <param name="tripEvent">The trip event.</param>
         public TripStartEvent(TripEvent tripEvent)
         {
             EventType = Events.EventType.TripStart;

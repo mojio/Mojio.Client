@@ -6,6 +6,9 @@ using System.Web;
 namespace Mojio
 {
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum CarState
     {
         /// <summary>

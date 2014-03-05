@@ -6,6 +6,9 @@ using Mojio.Events;
 
 namespace Mojio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EventBroadcast
     {
         /// <summary>
