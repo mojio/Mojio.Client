@@ -75,6 +75,7 @@
     <Compile Include="Events\IgnitionEvent.cs" />
     <Compile Include="Events\Log.cs" />
     <Compile Include="Events\PowerEvent.cs" />
+    <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />

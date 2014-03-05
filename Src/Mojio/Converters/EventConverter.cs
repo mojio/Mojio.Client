@@ -103,6 +103,9 @@ namespace Mojio.Converters
                 return new TripEvent ();
             case EventType.Diagnostic:
                 return new DiagnosticEvent ();
+            case EventType.TowStart:
+            case EventType.TowStop:
+                return new TowEvent();
             default:
                 return new Event ();
             }
