@@ -38,7 +38,6 @@ namespace Mojio.Events
         /// Battery Voltage
         /// </summary>
         public float? BatteryVoltage { get; set; }
-
         // This property is not saved
         /// <summary>Gets or sets the force trip end.</summary>
         /// <value>The force trip end.</value>
@@ -84,13 +83,12 @@ namespace Mojio.Events
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            try
-            {
-                string str = base.ToString() + ", ";
+            try {
+                string str = base.ToString () + ", ";
 
-                str += string.Format("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
+                str += string.Format ("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
                     this.Altitude,
                     this.Heading,
                     this.BatteryVoltage,
@@ -100,32 +98,31 @@ namespace Mojio.Events
                     this.Speed,
                     this.Odometer,
                     this.RPM,
-                    this.Address == null ? "nodata" : this.Address.ToString());
+                    this.Address == null ? "nodata" : this.Address.ToString ());
 
                 return str;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+            } catch (Exception ex) {
+                //Console.WriteLine(ex.Message);
                 return ex.Message;
             }
         }
     }
 
-        /// <summary>
+    /// <summary>
     /// off status event 
     /// </summary>
-    [CollectionNameAttribute(typeof(Event))]
+    [CollectionNameAttribute (typeof(Event))]
     public class OffStatusEvent : TripEvent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OffStatusEvent"/> class.
         /// </summary>
-        public OffStatusEvent()
+        public OffStatusEvent ()
         {
             EventType = Events.EventType.OffStatus;
         }
     }
+
     /// <summary>
     /// trip status event
     /// </summary>
@@ -174,13 +171,12 @@ namespace Mojio.Events
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            try
-            {
-                string str = base.ToString() + ", TripEvent-> ";
+            try {
+                string str = base.ToString () + ", TripEvent-> ";
 
-                str += string.Format("MaxSpeed {0}, AveSpeed {1}, MovingTime {2}, IdleTime {3}, StopTime {4}, MaxRPM {5}",
+                str += string.Format ("MaxSpeed {0}, AveSpeed {1}, MovingTime {2}, IdleTime {3}, StopTime {4}, MaxRPM {5}",
                     this.MaxSpeed,
                     this.AverageSpeed,
                     this.MovingTime,
@@ -189,10 +185,8 @@ namespace Mojio.Events
                     this.MaxRPM);
 
                 return str;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+            } catch (Exception ex) {
+                //Console.WriteLine(ex.Message);
                 return ex.Message;
             }
         }
@@ -216,9 +210,9 @@ namespace Mojio.Events
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            return "TripEnd:" + base.ToString();
+            return "TripEnd:" + base.ToString ();
         }
     }
 
@@ -235,23 +229,23 @@ namespace Mojio.Events
         {
             EventType = Events.EventType.TripStart;
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
         /// </summary>
         /// <param name="tripEvent">The trip event.</param>
-        public TripStartEvent(TripEvent tripEvent)
+        public TripStartEvent (TripEvent tripEvent)
         {
             EventType = Events.EventType.TripStart;
         }
-        
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            return "TripStart:" + base.ToString();
+            return "TripStart:" + base.ToString ();
         }
     }
 }
