@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Mojio.Client
 {
@@ -121,5 +122,7 @@ namespace Mojio.Client
         bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code);
         bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code, out string message);
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
+
+        Task<MojioResponse<List<Device>>> ImportDevicesAsync(List<string> items);
     }
 }

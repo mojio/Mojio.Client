@@ -543,6 +543,22 @@ namespace Mojio.Client
 		}
 
         /// <summary>
+        /// imports one or more devices
+        /// </summary>
+        /// <param name="items">each row is of the format: imei,name,pin,msisdn</param>
+        /// <returns></returns>
+        public Task<MojioResponse<List<Device>>> ImportDevicesAsync(List<string> items)
+        {
+            string controller = "admin";
+
+            var request = GetRequest(Request(controller, "none", "importdevices"), Method.POST);
+
+            request.AddBody(items);
+
+            return RequestAsync<List<Device>>(request);
+        }
+
+        /// <summary>
         /// Delete an entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
