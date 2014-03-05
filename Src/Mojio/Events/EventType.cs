@@ -101,9 +101,14 @@ namespace Mojio.Events
         Accident,
 
         /// <summary>
-        /// tow (device)
+        /// tow start (device)
         /// </summary>
-        Tow,
+        TowStart,
+
+        /// <summary>
+        /// tow stop (device)
+        /// </summary>
+        TowStop,
 
         /// <summary>
         /// hard acceleration (device)
