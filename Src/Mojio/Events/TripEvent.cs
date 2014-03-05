@@ -80,6 +80,10 @@ namespace Mojio.Events
         /// </summary>
         public Address Address { get; set; }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             try
@@ -114,6 +118,9 @@ namespace Mojio.Events
     [CollectionNameAttribute(typeof(Event))]
     public class OffStatusEvent : TripEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OffStatusEvent"/> class.
+        /// </summary>
         public OffStatusEvent()
         {
             EventType = Events.EventType.OffStatus;
@@ -163,6 +170,10 @@ namespace Mojio.Events
         /// </summary>
         public int? MaxRPM { get; set; }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             try
@@ -201,6 +212,10 @@ namespace Mojio.Events
             EventType = Events.EventType.TripEnd;
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return "TripEnd:" + base.ToString();
@@ -229,6 +244,11 @@ namespace Mojio.Events
         {
             EventType = Events.EventType.TripStart;
         }
+        
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return "TripStart:" + base.ToString();

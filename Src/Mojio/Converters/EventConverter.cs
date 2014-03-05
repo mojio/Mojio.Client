@@ -98,9 +98,6 @@ namespace Mojio.Converters
             case EventType.HardLeft:
             case EventType.HardRight:
                 return new HardEvent ();
-            case EventType.Speed:
-                return new SpeedEvent ();
-
             case EventType.Accident:
             case EventType.TripEvent:
                 return new TripEvent ();
