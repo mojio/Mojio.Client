@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Mojio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ILog
     {
     }

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// Results
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Results<T>
     {
         /// <summary>
@@ -31,6 +35,9 @@ namespace Mojio
         public IEnumerable<T> Data { get; set; }
     }
 
+    /// <summary>
+    /// Results
+    /// </summary>
     public class Results : Results<object>
     {
     }

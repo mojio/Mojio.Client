@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Address
     {
         /// <summary>
