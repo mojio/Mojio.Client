@@ -85,30 +85,27 @@ namespace Mojio.Events
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            try
-            {
+            try {
                 string str = "MojioEvent-> ";
 
                 if (this.Location != null && this.Location.IsValid)
-                    return str + string.Format("Type: {0}, Lat {1}, Lng {2}, Time {3}",
-                        this.EventType.ToString(),
+                    return str + string.Format ("Type: {0}, Lat {1}, Lng {2}, Time {3}",
+                        this.EventType.ToString (),
                         this.Location.Lat,
                         this.Location.Lng,
-                        this.Time != null ? this.Time.ToString() : "nodata"
-                     );
-                else
-                    return str + string.Format("Type: {0}, Lat {1}, Lng {2}, Time {3}",
-                        this.EventType.ToString(),
-                        "nodata",
-                        "nodata",
-                        this.Time != null ? this.Time.ToString() : "nodata"
+                        this.Time != null ? this.Time.ToString () : "nodata"
                     );
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                else
+                    return str + string.Format ("Type: {0}, Lat {1}, Lng {2}, Time {3}",
+                        this.EventType.ToString (),
+                        "nodata",
+                        "nodata",
+                        this.Time != null ? this.Time.ToString () : "nodata"
+                    );
+            } catch (Exception ex) {
+                //Console.WriteLine(ex.Message);
                 return ex.Message;
             }
         }
