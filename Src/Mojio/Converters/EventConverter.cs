@@ -106,6 +106,11 @@ namespace Mojio.Converters
             case EventType.TowStart:
             case EventType.TowStop:
                 return new TowEvent();
+            case EventType.LowBattery:
+                return new BatteryEvent();
+            case EventType.PlugIn:
+            case EventType.Unplug:
+                return new PlugEvent();
             default:
                 return new Event ();
             }

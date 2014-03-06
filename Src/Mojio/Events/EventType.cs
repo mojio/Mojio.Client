@@ -46,6 +46,21 @@ namespace Mojio.Events
         IgnitionOff,
 
         /// <summary>
+        /// plug in (device)
+        /// </summary>
+        PlugIn,
+        
+        /// <summary>
+        /// unplugged (device)
+        /// </summary>
+        Unplug,
+
+        /// <summary>
+        /// low battery (device)
+        /// </summary>
+        LowBattery,
+
+        /// <summary>
         /// GPS update (device)
         /// </summary>
         TripEvent = 1005,
