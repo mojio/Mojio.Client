@@ -46,14 +46,9 @@ namespace Mojio.Events
         IgnitionOff,
 
         /// <summary>
-        /// plug in (device)
+        /// mojio off (device)
         /// </summary>
-        PlugIn,
-        
-        /// <summary>
-        /// unplugged (device)
-        /// </summary>
-        Unplug,
+        MojioOff,
 
         /// <summary>
         /// low battery (device)

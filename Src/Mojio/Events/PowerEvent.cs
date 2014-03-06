@@ -28,7 +28,8 @@ namespace Mojio.Events
         {
             if (type != Events.EventType.MojioOn &&
                 type != Events.EventType.MojioIdle &&
-                type != Events.EventType.MojioWake)
+                type != Events.EventType.MojioWake && 
+                type != Events.EventType.MojioOff) 
                 throw new ArgumentException("Invalid Power event type " + type);
             EventType = type;
         }

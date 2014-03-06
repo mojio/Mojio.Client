@@ -80,6 +80,7 @@ namespace Mojio.Converters
             case EventType.MojioIdle:
             case EventType.MojioWake:
             case EventType.MojioOn:
+            case EventType.MojioOff:
                 return new PowerEvent ();
             case EventType.TripStart:
                 return new TripStartEvent ();
@@ -108,9 +109,6 @@ namespace Mojio.Converters
                 return new TowEvent();
             case EventType.LowBattery:
                 return new BatteryEvent();
-            case EventType.PlugIn:
-            case EventType.Unplug:
-                return new PlugEvent();
             default:
                 return new Event ();
             }
