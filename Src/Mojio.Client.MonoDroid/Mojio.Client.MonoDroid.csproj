@@ -91,6 +91,9 @@
     <Compile Include="..\Mojio\Converters\SubscriptionConverter.cs">
       <Link>Mojio\Converters\SubscriptionConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\TowEvent.cs">
+      <Link>Mojio\Events\TowEvent.cs</Link>
+    </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
     <Compile Include="MojioClient.AndroidGcm.cs" />
@@ -191,9 +194,6 @@
     </Compile>
     <Compile Include="..\Mojio\Events\IgnitionEvent.cs">
       <Link>Mojio\Events\IgnitionEvent.cs</Link>
-    </Compile>
-    <Compile Include="..\Mojio\Events\SpeedEvent.cs">
-      <Link>Mojio\Events\SpeedEvent.cs</Link>
     </Compile>
     <Compile Include="..\Mojio\Events\TripEvent.cs">
       <Link>Mojio\Events\TripEvent.cs</Link>

@@ -72,4 +72,14 @@ namespace System.ComponentModel.DataAnnotations
     {
         public string ErrorMessage;
     }
+
+    public class ValidationAttribute : Attribute
+    {
+        public string ErrorMessage;
+
+        public virtual bool IsValid(object value)
+        {
+            return true;
+        }
+    }
 }
