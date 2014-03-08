@@ -91,6 +91,9 @@
     <Compile Include="..\Mojio\Converters\SubscriptionConverter.cs">
       <Link>Mojio\Converters\SubscriptionConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\BatteryEvent.cs">
+      <Link>Mojio\Events\BatteryEvent.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Events\TowEvent.cs">
       <Link>Mojio\Events\TowEvent.cs</Link>
     </Compile>

@@ -53,6 +53,7 @@ namespace System.ComponentModel.DataAnnotations
 
     class EmailAddressAttribute : Attribute
     {
+        public string ErrorMessage { get; set; }
     }
 
     class MembershipPasswordAttribute : Attribute

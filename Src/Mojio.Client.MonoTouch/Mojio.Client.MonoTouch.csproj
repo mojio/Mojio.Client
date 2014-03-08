@@ -121,6 +121,9 @@
     <Compile Include="..\mojio\events\ActionType.cs">
       <Link>Mojio\Events\ActionType.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\BatteryEvent.cs">
+      <Link>Mojio\Events\BatteryEvent.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
       <Link>Mojio\Events\DiagnosticEvent.cs</Link>
     </Compile>
