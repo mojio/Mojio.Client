@@ -85,16 +85,6 @@ namespace Mojio.Events
         public int? RPM { get; set; }
 
         /// <summary>
-        /// GPS State
-        /// </summary>
-        public int? GPSState { get; set; }
-
-        /// <summary>
-        /// Lost Time
-        /// </summary>
-        public int? GPSLostTime { get; set; }
-
-        /// <summary>
         /// Address of this location
         /// </summary>
         public Address Address { get; set; }
