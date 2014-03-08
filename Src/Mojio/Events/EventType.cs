@@ -46,6 +46,16 @@ namespace Mojio.Events
         IgnitionOff,
 
         /// <summary>
+        /// mojio off (device)
+        /// </summary>
+        MojioOff,
+
+        /// <summary>
+        /// low battery (device)
+        /// </summary>
+        LowBattery,
+
+        /// <summary>
         /// GPS update (device)
         /// </summary>
         TripEvent = 1005,

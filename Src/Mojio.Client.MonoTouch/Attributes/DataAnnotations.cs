@@ -53,6 +53,7 @@ namespace System.ComponentModel.DataAnnotations
 
     class EmailAddressAttribute : Attribute
     {
+        public string ErrorMessage { get; set; }
     }
 
     class MembershipPasswordAttribute : Attribute
@@ -71,5 +72,15 @@ namespace System.ComponentModel.DataAnnotations
     class CreditCardAttribute : Attribute
     {
         public string ErrorMessage;
+    }
+
+    public class ValidationAttribute : Attribute
+    {
+        public string ErrorMessage;
+
+        public virtual bool IsValid(object value)
+        {
+            return true;
+        }
     }
 }

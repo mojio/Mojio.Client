@@ -124,5 +124,6 @@ namespace Mojio.Client
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
 
         Task<MojioResponse<List<Device>>> ImportDevicesAsync(List<string> items);
+        Task<MojioResponse<Results<Events.Event>>> GetAllEvents(int pageSize, int pageOffset, List<string> mojioIds, List<Guid> tripIds, DateTime? start, DateTime? end, List<Events.EventType> eventTypes);
     }
 }
