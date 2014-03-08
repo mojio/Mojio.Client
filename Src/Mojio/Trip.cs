@@ -51,6 +51,22 @@ namespace Mojio
         public float? MaxSpeed { get; set; }
 
         /// <summary>
+        /// maximum acceleration
+        /// </summary>
+        /// <value>
+        /// The maximum acceleration.
+        /// </value>
+        public float? MaxAcceleration { get; set; }
+
+        /// <summary>
+        /// maximum acceleration
+        /// </summary>
+        /// <value>
+        /// The maximum acceleration.
+        /// </value>
+        public float? MaxDeceleration { get; set; }
+
+        /// <summary>
         /// maximum rpm
         /// </summary>
         /// <value>

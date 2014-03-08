@@ -65,6 +65,16 @@ namespace Mojio.Events
         public float? Speed { get; set; }
 
         /// <summary>
+        /// Current acceleration
+        /// </summary>
+        public float? Acceleration { get; set; }
+
+        /// <summary>
+        /// Current deceleration
+        /// </summary>
+        public float? Deceleration { get; set; }
+
+        /// <summary>
         /// stop time
         /// </summary>
         public float? Odometer { get; set; }
@@ -73,6 +83,16 @@ namespace Mojio.Events
         /// RPM
         /// </summary>
         public int? RPM { get; set; }
+
+        /// <summary>
+        /// GPS State
+        /// </summary>
+        public int? GPSState { get; set; }
+
+        /// <summary>
+        /// Lost Time
+        /// </summary>
+        public int? GPSLostTime { get; set; }
 
         /// <summary>
         /// Address of this location
