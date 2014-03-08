@@ -46,6 +46,16 @@ namespace Mojio.Events
         IgnitionOff,
 
         /// <summary>
+        /// mojio off (device)
+        /// </summary>
+        MojioOff,
+
+        /// <summary>
+        /// low battery (device)
+        /// </summary>
+        LowBattery,
+
+        /// <summary>
         /// GPS update (device)
         /// </summary>
         TripEvent = 1005,
@@ -101,9 +111,14 @@ namespace Mojio.Events
         Accident,
 
         /// <summary>
-        /// tow (device)
+        /// tow start (device)
         /// </summary>
-        Tow,
+        TowStart,
+
+        /// <summary>
+        /// tow stop (device)
+        /// </summary>
+        TowStop,
 
         /// <summary>
         /// hard acceleration (device)
@@ -134,5 +149,10 @@ namespace Mojio.Events
         /// device-defined diagnostics event
         /// </summary>
         Diagnostic,
+
+        /// <summary>
+        /// trip status (device)
+        /// </summary>
+        OffStatus,
     }
 }

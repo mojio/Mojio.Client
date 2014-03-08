@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class App : GuidEntity
     {
         /// <summary>

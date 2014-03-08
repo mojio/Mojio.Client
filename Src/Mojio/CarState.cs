@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Mojio.Events;
+using System.Web;
 
 namespace Mojio
 {
+
     /// <summary>
     /// 
     /// </summary>
-    public class EventBroadcast
+    public enum CarState
     {
         /// <summary>
-        /// event id
+        /// car off
         /// </summary>
-        public Guid EventId { get; set; }
+        Off = 0,
 
         /// <summary>
-        /// event type
+        /// car moving
         /// </summary>
-        public EventType EventType { get; set; }
+        Running = 1
     }
 }

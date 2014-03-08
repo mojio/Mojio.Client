@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CreditCard
     {
         /// <summary>
@@ -61,10 +64,20 @@ namespace Mojio
         /// </summary>
         public Address Address { get; set; }
     }
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public class BetaPayment
     {
+        /// <summary>Gets or sets the credit card.</summary>
+        /// <value>The credit card.</value>
         public CreditCard CreditCard { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [authorize charge].
+        /// </summary>
+        /// <value><c>true</c> if [authorize charge]; otherwise, <c>false</c>.</value>
         [MustBeTrue(ErrorMessage = "Please agree to the terms.")]
         [Display(Name = "I agree to have $10.00 charged to my credit card.")]
         public bool AuthorizeCharge { get; set; }
@@ -76,6 +89,11 @@ namespace Mojio
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class MustBeTrueAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// Determines whether the specified value of the object is valid.
+        /// </summary>
+        /// <param name="value">The value of the object to validate.</param>
+        /// <returns>true if the specified value is valid; otherwise, false.</returns>
         public override bool IsValid(object value)
         {
             return value != null && value is bool && (bool)value;

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    /// <summary>
+    /// Invoice
+    /// </summary>
     public class Invoice : GuidEntity , IOwner
     {
         /// <summary>
@@ -116,6 +119,9 @@ namespace Mojio
         }
     }
 
+    /// <summary>
+    /// Invoice Detail
+    /// </summary>
     public class InvoiceDetail
     {
         /// <summary>

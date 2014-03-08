@@ -8,22 +8,42 @@ using System.Web.Security;
 
 namespace Mojio
 {
+    /// <summary>
+    /// Register
+    /// </summary>
     public class Register
     {
+        /// <summary>The username reg ex</summary>
         public const string UsernameRegEx = "^[a-zA-Z0-9_]*$";
+        /// <summary>The username error</summary>
         public const string UsernameError = "numbers, upper, lower case and underscore allowed";
+        /// <summary>
+        /// The user name minimum length
+        /// </summary>
+        public const int UserNameMinLength = 4;
+        /// <summary>
+        /// The user name maximum length
+        /// </summary>
+        public const int UserNameMaxLength = 32;
+        /// <summary>The password reg ex</summary>
         public const string PasswordRegEx = @"(?=^[^\s]{8,32}$)((?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z]))^.*";
+        /// <summary>
+        /// The password minimum length
+        /// </summary>
         public const int PasswordMinLength = 8;
+        /// <summary>
+        /// The password maximum length
+        /// </summary>
         public const int PasswordMaxLength = 32;
+        /// <summary>The password error</summary>
         public const string PasswordError = "Must contain uppercase, lowercase and numbers";
 
-        /// <summary>
-        /// username
-        /// </summary>
-        [Required(ErrorMessage = "Required")]
+        /// <summary>username</summary>
+        /// <value>The name of the user.</value>
+        //[Required(ErrorMessage = "Required")]
         [Display(Name = "User name")]
         [RegularExpression(UsernameRegEx, ErrorMessage = UsernameError)]
-        [StringLength(32, MinimumLength = 6, ErrorMessage = "Must be 6 to 32 characters")]
+        [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength, ErrorMessage = "{0} must be {2} to {1} characters")]
         public string UserName { get; set; }
 
         /// <summary>
@@ -42,11 +62,14 @@ namespace Mojio
         [MembershipPassword(ErrorMessage = PasswordError)]
         //[RegularExpression(PasswordRegEx, ErrorMessage=PasswordError)]
         [DataType(DataType.Password)]
-        [StringLength(32, MinimumLength = 8, ErrorMessage = "Must be 8 to 32 characters")]
+        [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "{0} must be {2} to {1} characters")]
         [Display(Name = "Password")]
         public string Password { get; set; }
     }
 
+    /// <summary>
+    /// Change Password
+    /// </summary>
     public class ChangePassword
     {
         /// <summary>
@@ -69,6 +92,9 @@ namespace Mojio
         public string NewPassword { get; set; }
     }
 
+    /// <summary>
+    /// Reset Password
+    /// </summary>
     public class ResetPassword
     {
         /// <summary>

@@ -7,14 +7,25 @@ using Mojio;
 
 namespace Mojio.Events
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [CollectionNameAttribute(typeof(Event))]
     public class DiagnosticEvent : Event
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagnosticEvent"/> class.
+        /// </summary>
         public DiagnosticEvent()
         {
             EventType = Events.EventType.Diagnostic;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagnosticEvent"/> class.
+        /// </summary>
+        /// <param name="DTCs">The dt cs.</param>
+        /// <param name="milStatus">if set to <c>true</c> [mil status].</param>
         public DiagnosticEvent(string[] DTCs, bool milStatus)
         {
             EventType = Events.EventType.Diagnostic;

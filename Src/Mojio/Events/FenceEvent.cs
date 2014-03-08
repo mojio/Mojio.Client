@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Mojio.Events
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [CollectionNameAttribute(typeof(Event))]
     public class FenceEvent : TripEvent
     {
