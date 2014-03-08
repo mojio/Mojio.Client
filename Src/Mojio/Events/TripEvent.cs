@@ -65,6 +65,16 @@ namespace Mojio.Events
         public float? Speed { get; set; }
 
         /// <summary>
+        /// Current acceleration
+        /// </summary>
+        public float? Acceleration { get; set; }
+
+        /// <summary>
+        /// Current deceleration
+        /// </summary>
+        public float? Deceleration { get; set; }
+
+        /// <summary>
         /// stop time
         /// </summary>
         public float? Odometer { get; set; }
