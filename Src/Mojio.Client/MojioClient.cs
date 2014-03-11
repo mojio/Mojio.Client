@@ -563,19 +563,23 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="items">each row is of the format: imei,name,pin,msisdn</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<Events.Event>>> GetAllEvents(int pageSize, int pageOffset, List<string> mojioIds, List<Guid> tripIds, DateTime? start, DateTime? end, List<Events.EventType> eventTypes)
+        public Task<MojioResponse<Results<Events.Event>>> GetAllEvents(int? pageSize, int? pageOffset, List<string> mojioIds, List<Guid> tripIds, DateTime? start, DateTime? end, List<Events.EventType> eventTypes)
         {
             string controller = "admin";
 
             var request = GetRequest(Request(controller, "none", "getallevents"), Method.POST);
 
-            request.AddParameter("pageSize", pageSize);
-            request.AddParameter("pageOffset", pageOffset);
-            //request.AddParameter("mojioIds", mojioIds);
-            request.AddParameter("tripIds", tripIds);
-            //request.AddParameter("start", start);
-            //request.AddParameter("end", end);
-            //request.AddParameter("eventTypes", eventTypes);
+            dynamic json = new System.Dynamic.ExpandoObject();
+
+            json.PageSize = pageSize ?? 0;
+            json.PageOffset = pageOffset ?? 0;
+            json.MojioIds = mojioIds;
+            json.TripIds = tripIds;
+            json.Start = start;
+            json.End = end;
+            json.EventTypes = eventTypes;
+
+            request.AddBody(json);
 
             return RequestAsync<Results<Events.Event>>(request);
         }
