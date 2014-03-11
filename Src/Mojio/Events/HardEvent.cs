@@ -18,5 +18,27 @@ namespace Mojio.Events
         /// force
         /// </summary>
         public float Force { get; set; }
+
+        public HardEvent()
+        {
+
+        }
+        public HardEvent(EventType type)
+        {
+            EventType = type;
+            switch (type)
+            {
+                case Events.EventType.HardBrake:
+                    OpCode = "Hb";
+                    break;
+                case Events.EventType.HardLeft:
+                    OpCode = "Hl"; 
+                    break;
+                case Events.EventType.HardRight:
+                    OpCode = "Hr";
+                    break;
+            }
+
+        }
     }
 }

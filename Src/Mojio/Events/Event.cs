@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -36,6 +37,11 @@ namespace Mojio.Events
         /// location
         /// </summary>
         Location Location { get; set; }
+
+        /// <summary>
+        /// opcode
+        /// </summary>
+        string OpCode { get; set; }
     }
 
     /// <summary>
@@ -44,6 +50,11 @@ namespace Mojio.Events
     [JsonConverter (typeof(EventConverter))]
     public class Event : GuidEntity, IEvent, IOwner, ICloneable
     {
+        public Event()
+        {
+            OpCode = "No";
+        }
+
         /// <summary>
         /// mojio Id
         /// </summary>
@@ -62,7 +73,18 @@ namespace Mojio.Events
         /// <summary>
         /// event timestamp
         /// </summary>
-        public DateTime Time { get; set; }
+        private DateTime _time;
+        public DateTime Time {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                _time = value;
+                this.UpdateTime();
+            }
+        }
 
         /// <summary>
         /// location
@@ -73,6 +95,26 @@ namespace Mojio.Events
         /// TimeIsApproximate
         /// </summary>
         public bool? TimeIsApprox { get; set; }
+
+        /// <summary>
+        /// Battery Voltage
+        /// </summary>
+        public float? BatteryVoltage { get; set; }
+
+        /// <summary>
+        /// opcode
+        /// </summary>
+        public string OpCode { get; set; }
+
+        /// <summary>
+        /// opcode
+        /// </summary>
+        private string PacificTime { get; set; }
+
+        /// <summary>
+        /// opcode
+        /// </summary>
+        private string ServerTime { get; set; }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
@@ -91,23 +133,41 @@ namespace Mojio.Events
                 string str = "MojioEvent-> ";
 
                 if (this.Location != null && this.Location.IsValid)
-                    return str + string.Format ("Type: {0}, Lat {1}, Lng {2}, Time {3}",
+                    return str + string.Format ("Type: {0}, Op {1}, Lat {2}, Lng {3}, Time (UTC) {4}, PST: {5}",
                         this.EventType.ToString (),
+                        this.OpCode,
                         this.Location.Lat,
                         this.Location.Lng,
-                        this.Time != null ? this.Time.ToString () : "nodata"
+                        this.Time != null ? this.Time.ToString() : null,
+                        this.PacificTime != null ? this.PacificTime.ToString() : null
                     );
                 else
-                    return str + string.Format ("Type: {0}, Lat {1}, Lng {2}, Time {3}",
+                    return str + string.Format("Type: {0}, Op {1}, Lat {2}, Lng {3}, Time (UTC) {4}, PST: {5}",
                         this.EventType.ToString (),
-                        "nodata",
-                        "nodata",
-                        this.Time != null ? this.Time.ToString () : "nodata"
+                        this.OpCode,
+                        null,
+                        null,
+                        this.Time != null ? this.Time.ToString() : null,
+                        this.PacificTime != null ? this.PacificTime.ToString() : null
                     );
             } catch (Exception ex) {
                 //Console.WriteLine(ex.Message);
                 return ex.Message;
             }
         }
+
+        public static DateTime UtcToPacific(DateTime dateTime)
+        {
+            var zone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+            DateTime newDate = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+            return TimeZoneInfo.ConvertTimeFromUtc(newDate, zone);
+        }
+
+        public void UpdateTime()
+        {
+            DateTime dt = DateTime.Parse(this.Time.ToString(), CultureInfo.CurrentCulture, DateTimeStyles.AdjustToUniversal);
+            PacificTime = UtcToPacific(dt).ToString();
+        }
+         
     }
 }

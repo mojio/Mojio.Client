@@ -17,6 +17,7 @@ namespace Mojio.Events
         public PowerEvent()
             : this(EventType.MojioOn)
         {
+            
         }
 
         /// <summary>
@@ -32,6 +33,20 @@ namespace Mojio.Events
                 type != Events.EventType.MojioOff) 
                 throw new ArgumentException("Invalid Power event type " + type);
             EventType = type;
+            switch(type) {
+                case Events.EventType.MojioOn:
+                    OpCode = "On";
+                    break;
+                case Events.EventType.MojioIdle:
+                    OpCode = "Il";
+                    break;
+                case Events.EventType.MojioWake:
+                    OpCode = "Wa";
+                    break;
+                case Events.EventType.MojioOff:
+                    OpCode = "Of";
+                    break;
+            }
         }
     }
 }

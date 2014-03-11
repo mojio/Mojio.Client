@@ -82,23 +82,25 @@ namespace Mojio.Converters
             case EventType.MojioOn:
             case EventType.MojioOff:
                 return new PowerEvent ();
-            case EventType.TripStart:
-                return new TripStartEvent ();
-            case EventType.TripEnd:
-                return new TripEndEvent ();
+            //case EventType.TripStart:
+            //    return new TripStartEvent ();
+            //case EventType.TripEnd:
+            //    return new TripEndEvent ();
             case EventType.TripStatus:
                 return new TripStatusEvent ();
             case EventType.IgnitionOn:
             case EventType.IgnitionOff:
                 return new IgnitionEvent ();
             case EventType.FenceEntered:
+                return new FenceEvent(false);
+
             case EventType.FenceExited:
-                return new FenceEvent ();
+                return new FenceEvent (true);
             case EventType.HardAcceleration:
             case EventType.HardBrake:
             case EventType.HardLeft:
             case EventType.HardRight:
-                return new HardEvent ();
+                return new HardEvent (eventType);
             case EventType.Accident:
             case EventType.TripEvent:
                 return new TripEvent ();
