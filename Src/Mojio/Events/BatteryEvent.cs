@@ -12,8 +12,6 @@ namespace Mojio.Events
     [CollectionNameAttribute(typeof(Event))]
     public class BatteryEvent : Event
     {
-        //TODO:: refactor to inherit from Trip Event.
-        public float Voltage;
         public BatteryEvent()
         {
             EventType = EventType.LowBattery;
@@ -22,7 +20,7 @@ namespace Mojio.Events
         public BatteryEvent(float voltage)
         {
             EventType = EventType.LowBattery;
-            Voltage = voltage;
+            BatteryVoltage = voltage;
         }
 
     }

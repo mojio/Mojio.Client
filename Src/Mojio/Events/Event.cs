@@ -52,7 +52,13 @@ namespace Mojio.Events
     {
         public Event()
         {
+            OpCode = "Un";
+        }
+
+        public Event(string opcode)
+        {
             ServerTime = DateTime.Now.ToString();
+            OpCode = opcode;
         }
 
         /// <summary>
@@ -95,6 +101,11 @@ namespace Mojio.Events
         /// TimeIsApproximate
         /// </summary>
         public bool? TimeIsApprox { get; set; }
+
+        /// <summary>
+        /// Battery Voltage
+        /// </summary>
+        public float? BatteryVoltage { get; set; }
 
         /// <summary>
         /// opcode

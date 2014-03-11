@@ -82,10 +82,10 @@ namespace Mojio.Converters
             case EventType.MojioOn:
             case EventType.MojioOff:
                 return new PowerEvent ();
-            case EventType.TripStart:
-                return new TripStartEvent ();
-            case EventType.TripEnd:
-                return new TripEndEvent ();
+            //case EventType.TripStart:
+            //    return new TripStartEvent ();
+            //case EventType.TripEnd:
+            //    return new TripEndEvent ();
             case EventType.TripStatus:
                 return new TripStatusEvent ();
             case EventType.IgnitionOn:

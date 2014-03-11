@@ -70,15 +70,15 @@ namespace Mojio.Events
         /// </summary>
         FenceExited,
 
-        /// <summary>
-        /// trip end (device)
-        /// </summary>
-        TripEnd,
+        ///// <summary>
+        ///// trip end (device)
+        ///// </summary>
+        //TripEnd,
 
-        /// <summary>
-        /// trip start (device)
-        /// </summary>
-        TripStart,
+        ///// <summary>
+        ///// trip start (device)
+        ///// </summary>
+        //TripStart,
 
         /// <summary>
         /// trip status (device)
@@ -154,5 +154,40 @@ namespace Mojio.Events
         /// trip status (device)
         /// </summary>
         OffStatus,
+
+        /// <summary>
+        /// park
+        /// </summary>
+        Park,
+
+        /// <summary>
+        /// acceleromter
+        /// </summary>
+        Accelerometer,
+
+        /// <summary>
+        /// acceleration
+        /// </summary>
+        Acceleration,
+
+        /// <summary>
+        /// deceleration
+        /// </summary>
+        Deceleration,
+
+        /// <summary>
+        /// HeadingChange
+        /// </summary>
+        HeadingChange,
+
+        /// <summary>
+        /// ParkEvent
+        /// </summary
+        ParkEvent,
+
+        /// <summary>
+        /// Mileage
+        /// </summary
+        Mileage,
     }
 }

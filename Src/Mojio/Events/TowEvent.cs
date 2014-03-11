@@ -15,6 +15,7 @@ namespace Mojio.Events
         public TowEvent()
         {
             EventType = EventType.TowStart;
+            OpCode = "Tw";
         }
 
         public TowEvent(bool isTowStart)

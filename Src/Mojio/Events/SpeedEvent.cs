@@ -6,7 +6,7 @@ using System.Text;
 namespace Mojio.Events
 {
     /// <summary>
-    /// 
+    /// Speed Event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
     public class SpeedEvent : TripEvent
@@ -17,6 +17,7 @@ namespace Mojio.Events
         public SpeedEvent()
         {
             EventType = Events.EventType.Speed;
+            OpCode = "Sp";
         }
     }
 }
