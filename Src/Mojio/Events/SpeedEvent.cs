@@ -17,7 +17,7 @@ namespace Mojio.Events
         public SpeedEvent()
         {
             EventType = Events.EventType.Speed;
-            OpCode = "Sp";
+            OpCode = "St";
         }
     }
 }
