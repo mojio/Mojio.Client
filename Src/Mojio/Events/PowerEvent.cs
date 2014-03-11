@@ -35,16 +35,16 @@ namespace Mojio.Events
             EventType = type;
             switch(type) {
                 case Events.EventType.MojioOn:
-                    OpCode = "Mn";
+                    OpCode = "On";
                     break;
                 case Events.EventType.MojioIdle:
-                    OpCode = "Mi";
+                    OpCode = "Il";
                     break;
                 case Events.EventType.MojioWake:
-                    OpCode = "Mw";
+                    OpCode = "Wa";
                     break;
                 case Events.EventType.MojioOff:
-                    OpCode = "Mf";
+                    OpCode = "Of";
                     break;
             }
         }

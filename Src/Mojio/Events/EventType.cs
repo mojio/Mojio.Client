@@ -181,11 +181,6 @@ namespace Mojio.Events
         HeadingChange,
 
         /// <summary>
-        /// ParkEvent
-        /// </summary
-        ParkEvent,
-
-        /// <summary>
         /// Mileage
         /// </summary
         Mileage,

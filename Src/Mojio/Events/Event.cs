@@ -52,13 +52,7 @@ namespace Mojio.Events
     {
         public Event()
         {
-            OpCode = "Un";
-        }
-
-        public Event(string opcode)
-        {
-            ServerTime = DateTime.Now.ToString();
-            OpCode = opcode;
+            OpCode = "No";
         }
 
         /// <summary>

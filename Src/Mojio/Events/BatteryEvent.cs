@@ -15,12 +15,7 @@ namespace Mojio.Events
         public BatteryEvent()
         {
             EventType = EventType.LowBattery;
-        }
-
-        public BatteryEvent(float voltage)
-        {
-            EventType = EventType.LowBattery;
-            BatteryVoltage = voltage;
+            OpCode = "Ba";
         }
 
     }
