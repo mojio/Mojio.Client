@@ -108,7 +108,7 @@ namespace Mojio.Events
                     this.Speed,
                     this.Odometer,
                     this.RPM,
-                    this.Address == null ? "nodata" : this.Address.ToString ());
+                    this.Address == null ? null : this.Address.ToString ());
 
                 return str;
             } catch (Exception ex) {
