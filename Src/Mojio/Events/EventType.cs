@@ -83,7 +83,7 @@ namespace Mojio.Events
         /// <summary>
         /// trip status (device)
         /// </summary>
-        TripStatus,
+        TripStatus = 1010,
 
         /// <summary>
         /// warning
