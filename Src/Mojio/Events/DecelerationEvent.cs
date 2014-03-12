@@ -18,7 +18,6 @@ namespace Mojio.Events
         public DecelerationEvent()
         {
             EventType = Events.EventType.Deceleration;
-            OpCode = "Dt";
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Mojio.Events
         public DiagnosticEvent()
         {
             EventType = Events.EventType.Diagnostic;
-            OpCode = "De";
         }
 
         /// <summary>

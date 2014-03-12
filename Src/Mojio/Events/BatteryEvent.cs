@@ -15,7 +15,6 @@ namespace Mojio.Events
         public BatteryEvent()
         {
             EventType = EventType.LowBattery;
-            OpCode = "Ba";
         }
 
     }

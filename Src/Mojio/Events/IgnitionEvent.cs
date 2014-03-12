@@ -17,7 +17,6 @@ namespace Mojio.Events
         public IgnitionEvent()
         {
             EventType = Events.EventType.IgnitionOff;
-            OpCode = "If";
         }
 
         /// <summary>
@@ -27,14 +26,6 @@ namespace Mojio.Events
         public IgnitionEvent(bool isOn)
         {
             EventType = isOn ? EventType.IgnitionOn : EventType.IgnitionOff;
-            switch (isOn) {
-                case true: 
-                    OpCode = "In";
-                    break;
-                case false:
-                    OpCode = "If";
-                    break;
-            }
         }
     }
 }

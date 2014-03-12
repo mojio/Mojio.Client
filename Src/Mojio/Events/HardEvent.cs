@@ -23,22 +23,8 @@ namespace Mojio.Events
         {
 
         }
-        public HardEvent(EventType type)
+        public HardEvent(EventType type) : base(type)
         {
-            EventType = type;
-            switch (type)
-            {
-                case Events.EventType.HardBrake:
-                    OpCode = "Hb";
-                    break;
-                case Events.EventType.HardLeft:
-                    OpCode = "Hl"; 
-                    break;
-                case Events.EventType.HardRight:
-                    OpCode = "Hr";
-                    break;
-            }
-
         }
     }
 }

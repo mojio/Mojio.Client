@@ -15,10 +15,8 @@ namespace Mojio.Events
         /// <summary>
         /// Initializes a new instance of the <see cref="ParkEvent"/> class.
         /// </summary>
-        public ParkEvent()
+        public ParkEvent() : base(EventType.Park)
         {
-            EventType = Events.EventType.Park;
-            OpCode = "Pk";
         }
     }
 }

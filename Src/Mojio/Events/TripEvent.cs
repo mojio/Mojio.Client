@@ -10,20 +10,18 @@ namespace Mojio.Events
     /// trip status event
     /// </summary>
     [CollectionNameAttribute (typeof(Event))]
-    public class TripEvent : Event
+    public partial class TripEvent : Event
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TripEvent"/> class.
         /// </summary>
-        public TripEvent ()
+        public TripEvent()
+            : this(EventType.TripEvent)
         {
-            EventType = Events.EventType.TripEvent;
-            OpCode = "Ts";
         }
-        public TripEvent(string OpCode)
+
+        public TripEvent(EventType type ) : base(type)
         {
-            EventType = Events.EventType.TripEvent;
-            OpCode = OpCode;
         }
 
         /// <summary>Gets or sets the trip identifier.</summary>
@@ -90,34 +88,6 @@ namespace Mojio.Events
         /// Address of this location
         /// </summary>
         public Address Address { get; set; }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString ()
-        {
-            try {
-                string str = base.ToString () + ", ";
-
-                str += string.Format ("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
-                    this.Altitude,
-                    this.Heading,
-                    this.BatteryVoltage,
-                    this.Distance,
-                    this.FuelLevel,
-                    this.FuelEfficiency,
-                    this.Speed,
-                    this.Odometer,
-                    this.RPM,
-                    this.Address == null ? null : this.Address.ToString ());
-
-                return str;
-            } catch (Exception ex) {
-                //Console.WriteLine(ex.Message);
-                return ex.Message;
-            }
-        }
     }
 
     /// <summary>

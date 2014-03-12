@@ -18,7 +18,6 @@ namespace Mojio.Events
         public AccelerationEvent()
         {
             EventType = Events.EventType.Acceleration;
-            OpCode = "At";
         }
     }
 }

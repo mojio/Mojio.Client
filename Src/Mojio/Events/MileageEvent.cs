@@ -18,7 +18,6 @@ namespace Mojio.Events
         public MileageEvent()
         {
             EventType = Events.EventType.Mileage;
-            OpCode = "Mt";
         }
     }
 }

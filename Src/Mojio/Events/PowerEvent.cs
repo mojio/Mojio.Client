@@ -25,28 +25,13 @@ namespace Mojio.Events
         /// </summary>
         /// <param name="type">The type.</param>
         /// <exception cref="System.ArgumentException">Invalid Power event type  + type</exception>
-        public PowerEvent(EventType type)
+        public PowerEvent(EventType type) : base (type)
         {
             if (type != Events.EventType.MojioOn &&
                 type != Events.EventType.MojioIdle &&
                 type != Events.EventType.MojioWake && 
                 type != Events.EventType.MojioOff) 
                 throw new ArgumentException("Invalid Power event type " + type);
-            EventType = type;
-            switch(type) {
-                case Events.EventType.MojioOn:
-                    OpCode = "On";
-                    break;
-                case Events.EventType.MojioIdle:
-                    OpCode = "Il";
-                    break;
-                case Events.EventType.MojioWake:
-                    OpCode = "Wa";
-                    break;
-                case Events.EventType.MojioOff:
-                    OpCode = "Of";
-                    break;
-            }
         }
     }
 }

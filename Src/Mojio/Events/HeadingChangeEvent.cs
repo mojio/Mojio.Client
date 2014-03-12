@@ -18,7 +18,6 @@ namespace Mojio.Events
         public HeadingChangeEvent()
         {
             EventType = Events.EventType.HeadingChange;
-            OpCode = "Ht";
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Mojio.Events
         public AccelerometerEvent()
         {
             EventType = Events.EventType.Accelerometer;
-            OpCode = "Am";
         }
     }
 }
