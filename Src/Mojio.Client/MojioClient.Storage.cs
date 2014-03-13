@@ -11,6 +11,44 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+        public Task<bool> SetStoredAsync<T> (string id, string key, string value) {
+            var type = typeof(T);
+            return SetStoredAsync (type, id, key, value);
+        }
+
+        public Task<bool> SetStoredAsync (Type type, string id, string key, string value) {
+            string action = Map[type];
+            var request = GetRequest(Request(action, id, "store", key), Method.PUT);
+            request.AddBody(value);
+
+            return RequestAsync (request).ContinueWith (t => {
+                var response = t.Result;
+                return response.StatusCode == HttpStatusCode.OK
+                    || response.StatusCode == HttpStatusCode.Created;
+            });
+        }
+
+        public Task<string> GetStoredAsync<T> (string id, string key) {
+            var type = typeof(T);
+            return GetStoredAsync (type, id, key);
+        }
+
+        public Task<String> GetStoredAsync (Type type, string id, string key) {
+            string action = Map[type];
+            var request = GetRequest(Request(action, id, "store", key), Method.GET);
+
+            return RequestAsync (request).ContinueWith (t => {
+                var response = t.Result;
+
+                // Invalid response.
+                // TODO: we should add methods to pass back the HttpStatusCode and message
+                if (response.StatusCode != HttpStatusCode.OK)
+                    return null;
+
+                return Deserialize<String> (response.Content);
+            });
+        }
+
         /// <summary>
         /// Save storage value.
         /// </summary>

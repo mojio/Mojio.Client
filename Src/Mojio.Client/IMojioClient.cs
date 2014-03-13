@@ -122,5 +122,8 @@ namespace Mojio.Client
         bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code);
         bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code, out string message);
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
+
+        Task<string> GetStoredAsync<T> (string id, string key);
+        Task<bool> SetStoredAsync<T> (string id, string key, string value);
     }
 }
