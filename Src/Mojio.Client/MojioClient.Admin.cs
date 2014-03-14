@@ -1,4 +1,12 @@
-﻿using System;
+﻿using Mojio.Client.Linq;
+using Mojio.Events;
+using RestSharp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Mojio.Client
 {
@@ -31,7 +39,7 @@ namespace Mojio.Client
 
             var request = GetRequest(Request(controller, "none", "getallevents"), Method.POST);
 
-            var json = new System.Dynamic.ExpandoObject();
+            dynamic json = new System.Dynamic.ExpandoObject();
 
             json.PageSize = pageSize ?? 0;
             json.PageOffset = pageOffset ?? 0;
@@ -44,6 +52,30 @@ namespace Mojio.Client
             request.AddBody(json);
 
             return RequestAsync<Results<Events.Event>>(request);
+        }
+
+        /// <summary>
+        /// replays all events
+        /// </summary>
+        /// <param name="timeShift">whether to shift timing (null means start at current time)</param>
+        /// <param name="timeFactor">factor to increase / decrease time by</param>
+        /// <param name="events"></param>
+        /// <returns></returns>
+        public Task<MojioResponse> ReplayEvents(TimeSpan? timeShift, double? timeFactor, List<Events.Event> events)
+        {
+            string controller = "admin";
+
+            var request = GetRequest(Request(controller, "none", "replayevents"), Method.POST);
+
+            dynamic json = new System.Dynamic.ExpandoObject();
+
+            json.TimeShift = timeShift;
+            json.TimeFactor = timeFactor ?? 1.0;
+            json.Events = events;
+
+            request.AddBody(json);
+
+            return RequestAsync(request);
         }
     }
 }
