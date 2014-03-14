@@ -16,11 +16,11 @@ namespace Mojio
         /// <summary>The username reg ex</summary>
         public const string UsernameRegEx = "^[a-zA-Z0-9_]*$";
         /// <summary>The username error</summary>
-        public const string UsernameError = "numbers, upper, lower case and underscore allowed";
+        public const string UsernameError = "Only numbers, uppercase letters, lowercase letters, and underscores allowed";
         /// <summary>
         /// The user name minimum length
         /// </summary>
-        public const int UserNameMinLength = 4;
+        public const int UserNameMinLength = 6;
         /// <summary>
         /// The user name maximum length
         /// </summary>
@@ -30,7 +30,7 @@ namespace Mojio
         /// <summary>
         /// The password minimum length
         /// </summary>
-        public const int PasswordMinLength = 8;
+        public const int PasswordMinLength = 7;
         /// <summary>
         /// The password maximum length
         /// </summary>
@@ -41,7 +41,7 @@ namespace Mojio
         /// <summary>username</summary>
         /// <value>The name of the user.</value>
         //[Required(ErrorMessage = "Required")]
-        [Display(Name = "User name")]
+        [Display(Name = "Username")]
         [RegularExpression(UsernameRegEx, ErrorMessage = UsernameError)]
         [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength, ErrorMessage = "{0} must be {2} to {1} characters")]
         public string UserName { get; set; }
