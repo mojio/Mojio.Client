@@ -48,7 +48,7 @@ namespace Mojio
         /// <value>
         /// The maximum speed.
         /// </value>
-        public float? MaxSpeed { get; set; }
+        public double? MaxSpeed { get; set; }
 
         /// <summary>
         /// maximum acceleration
@@ -56,7 +56,7 @@ namespace Mojio
         /// <value>
         /// The maximum acceleration.
         /// </value>
-        public float? MaxAcceleration { get; set; }
+        public double? MaxAcceleration { get; set; }
 
         /// <summary>
         /// maximum acceleration
@@ -64,7 +64,7 @@ namespace Mojio
         /// <value>
         /// The maximum acceleration.
         /// </value>
-        public float? MaxDeceleration { get; set; }
+        public double? MaxDeceleration { get; set; }
 
         /// <summary>
         /// maximum rpm
@@ -80,7 +80,7 @@ namespace Mojio
         /// <value>
         /// The fuel level.
         /// </value>
-        public float? FuelLevel { get; set; }
+        public double? FuelLevel { get; set; }
 
         /// <summary>
         /// fuel efficiency (liters per 100km)
@@ -88,7 +88,7 @@ namespace Mojio
         /// <value>
         /// The fuel efficiency.
         /// </value>
-        public float? FuelEfficiency { get; set; }
+        public double? FuelEfficiency { get; set; }
 
         /// <summary>
         /// distance travelled
@@ -96,7 +96,7 @@ namespace Mojio
         /// <value>
         /// The distance.
         /// </value>
-        public float? Distance { get; set; }
+        public double? Distance { get; set; }
 
         /// <summary>
         /// time moving
@@ -104,7 +104,7 @@ namespace Mojio
         /// <value>
         /// The moving time.
         /// </value>
-        public float? MovingTime { get; set; }
+        public double? MovingTime { get; set; }
 
         /// <summary>
         /// idle time
@@ -112,7 +112,7 @@ namespace Mojio
         /// <value>
         /// The idle time.
         /// </value>
-        public float? IdleTime { get; set; }
+        public double? IdleTime { get; set; }
 
         /// <summary>
         /// time stopped
@@ -120,7 +120,7 @@ namespace Mojio
         /// <value>
         /// The stop time.
         /// </value>
-        public float? StopTime { get; set; }
+        public double? StopTime { get; set; }
 
         /// <summary>
         /// start location
@@ -184,7 +184,7 @@ namespace Mojio
         /// <value>
         /// The start milage.
         /// </value>
-        public float? StartMilage { get; set; }
+        public double? StartMilage { get; set; }
 
         /// <summary>
         /// Milage where the trip ended
@@ -192,6 +192,6 @@ namespace Mojio
         /// <value>
         /// The end milage.
         /// </value>
-        public float? EndMilage { get; set; }
+        public double? EndMilage { get; set; }
     }
 }

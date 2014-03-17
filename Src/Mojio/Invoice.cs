@@ -55,22 +55,22 @@ namespace Mojio
         /// <summary>
         /// subtotal
         /// </summary>
-        public float? SubTotal { get; set; }
+        public double? SubTotal { get; set; }
 
         /// <summary>
         /// total tax
         /// </summary>
-        public float? Tax { get; set; }
+        public double? Tax { get; set; }
 
         /// <summary>
         /// total shipping
         /// </summary>
-        public float? Shipping { get; set; }
+        public double? Shipping { get; set; }
 
         /// <summary>
         /// grand total
         /// </summary>
-        public float? Total
+        public double? Total
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Mojio
         /// <summary>
         /// amount owed
         /// </summary>
-        public float? Owing { get; set; }
+        public double? Owing { get; set; }
 
         /// <summary>
         /// amount owed description
@@ -137,7 +137,7 @@ namespace Mojio
         /// <summary>
         /// price
         /// </summary>
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         /// <summary>
         /// the product

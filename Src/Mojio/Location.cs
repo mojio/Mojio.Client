@@ -14,12 +14,12 @@ namespace Mojio
         /// <summary>
         /// latitude coordinate
         /// </summary>
-         public float Lat { get; set; }
+         public double Lat { get; set; }
 
         /// <summary>
         /// longitiude coordinate
         /// </summary>
-        public float Lng { get; set; }
+        public double Lng { get; set; }
 
         /// <summary>
         /// Was the data obtained from a locked gps reading.
@@ -29,14 +29,14 @@ namespace Mojio
         /// <summary>
         /// possible error area of the lat lon data.  0 is undiluted.
         /// </summary>
-        public float Dilution { get; set; }
+        public double Dilution { get; set; }
 
         /// <summary>
         /// Geospatial coordinates. Used by MongoDB.
         /// Axis order: Longitude, Latitude
         /// </summary>
         [JsonIgnore]
-        public float[] Coordinates
+        public double[] Coordinates
         {
             get
             {
@@ -45,7 +45,7 @@ namespace Mojio
                     return null;
                 }
 
-                return new float[] { Lng, Lat };
+                return new double[] { Lng, Lat };
             }
             set
             {
@@ -63,7 +63,7 @@ namespace Mojio
             get
             {
                 // f#@$!ing floating numbers.
-                return !(Lat != Lat || Lng != Lng);
+                return !(Lat == double.NaN || Lng == double.NaN);
             }
         }
 
@@ -72,8 +72,8 @@ namespace Mojio
         /// </summary>
         public Location()
         {
-            Lat = float.NaN;
-            Lng = float.NaN;
+            Lat = double.NaN;
+            Lng = double.NaN;
         }
 
         /// <summary>

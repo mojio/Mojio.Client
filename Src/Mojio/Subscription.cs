@@ -115,14 +115,14 @@ namespace Mojio
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="maxForce">The maximum force.</param>
-        public HardSubscription (EventType type, float maxForce = 1f) : base (type)
+        public HardSubscription (EventType type, double maxForce = 1.0) : base (type)
         {
             MaxForce = maxForce;
         }
 
         /// <summary>Gets or sets the maximum force.</summary>
         /// <value>The maximum force.</value>
-        public float MaxForce { get; set; }
+        public double MaxForce { get; set; }
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ namespace Mojio
         /// </summary>
         /// <param name="maxSpeed">The maximum speed.</param>
         /// <param name="interval">The interval.</param>
-        public SpeedSubscription (float maxSpeed = 65f, int interval = 60) : base (EventType.Speed)
+        public SpeedSubscription (double maxSpeed = 65.0, int interval = 60) : base (EventType.Speed)
         {
             MaxSpeed = maxSpeed;
             Interval = 60;
@@ -151,6 +151,6 @@ namespace Mojio
 
         /// <summary>Gets or sets the maximum speed.</summary>
         /// <value>The maximum speed.</value>
-        public float MaxSpeed { get; set; }
+        public double MaxSpeed { get; set; }
     }
 }

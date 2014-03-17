@@ -52,17 +52,17 @@ namespace Mojio
         /// <summary>
         /// last known speed
         /// </summary>
-        public float LastSpeed { get; set; }
+        public double LastSpeed { get; set; }
 
         /// <summary>
         /// last known fuel level
         /// </summary>
-        public float? FuelLevel { get; set; }
+        public double? FuelLevel { get; set; }
 
         /// <summary>
         /// last mileage
         /// </summary>
-        public float LastFuelEfficiency { get; set; }
+        public double LastFuelEfficiency { get; set; }
 
         /// <summary>
         /// current trip id
@@ -93,7 +93,5 @@ namespace Mojio
         /// list of viewer ids
         /// </summary>
         public Guid[] Viewers { get; set; }
-
-
     }
 }

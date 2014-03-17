@@ -31,7 +31,7 @@ namespace Mojio.Events
         /// <summary>
         /// altitude
         /// </summary>
-        public float? Altitude { get; set; }
+        public double? Altitude { get; set; }
 
         /// <summary>
         /// heading degrees
@@ -47,37 +47,37 @@ namespace Mojio.Events
         /// <summary>
         /// distance
         /// </summary>
-        public float? Distance { get; set; }
+        public double? Distance { get; set; }
 
         /// <summary>
         /// fuel level (percent 0 - 100)
         /// </summary>
-        public float? FuelLevel { get; set; }
+        public double? FuelLevel { get; set; }
 
         /// <summary>
         /// fuel efficiency (liters per 100km)
         /// </summary>
-        public float? FuelEfficiency { get; set; }
+        public double? FuelEfficiency { get; set; }
 
         /// <summary>
         /// Current speed
         /// </summary>
-        public float? Speed { get; set; }
+        public double? Speed { get; set; }
 
         /// <summary>
         /// Current acceleration
         /// </summary>
-        public float? Acceleration { get; set; }
+        public double? Acceleration { get; set; }
 
         /// <summary>
         /// Current deceleration
         /// </summary>
-        public float? Deceleration { get; set; }
+        public double? Deceleration { get; set; }
 
         /// <summary>
         /// stop time
         /// </summary>
-        public float? Odometer { get; set; }
+        public double? Odometer { get; set; }
 
         /// <summary>
         /// RPM
@@ -122,27 +122,27 @@ namespace Mojio.Events
         /// <summary>
         /// max speed
         /// </summary>
-        public float? MaxSpeed { get; set; }
+        public double? MaxSpeed { get; set; }
 
         /// <summary>
         /// average speed
         /// </summary>
-        public float? AverageSpeed { get; set; }
+        public double? AverageSpeed { get; set; }
 
         /// <summary>
         /// moving time
         /// </summary>
-        public float? MovingTime { get; set; }
+        public double? MovingTime { get; set; }
 
         /// <summary>
         /// idle time
         /// </summary>
-        public float? IdleTime { get; set; }
+        public double? IdleTime { get; set; }
 
         /// <summary>
         /// stop time
         /// </summary>
-        public float? StopTime { get; set; }
+        public double? StopTime { get; set; }
 
         /// <summary>
         /// Max RPM
