@@ -10,7 +10,7 @@ namespace Mojio
     /// <summary>
     /// Device
     /// </summary>
-    public partial class Device : StringEntity, IOwner,IViewers
+    public partial class Device : GuidEntity, IOwner
     {
         /// <summary>
         /// owner id
@@ -24,55 +24,9 @@ namespace Mojio
         public string Name { get; set; }
 
         /// <summary>
-        /// license plate
+        /// device IMEI number
         /// </summary>
-        /// <value>The license plate.</value>
-        public string LicensePlate { get; set; }
-
-        /// <summary>
-        /// optional is ignition on?
-        /// </summary>
-        public bool? IgnitionOn { get; set; }
-
-        /// <summary>
-        /// most recent trip event
-        /// </summary>
-        public Guid? LastTripEvent { get; set; }
-
-        /// <summary>
-        /// Last location time
-        /// </summary>
-        public DateTime? LastLocationTime { get; set; }
-
-        /// <summary>
-        /// last known location
-        /// </summary>
-        public Location LastLocation { get; set; }
-
-        /// <summary>
-        /// last known speed
-        /// </summary>
-        public double LastSpeed { get; set; }
-
-        /// <summary>
-        /// last known fuel level
-        /// </summary>
-        public double? FuelLevel { get; set; }
-
-        /// <summary>
-        /// last mileage
-        /// </summary>
-        public double LastFuelEfficiency { get; set; }
-
-        /// <summary>
-        /// current trip id
-        /// </summary>
-        public Guid? CurrentTrip { get; set; }
-
-        /// <summary>
-        /// current trip id
-        /// </summary>
-        public Guid? LastTrip { get; set; }
+        public string Imei { get; set; }
 
         /// <summary>
         /// most recent communication time
@@ -80,18 +34,8 @@ namespace Mojio
         public DateTime LastContactTime { get; set; }
 
         /// <summary>
-        /// Malfunction Indicator Lamp (Check Engine Light)
+        /// Current vehicle ID
         /// </summary>
-        public bool? MilStatus { get; set; }
-
-        /// <summary>
-        /// public boolean flag to indicate DTC faults have been detected
-        /// </summary>
-        public bool FaultsDetected { get; set; }
-        // TODO: Maybe Viewers should be in private?
-        /// <summary>
-        /// list of viewer ids
-        /// </summary>
-        public Guid[] Viewers { get; set; }
+        public Guid? VehicleId { get; set; }
     }
 }
