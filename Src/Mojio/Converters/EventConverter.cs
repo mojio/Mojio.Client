@@ -111,6 +111,21 @@ namespace Mojio.Converters
                 return new TowEvent();
             case EventType.LowBattery:
                 return new BatteryEvent();
+            case EventType.Speed:
+                return new SpeedEvent();
+            case EventType.Park:
+                return new ParkEvent();
+            case EventType.Mileage:
+                return new MileageEvent();
+            case EventType.HeadingChange:
+                return new HeadingChangeEvent();
+            case EventType.Acceleration:
+                return new AccelerationEvent();
+            case EventType.Deceleration:
+                return new DecelerationEvent();
+            case EventType.Accelerometer:
+                return new AccelerometerEvent();
+
             default:
                 return new Event ();
             }

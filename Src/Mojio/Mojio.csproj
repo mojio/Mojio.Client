@@ -100,13 +100,11 @@
     <Compile Include="Regions.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="Results.cs" />
-    <Compile Include="Row.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
