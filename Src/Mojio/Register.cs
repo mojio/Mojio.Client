@@ -14,9 +14,9 @@ namespace Mojio
     public class Register
     {
         /// <summary>The username reg ex</summary>
-        public const string UsernameRegEx = "^[a-zA-Z0-9_]*$";
+        public const string UsernameRegEx = @"^[a-zA-Z0-9_\-]*$";
         /// <summary>The username error</summary>
-        public const string UsernameError = "Only numbers, uppercase letters, lowercase letters, and underscores allowed";
+        public const string UsernameError = "Username may only contain letters, numbers, and dashes.";
         /// <summary>
         /// The user name minimum length
         /// </summary>
@@ -26,7 +26,7 @@ namespace Mojio
         /// </summary>
         public const int UserNameMaxLength = 32;
         /// <summary>The password reg ex</summary>
-        public const string PasswordRegEx = @"(?=^[^\s]{8,32}$)((?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z]))^.*";
+        public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z]))^.*";
         /// <summary>
         /// The password minimum length
         /// </summary>
@@ -36,7 +36,7 @@ namespace Mojio
         /// </summary>
         public const int PasswordMaxLength = 32;
         /// <summary>The password error</summary>
-        public const string PasswordError = "Must contain uppercase, lowercase and numbers";
+        public const string PasswordError = "Password must contain an uppercase, lowercase letter and a number.";
 
         /// <summary>username</summary>
         /// <value>The name of the user.</value>
