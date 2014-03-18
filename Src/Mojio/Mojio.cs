@@ -10,7 +10,7 @@ namespace Mojio
     /// <summary>
     /// Device
     /// </summary>
-    public partial class Device : GuidEntity, IOwner
+    public partial class Mojio : GuidEntity, IOwner
     {
         /// <summary>
         /// owner id

@@ -14,13 +14,17 @@ namespace Mojio
         [Display(Name = "Owner")]
         public Guid? OwnerId { get; set; }
 
-        // TODO: should this be MojioId?
-        public Guid? DeviceId { get; set; }
+        public Guid? MojioId { get; set; }
 
         /// <summary>
         /// vehicle name
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Vehicle Identification Number
+        /// </summary>
+        public string VIN { get; set; }
 
         /// <summary>
         /// license plate

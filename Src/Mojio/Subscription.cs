@@ -84,6 +84,7 @@ namespace Mojio
         /// <value>The type of the entity.</value>
         public SubscriptionType EntityType { get; set; }
 
+        // TODO convert this to Guid?
         /// <summary>Gets or sets the entity identifier.</summary>
         /// <value>The entity identifier.</value>
         public string EntityId { get; set; }
