@@ -12,34 +12,30 @@ namespace Mojio.Client
 {
     public class MapEntity
     {
-        static Dictionary<Type, string> Map = new Dictionary<Type, string>();
+        static Dictionary<Type, string> Map = new Dictionary<Type, string> ();
 
-        public void Add(Type type, string controller){
-            Map.Add(type, controller);
+        public void Add (Type type, string controller)
+        {
+            Map.Add (type, controller);
         }
 
-        public string this[Type type]
-        {
-            get
-            {
-                if( Map.ContainsKey(type))
-                    return Map[type];
+        public string this [Type type] {
+            get {
+                if (Map.ContainsKey (type))
+                    return Map [type];
 
-                foreach (var pair in Map)
-                {
-                    if (type.IsSubclassOf(pair.Key))
-                    {
+                foreach (var pair in Map) {
+                    if (type.IsSubclassOf (pair.Key)) {
                         // Lets add it now... might be faster?
-                        Add(type, pair.Value);
+                        Add (type, pair.Value);
                         return pair.Value;
                     }
                 }
 
                 return null;
             }
-            set
-            {
-                Add(type, value);
+            set {
+                Add (type, value);
             }
         }
     }
@@ -50,30 +46,31 @@ namespace Mojio.Client
         public const string Live = "https://developer.moj.io/v1";
 
         public int PageSize { get; set; }
+
         public int SessionTime { get; set; }
 
         RestClient RestClient;
         public Token Token;
+        static MapEntity Map = new MapEntity ();
 
-        static MapEntity Map = new MapEntity();
-        static MojioClient()
+        static MojioClient ()
         {
-            Map.Add(typeof(App), "apps");
-            Map.Add(typeof(User), "users");
-            Map.Add(typeof(Device), "mojios");
-            Map.Add(typeof(Event), "events");
-                //Map.Add(typeof(GPSEvent), "events");
-                //Map.Add(typeof(IgnitionEvent), "events");
-                //Map.Add(typeof(ITripEvent), "events");
-                //Map.Add(typeof(TripStatusEvent), "events");
-                //Map.Add(typeof(HardEvent), "events");
+            Map.Add (typeof(App), "apps");
+            Map.Add (typeof(User), "users");
+            Map.Add (typeof(Device), "mojios");
+            Map.Add (typeof(Event), "events");
+            //Map.Add(typeof(GPSEvent), "events");
+            //Map.Add(typeof(IgnitionEvent), "events");
+            //Map.Add(typeof(ITripEvent), "events");
+            //Map.Add(typeof(TripStatusEvent), "events");
+            //Map.Add(typeof(HardEvent), "events");
 
-            Map.Add(typeof(Trip), "trips");
-            Map.Add(typeof(Product), "products");
+            Map.Add (typeof(Trip), "trips");
+            Map.Add (typeof(Product), "products");
 
-            Map.Add(typeof(Invoice), "orders");
+            Map.Add (typeof(Invoice), "orders");
 
-            Map.Add(typeof(Subscription), "subscriptions");
+            Map.Add (typeof(Subscription), "subscriptions");
         }
 
         /// <summary>
@@ -82,10 +79,10 @@ namespace Mojio.Client
         /// <param name="appId">Application ID</param>
         /// <param name="secretKey">Secret Key</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, string Url = Live)
-            : this(Url)
+        public MojioClient (Guid appId, Guid secretKey, string Url = Live)
+            : this (Url)
         {
-            Begin(appId, secretKey);
+            Begin (appId, secretKey);
         }
 
         /// <summary>
@@ -96,10 +93,10 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <param name="tokenId">Session Token</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, Guid? tokenId, string Url = Live)
-            : this(Url)
+        public MojioClient (Guid appId, Guid secretKey, Guid? tokenId, string Url = Live)
+            : this (Url)
         {
-            Begin(appId, secretKey, tokenId);
+            Begin (appId, secretKey, tokenId);
         }
 
         /// <summary>
@@ -110,10 +107,10 @@ namespace Mojio.Client
         /// <param name="userOrEmail">User's name or email</param>
         /// <param name="passsword">User's password.</param>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(Guid appId, Guid secretKey, string userOrEmail, string password, string Url = Live)
-            : this(Url)
+        public MojioClient (Guid appId, Guid secretKey, string userOrEmail, string password, string Url = Live)
+            : this (Url)
         {
-            Begin(appId, secretKey, userOrEmail, password);
+            Begin (appId, secretKey, userOrEmail, password);
         }
 
         /// <summary>
@@ -121,13 +118,13 @@ namespace Mojio.Client
         /// Client must call Begin, or supply set a valid Token.
         /// </summary>
         /// <param name="Url">API endpoint URL</param>
-        public MojioClient(string Url = Live)
+        public MojioClient (string Url = Live)
         {
             PageSize = 10;
             SessionTime = 24 * 60;
 
-            RestClient = new RestClient(Url);
-            RestClient.AddHandler("application/json", new RSJsonSerializer());
+            RestClient = new RestClient (Url);
+            RestClient.AddHandler ("application/json", new RSJsonSerializer ());
         }
 
         /// <summary>
@@ -138,17 +135,17 @@ namespace Mojio.Client
         /// <param name="action">Action Name</param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string Request(string controller, object id = null, string action = null, string key = null)
+        public string Request (string controller, object id = null, string action = null, string key = null)
         {
-            if( key != null )
+            if (key != null)
                 // Key currently only used for storage
-                return string.Format("{0}/{1}/{2}/{3}", controller, id, action, key);
+                return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
             if (id != null && action != null)
-                return string.Format("{0}/{1}/{2}", controller, id, action);
+                return string.Format ("{0}/{1}/{2}", controller, id, action);
             else if (id != null)
-                return string.Format("{0}/{1}", controller, id);
+                return string.Format ("{0}/{1}", controller, id);
             else if (action != null)
-                return string.Format("{0}/{1}", controller, action);       
+                return string.Format ("{0}/{1}", controller, action);       
             
             return controller;
         }
@@ -161,19 +158,22 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <param name="tokenId">Session Token</param>
         /// <returns></returns>
-        public bool Begin(Guid appId, Guid secretKey, Guid? tokenId )
+        public bool Begin (Guid appId, Guid secretKey, Guid? tokenId)
         {
-            if (tokenId != null)
-            {
-                var request = new RestRequest(Request("login", tokenId.Value), Method.GET);
-                var response = RestClient.Execute<Token>(request);
-                if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId)
-                {
-                    Token = response.Data;
-                    return true;
+            try {
+                if (tokenId != null) {
+                    var request = new RestRequest (Request ("login", tokenId.Value), Method.GET);
+                    var response = RestClient.Execute<Token> (request);
+                    if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
+                        Token = response.Data;
+                        return true;
+                    }
                 }
+                return Begin (appId, secretKey);
+            } catch (Exception ex) {
+                throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
+                //return false;
             }
-            return Begin(appId,secretKey);
         }
 
         /// <summary>
@@ -183,18 +183,18 @@ namespace Mojio.Client
         /// <param name="appId">Application ID</param>
         /// <param name="secretKey">Secret Key</param>
         /// <returns></returns>
-        public bool Begin(Guid appId, Guid secretKey)
-		{
-			var request = new RestRequest (Request ("login", appId, "begin"), Method.GET);
-			request.AddParameter ("secretKey", secretKey);
-			var response = RestClient.Execute<Token> (request);
-			if (response.StatusCode == HttpStatusCode.OK) {
-				Token = response.Data;
-				return true;
-			} else if (response.StatusCode == HttpStatusCode.Unauthorized)
-				throw new UnauthorizedAccessException ("Invalid AppID/Secret Key");
-			else if (response.ErrorException != null)
-				throw response.ErrorException;
+        public bool Begin (Guid appId, Guid secretKey)
+        {
+            var request = new RestRequest (Request ("login", appId, "begin"), Method.GET);
+            request.AddParameter ("secretKey", secretKey);
+            var response = RestClient.Execute<Token> (request);
+            if (response.StatusCode == HttpStatusCode.OK) {
+                Token = response.Data;
+                return true;
+            } else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedAccessException ("Invalid AppID/Secret Key");
+            else if (response.ErrorException != null)
+                throw response.ErrorException;
 
             return false;
         }
@@ -207,15 +207,14 @@ namespace Mojio.Client
         /// <param name="userOrEmail">User's name or email</param>
         /// <param name="password">User's password</param>
         /// <returns></returns>
-        public bool Begin(Guid appId, Guid secretKey, string userOrEmail, string password)
+        public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = new RestRequest(Request("login", appId, "begin"), Method.GET);
-            request.AddParameter("secretKey", secretKey);
-            request.AddParameter("userOrEmail", userOrEmail);
-            request.AddParameter("password", password);
-            var response = RestClient.Execute<Token>(request);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
+            var request = new RestRequest (Request ("login", appId, "begin"), Method.GET);
+            request.AddParameter ("secretKey", secretKey);
+            request.AddParameter ("userOrEmail", userOrEmail);
+            request.AddParameter ("password", password);
+            var response = RestClient.Execute<Token> (request);
+            if (response.StatusCode == HttpStatusCode.OK) {
                 Token = response.Data;
                 return true;
             }
@@ -228,10 +227,10 @@ namespace Mojio.Client
         /// <param name="userOrEmail"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool SetUser(string userOrEmail, string password)
+        public bool SetUser (string userOrEmail, string password)
         {
             HttpStatusCode ignore;
-            return SetUser(userOrEmail, password, out ignore);
+            return SetUser (userOrEmail, password, out ignore);
         }
 
         /// <summary>
@@ -241,10 +240,10 @@ namespace Mojio.Client
         /// <param name="password"></param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public bool SetUser(string userOrEmail, string password, out HttpStatusCode code)
+        public bool SetUser (string userOrEmail, string password, out HttpStatusCode code)
         {
             string ignore;
-            return SetUser(userOrEmail, password, out code, out ignore);
+            return SetUser (userOrEmail, password, out code, out ignore);
         }
 
         /// <summary>
@@ -255,9 +254,9 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message)
+        public bool SetUser (string userOrEmail, string password, out HttpStatusCode code, out string message)
         {
-            var response = SetUserAsync(userOrEmail, password).Result;
+            var response = SetUserAsync (userOrEmail, password).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -267,26 +266,24 @@ namespace Mojio.Client
             return false;
         }
 
-		public Task<MojioResponse<Token>> SetUserAsync(string userOrEmail, string password)
+        public Task<MojioResponse<Token>> SetUserAsync (string userOrEmail, string password)
         {
             if (Token == null)
-                throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
+                throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest(Request("login", userOrEmail, "setuser"), Method.GET);
+            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.GET);
 
             //request.AddParameter("userOrEmail", userOrEmail);
-            request.AddParameter("password", password);
-            request.AddParameter("minutes", SessionTime);
+            request.AddParameter ("password", password);
+            request.AddParameter ("minutes", SessionTime);
 
-            var task = RequestAsync<Token>(request);
+            var task = RequestAsync<Token> (request);
 
-            return task.ContinueWith<MojioResponse<Token>>(r =>
-            {
+            return task.ContinueWith<MojioResponse<Token>> (r => {
                 var response = r.Result;
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
+                if (response.StatusCode == HttpStatusCode.OK) {
                     Token = response.Data;
-                    ResetCurrentUser();
+                    ResetCurrentUser ();
                 }
 
                 return response;
@@ -297,9 +294,9 @@ namespace Mojio.Client
         /// Unset authenticated user.
         /// </summary>
         /// <returns></returns>
-        public bool ClearUser()
+        public bool ClearUser ()
         {
-            var response = ClearUserAsync().Result;
+            var response = ClearUserAsync ().Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
                 return true;
@@ -307,36 +304,34 @@ namespace Mojio.Client
             return false;
         }
 
-		public Task<MojioResponse<Token>> ClearUserAsync()
-		{
-			if (Token == null) 
-				throw new Exception("Valid session must be initialized first.");
+        public Task<MojioResponse<Token>> ClearUserAsync ()
+        {
+            if (Token == null)
+                throw new Exception ("Valid session must be initialized first.");
 
-			var request = GetRequest(Request("login", Token.Id, "logout"), Method.GET);
+            var request = GetRequest (Request ("login", Token.Id, "logout"), Method.GET);
 
-			var task = RequestAsync<Token> (request);
-            return task.ContinueWith<MojioResponse<Token>>(r =>
-            {
+            var task = RequestAsync<Token> (request);
+            return task.ContinueWith<MojioResponse<Token>> (r => {
                 var response = r.Result;
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
+                if (response.StatusCode == HttpStatusCode.OK) {
                     Token = response.Data;
-                    ResetCurrentUser();
+                    ResetCurrentUser ();
                 }
 
                 return response;
             });
-		}
+        }
 
         /// <summary>
         /// Extend token expiry date.
         /// </summary>
         /// <param name="minutes">Exipry time in minutes</param>
         /// <returns></returns>
-        public bool ExtendSession(int minutes)
+        public bool ExtendSession (int minutes)
         {
             HttpStatusCode ignore;
-            return ExtendSession(minutes, out ignore);
+            return ExtendSession (minutes, out ignore);
         }
 
         /// <summary>
@@ -345,10 +340,10 @@ namespace Mojio.Client
         /// <param name="minutes">Exipry time in minutes</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public bool ExtendSession(int minutes, out HttpStatusCode code)
+        public bool ExtendSession (int minutes, out HttpStatusCode code)
         {
             string ignore;
-            return ExtendSession(minutes, out code, out ignore);
+            return ExtendSession (minutes, out code, out ignore);
         }
 
         /// <summary>
@@ -358,28 +353,27 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public bool ExtendSession(int minutes, out HttpStatusCode code, out string message )
+        public bool ExtendSession (int minutes, out HttpStatusCode code, out string message)
         {
-            var response = ExtendSessionAsync(minutes).Result;
+            var response = ExtendSessionAsync (minutes).Result;
 
             code = response.StatusCode;
             message = response.Content;
 
-			return response.StatusCode == HttpStatusCode.OK;
+            return response.StatusCode == HttpStatusCode.OK;
         }
 
-		public Task<MojioResponse<Token>> ExtendSessionAsync(int minutes)
+        public Task<MojioResponse<Token>> ExtendSessionAsync (int minutes)
         {
             if (Token == null)
-                throw new Exception("No session to extend."); // Can only "Extend" if already authenticated app.
+                throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = GetRequest(Request("login", Token.Id, "extend"), Method.GET);
-            request.AddParameter("minutes", minutes);
+            var request = GetRequest (Request ("login", Token.Id, "extend"), Method.GET);
+            request.AddParameter ("minutes", minutes);
 
-            var task = RequestAsync<Token>(request);
+            var task = RequestAsync<Token> (request);
 
-            return task.ContinueWith<MojioResponse<Token>>(r =>
-            {
+            return task.ContinueWith<MojioResponse<Token>> (r => {
                 var response = r.Result;
                 if (response.StatusCode == HttpStatusCode.OK)
                     Token = response.Data;
@@ -394,73 +388,77 @@ namespace Mojio.Client
         /// <param name="resource">Resource URL</param>
         /// <param name="method">Request method</param>
         /// <returns></returns>
-        public RestRequest GetRequest(string resource, Method method)
+        public RestRequest GetRequest (string resource, Method method)
         {
-            var request = new RestRequest(resource, method);
-            request.RequestFormat = DataFormat.Json;
-            request.JsonSerializer = new RSJsonSerializer();
+            try {
+                var request = new RestRequest (resource, method);
+                request.RequestFormat = DataFormat.Json;
+                request.JsonSerializer = new RSJsonSerializer ();
 
-            if (Token != null)
-                request.AddHeader(Headers.MojioAPITokenHeader, Token.Id.ToString());
-            return request;
+                if (Token != null)
+                    request.AddHeader (Headers.MojioAPITokenHeader, Token.Id.ToString ());
+                return request;
+            } catch (Exception ex) {
+                throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
+            }
         }
 
-		public Task<MojioResponse> RequestAsync(RestRequest request)
+        public Task<MojioResponse> RequestAsync (RestRequest request)
         {
-			var tcs = new TaskCompletionSource<MojioResponse>();
-            try
-            {
-                RestClient.ExecuteAsync(request, response =>
-                {
-                    tcs.SetResult(new MojioResponse
-                    {
+            var tcs = new TaskCompletionSource<MojioResponse> ();
+            try {
+                RestClient.ExecuteAsync (request, response => {
+                    tcs.SetResult (new MojioResponse {
                         Content = response.Content,
                         StatusCode = response.StatusCode
                     });
                 });
-            }
-            catch (Exception e)
-            {
-                tcs.SetException(e);
+            } catch (Exception e) {
+                tcs.SetException (e);
             }
             return tcs.Task;
         }
-            
-        public Task<MojioResponse<T>> RequestAsync<T>(RestRequest request)
+
+        public Task<MojioResponse<T>> RequestAsync<T> (RestRequest request)
             where T : new()
         {
-			var tcs = new TaskCompletionSource<MojioResponse<T>>();
+            var tcs = new TaskCompletionSource<MojioResponse<T>> ();
 
             try {
                 RestClient.ExecuteAsync<T> (request, response => {
-                    MojioResponse<T> r;
+                    try {
+                        MojioResponse<T> r;
 
-                    if (response.StatusCode == 0) {
-                        r = new MojioResponse<T> {
-                            ErrorMessage = response.ErrorMessage,
-                            Content = response.Content,
-                            StatusCode = HttpStatusCode.InternalServerError
-                        };
-                    } else {
-                        r = new MojioResponse<T> {
-                            Data = response.Data,
-                            Content = response.Content,
-                            StatusCode = response.StatusCode
-                        };
+                        if (response.StatusCode == 0) {
+                            r = new MojioResponse<T> {
+                                ErrorMessage = response.ErrorMessage,
+                                Content = response.Content,
+                                StatusCode = HttpStatusCode.InternalServerError
+                            };
+                        } else {
+                            r = new MojioResponse<T> {
+                                Data = response.Data,
+                                Content = response.Content,
+                                StatusCode = response.StatusCode
+                            };
 
-                        if( response.Data == null ){
-                            try {
-                                var error = Deserialize<String>(response.Content);
-                                r.ErrorMessage = error;
-                            } catch( Exception ) {
-                                // Exception thrown.  I don't think we need to do anything with it though.
-                                r.ErrorMessage = "No content";
+                            if (response.Data == null) {
+                                try {
+                                    var error = Deserialize<String> (response.Content);
+                                    r.ErrorMessage = error;
+                                } catch (Exception) {
+                                    // Exception thrown.  I don't think we need to do anything with it though.
+                                    r.ErrorMessage = "No content";
+                                }
                             }
                         }
-                    }
 
-                    tcs.SetResult (r);
+                        tcs.SetResult (r);
+                    } catch (Exception ex) {
+                        throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
+                    }
                 });
+
             } catch (Exception e) {
                 tcs.SetException (e);
             }
@@ -474,11 +472,11 @@ namespace Mojio.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>
         /// <returns></returns>
-        public T Create<T>(T entity)
+        public T Create<T> (T entity)
             where T : BaseEntity, new()
         {
             HttpStatusCode ignore;
-            return Create<T>(entity, out ignore);
+            return Create<T> (entity, out ignore);
         }
 
         /// <summary>
@@ -488,11 +486,11 @@ namespace Mojio.Client
         /// <param name="entity">Entity to create</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public T Create<T>(T entity, out HttpStatusCode code)
+        public T Create<T> (T entity, out HttpStatusCode code)
             where T : BaseEntity, new()
         {
             string ignore;
-            return Create<T>(entity, out code, out ignore);
+            return Create<T> (entity, out code, out ignore);
         }
 
         /// <summary>
@@ -503,44 +501,43 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public T Create<T>(T entity, out HttpStatusCode code, out string message)
+        public T Create<T> (T entity, out HttpStatusCode code, out string message)
             where T : BaseEntity, new()
         {
-            var response = CreateAsync(entity).Result;
+            var response = CreateAsync (entity).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-		public Task<MojioResponse<T>> CreateAsync<T>(T entity)
+        public Task<MojioResponse<T>> CreateAsync<T> (T entity)
             where T : BaseEntity, new()
         {
-            if (typeof(T) == typeof(User))
-            {
+            if (typeof(T) == typeof(User)) {
                 // Cannot create user with this generic method
-                throw new ArgumentException("Cannot create user with generic method Create. Use RegisterUser instead.");
+                throw new ArgumentException ("Cannot create user with generic method Create. Use RegisterUser instead.");
             }
 
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action), Method.POST);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action), Method.POST);
 
-            request.AddBody(entity);
+            request.AddBody (entity);
 
-            return RequestAsync<T>(request);
+            return RequestAsync<T> (request);
         }
 
-		public Task<MojioResponse<T>> ClaimAsync<T>(T entity, int? pin)
+        public Task<MojioResponse<T>> ClaimAsync<T> (T entity, int? pin)
 			where T : BaseEntity, new()
-		{
-			string controller = Map[typeof(T)];
+        {
+            string controller = Map [typeof(T)];
 
-			var request = GetRequest(Request(controller, entity.IdToString, "claim"), Method.GET);
+            var request = GetRequest (Request (controller, entity.IdToString, "claim"), Method.GET);
 
-			request.AddParameter("pin", pin);
+            request.AddParameter ("pin", pin);
 
-			return RequestAsync<T>(request);
-		}
+            return RequestAsync<T> (request);
+        }
 
         /// <summary>
         /// Delete an entity through the API.
@@ -548,11 +545,11 @@ namespace Mojio.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to delete</param>
         /// <returns></returns>
-        public bool Delete<T>(T entity)
+        public bool Delete<T> (T entity)
             where T : BaseEntity
         {
             HttpStatusCode ignore;
-            return Delete<T>(entity, out ignore);
+            return Delete<T> (entity, out ignore);
         }
 
         /// <summary>
@@ -562,11 +559,11 @@ namespace Mojio.Client
         /// <param name="entity">Entity to delete</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public bool Delete<T>(T entity, out HttpStatusCode code)
+        public bool Delete<T> (T entity, out HttpStatusCode code)
             where T : BaseEntity
         {
             string ignore;
-            return Delete<T>(entity, out code, out ignore);
+            return Delete<T> (entity, out code, out ignore);
         }
 
         /// <summary>
@@ -577,10 +574,10 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public bool Delete<T>(T entity, out HttpStatusCode code, out string message)
+        public bool Delete<T> (T entity, out HttpStatusCode code, out string message)
             where T : BaseEntity
         {
-            return Delete<T>(entity.IdToString, out code, out message);
+            return Delete<T> (entity.IdToString, out code, out message);
         }
 
         /// <summary>
@@ -589,10 +586,10 @@ namespace Mojio.Client
         /// <typeparam name="T">Entity Type</typeparam>
         /// <param name="id">Entity ID</param>
         /// <returns></returns>
-        public bool Delete<T>(object id)
+        public bool Delete<T> (object id)
         {
             HttpStatusCode ignore;
-            return Delete<T>(id, out ignore);
+            return Delete<T> (id, out ignore);
         }
 
         /// <summary>
@@ -602,10 +599,10 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public bool Delete<T>(object id, out HttpStatusCode code)
+        public bool Delete<T> (object id, out HttpStatusCode code)
         {
             string ignore;
-            return Delete<T>(id, out code, out ignore);
+            return Delete<T> (id, out code, out ignore);
         }
 
         /// <summary>
@@ -616,21 +613,21 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public bool Delete<T>(object id, out HttpStatusCode code, out string message)
+        public bool Delete<T> (object id, out HttpStatusCode code, out string message)
         {
-            var response = DeleteAsync<T>(id).Result;
+            var response = DeleteAsync<T> (id).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
 
-		public Task<MojioResponse> DeleteAsync<T>(object id)
+        public Task<MojioResponse> DeleteAsync<T> (object id)
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id), Method.DELETE);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, id), Method.DELETE);
 
-            return RequestAsync(request);
+            return RequestAsync (request);
         }
 
         /// <summary>
@@ -639,11 +636,11 @@ namespace Mojio.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Updated Entity</param>
         /// <returns></returns>
-        public T Update<T>(T entity)
+        public T Update<T> (T entity)
             where T : BaseEntity, new()
         {
             HttpStatusCode ignore;
-            return Update<T>(entity, out ignore);
+            return Update<T> (entity, out ignore);
         }
 
         /// <summary>
@@ -653,11 +650,11 @@ namespace Mojio.Client
         /// <param name="entity">Updated Entity</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public T Update<T>(T entity, out HttpStatusCode code)
+        public T Update<T> (T entity, out HttpStatusCode code)
             where T : BaseEntity, new()
         {
             string ignore;
-            return Update<T>(entity, out code, out ignore);
+            return Update<T> (entity, out code, out ignore);
         }
 
         /// <summary>
@@ -668,24 +665,24 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public T Update<T>(T entity, out HttpStatusCode code, out string message)
+        public T Update<T> (T entity, out HttpStatusCode code, out string message)
             where T : BaseEntity, new()
         {
-            var response = UpdateAsync<T>(entity).Result;
+            var response = UpdateAsync<T> (entity).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-		public Task<MojioResponse<T>> UpdateAsync<T>(T entity)
+        public Task<MojioResponse<T>> UpdateAsync<T> (T entity)
             where T : BaseEntity, new()
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, entity.IdToString), Method.PUT);
-            request.AddBody(entity);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, entity.IdToString), Method.PUT);
+            request.AddBody (entity);
 
-            return RequestAsync<T>(request);
+            return RequestAsync<T> (request);
         }
 
         /// <summary>
@@ -694,11 +691,11 @@ namespace Mojio.Client
         /// <typeparam name="T">Entity Type</typeparam>
         /// <param name="id">Entity ID</param>
         /// <returns></returns>
-        public T Get<T>(object id)
+        public T Get<T> (object id)
             where T : new()
         {
             HttpStatusCode ignore;
-            return Get<T>(id, out ignore);
+            return Get<T> (id, out ignore);
         }
 
         /// <summary>
@@ -708,11 +705,11 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public T Get<T>(object id, out HttpStatusCode code)
+        public T Get<T> (object id, out HttpStatusCode code)
             where T : new()
         {
             string ignore;
-            return Get<T>(id, out code, out ignore);
+            return Get<T> (id, out code, out ignore);
         }
 
         /// <summary>
@@ -723,11 +720,11 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public T Get<T>(object id, out HttpStatusCode code, out string message)
+        public T Get<T> (object id, out HttpStatusCode code, out string message)
             where T : new()
         {
-            var task = GetAsync<T>(id);
-            task.Wait();
+            var task = GetAsync<T> (id);
+            task.Wait ();
 
             var response = task.Result;
             code = response.StatusCode;
@@ -736,13 +733,13 @@ namespace Mojio.Client
             return response.Data;
         }
 
-		public Task<MojioResponse<T>> GetAsync<T>(object id)
+        public Task<MojioResponse<T>> GetAsync<T> (object id)
             where T : new()
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id), Method.GET);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, id), Method.GET);
 
-            return RequestAsync<T>(request);
+            return RequestAsync<T> (request);
         }
 
         /// <summary>
@@ -753,11 +750,11 @@ namespace Mojio.Client
         /// <param name="entity">Entity to search by</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M, T>(T entity, int page = 1)
+        public Results<M> GetBy<M, T> (T entity, int page = 1)
             where T : BaseEntity, new()
         {
             HttpStatusCode ignore;
-            return GetBy<M, T>(entity, out ignore, page);
+            return GetBy<M, T> (entity, out ignore, page);
         }
 
         /// <summary>
@@ -769,11 +766,11 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M, T>(T entity, out HttpStatusCode code, int page = 1)
+        public Results<M> GetBy<M, T> (T entity, out HttpStatusCode code, int page = 1)
             where T : BaseEntity, new()
         {
             string ignore;
-            return GetBy<M, T>(entity, out code, out ignore, page);
+            return GetBy<M, T> (entity, out code, out ignore, page);
         }
 
         /// <summary>
@@ -786,10 +783,10 @@ namespace Mojio.Client
         /// <param name="message">Response message</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M, T>(T entity, out HttpStatusCode code, out string message, int page = 1)
+        public Results<M> GetBy<M, T> (T entity, out HttpStatusCode code, out string message, int page = 1)
             where T : BaseEntity, new()
         {
-            return GetBy<M, T>(entity.IdToString, out code, out message, page);
+            return GetBy<M, T> (entity.IdToString, out code, out message, page);
         }
 
         /// <summary>
@@ -801,11 +798,11 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M, T>(object id, int page = 1, string action = null)
+        public Results<M> GetBy<M, T> (object id, int page = 1, string action = null)
             where T : new()
         {
             HttpStatusCode ignore;
-            return GetBy<M, T>(id, out ignore, page, action);
+            return GetBy<M, T> (id, out ignore, page, action);
         }
 
         /// <summary>
@@ -818,11 +815,11 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M, T>(object id, out HttpStatusCode code, int page = 1, string action = null)
+        public Results<M> GetBy<M, T> (object id, out HttpStatusCode code, int page = 1, string action = null)
             where T : new()
         {
             string ignore;
-            return GetBy<M, T>(id, out code, out ignore, page, action);
+            return GetBy<M, T> (id, out code, out ignore, page, action);
         }
 
         /// <summary>
@@ -836,30 +833,30 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<M> GetBy<M,T>(object id, out HttpStatusCode code, out string message, int page = 1, string action = null)
+        public Results<M> GetBy<M,T> (object id, out HttpStatusCode code, out string message, int page = 1, string action = null)
             where T : new()
         {
-            var response = GetByAsync<M, T>(id, page, action).Result;
+            var response = GetByAsync<M, T> (id, page, action).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-		public Task<MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null)
+        public Task<MojioResponse<Results<M>>> GetByAsync<M, T> (object id, int page = 1, string action = null)
             where T : new()
         {
-            string controller = Map[typeof(T)];
+            string controller = Map [typeof(T)];
 
             if (action == null)
-                action = Map[typeof(M)];
+                action = Map [typeof(M)];
 
-            var request = GetRequest(Request(controller, id, action), Method.GET);
+            var request = GetRequest (Request (controller, id, action), Method.GET);
 
-            request.AddParameter("offset", Math.Max(0,(page-1))*PageSize);
-            request.AddParameter("limit", PageSize);
+            request.AddParameter ("offset", Math.Max (0, (page - 1)) * PageSize);
+            request.AddParameter ("limit", PageSize);
 
-            return RequestAsync<Results<M>>(request);
+            return RequestAsync<Results<M>> (request);
         }
 
         /// <summary>
@@ -868,11 +865,11 @@ namespace Mojio.Client
         /// <typeparam name="T">Entity type</typeparam>
         /// <param name="page">Page</param>
         /// <returns></returns>
-        public Results<T> Get<T>(int page = 1)
+        public Results<T> Get<T> (int page = 1)
             where T : new()
         {
             HttpStatusCode ignore;
-            return Get<T>(out ignore, page);
+            return Get<T> (out ignore, page);
         }
 
         /// <summary>
@@ -882,11 +879,11 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="page">Page</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, int page = 1)
+        public Results<T> Get<T> (out HttpStatusCode code, int page = 1)
             where T : new()
         {
             string ignore;
-            return Get<T>(out code, out ignore, page);
+            return Get<T> (out code, out ignore, page);
         }
 
         /// <summary>
@@ -897,26 +894,26 @@ namespace Mojio.Client
         /// <param name="message">Response message</param>
         /// <param name="page">Page</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1)
+        public Results<T> Get<T> (out HttpStatusCode code, out string message, int page = 1)
             where T : new()
         {
-            var response = GetAsync<T>(page).Result;
+            var response = GetAsync<T> (page).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-		public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1)
+        public Task<MojioResponse<Results<T>>> GetAsync<T> (int page = 1)
             where T : new()
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action), Method.GET);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action), Method.GET);
 
-            request.AddParameter("offset", Math.Max(0, (page - 1)) * PageSize);
-            request.AddParameter("limit", PageSize);
+            request.AddParameter ("offset", Math.Max (0, (page - 1)) * PageSize);
+            request.AddParameter ("limit", PageSize);
 
-            return RequestAsync<Results<T>>(request);
+            return RequestAsync<Results<T>> (request);
         }
 
         /// <summary>
@@ -926,10 +923,10 @@ namespace Mojio.Client
         /// <param name="entity">Entity to add an admin to</param>
         /// <param name="userId">Admin User ID</param>
         /// <returns></returns>
-        public bool AddAdmin<T>(T entity, Guid userId)
+        public bool AddAdmin<T> (T entity, Guid userId)
             where T : BaseEntity
         {
-            return AddAdmin<T>(entity.IdToString, userId);
+            return AddAdmin<T> (entity.IdToString, userId);
         }
 
         /// <summary>
@@ -939,13 +936,13 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="userId">Admin User ID</param>
         /// <returns></returns>
-        public bool AddAdmin<T>(object id, Guid userId)
+        public bool AddAdmin<T> (object id, Guid userId)
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action,id,"admin"), Method.POST);
-            request.AddBody(userId);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, id, "admin"), Method.POST);
+            request.AddBody (userId);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -956,10 +953,10 @@ namespace Mojio.Client
         /// <param name="entity">Entity to remove admin from</param>
         /// <param name="userId">Administrator's User ID</param>
         /// <returns></returns>
-        public bool RemoveAdmin<T>(T entity, Guid userId)
+        public bool RemoveAdmin<T> (T entity, Guid userId)
             where T : BaseEntity
         {
-            return RemoveAdmin<T>(entity.IdToString, userId);
+            return RemoveAdmin<T> (entity.IdToString, userId);
         }
 
         /// <summary>
@@ -969,13 +966,13 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="userId">Administrator's User ID</param>
         /// <returns></returns>
-        public bool RemoveAdmin<T>(object id, Guid userId)
+        public bool RemoveAdmin<T> (object id, Guid userId)
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id, "admin"), Method.DELETE);
-            request.AddParameter("userId",userId);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, id, "admin"), Method.DELETE);
+            request.AddParameter ("userId", userId);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -986,10 +983,10 @@ namespace Mojio.Client
         /// <param name="entity">Entity</param>
         /// <param name="userId">Viewer's User ID</param>
         /// <returns></returns>
-        public bool AddViewer<T>(T entity, Guid userId)
+        public bool AddViewer<T> (T entity, Guid userId)
             where T : BaseEntity
         {
-            return AddViewer<T>(entity.IdToString, userId);
+            return AddViewer<T> (entity.IdToString, userId);
         }
 
         /// <summary>
@@ -999,13 +996,13 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="userId">Viewer's User ID</param>
         /// <returns></returns>
-        public bool AddViewer<T>(object id, Guid userId)
+        public bool AddViewer<T> (object id, Guid userId)
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id, "viewer"), Method.POST);
-            request.AddBody(userId);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
+            request.AddBody (userId);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -1016,10 +1013,10 @@ namespace Mojio.Client
         /// <param name="entity">Entity</param>
         /// <param name="userId">Viewer's User ID</param>
         /// <returns></returns>
-        public bool RemoveViewer<T>(T entity, Guid userId)
+        public bool RemoveViewer<T> (T entity, Guid userId)
             where T : BaseEntity
         {
-            return RemoveViewer<T>(entity.IdToString, userId);
+            return RemoveViewer<T> (entity.IdToString, userId);
         }
 
         /// <summary>
@@ -1029,35 +1026,35 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="userId">Viewer's User ID</param>
         /// <returns></returns>
-        public bool RemoveViewer<T>(object id, Guid userId)
+        public bool RemoveViewer<T> (object id, Guid userId)
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action, id, "viewer"), Method.DELETE);
-            request.AddParameter("userId", userId);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action, id, "viewer"), Method.DELETE);
+            request.AddParameter ("userId", userId);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
-        public void ThrowError(string errorMessage)
+        public void ThrowError (string errorMessage)
         {
-            throw new Exception(errorMessage);
+            throw new Exception (errorMessage);
         }
 
-        public static T Deserialize<T>(string content)
+        public static T Deserialize<T> (string content)
         {
-            var serializer = new RSJsonSerializer();
-            return serializer.Deserialize<T>(content);
+            var serializer = new RSJsonSerializer ();
+            return serializer.Deserialize<T> (content);
         }
 
-        public IMojioQueryable<T> Queryable<T>()
+        public IMojioQueryable<T> Queryable<T> ()
             where T : BaseEntity, new()
         {
-            string action = Map[typeof(T)];
-            var request = GetRequest(Request(action), Method.GET);
+            string action = Map [typeof(T)];
+            var request = GetRequest (Request (action), Method.GET);
 
-            var provider = new MojioQueryProvider<T>(this, Request(action) );
-            return new MojioQueryable<T>(provider);
+            var provider = new MojioQueryProvider<T> (this, Request (action));
+            return new MojioQueryable<T> (provider);
         }
 
         /// <summary>
@@ -1066,10 +1063,10 @@ namespace Mojio.Client
         /// <param name="channel">Channel type</param>
         /// <param name="target">target string</param>
         /// <returns></returns>
-        public bool ClearSubscriptions(ChannelType channel, String target)
+        public bool ClearSubscriptions (ChannelType channel, String target)
         {
             HttpStatusCode ignore;
-            return ClearSubscriptions(channel, target, out ignore);
+            return ClearSubscriptions (channel, target, out ignore);
         }
 
         /// <summary>
@@ -1079,10 +1076,10 @@ namespace Mojio.Client
         /// <param name="target">target string</param>
         /// <param name="code">Response code</param>
         /// <returns></returns>
-        public bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code)
+        public bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code)
         {
             string ignore;
-            return ClearSubscriptions(channel, target, out code, out ignore);
+            return ClearSubscriptions (channel, target, out code, out ignore);
         }
 
         /// <summary>
@@ -1093,9 +1090,9 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <returns></returns>
-        public bool ClearSubscriptions(ChannelType channel, String target, out HttpStatusCode code, out string message)
+        public bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code, out string message)
         {
-            var response = ClearSubscriptionsAsync(channel, target).Result;
+            var response = ClearSubscriptionsAsync (channel, target).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -1108,14 +1105,14 @@ namespace Mojio.Client
         /// <param name="channel">Channel type</param>
         /// <param name="target">target string</param>
         /// <returns></returns>
-        public Task<MojioResponse> ClearSubscriptionsAsync(ChannelType channel, String target)
+        public Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target)
         {
-            string action = Map[typeof(Subscription)];
-            var request = GetRequest(Request(action), Method.DELETE);
-            request.AddParameter("channel", channel);
-            request.AddParameter("target", target);
+            string action = Map [typeof(Subscription)];
+            var request = GetRequest (Request (action), Method.DELETE);
+            request.AddParameter ("channel", channel);
+            request.AddParameter ("target", target);
 
-            return RequestAsync(request);
+            return RequestAsync (request);
         }
     }
 }
