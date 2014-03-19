@@ -42,9 +42,9 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> SetVehicleImageAsync(Guid id, byte[] data, string mimetype)
         {
             if (id == Guid.Empty)
-                throw new ArgumentException("MOJIO id is required");
+                throw new ArgumentException("Vehicle Id is required");
 
-            string action = Map[typeof(Mojio)];
+            string action = Map[typeof(Vehicle)];
             var request = GetRequest(Request(action, id, "image"), Method.POST);
             request.AddBody(data);
 
@@ -54,9 +54,9 @@ namespace Mojio.Client
         public bool DeleteVehicleImage(Guid id, out HttpStatusCode code, out string message)
         {
             if (id == Guid.Empty)
-                throw new ArgumentException("MOJIO id is required");
+                throw new ArgumentException("Vehicle Id is required");
 
-            string action = Map[typeof(Mojio)];
+            string action = Map[typeof(Vehicle)];
             var request = GetRequest(Request(action, id, "image"), Method.DELETE);
 
             var response = RestClient.Execute<bool>(request);
@@ -77,7 +77,7 @@ namespace Mojio.Client
             if (id == Guid.Empty)
                 throw new ArgumentException("Vehicle ID is required");
 
-            string action = Map[typeof(Mojio)];
+            string action = Map[typeof(Vehicle)];
             var request = GetRequest(Request(action, id, "image"), Method.GET);
             request.AddParameter("size", size);
 
