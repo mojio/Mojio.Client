@@ -15,7 +15,8 @@ namespace Mojio.Client
     {
         static Dictionary<Type, SubscriptionType> SubscriptionMap = new Dictionary<Type, SubscriptionType>()
         {
-            { typeof(Device), SubscriptionType.Mojio },
+            { typeof(Vehicle), SubscriptionType.Vehicle },
+            { typeof(Mojio), SubscriptionType.Mojio },
             { typeof(User), SubscriptionType.User },
             { typeof(Trip), SubscriptionType.Trip }
         };
@@ -68,9 +69,9 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="events">Event types to receive</param>
         /// <returns></returns>
-        public Task Subscribe<T>( string id, EventType[] events)
+        public Task Subscribe<T>(Guid id, EventType[] events)
         {
-            return Subscribe<T>(new string[] { id }, events);
+            return Subscribe<T>(new [] { id }, events);
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace Mojio.Client
         /// <param name="id">Entity IDs</param>
         /// <param name="events">Event types to receive</param>
         /// <returns></returns>
-        public Task Subscribe<T>(string[] id, EventType[] events)
+        public Task Subscribe<T>(Guid[] id, EventType[] events)
         {
             if (HubConnection.State != ConnectionState.Connected && Hub != null)
                 HubConnection.Start().Wait();
@@ -95,9 +96,9 @@ namespace Mojio.Client
         /// <param name="id"></param>
         /// <param name="events"></param>
         /// <returns></returns>
-        public bool Unsubscribe<T>(string id, EventType[] events)
+        public bool Unsubscribe<T>(Guid id, EventType[] events)
         {
-            return Unsubscribe<T>(new string[] { id }, events);
+            return Unsubscribe<T>(new [] { id }, events);
         }
 
         /// <summary>
@@ -107,7 +108,7 @@ namespace Mojio.Client
         /// <param name="id">Entity IDs</param>
         /// <param name="events">Event Types</param>
         /// <returns></returns>
-        public bool Unsubscribe<T>(string[] id, EventType[] events)
+        public bool Unsubscribe<T>(Guid[] id, EventType[] events)
         {
             Hub.Invoke("Unsubscribe", /*Token.Id,*/ SubscriptionMap[typeof(T)], id, events);
             return true;

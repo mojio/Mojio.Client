@@ -20,6 +20,8 @@ namespace Mojio
         Trip,
         /// <summary>The user</summary>
         User,
+        /// <summary>The vehicle</summary>
+        Vehicle,
     }
 
     /// <summary>
@@ -87,7 +89,7 @@ namespace Mojio
         // TODO convert this to Guid?
         /// <summary>Gets or sets the entity identifier.</summary>
         /// <value>The entity identifier.</value>
-        public string EntityId { get; set; }
+        public Guid EntityId { get; set; }
 
         /// <summary>Gets or sets the interval.</summary>
         /// <value>The interval.</value>
