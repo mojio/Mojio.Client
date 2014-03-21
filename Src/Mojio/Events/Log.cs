@@ -26,7 +26,9 @@ namespace Mojio.Events
             /// <summary>The error</summary>
             Error,
             /// <summary>The fatal</summary>
-            Fatal
+            Fatal,
+            /// <summary>TCU Report</summary>
+            TCUReport,
         }
 
         /// <summary>Initializes a new instance of the <see cref="Log"/> class.</summary>
@@ -52,6 +54,11 @@ namespace Mojio.Events
         /// </summary>
         public string Message { get; set; }
 
+        /// <summary>
+        /// String array containing TCU fields.  
+        /// TBD: pass TCUReport as a JSON for signalR
+        /// </summary>
+        public string[] TCUFields { get; set; }
         /// <summary>
         /// user id
         /// </summary>
