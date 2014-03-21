@@ -125,5 +125,8 @@ namespace Mojio.Client
 
         Task<string> GetStoredAsync<T> (string id, string key);
         Task<bool> SetStoredAsync<T> (string id, string key, string value);
+
+        string Observe<T>(Guid id, ObserverScope scope = ObserverScope.User ) where T : BaseEntity;
+        string Observe<T>(string id, ObserverScope scope = ObserverScope.User) where T : BaseEntity;
     }
 }
