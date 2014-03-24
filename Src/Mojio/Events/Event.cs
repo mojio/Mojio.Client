@@ -15,7 +15,12 @@ namespace Mojio.Events
         /// <summary>
         /// mojio Id
         /// </summary>
-        string MojioId { get; set; }
+        Guid MojioId { get; set; }
+
+        /// <summary>
+        /// vehicle Id
+        /// </summary>
+        Guid VehicleId { get; set; }
 
         /// <summary>
         /// owner Id
@@ -56,7 +61,12 @@ namespace Mojio.Events
         /// <summary>
         /// mojio Id
         /// </summary>
-        public string MojioId { get; set; }
+        public Guid MojioId { get; set; }
+
+        /// <summary>
+        /// vehicle Id
+        /// </summary>
+        public Guid VehicleId { get; set; }
 
         /// <summary>
         /// owner Id

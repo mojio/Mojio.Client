@@ -57,7 +57,8 @@ namespace Mojio.Client
         {
             Map.Add (typeof(App), "apps");
             Map.Add (typeof(User), "users");
-            Map.Add (typeof(Device), "mojios");
+            Map.Add (typeof(Mojio), "mojios");
+            Map.Add (typeof(Vehicle), "vehicles");
             Map.Add (typeof(Event), "events");
             //Map.Add(typeof(GPSEvent), "events");
             //Map.Add(typeof(IgnitionEvent), "events");
@@ -531,16 +532,19 @@ namespace Mojio.Client
             return RequestAsync<T> (request);
         }
 
-        public Task<MojioResponse<T>> ClaimAsync<T> (T entity, int? pin)
-			where T : BaseEntity, new()
+        public Task<MojioResponse<Mojio>> ClaimAsync (Mojio entity, int? pin)
         {
-            string controller = Map [typeof(T)];
+            return ClaimAsync(entity.Imei, pin);
+        }
 
-            var request = GetRequest (Request (controller, entity.IdToString, "claim"), Method.GET);
+        public Task<MojioResponse<Mojio>> ClaimAsync(String imei, int? pin)
+        {
+            string controller = Map [typeof(Mojio)];
 
+            var request = GetRequest (Request(controller, imei, "claim"), Method.GET);
             request.AddParameter ("pin", pin);
 
-            return RequestAsync<T> (request);
+            return RequestAsync<Mojio>(request);
         }
 
         /// <summary>

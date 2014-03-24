@@ -16,9 +16,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <returns></returns>
-        public Results<Event> MojioEvents(string id,int page = 1)
+        public Results<Event> MojioEvents(Guid id,int page = 1)
         {
-            return GetBy<Event, Device>(id, page);
+            return GetBy<Event, Mojio>(id, page);
         }
 
         /// <summary>
@@ -26,37 +26,37 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <returns></returns>
-        public Results<Trip> MojioTrips(string id, int page = 1)
+        public Results<Trip> MojioTrips(Guid id, int page = 1)
         {
-            return GetBy<Trip, Device>(id, page);
+            return GetBy<Trip, Mojio>(id, page);
         }
 
-        public bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
+        public bool SetVehicleImage(Guid id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
         {
-            var result = SetDeviceImageAsync(id, data, mimetype).Result;
+            var result = SetVehicleImageAsync(id, data, mimetype).Result;
             code = result.StatusCode;
             message = result.Content;
             return result.Data;
         }
 
-        public Task<MojioResponse<bool>> SetDeviceImageAsync(string id, byte[] data, string mimetype)
+        public Task<MojioResponse<bool>> SetVehicleImageAsync(Guid id, byte[] data, string mimetype)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentException("Device id is required");
+            if (id == Guid.Empty)
+                throw new ArgumentException("Vehicle Id is required");
 
-            string action = Map[typeof(Device)];
+            string action = Map[typeof(Vehicle)];
             var request = GetRequest(Request(action, id, "image"), Method.POST);
             request.AddBody(data);
 
             return RequestAsync<bool>(request);
         }
 
-        public bool DeleteDeviceImage(string id, out HttpStatusCode code, out string message)
+        public bool DeleteVehicleImage(Guid id, out HttpStatusCode code, out string message)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentException("Device id is required");
+            if (id == Guid.Empty)
+                throw new ArgumentException("Vehicle Id is required");
 
-            string action = Map[typeof(Device)];
+            string action = Map[typeof(Vehicle)];
             var request = GetRequest(Request(action, id, "image"), Method.DELETE);
 
             var response = RestClient.Execute<bool>(request);
@@ -66,18 +66,18 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small)
+        public byte[] GetVehicleImage(Guid id, ImageSize size = ImageSize.Small)
         {
-            var task = GetDeviceImageAsync(id, size);
+            var task = GetVehicleImageAsync(id, size);
             return task.Result; // Will block
         }
 
-        public Task<byte[]> GetDeviceImageAsync(string id, ImageSize size = ImageSize.Small)
+        public Task<byte[]> GetVehicleImageAsync(Guid id, ImageSize size = ImageSize.Small)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentException("Device id is required");
+            if (id == Guid.Empty)
+                throw new ArgumentException("Vehicle ID is required");
 
-            string action = Map[typeof(Device)];
+            string action = Map[typeof(Vehicle)];
             var request = GetRequest(Request(action, id, "image"), Method.GET);
             request.AddParameter("size", size);
 

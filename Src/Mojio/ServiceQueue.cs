@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Mojio
 {
+    /** DEPRECATED??
     /// <summary>
     /// Service Type
     /// </summary>
@@ -60,4 +61,5 @@ namespace Mojio
         /// <value>The status message.</value>
         public string StatusMessage { get; set; }
     }
+     * **/
 }
