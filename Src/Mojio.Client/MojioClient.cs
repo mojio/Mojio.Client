@@ -459,7 +459,7 @@ namespace Mojio.Client
 
                         tcs.SetResult (r);
                     } catch (Exception ex) {
-                        tcs.SetException (e);
+                        tcs.SetException (ex);
                     }
                 });
 
