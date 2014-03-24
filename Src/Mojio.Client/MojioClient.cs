@@ -408,10 +408,14 @@ namespace Mojio.Client
             var tcs = new TaskCompletionSource<MojioResponse> ();
             try {
                 RestClient.ExecuteAsync (request, response => {
-                    tcs.SetResult (new MojioResponse {
-                        Content = response.Content,
-                        StatusCode = response.StatusCode
-                    });
+                    try {
+                        tcs.SetResult (new MojioResponse {
+                            Content = response.Content,
+                            StatusCode = response.StatusCode
+                        });
+                    } catch (Exception e) {
+                        tcs.SetException (e);
+                    }
                 });
             } catch (Exception e) {
                 tcs.SetException (e);
@@ -455,7 +459,7 @@ namespace Mojio.Client
 
                         tcs.SetResult (r);
                     } catch (Exception ex) {
-                        throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
+                        tcs.SetException (e);
                     }
                 });
 
