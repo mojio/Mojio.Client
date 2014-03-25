@@ -161,7 +161,7 @@ namespace Mojio.Client
         public bool Begin (Guid appId, Guid secretKey, Guid? tokenId)
         {
             try {
-                if (tokenId != null) {
+                if (tokenId != null && tokenId != Guid.Empty) {
                     var request = new RestRequest (Request ("login", tokenId.Value), Method.GET);
                     var response = RestClient.Execute<Token> (request);
                     if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
