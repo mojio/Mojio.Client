@@ -23,7 +23,7 @@ namespace Mojio.Client
 
             var response = RestClient.Execute(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return response.Content;
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<string>(response.Content);
             return null;
         } 
     }
