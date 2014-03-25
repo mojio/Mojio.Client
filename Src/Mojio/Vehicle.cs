@@ -81,7 +81,7 @@ namespace Mojio
         /// <summary>
         /// most recent communication time
         /// </summary>
-        public DateTime LastContactTime { get; set; }
+        public DateTime? LastContactTime { get; set; }
 
         /// <summary>
         /// Malfunction Indicator Lamp (Check Engine Light)
