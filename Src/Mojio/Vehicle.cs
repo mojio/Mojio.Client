@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
-    public partial class Vehicle : GuidEntity, IOwner, IViewers
+    public partial class Vehicle : GuidEntity, IOwner, IViewers, IMojioObservable
     {
         /// <summary>
         /// owner id
@@ -81,7 +81,7 @@ namespace Mojio
         /// <summary>
         /// most recent communication time
         /// </summary>
-        public DateTime LastContactTime { get; set; }
+        public DateTime? LastContactTime { get; set; }
 
         /// <summary>
         /// Malfunction Indicator Lamp (Check Engine Light)

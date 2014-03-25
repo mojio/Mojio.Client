@@ -8,7 +8,7 @@ namespace Mojio
     /// <summary>
     /// Trip
     /// </summary>
-    public partial class Trip : GuidEntity
+    public partial class Trip : GuidEntity, IMojioObservable
     {
         /// <summary>
         /// mojio id

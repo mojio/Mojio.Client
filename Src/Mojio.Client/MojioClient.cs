@@ -161,20 +161,20 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey, Guid? tokenId)
         {
-//            try {
-            if (tokenId != null) {
-                var request = new RestRequest (Request ("login", tokenId.Value), Method.GET);
-                var response = RestClient.Execute<Token> (request);
-                if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
-                    Token = response.Data;
-                    return true;
+            try {
+                if (tokenId != null && tokenId != Guid.Empty) {
+                    var request = new RestRequest (Request ("login", tokenId.Value), Method.GET);
+                    var response = RestClient.Execute<Token> (request);
+                    if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
+                        Token = response.Data;
+                        return true;
+                    }
                 }
+                return Begin (appId, secretKey);
+            } catch (Exception ex) {
+                throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
+                //return false;
             }
-            return Begin (appId, secretKey);
-//            } catch (Exception ex) {
-//                throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
-//                //return false;
-//            }
         }
 
         /// <summary>
