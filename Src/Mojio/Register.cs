@@ -59,8 +59,8 @@ namespace Mojio
         /// password
         /// </summary>
         [Required(ErrorMessage = "Required")]
-        [MembershipPassword(ErrorMessage = PasswordError)]
-        //[RegularExpression(PasswordRegEx, ErrorMessage=PasswordError)]
+        //[MembershipPassword(ErrorMessage = PasswordError)]
+        [RegularExpression(PasswordRegEx, ErrorMessage=PasswordError)]
         [DataType(DataType.Password)]
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "{0} must be {2} to {1} characters")]
         [Display(Name = "Password")]
