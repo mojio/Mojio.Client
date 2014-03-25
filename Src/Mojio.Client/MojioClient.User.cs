@@ -437,9 +437,19 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Results<Device> UserMojios(Guid userId, int page = 1)
+        public Results<Mojio> UserMojios(Guid userId, int page = 1)
         {
-            return GetBy<Device, User>(userId, page);
+            return GetBy<Mojio, User>(userId, page);
+        }
+
+        /// <summary>
+        /// Get a collection of mojio devices owned by a user.
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <returns></returns>
+        public Results<Vehicle> UserVehicles(Guid userId, int page = 1)
+        {
+            return GetBy<Vehicle, User>(userId, page);
         }
         
         /// <summary>

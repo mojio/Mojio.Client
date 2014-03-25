@@ -57,7 +57,8 @@ namespace Mojio.Client
         {
             Map.Add (typeof(App), "apps");
             Map.Add (typeof(User), "users");
-            Map.Add (typeof(Device), "mojios");
+            Map.Add (typeof(Mojio), "mojios");
+            Map.Add (typeof(Vehicle), "vehicles");
             Map.Add (typeof(Event), "events");
             //Map.Add(typeof(GPSEvent), "events");
             //Map.Add(typeof(IgnitionEvent), "events");
@@ -390,17 +391,17 @@ namespace Mojio.Client
         /// <returns></returns>
         public RestRequest GetRequest (string resource, Method method)
         {
-            try {
-                var request = new RestRequest (resource, method);
-                request.RequestFormat = DataFormat.Json;
-                request.JsonSerializer = new RSJsonSerializer ();
+//            try {
+            var request = new RestRequest (resource, method);
+            request.RequestFormat = DataFormat.Json;
+            request.JsonSerializer = new RSJsonSerializer ();
 
-                if (Token != null)
-                    request.AddHeader (Headers.MojioAPITokenHeader, Token.Id.ToString ());
-                return request;
-            } catch (Exception ex) {
-                throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
-            }
+            if (Token != null)
+                request.AddHeader (Headers.MojioAPITokenHeader, Token.Id.ToString ());
+            return request;
+//            } catch (Exception ex) {
+//                throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
+//            }
         }
 
         public Task<MojioResponse> RequestAsync (RestRequest request)
@@ -408,10 +409,14 @@ namespace Mojio.Client
             var tcs = new TaskCompletionSource<MojioResponse> ();
             try {
                 RestClient.ExecuteAsync (request, response => {
+                    //try {
                     tcs.SetResult (new MojioResponse {
                         Content = response.Content,
                         StatusCode = response.StatusCode
                     });
+//                    } catch (Exception e) {
+//                        tcs.SetException (e);
+//                    }
                 });
             } catch (Exception e) {
                 tcs.SetException (e);
@@ -424,44 +429,44 @@ namespace Mojio.Client
         {
             var tcs = new TaskCompletionSource<MojioResponse<T>> ();
 
-            try {
-                RestClient.ExecuteAsync<T> (request, response => {
-                    try {
-                        MojioResponse<T> r;
+//            try {
+            RestClient.ExecuteAsync<T> (request, response => {
+//                    try {
+                MojioResponse<T> r;
 
-                        if (response.StatusCode == 0) {
-                            r = new MojioResponse<T> {
-                                ErrorMessage = response.ErrorMessage,
-                                Content = response.Content,
-                                StatusCode = HttpStatusCode.InternalServerError
-                            };
-                        } else {
-                            r = new MojioResponse<T> {
-                                Data = response.Data,
-                                Content = response.Content,
-                                StatusCode = response.StatusCode
-                            };
+                if (response.StatusCode == 0) {
+                    r = new MojioResponse<T> {
+                        ErrorMessage = response.ErrorMessage,
+                        Content = response.Content,
+                        StatusCode = HttpStatusCode.InternalServerError
+                    };
+                } else {
+                    r = new MojioResponse<T> {
+                        Data = response.Data,
+                        Content = response.Content,
+                        StatusCode = response.StatusCode
+                    };
 
-                            if (response.Data == null) {
-                                try {
-                                    var error = Deserialize<String> (response.Content);
-                                    r.ErrorMessage = error;
-                                } catch (Exception) {
-                                    // Exception thrown.  I don't think we need to do anything with it though.
-                                    r.ErrorMessage = "No content";
-                                }
-                            }
+                    if (response.Data == null) {
+                        try {
+                            var error = Deserialize<String> (response.Content);
+                            r.ErrorMessage = error;
+                        } catch (Exception) {
+                            // Exception thrown.  I don't think we need to do anything with it though.
+                            r.ErrorMessage = "No content";
                         }
-
-                        tcs.SetResult (r);
-                    } catch (Exception ex) {
-                        throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
                     }
-                });
+                }
 
-            } catch (Exception e) {
-                tcs.SetException (e);
-            }
+                tcs.SetResult (r);
+//                    } catch (Exception ex) {
+//                        tcs.SetException (ex);
+//                    }
+            });
+
+//            } catch (Exception e) {
+//                tcs.SetException (e);
+//            }
 
             return tcs.Task;
         }
@@ -527,16 +532,19 @@ namespace Mojio.Client
             return RequestAsync<T> (request);
         }
 
-        public Task<MojioResponse<T>> ClaimAsync<T> (T entity, int? pin)
-			where T : BaseEntity, new()
+        public Task<MojioResponse<Mojio>> ClaimAsync (Mojio entity, int? pin)
         {
-            string controller = Map [typeof(T)];
+            return ClaimAsync(entity.Imei, pin);
+        }
 
-            var request = GetRequest (Request (controller, entity.IdToString, "claim"), Method.GET);
+        public Task<MojioResponse<Mojio>> ClaimAsync(String imei, int? pin)
+        {
+            string controller = Map [typeof(Mojio)];
 
+            var request = GetRequest (Request(controller, imei, "claim"), Method.GET);
             request.AddParameter ("pin", pin);
 
-            return RequestAsync<T> (request);
+            return RequestAsync<Mojio>(request);
         }
 
         /// <summary>

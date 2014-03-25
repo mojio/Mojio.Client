@@ -21,7 +21,8 @@ namespace Mojio.Client
         bool ChangePassword(string oldPassword, string newPassword, out HttpStatusCode code, out string message);
         bool ChangePassword(string oldPassword, string newPassword, out string message);
         Task<MojioResponse<bool>> RequestPasswordResetAsync (string userNameOrEmail, string returnUrl = null);
-		Task<Client.MojioResponse<T>> ClaimAsync<T>(T entity, int? pin) where T : BaseEntity, new();
+		Task<Client.MojioResponse<Mojio>> ClaimAsync(Mojio entity, int? pin);
+        Task<Client.MojioResponse<Mojio>> ClaimAsync(String imei, int? pin);
         bool ClearUser();
         Task<Client.MojioResponse<Token>> ClearUserAsync();
         T Create<T>(T entity) where T : BaseEntity, new();
@@ -96,17 +97,17 @@ namespace Mojio.Client
         int SessionTime { get; set; }
         bool SetImage(byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null);
         Task<MojioResponse<bool>> SetImageAsync(byte[] data, string mimetype, Guid? userId = null);
-        byte[] GetDeviceImage(string id, ImageSize size = ImageSize.Small);
-        Task<byte[]> GetDeviceImageAsync(string id, ImageSize size = ImageSize.Small);
+        byte[] GetVehicleImage(Guid id, ImageSize size = ImageSize.Small);
+        Task<byte[]> GetVehicleImageAsync(Guid id, ImageSize size = ImageSize.Small);
         
-        bool SetDeviceImage(string id, byte[] data, string mimetype, out HttpStatusCode code, out string message);
-        Task<MojioResponse<bool>> SetDeviceImageAsync(string id, byte[] data, string mimetype);
+        bool SetVehicleImage(Guid id, byte[] data, string mimetype, out HttpStatusCode code, out string message);
+        Task<MojioResponse<bool>> SetVehicleImageAsync(Guid id, byte[] data, string mimetype);
 
         bool SetUser(string userOrEmail, string password);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code);
         bool SetUser(string userOrEmail, string password, out HttpStatusCode code, out string message);
         Task<Client.MojioResponse<Token>> SetUserAsync(string userOrEmail, string password);
-        void SubscribePush<T>(object id, Events.EventType events);
+        void SubscribePush<T>(Guid id, Events.EventType events);
         void ThrowError(string errorMessage);
         T Update<T>(T entity) where T : BaseEntity, new();
         T Update<T>(T entity, out HttpStatusCode code) where T : BaseEntity, new();
@@ -114,7 +115,7 @@ namespace Mojio.Client
         Task<Client.MojioResponse<T>> UpdateAsync<T>(T entity) where T : BaseEntity, new();
         Results<App> UserApps(Guid userId, int page = 1);
         Results<Events.Event> UserEvents(Guid userId, int page = 1);
-        Results<Device> UserMojios(Guid userId, int page = 1);
+        Results<Mojio> UserMojios(Guid userId, int page = 1);
         Results<Trip> UserTrips(Guid userId, int page = 1);
         IMojioQueryable<T> Queryable<T>() where T : BaseEntity, new();
 
@@ -123,10 +124,9 @@ namespace Mojio.Client
         bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code, out string message);
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
 
-        Task<string> GetStoredAsync<T> (string id, string key);
-        Task<bool> SetStoredAsync<T> (string id, string key, string value);
-
         string Observe<T>(Guid id, ObserverScope scope = ObserverScope.User ) where T : BaseEntity;
         string Observe<T>(string id, ObserverScope scope = ObserverScope.User) where T : BaseEntity;
+        Task<string> GetStoredAsync<T> (Guid id, string key);
+        Task<bool> SetStoredAsync<T> (Guid id, string key, string value);
     }
 }

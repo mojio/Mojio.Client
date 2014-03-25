@@ -16,7 +16,15 @@ namespace Mojio
         /// <value>
         /// The mojio identifier.
         /// </value>
-        public string MojioId { get; set; }
+        public Guid MojioId { get; set; }
+
+        /// <summary>
+        /// vehicle id
+        /// </summary>
+        /// <value>
+        /// The vehicle identifier.
+        /// </value>
+        public Guid VehicleId { get; set; }
 
         /// <summary>
         /// start timestamp

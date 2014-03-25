@@ -11,7 +11,7 @@ namespace Mojio.Events
     /// 
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class DiagnosticEvent : Event
+    public partial class DiagnosticEvent : Event
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosticEvent"/> class.
@@ -20,24 +20,6 @@ namespace Mojio.Events
         {
             EventType = Events.EventType.Diagnostic;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DiagnosticEvent"/> class.
-        /// </summary>
-        /// <param name="DTCs">The dt cs.</param>
-        /// <param name="milStatus">if set to <c>true</c> [mil status].</param>
-        public DiagnosticEvent(string[] DTCs, bool milStatus)
-        {
-            EventType = Events.EventType.Diagnostic;
-            this.Codes = DTCs;
-            this.MilStatus = milStatus;
-        }
-
-        /// <summary>
-        /// Diagnostic Trouble Code
-        /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
-        public string[] Codes { get; set; }
 
         /// <summary>
         /// Diagnostic Trouble Code Attribute

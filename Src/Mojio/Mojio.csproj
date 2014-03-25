@@ -106,6 +106,7 @@
     <Compile Include="Token.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Vehicle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

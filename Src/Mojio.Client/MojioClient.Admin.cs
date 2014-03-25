@@ -17,7 +17,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="items">each row is of the format: imei,name,pin,msisdn</param>
         /// <returns></returns>
-        public Task<MojioResponse<List<Device>>> ImportDevicesAsync(List<string> items)
+        public Task<MojioResponse<List<Mojio>>> ImportMojiosAsync(List<string> items)
         {
             string controller = "admin";
 
@@ -25,7 +25,7 @@ namespace Mojio.Client
 
             request.AddBody(items);
 
-            return RequestAsync<List<Device>>(request);
+            return RequestAsync<List<Mojio>>(request);
         }
 
         /// <summary>
