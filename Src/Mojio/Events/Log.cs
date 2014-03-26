@@ -55,10 +55,10 @@ namespace Mojio.Events
         public string Message { get; set; }
 
         /// <summary>
-        /// String array containing TCU fields.  
-        /// TBD: pass TCUReport as a JSON for signalR
+        /// Device IMEI
         /// </summary>
-        public string[] TCUFields { get; set; }
+        public string Imei { get; set; }
+
         /// <summary>
         /// user id
         /// </summary>
