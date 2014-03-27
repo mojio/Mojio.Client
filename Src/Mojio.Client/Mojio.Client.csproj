@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRestRequest.cs" />
     <Compile Include="IMojioClient.cs" />
     <Compile Include="Linq\Extensions.cs" />
     <Compile Include="Linq\IMojioQueryable.cs" />

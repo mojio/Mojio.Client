@@ -142,11 +142,11 @@ namespace Mojio.Client
                 // Key currently only used for storage
                 return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
             if (id != null && action != null)
-                return string.Format ("{0}/{1}/{2}", controller, id, action);
+                return string.Format("{0}/{1}/{2}", controller, id, action);
             else if (id != null)
-                return string.Format ("{0}/{1}", controller, id);
+                return string.Format("{0}/{1}", controller, id);
             else if (action != null)
-                return string.Format ("{0}/{1}", controller, action);       
+                return string.Format("{0}/{1}", controller, action);
             
             return controller;
         }
@@ -163,7 +163,7 @@ namespace Mojio.Client
         {
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
-                    var request = new RestRequest (Request ("login", tokenId.Value), Method.GET);
+                    var request = new CustomRestRequest (Request ("login", tokenId.Value), Method.POST);
                     var response = RestClient.Execute<Token> (request);
                     if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
                         Token = response.Data;
@@ -186,7 +186,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey)
         {
-            var request = new RestRequest (Request ("login", appId, "begin"), Method.GET);
+            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.POST);
             request.AddParameter ("secretKey", secretKey);
             var response = RestClient.Execute<Token> (request);
             if (response.StatusCode == HttpStatusCode.OK) {
@@ -210,7 +210,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = new RestRequest (Request ("login", appId, "begin"), Method.GET);
+            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.POST);
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -272,7 +272,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.GET);
+            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.PUT);
 
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -369,7 +369,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = GetRequest (Request ("login", Token.Id, "extend"), Method.GET);
+            var request = GetRequest (Request ("login", Token.Id, "extend"), Method.POST);
             request.AddParameter ("minutes", minutes);
 
             var task = RequestAsync<Token> (request);
@@ -389,10 +389,10 @@ namespace Mojio.Client
         /// <param name="resource">Resource URL</param>
         /// <param name="method">Request method</param>
         /// <returns></returns>
-        public RestRequest GetRequest (string resource, Method method)
+        public CustomRestRequest GetRequest (string resource, Method method)
         {
 //            try {
-            var request = new RestRequest (resource, method);
+            var request = new CustomRestRequest (resource, method);
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer = new RSJsonSerializer ();
 
