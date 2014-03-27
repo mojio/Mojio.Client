@@ -12,6 +12,7 @@ namespace Mojio.Events
     /// </summary>
     public interface IEvent
     {
+        
         /// <summary>
         /// mojio Id
         /// </summary>
@@ -61,16 +62,19 @@ namespace Mojio.Events
         /// <summary>
         /// mojio Id
         /// </summary>
+        [Observable(typeof(Mojio))]
         public Guid MojioId { get; set; }
 
         /// <summary>
         /// vehicle Id
         /// </summary>
+        [Observable(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
         /// <summary>
         /// owner Id
         /// </summary>
+        [Observable(typeof(User))]
         public Guid? OwnerId { get; set; }
 
         /// <summary>
