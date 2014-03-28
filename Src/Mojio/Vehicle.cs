@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    [Observable]
     public partial class Vehicle : GuidEntity, IOwner, IViewers, IMojioObservable
     {
         /// <summary>
         /// owner id
         /// </summary>
         [Display(Name = "Owner")]
+        [Observable(typeof(User))]
+
         public Guid? OwnerId { get; set; }
 
+        [Observable(typeof(Mojio))]
         public Guid? MojioId { get; set; }
 
         /// <summary>

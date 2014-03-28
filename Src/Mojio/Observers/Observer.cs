@@ -12,7 +12,7 @@ namespace Mojio
     public enum Transport
     {
         SignalR         =   1 << 0,
-        Pubnu           =   1 << 1,
+        Pubnub          =   1 << 1,
         ApplePush       =   1 << 2,
         AndroidPush     =   1 << 3,
         HttpPost        =   1 << 4   
@@ -53,9 +53,9 @@ namespace Mojio
         public Guid? ChannelId { get; set; }
 
         /// <summary>
-        /// The entity types to observe
+        /// The subject entity to observe
         /// </summary>
-        public string Entity { get; set; }
+        public string Subject { get; set; }
         public Transport Transport { get; set; }
         public ObserveStatus? Status { get; set; }
 

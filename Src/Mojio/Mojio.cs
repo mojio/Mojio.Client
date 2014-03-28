@@ -10,6 +10,7 @@ namespace Mojio
     /// <summary>
     /// Device
     /// </summary>
+    [Observable]
     public partial class Mojio : GuidEntity, IOwner, IMojioObservable
     {
         /// <summary>

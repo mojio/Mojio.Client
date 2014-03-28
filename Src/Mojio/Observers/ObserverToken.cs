@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mojio.Observers
+namespace Mojio
 {
     public class ObserverToken : GuidEntity
     {
