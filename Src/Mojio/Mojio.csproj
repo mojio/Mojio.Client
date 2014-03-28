@@ -60,6 +60,7 @@
     <Compile Include="CollectionNameAttribute.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\ObserverConverter.cs" />
+    <Compile Include="Converters\ObserverConverterToken.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />

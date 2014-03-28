@@ -28,6 +28,8 @@ namespace Mojio
     [JsonConverter(typeof(ObserverConverter))]
     public partial class Observer : GuidEntity, IOwner
     {
+        public string Name { get; set; }
+        
         public ObserverType Type { get; set; }
 
         /// <summary>
@@ -43,19 +45,24 @@ namespace Mojio
         public Guid? OwnerId { get; set; }
 
         /// <summary>
-        /// The Channel Type to Observe on, if unspecifed, ChannelId is required
+        /// The Parent Type to observe on
         /// </summary>
-        public string Channel { get; set; }
+        public string Parent { get; set; }
 
         /// <summary>
-        /// The channel Id to Observe on, if unspecifed, ChannelType is required
+        /// The specific Parent entity observe on
         /// </summary>
-        public Guid? ChannelId { get; set; }
+        public Guid? ParentId { get; set; }
 
         /// <summary>
-        /// The subject entity to observe
+        /// The Subject Entity type to observe
         /// </summary>
         public string Subject { get; set; }
+
+        /// <summary>
+        /// The specfic Subject entity to observe
+        /// </summary>
+        public Guid? SubjectId { get; set; }
         public Transport Transport { get; set; }
         public ObserveStatus? Status { get; set; }
 
