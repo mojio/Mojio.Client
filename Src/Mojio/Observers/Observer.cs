@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
-    public enum ObserverScope
+    [Flags]
+    public enum Transport
     {
-        App,
-        User
+        SignalR         =   1 << 0,
+        Pubnu           =   1 << 1,
+        ApplePush       =   1 << 2,
+        AndroidPush     =   1 << 3,
+        HttpPost        =   1 << 4   
     }
 
     public enum ObserveStatus
@@ -22,7 +26,7 @@ namespace Mojio
     }
 
     [JsonConverter(typeof(ObserverConverter))]
-    public class Observer : GuidEntity, IOwner
+    public partial class Observer : GuidEntity, IOwner
     {
         public ObserverType Type { get; set; }
 
@@ -41,7 +45,7 @@ namespace Mojio
         /// <summary>
         /// The Channel Type to Observe on, if unspecifed, ChannelId is required
         /// </summary>
-        public string ChannelType { get; set; }
+        public string Channel { get; set; }
 
         /// <summary>
         /// The channel Id to Observe on, if unspecifed, ChannelType is required
@@ -51,8 +55,8 @@ namespace Mojio
         /// <summary>
         /// The entity types to observe
         /// </summary>
-        public string EntityType { get; set; }
-        public ObserverScope Scope { get; set; }
+        public string Entity { get; set; }
+        public Transport Transport { get; set; }
         public ObserveStatus? Status { get; set; }
 
         public Observer()

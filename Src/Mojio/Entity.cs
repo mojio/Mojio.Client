@@ -38,6 +38,8 @@ namespace Mojio
         /// <returns></returns>
         public static Type ToType(string typeName)
         {
+            if (string.IsNullOrEmpty(typeName))
+                return null;
             return Types.SingleOrDefault(t => t.Name.ToLower() == typeName.ToLower());
         }
 

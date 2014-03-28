@@ -182,7 +182,7 @@ namespace Mojio.Events
 
         /// <summary>
         /// Mileage
-        /// </summary
+        /// </summary>
         Mileage = 100016,
     }
 }

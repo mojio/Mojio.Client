@@ -100,6 +100,7 @@
     <Compile Include="Observers\EventObserver.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
     <Compile Include="Observers\Observer.cs" />
+    <Compile Include="Observers\ObserverToken.cs" />
     <Compile Include="Observers\ObserverType.cs" />
     <Compile Include="Observers\ScriptObserver.cs" />
     <Compile Include="Product.cs" />
