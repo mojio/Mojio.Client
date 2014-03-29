@@ -84,7 +84,7 @@ namespace Mojio.Client
 			if (Token == null)
 				throw new Exception("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-			var request = GetRequest(Request("login", "facebook", "setexternaluser"), Method.GET);
+			var request = GetRequest(Request("login", "facebook", "externaluser"), Method.GET);
 
 			//request.AddParameter("userOrEmail", userOrEmail);
 			request.AddParameter("accessToken", access_token);
@@ -373,7 +373,7 @@ namespace Mojio.Client
         public bool PasswordReset(ResetPassword reset, out HttpStatusCode code, out string message)
         {
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, reset.UserNameOrEmail, "ResetPassword"), Method.PUT);
+            var request = GetRequest(Request(action, reset.UserNameOrEmail, "Password"), Method.PUT);
             request.AddBody(reset);
 
             var response = RestClient.Execute(request);

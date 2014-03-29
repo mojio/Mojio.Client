@@ -19,7 +19,7 @@ namespace Mojio.Client
         public Trip MergeTrips( Guid intoId, Guid fromId )
         {
             string action = Map[typeof(Trip)];
-            var request = GetRequest(Request(action,intoId,"merge"), Method.PUT);
+            var request = GetRequest(Request(action,intoId,"trip"), Method.PUT);
             request.AddBody(fromId);
 
             var response = RestClient.Execute<Trip>(request);

@@ -186,7 +186,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey)
         {
-            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.POST);
+            var request = new CustomRestRequest (Request ("login", appId), Method.POST);
             request.AddParameter ("secretKey", secretKey);
             var response = RestClient.Execute<Token> (request);
             if (response.StatusCode == HttpStatusCode.OK) {
@@ -210,7 +210,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.POST);
+            var request = new CustomRestRequest (Request ("login", appId), Method.POST);
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -272,7 +272,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.PUT);
+            var request = GetRequest (Request ("login", userOrEmail, "user"), Method.PUT);
 
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -310,7 +310,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first.");
 
-            var request = GetRequest (Request ("login", Token.Id, "logout"), Method.PUT);
+            var request = GetRequest (Request ("login", Token.Id), Method.DELETE);
 
             var task = RequestAsync<Token> (request);
             return task.ContinueWith<MojioResponse<Token>> (r => {
@@ -369,7 +369,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = GetRequest (Request ("login", Token.Id, "extend"), Method.POST);
+            var request = GetRequest (Request ("login", Token.Id, "session"), Method.POST);
             request.AddParameter ("minutes", minutes);
 
             var task = RequestAsync<Token> (request);
