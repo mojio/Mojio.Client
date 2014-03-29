@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Mojio
 {
@@ -11,6 +12,8 @@ namespace Mojio
     /// </summary>
     public abstract partial class BaseEntity
     {
+        static Type[] Types = typeof(BaseEntity).Assembly.GetTypes();
+
         /// <summary>Gets or sets the revision.</summary>
         /// <value>The revision.</value>
         [JsonProperty(PropertyName = "_rev")]
@@ -27,6 +30,25 @@ namespace Mojio
         /// <value>The identifier to string.</value>
         [JsonIgnore]
         public abstract string IdToString { get; }
+
+        /// <summary>
+        /// Converts a string into a Type
+        /// </summary>
+        /// <param name="typeName">Case insensitive type in the Mojio assembly</param>
+        /// <returns></returns>
+        public static Type ToType(string typeName)
+        {
+            if (string.IsNullOrEmpty(typeName))
+                return null;
+            return Types.SingleOrDefault(t => t.Name.ToLower() == typeName.ToLower());
+        }
+
+        /*
+        This lives in Mojio.Private
+        public static string ToType(this Type type)
+        {
+            return type.Name.ToLower();
+        }*/
     }
 
     /// <summary>

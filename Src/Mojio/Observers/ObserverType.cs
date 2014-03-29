@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
-    public enum ObserverScope
+    public enum ObserverType
     {
-        App,
-        User
+        Generic,
+        Script,
+        Event,
+
     }
 }

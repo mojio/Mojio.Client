@@ -8,6 +8,7 @@ namespace Mojio
     /// <summary>
     /// Trip
     /// </summary>
+    [Observable]
     public partial class Trip : GuidEntity, IMojioObservable
     {
         /// <summary>
@@ -16,6 +17,7 @@ namespace Mojio
         /// <value>
         /// The mojio identifier.
         /// </value>
+        [Observable(typeof(Mojio))]
         public Guid MojioId { get; set; }
 
         /// <summary>
@@ -24,6 +26,7 @@ namespace Mojio
         /// <value>
         /// The vehicle identifier.
         /// </value>
+        [Observable(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
         /// <summary>

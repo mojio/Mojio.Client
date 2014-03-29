@@ -26,6 +26,7 @@ namespace Mojio.Events
 
         /// <summary>Gets or sets the trip identifier.</summary>
         /// <value>The trip identifier.</value>
+        [Observable(typeof(Trip))]
         public Guid? TripId { get; set; }
 
         /// <summary>

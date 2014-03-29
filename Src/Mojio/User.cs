@@ -10,6 +10,7 @@ namespace Mojio
     /// <summary>
     /// User
     /// </summary>
+    [Observable]
     public partial class User : GuidEntity, IMojioObservable
     {
 

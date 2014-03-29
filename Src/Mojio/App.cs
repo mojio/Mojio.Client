@@ -11,6 +11,8 @@ namespace Mojio
     /// <summary>
     /// 
     /// </summary>
+    ///         
+    [Observable]
     public partial class App : GuidEntity, IMojioObservable
     {
         /// <summary>

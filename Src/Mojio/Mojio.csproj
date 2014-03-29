@@ -58,6 +58,9 @@
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CarState.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
+    <Compile Include="Converters\Converter.cs" />
+    <Compile Include="Converters\ObserverConverter.cs" />
+    <Compile Include="Converters\ObserverConverterToken.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
@@ -94,7 +97,13 @@
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Mojio.cs" />
-    <Compile Include="Observer.cs" />
+    <Compile Include="Observers\ConditionalObserver.cs" />
+    <Compile Include="Observers\EventObserver.cs" />
+    <Compile Include="Observers\ObservableAttribute.cs" />
+    <Compile Include="Observers\Observer.cs" />
+    <Compile Include="Observers\ObserverToken.cs" />
+    <Compile Include="Observers\ObserverType.cs" />
+    <Compile Include="Observers\ScriptObserver.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceQueue.cs" />
