@@ -230,7 +230,7 @@ namespace Mojio.Client
         public bool ChangePassword(string oldPassword, string newPassword, out HttpStatusCode code, out string message)
         {
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, Token.UserId, "ChangePassword"), Method.PUT);
+            var request = GetRequest(Request(action, Token.UserId, "Password"), Method.PUT);
             request.AddBody(new
                 {
                     oldPassword = oldPassword,
@@ -288,7 +288,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> RequestPasswordResetAsync(string userNameOrEmail, string returnUrl = null)
         {
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userNameOrEmail, "ResetPassword"), Method.POST);
+            var request = GetRequest(Request(action, userNameOrEmail, "PasswordEmail"), Method.POST);
             request.AddBody(returnUrl);
 
             return RequestAsync<bool> (request);
