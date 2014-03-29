@@ -272,7 +272,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest (Request ("login", userOrEmail, "user"), Method.PUT);
+            var request = GetRequest (Request ("login", userOrEmail, "user"), Method.POST);
 
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -310,7 +310,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first.");
 
-            var request = GetRequest (Request ("login", Token.Id), Method.DELETE);
+            var request = GetRequest (Request ("login", Token.Id, "user"), Method.DELETE);
 
             var task = RequestAsync<Token> (request);
             return task.ContinueWith<MojioResponse<Token>> (r => {
