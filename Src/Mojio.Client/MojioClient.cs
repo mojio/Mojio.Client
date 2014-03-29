@@ -142,11 +142,11 @@ namespace Mojio.Client
                 // Key currently only used for storage
                 return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
             if (id != null && action != null)
-                return string.Format("{0}/{1}/{2}", controller, id, action);
+                return string.Format ("{0}/{1}/{2}", controller, id, action);
             else if (id != null)
-                return string.Format("{0}/{1}", controller, id);
+                return string.Format ("{0}/{1}", controller, id);
             else if (action != null)
-                return string.Format("{0}/{1}", controller, action);
+                return string.Format ("{0}/{1}", controller, action);
             
             return controller;
         }
@@ -534,17 +534,17 @@ namespace Mojio.Client
 
         public Task<MojioResponse<Mojio>> ClaimAsync (Mojio entity, int? pin)
         {
-            return ClaimAsync(entity.Imei, pin);
+            return ClaimAsync (entity.Imei, pin);
         }
 
-        public Task<MojioResponse<Mojio>> ClaimAsync(String imei, int? pin)
+        public Task<MojioResponse<Mojio>> ClaimAsync (String imei, int? pin)
         {
             string controller = Map [typeof(Mojio)];
 
-            var request = GetRequest (Request(controller, imei, "claim"), Method.GET);
+            var request = GetRequest (Request (controller, imei, "claim"), Method.GET);
             request.AddParameter ("pin", pin);
 
-            return RequestAsync<Mojio>(request);
+            return RequestAsync<Mojio> (request);
         }
 
         /// <summary>
