@@ -369,7 +369,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = GetRequest (Request ("login", Token.Id, "session"), Method.POST);
+            var request = new CustomRestRequest (Request ("login", Token.Id, "session"), Method.POST);
             request.AddParameter ("minutes", minutes);
 
             var task = RequestAsync<Token> (request);
@@ -525,7 +525,7 @@ namespace Mojio.Client
             }
 
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action), Method.POST);
+            var request = new CustomRestRequest (Request (action), Method.POST);
 
             request.AddBody (entity);
 
@@ -541,7 +541,7 @@ namespace Mojio.Client
         {
             string controller = Map [typeof(Mojio)];
 
-            var request = GetRequest (Request (controller, imei, "claim"), Method.GET);
+            var request = GetRequest (Request (controller, imei, "user"), Method.PUT);
             request.AddParameter ("pin", pin);
 
             return RequestAsync<Mojio> (request);
@@ -947,7 +947,7 @@ namespace Mojio.Client
         public bool AddAdmin<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "admin"), Method.POST);
+            var request = new CustomRestRequest (Request (action, id, "admin"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
@@ -1007,7 +1007,7 @@ namespace Mojio.Client
         public bool AddViewer<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
+            var request = new CustomRestRequest (Request (action, id, "viewer"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
