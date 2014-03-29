@@ -71,9 +71,20 @@ namespace Mojio
         public Observer()
             : this(ObserverType.Generic) { }
 
-        public Observer(ObserverType type)
+        public Observer(Type subject = null, Type parent = null)
+            : this(ObserverType.Generic, subject, parent)
+        {
+
+        }
+
+        public Observer(ObserverType type, Type subject = null, Type parent = null)
         {
             Type = type;
+            if (subject != null)
+                Subject = subject.Name;
+
+            if (parent != null)
+                Parent = parent.Name;
         }
     }
 }

@@ -60,6 +60,7 @@ namespace Mojio.Client
             Map.Add (typeof(Mojio), "mojios");
             Map.Add (typeof(Vehicle), "vehicles");
             Map.Add (typeof(Event), "events");
+
             //Map.Add(typeof(GPSEvent), "events");
             //Map.Add(typeof(IgnitionEvent), "events");
             //Map.Add(typeof(ITripEvent), "events");
@@ -72,6 +73,8 @@ namespace Mojio.Client
             Map.Add (typeof(Invoice), "orders");
 
             Map.Add (typeof(Subscription), "subscriptions");
+            Map.Add(typeof(Observer), "observe");
+
         }
 
         /// <summary>
