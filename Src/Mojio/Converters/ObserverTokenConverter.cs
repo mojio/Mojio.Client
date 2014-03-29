@@ -26,7 +26,7 @@ namespace Mojio.Converters
                     return null;
                 default:
                 case Transport.Pubnub:
-                    return new PubnubToken();
+                    return new PubnubObserverToken();
             }
         }
     }

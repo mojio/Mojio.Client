@@ -66,6 +66,8 @@ namespace Mojio
         public Transport Transport { get; set; }
         public ObserveStatus? Status { get; set; }
 
+        public List<ObserverToken> Tokens { get; set; }
+
         public Observer()
             : this(ObserverType.Generic) { }
 
