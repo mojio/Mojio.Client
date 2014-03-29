@@ -313,7 +313,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first.");
 
-            var request = GetRequest (Request ("login", Token.Id, "logout"), Method.GET);
+            var request = GetRequest (Request ("login", Token.Id, "logout"), Method.PUT);
 
             var task = RequestAsync<Token> (request);
             return task.ContinueWith<MojioResponse<Token>> (r => {
