@@ -409,14 +409,10 @@ namespace Mojio.Client
             var tcs = new TaskCompletionSource<MojioResponse> ();
             try {
                 RestClient.ExecuteAsync (request, response => {
-                    //try {
                     tcs.SetResult (new MojioResponse {
                         Content = response.Content,
                         StatusCode = response.StatusCode
                     });
-//                    } catch (Exception e) {
-//                        tcs.SetException (e);
-//                    }
                 });
             } catch (Exception e) {
                 tcs.SetException (e);
