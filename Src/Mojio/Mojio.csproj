@@ -97,6 +97,7 @@
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Mojio.cs" />
+    <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
