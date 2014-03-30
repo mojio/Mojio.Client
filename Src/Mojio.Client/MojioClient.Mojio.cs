@@ -45,7 +45,7 @@ namespace Mojio.Client
                 throw new ArgumentException ("Vehicle Id is required");
 
             string action = Map [typeof(Vehicle)];
-            var request = new CustomRestRequest (Request (action, id, "image"), Method.POST);
+            var request = GetRequest (Request (action, id, "image"), Method.POST);
             request.AddBody (data);
 
             return RequestAsync<bool> (request);

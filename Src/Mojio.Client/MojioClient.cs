@@ -369,7 +369,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = new CustomRestRequest (Request ("login", Token.Id, "session"), Method.POST);
+            var request = GetRequest(Request("login", Token.Id, "Session"), Method.POST);
             request.AddParameter ("minutes", minutes);
 
             var task = RequestAsync<Token> (request);
@@ -429,9 +429,7 @@ namespace Mojio.Client
         {
             var tcs = new TaskCompletionSource<MojioResponse<T>> ();
 
-//            try {
             RestClient.ExecuteAsync<T> (request, response => {
-//                    try {
                 MojioResponse<T> r;
 
                 if (response.StatusCode == 0) {
@@ -457,17 +455,8 @@ namespace Mojio.Client
                         }
                     }
                 }
-
                 tcs.SetResult (r);
-//                    } catch (Exception ex) {
-//                        tcs.SetException (ex);
-//                    }
             });
-
-//            } catch (Exception e) {
-//                tcs.SetException (e);
-//            }
-
             return tcs.Task;
         }
 
@@ -525,7 +514,7 @@ namespace Mojio.Client
             }
 
             string action = Map [typeof(T)];
-            var request = new CustomRestRequest (Request (action), Method.POST);
+            var request = GetRequest(Request(action), Method.POST);
 
             request.AddBody (entity);
 
@@ -947,7 +936,8 @@ namespace Mojio.Client
         public bool AddAdmin<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = new CustomRestRequest (Request (action, id, "admin"), Method.POST);
+            var request = GetRequest(Request(action, id, "admin"), Method.POST);
+
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
@@ -1007,7 +997,8 @@ namespace Mojio.Client
         public bool AddViewer<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = new CustomRestRequest (Request (action, id, "viewer"), Method.POST);
+            var request = GetRequest(Request(action, id, "viewer"), Method.POST);
+
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);

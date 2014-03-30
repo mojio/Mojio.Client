@@ -84,7 +84,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
                 
-            var request = new CustomRestRequest (Request ("login", "facebook", "externaluser"), Method.POST);
+            var request = GetRequest (Request ("login", "facebook", "externaluser"), Method.POST);
 
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("accessToken", access_token);
@@ -178,7 +178,7 @@ namespace Mojio.Client
         public Task<MojioResponse<User>> RegisterUserAsync (string username, string email, string password)
         {
             string action = Map [typeof(User)];
-            var request = new CustomRestRequest (Request (action), Method.POST);
+            var request = GetRequest (Request (action), Method.POST);
             request.AddBody (new
 				{
 					UserName = username,
@@ -285,7 +285,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> RequestPasswordResetAsync (string userNameOrEmail, string returnUrl = null)
         {
             string action = Map [typeof(User)];
-            var request = new CustomRestRequest (Request (action, userNameOrEmail, "PasswordEmail"), Method.POST);
+            var request = GetRequest (Request (action, userNameOrEmail, "PasswordEmail"), Method.POST);
             request.AddBody (returnUrl);
 
             return RequestAsync<bool> (request);
@@ -487,7 +487,7 @@ namespace Mojio.Client
                 userId = CurrentUser.Id;
 
             string action = Map [typeof(User)];
-            var request = new CustomRestRequest (Request (action, userId, "shipping"), Method.POST);
+            var request = GetRequest (Request (action, userId, "shipping"), Method.POST);
             request.AddBody (shipping);
 
             var response = RestClient.Execute (request);
@@ -558,7 +558,7 @@ namespace Mojio.Client
                 userId = CurrentUser.Id;
 
             string action = Map [typeof(User)];
-            var request = new CustomRestRequest (Request (action, userId, "creditcard"), Method.POST);
+            var request = GetRequest (Request (action, userId, "creditcard"), Method.POST);
             request.AddBody (creditCard);
 
             var response = RestClient.Execute<bool> (request);
@@ -621,7 +621,7 @@ namespace Mojio.Client
                 userId = CurrentUser.Id;
 
             string action = Map [typeof(User)];
-            var request = new CustomRestRequest (Request (action, userId, "image"), Method.POST);
+            var request = GetRequest (Request (action, userId, "image"), Method.POST);
             request.AddBody (data);
 
             return RequestAsync<bool> (request);
