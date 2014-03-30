@@ -13,49 +13,55 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
-        static Dictionary<Type, SubscriptionType> SubscriptionMap = new Dictionary<Type, SubscriptionType>()
-        {
+        static Dictionary<Type, SubscriptionType> SubscriptionMap = new Dictionary<Type, SubscriptionType> () {
             { typeof(Vehicle), SubscriptionType.Vehicle },
             { typeof(Mojio), SubscriptionType.Mojio },
             { typeof(User), SubscriptionType.User },
             { typeof(Trip), SubscriptionType.Trip }
         };
 
-        public delegate void MojioEventHandler(Event evt);
+        public delegate void MojioEventHandler (Event evt);
+
         public event MojioEventHandler EventHandler;
 
-        public delegate void MojioTripHandler(Trip trip);
+        public delegate void MojioTripHandler (Trip trip);
+
         public event MojioTripHandler TripHandler;
 
-        public delegate void MojioErrorHandler(string error);
+        public delegate void MojioErrorHandler (string error);
+
         public event MojioErrorHandler ErrorHandler;
 
         private HubConnection _hubConnection;
         private IHubProxy _mojioProxy;
 
-        HubConnection HubConnection
-        {
-            get
-            {
+        HubConnection HubConnection {
+            get {
                 if (_hubConnection == null)
-                    _hubConnection = new HubConnection( RestClient.BaseUrl );
+                    _hubConnection = new HubConnection (RestClient.BaseUrl);
 
                 return _hubConnection;
             }
         }
 
-        public IHubProxy Hub
-        {
-            get
-            {
-                if (_mojioProxy == null)
-                {
-                    _mojioProxy = HubConnection.CreateHubProxy("hub");
+        public IHubProxy Hub {
+            get {
+                if (_mojioProxy == null) {
+                    _mojioProxy = HubConnection.CreateHubProxy ("hub");
 
                     // Register callback events
-                    _mojioProxy.On<Event>("event", m => { if (EventHandler != null) EventHandler(m); });
-                    _mojioProxy.On<Trip>("trip", m => { if (TripHandler != null) TripHandler(m); });
-                    _mojioProxy.On<String>("error", m => { if (ErrorHandler != null) ErrorHandler(m); });
+                    _mojioProxy.On<Event> ("event", m => {
+                        if (EventHandler != null)
+                            EventHandler (m);
+                    });
+                    _mojioProxy.On<Trip> ("trip", m => {
+                        if (TripHandler != null)
+                            TripHandler (m);
+                    });
+                    _mojioProxy.On<String> ("error", m => {
+                        if (ErrorHandler != null)
+                            ErrorHandler (m);
+                    });
                 }
 
                 return _mojioProxy;
@@ -69,9 +75,9 @@ namespace Mojio.Client
         /// <param name="id">Entity ID</param>
         /// <param name="events">Event types to receive</param>
         /// <returns></returns>
-        public Task Subscribe<T>(Guid id, EventType[] events)
+        public Task Subscribe<T> (Guid id, EventType[] events)
         {
-            return Subscribe<T>(new [] { id }, events);
+            return Subscribe<T> (new [] { id }, events);
         }
 
         /// <summary>
@@ -81,12 +87,12 @@ namespace Mojio.Client
         /// <param name="id">Entity IDs</param>
         /// <param name="events">Event types to receive</param>
         /// <returns></returns>
-        public Task Subscribe<T>(Guid[] id, EventType[] events)
+        public Task Subscribe<T> (Guid[] id, EventType[] events)
         {
             if (HubConnection.State != ConnectionState.Connected && Hub != null)
-                HubConnection.Start().Wait();
+                HubConnection.Start ().Wait ();
 
-            return Hub.Invoke("Subscribe", Token.Id, SubscriptionMap[typeof(T)], id, events);
+            return Hub.Invoke ("Subscribe", Token.Id, SubscriptionMap [typeof(T)], id, events);
         }
 
         /// <summary>
@@ -96,9 +102,9 @@ namespace Mojio.Client
         /// <param name="id"></param>
         /// <param name="events"></param>
         /// <returns></returns>
-        public bool Unsubscribe<T>(Guid id, EventType[] events)
+        public bool Unsubscribe<T> (Guid id, EventType[] events)
         {
-            return Unsubscribe<T>(new [] { id }, events);
+            return Unsubscribe<T> (new [] { id }, events);
         }
 
         /// <summary>
@@ -108,18 +114,18 @@ namespace Mojio.Client
         /// <param name="id">Entity IDs</param>
         /// <param name="events">Event Types</param>
         /// <returns></returns>
-        public bool Unsubscribe<T>(Guid[] id, EventType[] events)
+        public bool Unsubscribe<T> (Guid[] id, EventType[] events)
         {
-            Hub.Invoke("Unsubscribe", /*Token.Id,*/ SubscriptionMap[typeof(T)], id, events);
+            Hub.Invoke ("Unsubscribe", /*Token.Id,*/SubscriptionMap [typeof(T)], id, events);
             return true;
         }
 
         /// <summary>
         /// Close signalR connection.
         /// </summary>
-        public void Close()
+        public void Close ()
         {
-            HubConnection.Stop();
+            HubConnection.Stop ();
         }
     }
 }
