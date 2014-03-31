@@ -73,8 +73,8 @@ namespace Mojio.Client
             Map.Add (typeof(Invoice), "orders");
 
             Map.Add (typeof(Subscription), "subscriptions");
-            Map.Add(typeof(Observer), "observe");
 
+            Map.Add(typeof(Observer), "observe");
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.POST);
+            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.GET);
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -275,7 +275,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.PUT);
+            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.GET);
 
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);

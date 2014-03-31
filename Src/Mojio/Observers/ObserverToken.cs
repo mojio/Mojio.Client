@@ -1,4 +1,4 @@
-﻿using Mojio.Converters;
+﻿using Mojio.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,10 +14,10 @@ namespace Mojio
     /// and your app was authorized to recieve messages on the
     /// specified channel. You don't need to ever unsubscribe
     /// </summary>
-    [JsonConverter(typeof(ObserverTokenConverter))]
-    public abstract class ObserverToken
+    [JsonConverter(typeof(DiscriminatorConverter<ObserverToken>))]
+    public class ObserverToken
     {
-        public abstract Transport Transport { get; }
+        public Transport Transport { get; set; }
     }
 
     /// <summary>
@@ -25,14 +25,15 @@ namespace Mojio
     /// </summary>
     public class PubnubObserverToken : ObserverToken 
     {
-        public override Transport Transport
-        {
-            get { return global::Mojio.Transport.Pubnub; }
-        }
-
         /// <summary>
         /// Provided if using pubnub
         /// </summary>
         public string PubnubAuthKey { get; set; }
+
+        public PubnubObserverToken()
+        {
+            Transport = global::Mojio.Transport.Pubnub;
+        }
+
     }
 }
