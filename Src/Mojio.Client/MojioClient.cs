@@ -1,4 +1,4 @@
-﻿using Mojio.Client.Linq;
+using Mojio.Client.Linq;
 using Mojio.Events;
 using RestSharp;
 using System;
@@ -60,6 +60,7 @@ namespace Mojio.Client
             Map.Add (typeof(Mojio), "mojios");
             Map.Add (typeof(Vehicle), "vehicles");
             Map.Add (typeof(Event), "events");
+
             //Map.Add(typeof(GPSEvent), "events");
             //Map.Add(typeof(IgnitionEvent), "events");
             //Map.Add(typeof(ITripEvent), "events");
@@ -72,6 +73,8 @@ namespace Mojio.Client
             Map.Add (typeof(Invoice), "orders");
 
             Map.Add (typeof(Subscription), "subscriptions");
+
+            Map.Add(typeof(Observer), "observe");
         }
 
         /// <summary>
@@ -142,11 +145,11 @@ namespace Mojio.Client
                 // Key currently only used for storage
                 return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
             if (id != null && action != null)
-                return string.Format ("{0}/{1}/{2}", controller, id, action);
+                return string.Format("{0}/{1}/{2}", controller, id, action);
             else if (id != null)
-                return string.Format ("{0}/{1}", controller, id);
+                return string.Format("{0}/{1}", controller, id);
             else if (action != null)
-                return string.Format ("{0}/{1}", controller, action);
+                return string.Format("{0}/{1}", controller, action);
             
             return controller;
         }
@@ -187,6 +190,7 @@ namespace Mojio.Client
         public bool Begin (Guid appId, Guid secretKey)
         {
             var request = new CustomRestRequest (Request ("login", appId), Method.POST);
+
             request.AddParameter ("secretKey", secretKey);
             var response = RestClient.Execute<Token> (request);
             if (response.StatusCode == HttpStatusCode.OK) {
@@ -211,6 +215,7 @@ namespace Mojio.Client
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
             var request = new CustomRestRequest (Request ("login", appId), Method.POST);
+
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -409,14 +414,10 @@ namespace Mojio.Client
             var tcs = new TaskCompletionSource<MojioResponse> ();
             try {
                 RestClient.ExecuteAsync (request, response => {
-                    //try {
                     tcs.SetResult (new MojioResponse {
                         Content = response.Content,
                         StatusCode = response.StatusCode
                     });
-//                    } catch (Exception e) {
-//                        tcs.SetException (e);
-//                    }
                 });
             } catch (Exception e) {
                 tcs.SetException (e);
@@ -514,7 +515,8 @@ namespace Mojio.Client
             }
 
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action), Method.POST);
+
+            var request = GetRequest(Request(action), Method.POST);
 
             request.AddBody (entity);
 
@@ -936,8 +938,8 @@ namespace Mojio.Client
         public bool AddAdmin<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "admin"), Method.POST);
 
+            var request = GetRequest(Request(action, id, "admin"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
@@ -997,8 +999,8 @@ namespace Mojio.Client
         public bool AddViewer<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
 
+            var request = GetRequest(Request(action, id, "viewer"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);

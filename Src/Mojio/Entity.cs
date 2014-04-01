@@ -14,11 +14,6 @@ namespace Mojio
     {
         static Type[] Types = typeof(BaseEntity).Assembly.GetTypes();
 
-        /// <summary>Gets or sets the revision.</summary>
-        /// <value>The revision.</value>
-        [JsonProperty(PropertyName = "_rev")]
-        public string Revision { get; set; }
-
         /// <summary>
         /// Gets or sets a value indicating whether [delete].
         /// </summary>

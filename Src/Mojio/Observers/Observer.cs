@@ -1,4 +1,4 @@
-﻿using Mojio.Converters;
+﻿using Mojio.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ namespace Mojio
     [Flags]
     public enum Transport
     {
+        Unspecified     =   0,
         SignalR         =   1 << 0,
         Pubnub          =   1 << 1,
         ApplePush       =   1 << 2,
@@ -20,12 +21,13 @@ namespace Mojio
 
     public enum ObserveStatus
     {
-        Pending,
-        Denied,
-        Approved
+        Pending         = 0,
+        Denied          = 1,
+        Approved        = 2
     }
 
-    [JsonConverter(typeof(ObserverConverter))]
+
+    [JsonConverter(typeof(DiscriminatorConverter<Observer>))]   
     public partial class Observer : GuidEntity, IOwner
     {
         public string Name { get; set; }
@@ -63,15 +65,27 @@ namespace Mojio
         /// The specfic Subject entity to observe
         /// </summary>
         public Guid? SubjectId { get; set; }
-        public Transport Transport { get; set; }
+        public Transport Transports { get; set; }
         public ObserveStatus? Status { get; set; }
+ 
+        public List<ObserverToken> Tokens { get; set; }
 
         public Observer()
             : this(ObserverType.Generic) { }
 
-        public Observer(ObserverType type)
+        public Observer(Type subject = null, Type parent = null)
+            : this(ObserverType.Generic, subject, parent) { }
+
+
+        public Observer(ObserverType type, Type subject = null, Type parent = null)
         {
             Type = type;
+
+            if (subject != null)
+                Subject = subject.Name;
+
+            if (parent != null)
+                Parent = parent.Name;
         }
     }
 }
