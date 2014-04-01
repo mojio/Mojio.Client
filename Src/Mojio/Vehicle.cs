@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Mojio
 {
     [Observable]
-    public partial class Vehicle : GuidEntity, IOwner, IViewers, IMojioObservable
+    public partial class Vehicle : GuidEntity, IOwner, IViewers
     {
         /// <summary>
         /// owner id

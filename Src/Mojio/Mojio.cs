@@ -11,7 +11,7 @@ namespace Mojio
     /// Device
     /// </summary>
     [Observable]
-    public partial class Mojio : GuidEntity, IOwner, IMojioObservable
+    public partial class Mojio : GuidEntity, IOwner
     {
         /// <summary>
         /// owner id
