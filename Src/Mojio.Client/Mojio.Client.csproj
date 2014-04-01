@@ -83,9 +83,6 @@
     <Compile Include="MojioClient.Mojio.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="MojioClient.Observe.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
     <Compile Include="MojioClient.Push.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>

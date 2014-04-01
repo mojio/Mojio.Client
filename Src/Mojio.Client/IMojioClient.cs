@@ -231,9 +231,6 @@ namespace Mojio.Client
 
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
 
-        string Observe<T> (Guid id, ObserverScope scope = ObserverScope.User) where T : BaseEntity;
-
-        string Observe<T> (string id, ObserverScope scope = ObserverScope.User) where T : BaseEntity;
 
         Task<string> GetStoredAsync<T> (Guid id, string key);
 

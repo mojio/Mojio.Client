@@ -8,9 +8,8 @@ namespace Mojio
 {
     public enum ObserverType
     {
-        Generic,
-        Script,
-        Event,
-
+        Generic     = 0,
+        Script      = 1, 
+        Event       = 2,
     }
 }
