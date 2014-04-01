@@ -74,7 +74,7 @@ namespace Mojio.Client
 
             Map.Add (typeof(Subscription), "subscriptions");
 
-            Map.Add(typeof(Observer), "observe");
+            Map.Add (typeof(Observer), "observe");
         }
 
         /// <summary>
@@ -145,11 +145,11 @@ namespace Mojio.Client
                 // Key currently only used for storage
                 return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
             if (id != null && action != null)
-                return string.Format("{0}/{1}/{2}", controller, id, action);
+                return string.Format ("{0}/{1}/{2}", controller, id, action);
             else if (id != null)
-                return string.Format("{0}/{1}", controller, id);
+                return string.Format ("{0}/{1}", controller, id);
             else if (action != null)
-                return string.Format("{0}/{1}", controller, action);
+                return string.Format ("{0}/{1}", controller, action);
             
             return controller;
         }
@@ -516,7 +516,7 @@ namespace Mojio.Client
 
             string action = Map [typeof(T)];
 
-            var request = GetRequest(Request(action), Method.POST);
+            var request = GetRequest (Request (action), Method.POST);
 
             request.AddBody (entity);
 
@@ -939,7 +939,7 @@ namespace Mojio.Client
         {
             string action = Map [typeof(T)];
 
-            var request = GetRequest(Request(action, id, "admin"), Method.POST);
+            var request = GetRequest (Request (action, id, "admin"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
@@ -1000,7 +1000,7 @@ namespace Mojio.Client
         {
             string action = Map [typeof(T)];
 
-            var request = GetRequest(Request(action, id, "viewer"), Method.POST);
+            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);

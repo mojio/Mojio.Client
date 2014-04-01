@@ -231,7 +231,6 @@ namespace Mojio.Client
 
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
 
-
         Task<string> GetStoredAsync<T> (Guid id, string key);
 
         Task<bool> SetStoredAsync<T> (Guid id, string key, string value);
