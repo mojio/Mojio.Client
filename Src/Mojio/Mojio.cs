@@ -17,6 +17,7 @@ namespace Mojio
         /// owner id
         /// </summary>
         [Display (Name = "Owner")]
+        [Observable(typeof(User))]
         public Guid? OwnerId { get; set; }
 
         /// <summary>
@@ -37,6 +38,7 @@ namespace Mojio
         /// <summary>
         /// Current vehicle ID
         /// </summary>
+        [Observable(typeof(Vehicle))]
         public Guid? VehicleId { get; set; }
     }
 }
