@@ -1,4 +1,4 @@
-﻿using Mojio.Client.Linq;
+using Mojio.Client.Linq;
 using Mojio.Events;
 using RestSharp;
 using System;
@@ -189,7 +189,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey)
         {
-            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.POST);
+            var request = new CustomRestRequest (Request ("login", appId), Method.POST);
+
             request.AddParameter ("secretKey", secretKey);
             var response = RestClient.Execute<Token> (request);
             if (response.StatusCode == HttpStatusCode.OK) {
@@ -213,7 +214,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = new CustomRestRequest (Request ("login", appId, "begin"), Method.GET);
+            var request = new CustomRestRequest (Request ("login", appId), Method.POST);
+
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -275,7 +277,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest (Request ("login", userOrEmail, "setuser"), Method.GET);
+            var request = GetRequest (Request ("login", userOrEmail, "user"), Method.POST);
 
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -313,7 +315,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first.");
 
-            var request = GetRequest (Request ("login", Token.Id, "logout"), Method.PUT);
+            var request = GetRequest (Request ("login", Token.Id, "user"), Method.DELETE);
 
             var task = RequestAsync<Token> (request);
             return task.ContinueWith<MojioResponse<Token>> (r => {
@@ -372,7 +374,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = GetRequest (Request ("login", Token.Id, "extend"), Method.POST);
+            var request = GetRequest (Request ("login", Token.Id, "Session"), Method.POST);
             request.AddParameter ("minutes", minutes);
 
             var task = RequestAsync<Token> (request);
@@ -412,14 +414,10 @@ namespace Mojio.Client
             var tcs = new TaskCompletionSource<MojioResponse> ();
             try {
                 RestClient.ExecuteAsync (request, response => {
-                    //try {
                     tcs.SetResult (new MojioResponse {
                         Content = response.Content,
                         StatusCode = response.StatusCode
                     });
-//                    } catch (Exception e) {
-//                        tcs.SetException (e);
-//                    }
                 });
             } catch (Exception e) {
                 tcs.SetException (e);
@@ -432,9 +430,7 @@ namespace Mojio.Client
         {
             var tcs = new TaskCompletionSource<MojioResponse<T>> ();
 
-//            try {
             RestClient.ExecuteAsync<T> (request, response => {
-//                    try {
                 MojioResponse<T> r;
 
                 if (response.StatusCode == 0) {
@@ -460,17 +456,8 @@ namespace Mojio.Client
                         }
                     }
                 }
-
                 tcs.SetResult (r);
-//                    } catch (Exception ex) {
-//                        tcs.SetException (ex);
-//                    }
             });
-
-//            } catch (Exception e) {
-//                tcs.SetException (e);
-//            }
-
             return tcs.Task;
         }
 
@@ -528,7 +515,8 @@ namespace Mojio.Client
             }
 
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action), Method.POST);
+
+            var request = GetRequest(Request(action), Method.POST);
 
             request.AddBody (entity);
 
@@ -537,17 +525,17 @@ namespace Mojio.Client
 
         public Task<MojioResponse<Mojio>> ClaimAsync (Mojio entity, int? pin)
         {
-            return ClaimAsync(entity.Imei, pin);
+            return ClaimAsync (entity.Imei, pin);
         }
 
-        public Task<MojioResponse<Mojio>> ClaimAsync(String imei, int? pin)
+        public Task<MojioResponse<Mojio>> ClaimAsync (String imei, int? pin)
         {
             string controller = Map [typeof(Mojio)];
 
-            var request = GetRequest (Request(controller, imei, "claim"), Method.GET);
+            var request = GetRequest (Request (controller, imei, "user"), Method.PUT);
             request.AddParameter ("pin", pin);
 
-            return RequestAsync<Mojio>(request);
+            return RequestAsync<Mojio> (request);
         }
 
         /// <summary>
@@ -950,7 +938,8 @@ namespace Mojio.Client
         public bool AddAdmin<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "admin"), Method.POST);
+
+            var request = GetRequest(Request(action, id, "admin"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
@@ -1010,7 +999,8 @@ namespace Mojio.Client
         public bool AddViewer<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
+
+            var request = GetRequest(Request(action, id, "viewer"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);

@@ -12,22 +12,23 @@ namespace Mojio.Client
     public partial class MojioClient
     {
         const string PushController = "notify";
+
         public string PushRegistrationId { get; set; }
+
         public ChannelType PushRegistrationType { get; set; }
 
-
-        public void SubscribePush<T>(Guid id, EventType events )
+        public void SubscribePush<T> (Guid id, EventType events)
         {
-            var request = GetRequest(Request(Map[typeof(T)], id, PushController), Method.POST);
+            var request = GetRequest (Request (Map [typeof(T)], id, PushController), Method.POST);
 
-            request.AddBody(events);
+            request.AddBody (events);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.Execute (request);
 
             return;
         }
 
-        public void GetSubscriptions()
+        public void GetSubscriptions ()
         {
 
         }
