@@ -13,51 +13,50 @@ namespace Mojio.Client
     public class RSJsonSerializer : IDeserializer, ISerializer
     {
         public string Namespace { get; set; }
+
         public string RootElement { get; set; }
+
         public string ContentType { get; set; }
+
         public string DateFormat { get; set; }
 
         private readonly Newtonsoft.Json.JsonSerializer Serializer;
-        public RSJsonSerializer()
+
+        public RSJsonSerializer ()
         {
             ContentType = "application/json";
-            Serializer = new Newtonsoft.Json.JsonSerializer
-            {
+            Serializer = new Newtonsoft.Json.JsonSerializer {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
                 NullValueHandling = NullValueHandling.Ignore,
                 DefaultValueHandling = DefaultValueHandling.Ignore
             };
 
-            Serializer.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+            Serializer.Converters.Add (new Newtonsoft.Json.Converters.StringEnumConverter ());
         }
 
-        public T Deserialize<T>(string content)
+        public T Deserialize<T> (string content)
         {
             //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
-            using (var stringReader = new StringReader(content) )
-            {
-                using (var jsonReader = new JsonTextReader(stringReader))
-                {
-                    return Serializer.Deserialize<T>(jsonReader);
+            using (var stringReader = new StringReader (content)) {
+                using (var jsonReader = new JsonTextReader (stringReader)) {
+                    return Serializer.Deserialize<T> (jsonReader);
                 }
             }
         }
 
-        public T Deserialize<T>(RestSharp.IRestResponse response)
+        public T Deserialize<T> (RestSharp.IRestResponse response)
         {
-            return Deserialize<T>(response.Content);
+            return Deserialize<T> (response.Content);
         }
 
-        public string Serialize(object obj)
+        public string Serialize (object obj)
         {
             //return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            using (var stringWriter = new StringWriter())
-            {
-                using (var jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    Serializer.Serialize(jsonTextWriter, obj);
+            using (var stringWriter = new StringWriter ()) {
+                using (var jsonTextWriter = new JsonTextWriter (stringWriter)) {
+                    Serializer.Serialize (jsonTextWriter, obj);
 
-                    var result = stringWriter.ToString();
+                    var result = stringWriter.ToString ();
                     return result;
                 }
             }

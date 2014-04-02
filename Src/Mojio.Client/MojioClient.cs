@@ -166,7 +166,7 @@ namespace Mojio.Client
         {
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
-                    var request = new CustomRestRequest (Request ("login", tokenId.Value), Method.POST);
+                    var request = GetRequest (Request ("login", tokenId.Value), Method.GET);
                     var response = RestClient.Execute<Token> (request);
                     if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
                         Token = response.Data;
