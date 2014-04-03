@@ -370,7 +370,7 @@ namespace Mojio.Client
         public bool PasswordReset (ResetPassword reset, out HttpStatusCode code, out string message)
         {
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, reset.UserNameOrEmail, "Password"), Method.PUT);
+            var request = GetRequest (Request (action, reset.UserNameOrEmail, "Password"), Method.POST);
             request.AddBody (reset);
 
             var response = RestClient.Execute (request);
