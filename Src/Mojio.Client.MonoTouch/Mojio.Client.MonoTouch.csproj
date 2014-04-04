@@ -94,8 +94,14 @@
     <Compile Include="..\mojio\AuthenticationProvider.cs">
       <Link>Mojio\AuthenticationProvider.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\CarState.cs">
+      <Link>Mojio\CarState.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\CollectionNameAttribute.cs">
       <Link>Mojio\CollectionNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Converters\Converter.cs">
+      <Link>Mojio\Converters\Converter.cs</Link>
     </Compile>
     <Compile Include="..\mojio\converters\EventConverter.cs">
       <Link>Mojio\Converters\EventConverter.cs</Link>
@@ -109,6 +115,9 @@
     <Compile Include="..\mojio\CreditCard.cs">
       <Link>Mojio\CreditCard.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\DeviceConfiguration.cs">
+      <Link>Mojio\DeviceConfiguration.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio\DTC.cs">
       <Link>Mojio\DTC.cs</Link>
     </Compile>
@@ -118,11 +127,20 @@
     <Compile Include="..\mojio\EventBroadcast.cs">
       <Link>Mojio\EventBroadcast.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\AccelerationEvent.cs">
+      <Link>Mojio\Events\AccelerationEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\AccelerometerEvent.cs">
+      <Link>Mojio\Events\AccelerometerEvent.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\events\ActionType.cs">
       <Link>Mojio\Events\ActionType.cs</Link>
     </Compile>
     <Compile Include="..\Mojio\Events\BatteryEvent.cs">
       <Link>Mojio\Events\BatteryEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\DecelerationEvent.cs">
+      <Link>Mojio\Events\DecelerationEvent.cs</Link>
     </Compile>
     <Compile Include="..\Mojio\Events\DiagnosticEvent.cs">
       <Link>Mojio\Events\DiagnosticEvent.cs</Link>
@@ -139,14 +157,26 @@
     <Compile Include="..\mojio\events\HardEvent.cs">
       <Link>Mojio\Events\HardEvent.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\HeadingChangeEvent.cs">
+      <Link>Mojio\Events\HeadingChangeEvent.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\events\IgnitionEvent.cs">
       <Link>Mojio\Events\IgnitionEvent.cs</Link>
     </Compile>
     <Compile Include="..\mojio\events\Log.cs">
       <Link>Mojio\Events\Log.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\Events\MileageEvent.cs">
+      <Link>Mojio\Events\MileageEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\ParkEvent.cs">
+      <Link>Mojio\Events\ParkEvent.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\events\PowerEvent.cs">
       <Link>Mojio\Events\PowerEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Events\SpeedEvent.cs">
+      <Link>Mojio\Events\SpeedEvent.cs</Link>
     </Compile>
     <Compile Include="..\Mojio\Events\TowEvent.cs">
       <Link>Mojio\Events\TowEvent.cs</Link>
@@ -181,6 +211,30 @@
     <Compile Include="..\mojio\Mojio.cs">
       <Link>Mojio\Mojio.cs</Link>
     </Compile>
+    <Compile Include="..\Mojio\ObserverScope.cs">
+      <Link>Mojio\ObserverScope.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\ConditionalObserver.cs">
+      <Link>Mojio\Observers\ConditionalObserver.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\EventObserver.cs">
+      <Link>Mojio\Observers\EventObserver.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\ObservableAttribute.cs">
+      <Link>Mojio\Observers\ObservableAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\Observer.cs">
+      <Link>Mojio\Observers\Observer.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\ObserverToken.cs">
+      <Link>Mojio\Observers\ObserverToken.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\ObserverType.cs">
+      <Link>Mojio\Observers\ObserverType.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Observers\ScriptObserver.cs">
+      <Link>Mojio\Observers\ScriptObserver.cs</Link>
+    </Compile>
     <Compile Include="..\mojio\Product.cs">
       <Link>Mojio\Product.cs</Link>
     </Compile>
@@ -193,8 +247,17 @@
     <Compile Include="..\mojio\Results.cs">
       <Link>Mojio\Results.cs</Link>
     </Compile>
-    <Compile Include="..\mojio\Row.cs">
-      <Link>Mojio\Row.cs</Link>
+    <Compile Include="..\Mojio\Serialization\DiscriminatorConverter.cs">
+      <Link>Mojio\Serialization\DiscriminatorConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Serialization\TypeEnumDiscriminatorMap.cs">
+      <Link>Mojio\Serialization\TypeEnumDiscriminatorMap.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\Serialization\TypeEnumDiscriminatorMap.GoryBits.cs">
+      <Link>Mojio\Serialization\TypeEnumDiscriminatorMap.GoryBits.cs</Link>
+    </Compile>
+    <Compile Include="..\Mojio\ServiceQueue.cs">
+      <Link>Mojio\ServiceQueue.cs</Link>
     </Compile>
     <Compile Include="..\mojio\Storage.cs">
       <Link>Mojio\Storage.cs</Link>
@@ -211,8 +274,8 @@
     <Compile Include="..\mojio\User.cs">
       <Link>Mojio\User.cs</Link>
     </Compile>
-    <Compile Include="..\mojio\UserCounter.cs">
-      <Link>Mojio\UserCounter.cs</Link>
+    <Compile Include="..\Mojio\Vehicle.cs">
+      <Link>Mojio\Vehicle.cs</Link>
     </Compile>
     <Compile Include="Attributes\DataAnnotations.cs" />
     <Compile Include="Attributes\Web.cs" />
