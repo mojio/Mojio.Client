@@ -34,6 +34,9 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Mojio.Client\CustomRestRequest.cs">
+      <Link>Mojio.Client\Mojio.Client\CustomRestRequest.cs</Link>
+    </Compile>
     <Compile Include="..\Mojio.Client\IMojioClient.cs">
       <Link>Mojio.Client\Mojio.Client\IMojioClient.cs</Link>
     </Compile>
