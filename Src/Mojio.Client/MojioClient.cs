@@ -50,7 +50,7 @@ namespace Mojio.Client
         public int SessionTime { get; set; }
 
         RestClient RestClient;
-        public Token Token;
+        public Token Token { get; private set; }
         static MapEntity Map = new MapEntity ();
 
         static MojioClient ()
@@ -287,7 +287,7 @@ namespace Mojio.Client
 
             return task.ContinueWith<MojioResponse<Token>> (r => {
                 var response = r.Result;
-                if (response.StatusCode == HttpStatusCode.OK) {
+                if (response != null && response.StatusCode == HttpStatusCode.OK) {
                     Token = response.Data;
                     ResetCurrentUser ();
                 }
