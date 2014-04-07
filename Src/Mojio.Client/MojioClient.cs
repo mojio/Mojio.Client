@@ -452,7 +452,7 @@ namespace Mojio.Client
                             r.ErrorMessage = error;
                         } catch (Exception) {
                             // Exception thrown.  I don't think we need to do anything with it though.
-                            r.ErrorMessage = "No content";
+                            r.ErrorMessage = response.Content;
                         }
                     }
                 }
