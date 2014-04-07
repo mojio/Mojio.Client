@@ -9,6 +9,8 @@ namespace Mojio.Client
 {
     public interface IMojioClient
     {
+        Token Token { get; }
+
         bool AddAdmin<T> (object id, Guid userId);
 
         bool AddAdmin<T> (T entity, Guid userId) where T : BaseEntity;

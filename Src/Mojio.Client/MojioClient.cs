@@ -50,7 +50,7 @@ namespace Mojio.Client
         public int SessionTime { get; set; }
 
         RestClient RestClient;
-        public Token Token;
+        public Token Token { get; private set; }
         static MapEntity Map = new MapEntity ();
 
         static MojioClient ()
