@@ -208,7 +208,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool IsLoggedIn ()
         {
-            return Token.UserId != null;
+            return Token != null && Token.UserId != null;
         }
 
         void ResetCurrentUser ()

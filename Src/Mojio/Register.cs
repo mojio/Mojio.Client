@@ -26,17 +26,17 @@ namespace Mojio
         /// </summary>
         public const int UserNameMaxLength = 32;
         /// <summary>The password reg ex</summary>
-        public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z]))^.*";
+        public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?[A-Z])(?=.*?[a-z]))^.*";
         /// <summary>
         /// The password minimum length
         /// </summary>
-        public const int PasswordMinLength = 7;
+        public const int PasswordMinLength = 5;
         /// <summary>
         /// The password maximum length
         /// </summary>
         public const int PasswordMaxLength = 32;
         /// <summary>The password error</summary>
-        public const string PasswordError = "Password must contain an uppercase, lowercase letter and a number.";
+        public const string PasswordError = "Password must be upper and lower case";
 
         /// <summary>username</summary>
         /// <value>The name of the user.</value>
