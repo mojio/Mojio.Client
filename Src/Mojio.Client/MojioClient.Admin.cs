@@ -55,6 +55,40 @@ namespace Mojio.Client
         }
 
         /// <summary>
+        /// get device logs
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageOffset"></param>
+        /// <param name="ids"></param>
+        /// <param name="imeis"></param>
+        /// <param name="mojioIds"></param>
+        /// <param name="ownerIds"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="vehicleIds"></param>
+        /// <returns></returns>
+        public Task<MojioResponse<Results<DeviceLog>>> GetDeviceLogs(int? pageSize, int? pageOffset, List<Guid> ids, List<string> imeis, List<Guid> mojioIds, List<Guid> ownerIds, DateTime? start, DateTime? end, List<Guid> vehicleIds)
+        {
+            var request = GetRequest(Request("admin", "none", "DeviceLogs"), Method.POST);
+
+            dynamic json = new System.Dynamic.ExpandoObject();
+
+            json.PageSize = pageSize ?? 0;
+            json.PageOffset = pageOffset ?? 0;
+            json.Ids = ids;
+            json.Imeis = imeis;
+            json.MojioIds = mojioIds;
+            json.OwnerIds = ownerIds;
+            json.Start = start;
+            json.End = end;
+            json.VehicleIds = vehicleIds;
+
+            request.AddBody(json);
+
+            return RequestAsync<Results<DeviceLog>>(request);
+        }
+
+        /// <summary>
         /// replays all events
         /// </summary>
         /// <param name="timeShift">whether to shift timing (null means start at current time)</param>
