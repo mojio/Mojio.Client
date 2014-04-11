@@ -186,32 +186,5 @@ namespace Mojio
         public double LowFuelPercentageThreshold { get; set; }
     }
 
-    /// <summary>
-    /// Lost Connection Subscription
-    /// </summary>
-    [CollectionNameAttribute(typeof(Subscription))]
-    public partial class LostConnectionSubscription : Subscription
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LostConnectionSubscription"/> class.
-        /// </summary>
-        public LostConnectionSubscription()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LostConnectionSubscription"/> class.
-        /// </summary>
-        /// <param name="interval">The interval.</param>
-        public LostConnectionSubscription(int interval = 60)
-            : base(EventType.ConnectionLost)
-        {
-            ConnectionLost = true;
-            Interval = interval;
-        }
-
-        /// <summary>Gets or sets the low fuel threshold percentage.</summary>
-        /// <value>The low fuel threshold as a percentage 0..100.</value>
-        public double ConnectionLost { get; set; }
-    }
+  
 }
