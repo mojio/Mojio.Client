@@ -148,11 +148,70 @@ namespace Mojio
         public SpeedSubscription (double maxSpeed = 65.0, int interval = 60) : base (EventType.Speed)
         {
             MaxSpeed = maxSpeed;
-            Interval = 60;
+            Interval = interval;
         }
 
         /// <summary>Gets or sets the maximum speed.</summary>
         /// <value>The maximum speed.</value>
         public double MaxSpeed { get; set; }
+    }
+
+    /// <summary>
+    /// Low Fuel Subscription
+    /// </summary>
+    [CollectionNameAttribute(typeof(Subscription))]
+    public partial class LowFuelSubscription : Subscription
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
+        /// </summary>
+        public LowFuelSubscription()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
+        /// </summary>
+        /// <param name="fuelThreshold">The low fuel threshold as a percentage.</param>
+        /// <param name="interval">The interval.</param>
+        public LowFuelSubscription(double fuelThreshold = 3.0, int interval = 60)
+            : base(EventType.LowFuel)
+        {
+            LowFuelPercentageThreshold = fuelThreshold;
+            Interval = interval;
+        }
+
+        /// <summary>Gets or sets the low fuel threshold percentage.</summary>
+        /// <value>The low fuel threshold as a percentage 0..100.</value>
+        public double LowFuelPercentageThreshold { get; set; }
+    }
+
+    /// <summary>
+    /// Lost Connection Subscription
+    /// </summary>
+    [CollectionNameAttribute(typeof(Subscription))]
+    public partial class LostConnectionSubscription : Subscription
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LostConnectionSubscription"/> class.
+        /// </summary>
+        public LostConnectionSubscription()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LostConnectionSubscription"/> class.
+        /// </summary>
+        /// <param name="interval">The interval.</param>
+        public LostConnectionSubscription(int interval = 60)
+            : base(EventType.ConnectionLost)
+        {
+            ConnectionLost = true;
+            Interval = interval;
+        }
+
+        /// <summary>Gets or sets the low fuel threshold percentage.</summary>
+        /// <value>The low fuel threshold as a percentage 0..100.</value>
+        public double ConnectionLost { get; set; }
     }
 }

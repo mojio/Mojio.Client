@@ -70,16 +70,6 @@ namespace Mojio.Events
         /// </summary>
         FenceExited = 1007,
 
-        ///// <summary>
-        ///// trip end (device)
-        ///// </summary>
-        //TripEnd = 1008,
-
-        ///// <summary>
-        ///// trip start (device)
-        ///// </summary>
-        //TripStart = 1009,
-
         /// <summary>
         /// trip status (device)
         /// </summary>
@@ -184,5 +174,12 @@ namespace Mojio.Events
         /// Mileage
         /// </summary>
         Mileage = 100016,
+
+        /// <summary>
+        /// LowFuel
+        /// </summary>
+        LowFuel = 100017,
+
+
     }
 }
