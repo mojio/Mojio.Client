@@ -57,6 +57,11 @@ namespace Mojio.Events
         public Guid MojioId { get; set; }
 
         /// <summary>
+        /// mojio
+        /// </summary>
+        public Mojio Mojio { get; set; }
+
+        /// <summary>
         /// owner Id
         /// </summary>
         [Observable(typeof(User))]
@@ -73,9 +78,19 @@ namespace Mojio.Events
         [Observable(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
-        public Mojio Mojio { get; set; }
+        /// <summary>
+        /// packet bytes
+        /// </summary>
         public byte[] PacketBytes { get; set; }
+
+        /// <summary>
+        /// packet string
+        /// </summary>
         public string PacketString { get; set; }
+
+        /// <summary>
+        /// TCU
+        /// </summary>
         public Dictionary<string, Object> Tcu { get; set; }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
