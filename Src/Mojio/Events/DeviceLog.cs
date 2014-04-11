@@ -1,4 +1,5 @@
-﻿using Mojio.Converters;
+﻿using System.Collections.Generic;
+using Mojio.Converters;
 using Newtonsoft.Json;
 using System;
 
@@ -27,7 +28,7 @@ namespace Mojio.Events
         /// <summary>
         /// event timestamp
         /// </summary>
-        DateTime Time { get; set; }
+        DateTime Timestamp { get; set; }
 
         /// <summary>
         /// vehicle Id
@@ -64,7 +65,7 @@ namespace Mojio.Events
         /// <summary>
         /// timestamp
         /// </summary>
-        public DateTime Time { get; set; }
+        public DateTime Timestamp { get; set; }
 
         /// <summary>
         /// vehicle Id
@@ -72,6 +73,10 @@ namespace Mojio.Events
         [Observable(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
+        public Mojio Mojio { get; set; }
+        public byte[] PacketBytes { get; set; }
+        public string PacketString { get; set; }
+        public Dictionary<string, Object> Tcu { get; set; }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
