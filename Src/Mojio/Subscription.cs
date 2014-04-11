@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Globalization;
 
 namespace Mojio
 {
@@ -174,9 +176,12 @@ namespace Mojio
         /// </summary>
         /// <param name="fuelThreshold">The low fuel threshold as a percentage.</param>
         /// <param name="interval">The interval.</param>
-        public LowFuelSubscription(double fuelThreshold = 3.0, int interval = 60)
+        public LowFuelSubscription(double fuelThreshold = 0, 
+            int interval = 60)
             : base(EventType.LowFuel)
         {
+            if (fuelThreshold == 0)
+                fuelThreshold = double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
         }

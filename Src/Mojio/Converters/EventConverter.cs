@@ -76,7 +76,8 @@ namespace Mojio.Converters
                 return new DecelerationEvent();
             case EventType.Accelerometer:
                 return new AccelerometerEvent();
-
+            case EventType.LowFuel:
+                return new FuelEvent();
             default:
                 return new Event ();
             }
