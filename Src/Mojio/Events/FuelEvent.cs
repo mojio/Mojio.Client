@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace Mojio.Events
 {
-    class FuelEvent
-    {
-    }
-}
-namespace Mojio.Events
-{
     /// <summary>
     /// Fuel Event
     /// </summary>

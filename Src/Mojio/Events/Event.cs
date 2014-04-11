@@ -107,25 +107,26 @@ namespace Mojio.Events
         /// </summary>
         public bool? ConnectionLost { get; set; }
 
-        /// <summary>
-        /// GSM Strength
-        /// </summary>
-        public double? GSMStrength { get; set; }
+        //TODO:: add GSM and GPS status to events.
+        ///// <summary>
+        ///// GSM Strength
+        ///// </summary>
+        //public double? GSMStrength { get; set; }
 
-        /// <summary>
-        /// GPS Connection
-        /// </summary>
-        public double? GPSConnection { get; set; }
+        ///// <summary>
+        ///// GPS Connection
+        ///// </summary>
+        //public double? GPSConnection { get; set; }
 
-        /// <summary>
-        /// GPS Lost Time
-        /// </summary>
-        public double? GPSLostTime { get; set; }
+        ///// <summary>
+        ///// GPS Lost Time
+        ///// </summary>
+        //public double? GPSLostTime { get; set; }
 
-        /// <summary>
-        /// GPS State
-        /// </summary>
-        public GpsState? GpsState { get; set; }
+        ///// <summary>
+        ///// GPS State
+        ///// </summary>
+        //public GpsState? GpsState { get; set; }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
