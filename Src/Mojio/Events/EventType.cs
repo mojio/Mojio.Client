@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +11,14 @@ namespace Mojio.Events
     public enum EventType
     {
         /// <summary>
-        /// diagnostic event (device or server)
+        /// for server-side diagnostics
         /// </summary>
         Log = 1,
+
+        /// <summary>
+        /// for device communication session.
+        /// </summary>
+        Message = 2,
 
         /// <summary>
         /// information
