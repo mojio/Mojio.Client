@@ -34,7 +34,8 @@ namespace Mojio.Converters
                 return new HardSubscription ();
             case EventType.Speed:
                 return new SpeedSubscription ();
-
+            case EventType.LowFuel:
+                return new LowFuelSubscription ();
             default:
                 return new Subscription ();
             }

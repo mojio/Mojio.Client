@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 namespace Mojio.Events
 {
     /// <summary>
-    /// Battery event
+    /// Fuel Event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class BatteryEvent : TripEvent
+    public class FuelEvent : TripEvent
     {
-        public BatteryEvent()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelEvent"/> class.
+        /// </summary>
+        public FuelEvent()
         {
-            EventType = EventType.LowBattery;
+            EventType = Events.EventType.LowFuel;
         }
-
     }
 }
+

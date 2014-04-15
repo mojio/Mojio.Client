@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//using System.Configuration;
+using System.Globalization;
+
 namespace Mojio
 {
     /// <summary>
@@ -148,11 +151,44 @@ namespace Mojio
         public SpeedSubscription (double maxSpeed = 65.0, int interval = 60) : base (EventType.Speed)
         {
             MaxSpeed = maxSpeed;
-            Interval = 60;
+            Interval = interval;
         }
 
         /// <summary>Gets or sets the maximum speed.</summary>
         /// <value>The maximum speed.</value>
         public double MaxSpeed { get; set; }
+    }
+
+    /// <summary>
+    /// Low Fuel Subscription
+    /// </summary>
+    [CollectionNameAttribute (typeof(Subscription))]
+    public partial class LowFuelSubscription : Subscription
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
+        /// </summary>
+        public LowFuelSubscription ()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
+        /// </summary>
+        /// <param name="fuelThreshold">The low fuel threshold as a percentage.</param>
+        /// <param name="interval">The interval.</param>
+        public LowFuelSubscription (double fuelThreshold = 0, 
+                                    int interval = 60)
+            : base (EventType.LowFuel)
+        {
+            if (fuelThreshold == 0)
+                fuelThreshold = 10; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+            LowFuelPercentageThreshold = fuelThreshold;
+            Interval = interval;
+        }
+
+        /// <summary>Gets or sets the low fuel threshold percentage.</summary>
+        /// <value>The low fuel threshold as a percentage 0..100.</value>
+        public double LowFuelPercentageThreshold { get; set; }
     }
 }

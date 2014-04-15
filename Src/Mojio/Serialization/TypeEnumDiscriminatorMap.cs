@@ -24,6 +24,7 @@ namespace Mojio.Serialization
             /*Map<Event, EventType>(e => e.EventType)
                 .Contains<AccelerationEvent>(EventType.Acceleration)
                 .Contains<AccelerometerEvent>(EventType.Accelerometer);*/
+
         }
     }
 
