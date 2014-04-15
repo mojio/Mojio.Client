@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mojio
 {
@@ -34,5 +30,13 @@ namespace Mojio
         /// The valid until.
         /// </value>
         public DateTime ValidUntil { get; set; }
+
+        /// <summary>
+        /// user roles
+        /// </summary>
+        /// <value>
+        /// any additional roles the user may have
+        /// </value>
+        public Roles? Roles { get; set; }
     }
 }

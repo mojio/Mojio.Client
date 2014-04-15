@@ -91,4 +91,11 @@ namespace Mojio
         /// </value>
         public DateTime LastLoginDate { get; set; }        
     }
+
+    [Flags]
+    public enum Roles
+    {
+        None = 0,
+        Admin = 1 << 0
+    }
 }
