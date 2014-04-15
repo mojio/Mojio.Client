@@ -30,13 +30,5 @@ namespace Mojio
         /// The valid until.
         /// </value>
         public DateTime ValidUntil { get; set; }
-
-        /// <summary>
-        /// user roles
-        /// </summary>
-        /// <value>
-        /// any additional roles the user may have
-        /// </value>
-        public Roles? Roles { get; set; }
     }
 }
