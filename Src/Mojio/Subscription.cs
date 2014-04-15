@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Configuration;
+
+//using System.Configuration;
 using System.Globalization;
 
 namespace Mojio
@@ -161,13 +162,13 @@ namespace Mojio
     /// <summary>
     /// Low Fuel Subscription
     /// </summary>
-    [CollectionNameAttribute(typeof(Subscription))]
+    [CollectionNameAttribute (typeof(Subscription))]
     public partial class LowFuelSubscription : Subscription
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
         /// </summary>
-        public LowFuelSubscription()
+        public LowFuelSubscription ()
         {
         }
 
@@ -176,12 +177,12 @@ namespace Mojio
         /// </summary>
         /// <param name="fuelThreshold">The low fuel threshold as a percentage.</param>
         /// <param name="interval">The interval.</param>
-        public LowFuelSubscription(double fuelThreshold = 0, 
-            int interval = 60)
-            : base(EventType.LowFuel)
+        public LowFuelSubscription (double fuelThreshold = 0, 
+                                    int interval = 60)
+            : base (EventType.LowFuel)
         {
             if (fuelThreshold == 0)
-                fuelThreshold = double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+                fuelThreshold = 10; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
         }
@@ -190,6 +191,4 @@ namespace Mojio
         /// <value>The low fuel threshold as a percentage 0..100.</value>
         public double LowFuelPercentageThreshold { get; set; }
     }
-
-  
 }
