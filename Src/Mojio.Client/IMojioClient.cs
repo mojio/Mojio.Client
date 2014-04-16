@@ -237,6 +237,6 @@ namespace Mojio.Client
 
         Task<bool> SetStoredAsync<T> (Guid id, string key, string value);
 
-        Task<MojioResponse<Roles?>> GetRoles(Guid? userId = null);
+        Roles? GetRole(Guid? userId = null);
     }
 }
