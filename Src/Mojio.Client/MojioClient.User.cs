@@ -670,5 +670,21 @@ namespace Mojio.Client
             }
             return tcs.Task;
         }
+
+        public Roles? GetRole(Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "role"), Method.GET);
+
+            var response = RestClient.Execute<Roles?>(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                return response.Data;
+
+            return null;
+        }
     }
 }
