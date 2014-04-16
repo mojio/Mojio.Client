@@ -10,6 +10,7 @@ namespace Mojio
     /// <summary>
     /// User
     /// </summary>
+    [Observable]
     public partial class User : GuidEntity
     {
 
@@ -89,5 +90,23 @@ namespace Mojio
         /// The last login date.
         /// </value>
         public DateTime LastLoginDate { get; set; }        
+    }
+
+
+    /// <summary>
+    /// user roles
+    /// </summary>
+    [Flags]
+    public enum Roles
+    {
+        /// <summary>
+        /// no role
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// admin role
+        /// </summary>
+        Admin = 1 << 0
     }
 }

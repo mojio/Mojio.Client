@@ -14,24 +14,24 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="app">Application Entity</param>
         /// <returns></returns>
-        public Guid SecretKey(App app)
+        public Guid SecretKey (App app)
         {
             // TODO: make this restricted and remove from public client
-            return SecretKey(app.Id);
+            return SecretKey (app.Id);
         }
-        
+
         /// <summary>
         /// Get an applicaitons Privaet Key.
         /// </summary>
         /// <param name="appId">Application ID</param>
         /// <returns></returns>
-        public Guid SecretKey(Guid appId)
+        public Guid SecretKey (Guid appId)
         {
             // TODO: make this restricted and remove from public client
-            string action = Map[typeof(App)];
-            var request = GetRequest(Request(action, appId, "secret"), Method.GET);
+            string action = Map [typeof(App)];
+            var request = GetRequest (Request (action, appId, "secret"), Method.GET);
 
-            var response = RestClient.Execute<Guid>(request);
+            var response = RestClient.Execute<Guid> (request);
             return response.Data;
         }
 
@@ -40,9 +40,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="appId">Application ID</param>
         /// <returns></returns>
-        public Results<User> AppViewers(Guid appId, int page = 1 )
+        public Results<User> AppViewers (Guid appId, int page = 1)
         {
-            return GetBy<User, App>(appId, page);
+            return GetBy<User, App> (appId, page);
         }
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="appId">Application ID</param>
         /// <returns></returns>
-        public Results<User> AppOwners(Guid appId, int page = 1)
+        public Results<User> AppOwners (Guid appId, int page = 1)
         {
-            return GetBy<User, App>(appId, page, "admins");
+            return GetBy<User, App> (appId, page, "admins");
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Mojio
         /// <summary>
         /// price
         /// </summary>
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         /// <summary>
         /// discontinued?

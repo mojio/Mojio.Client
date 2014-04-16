@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +11,14 @@ namespace Mojio.Events
     public enum EventType
     {
         /// <summary>
-        /// diagnostic event (device or server)
+        /// for server-side diagnostics
         /// </summary>
         Log = 1,
+
+        /// <summary>
+        /// for device communication session.
+        /// </summary>
+        Message = 2,
 
         /// <summary>
         /// information
@@ -23,37 +28,37 @@ namespace Mojio.Events
         /// <summary>
         /// mojio on (device)
         /// </summary>
-        MojioOn,
+        MojioOn = 101,
 
         /// <summary>
         /// mojio idle (device)
         /// </summary>
-        MojioIdle,
+        MojioIdle = 102,
 
         /// <summary>
         /// mojio awake (device)
         /// </summary>
-        MojioWake,
+        MojioWake = 103,
 
         /// <summary>
         /// ignition on (device)
         /// </summary>
-        IgnitionOn,
+        IgnitionOn = 104,
 
         /// <summary>
         /// ignition off (device)
         /// </summary>
-        IgnitionOff,
+        IgnitionOff = 105,
 
         /// <summary>
         /// mojio off (device)
         /// </summary>
-        MojioOff,
+        MojioOff = 106,
 
         /// <summary>
         /// low battery (device)
         /// </summary>
-        LowBattery,
+        LowBattery = 107,
 
         /// <summary>
         /// GPS update (device)
@@ -63,27 +68,17 @@ namespace Mojio.Events
         /// <summary>
         /// fence enter (device)
         /// </summary>
-        FenceEntered,
+        FenceEntered = 1006,
 
         /// <summary>
         /// fence exit (device)
         /// </summary>
-        FenceExited,
-
-        /// <summary>
-        /// trip end (device)
-        /// </summary>
-        TripEnd,
-
-        /// <summary>
-        /// trip start (device)
-        /// </summary>
-        TripStart,
+        FenceExited = 1007,
 
         /// <summary>
         /// trip status (device)
         /// </summary>
-        TripStatus,
+        TripStatus = 1010,
 
         /// <summary>
         /// warning
@@ -93,7 +88,7 @@ namespace Mojio.Events
         /// <summary>
         /// malfunction indicator light warning (device)
         /// </summary>
-        MILWarning,
+        MILWarning = 30001,
 
         /// <summary>
         /// connection lost (server)
@@ -108,51 +103,88 @@ namespace Mojio.Events
         /// <summary>
         /// accident (device)
         /// </summary>
-        Accident,
+        Accident = 100001,
 
         /// <summary>
         /// tow start (device)
         /// </summary>
-        TowStart,
+        TowStart = 100002,
 
         /// <summary>
         /// tow stop (device)
         /// </summary>
-        TowStop,
+        TowStop = 100003,
 
         /// <summary>
         /// hard acceleration (device)
         /// </summary>
-        HardAcceleration,
+        HardAcceleration = 100004,
 
         /// <summary>
         /// hard brake (device)
         /// </summary>
-        HardBrake,
+        HardBrake = 100005,
 
         /// <summary>
         /// hard right (device)
         /// </summary>
-        HardRight,
+        HardRight = 100006,
 
         /// <summary>
         /// hard left (device)
         /// </summary>
-        HardLeft,
+        HardLeft = 100007,
         
         /// <summary>
         /// device-defined excessive speed (device)
         /// </summary>
-        Speed,
+        Speed = 100008,
 
         /// <summary>
         /// device-defined diagnostics event
         /// </summary>
-        Diagnostic,
+        Diagnostic = 100009,
 
         /// <summary>
         /// trip status (device)
         /// </summary>
-        OffStatus,
+        OffStatus = 100010,
+
+        /// <summary>
+        /// park
+        /// </summary>
+        Park = 100011,
+
+        /// <summary>
+        /// acceleromter
+        /// </summary>
+        Accelerometer = 100012,
+
+        /// <summary>
+        /// acceleration
+        /// </summary>
+        Acceleration = 100013,
+
+        /// <summary>
+        /// deceleration
+        /// </summary>
+        Deceleration = 100014,
+
+        /// <summary>
+        /// HeadingChange
+        /// </summary>
+        HeadingChange = 100015,
+
+        /// <summary>
+        /// Mileage
+        /// </summary>
+        Mileage = 100016,
+
+        /// <summary>
+        /// LowFuel
+        /// </summary>
+        LowFuel = 100017,
+
+
     }
 }

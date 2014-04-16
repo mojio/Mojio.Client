@@ -10,34 +10,35 @@ namespace Mojio.Events
     /// trip status event
     /// </summary>
     [CollectionNameAttribute (typeof(Event))]
-    public class TripEvent : Event
+    public partial class TripEvent : Event
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TripEvent"/> class.
         /// </summary>
-        public TripEvent ()
+        public TripEvent()
+            : this(EventType.TripEvent)
         {
-            EventType = Events.EventType.TripEvent;
+        }
+
+        public TripEvent(EventType type ) : base(type)
+        {
         }
 
         /// <summary>Gets or sets the trip identifier.</summary>
         /// <value>The trip identifier.</value>
+        [Observable(typeof(Trip))]
         public Guid? TripId { get; set; }
 
         /// <summary>
         /// altitude
         /// </summary>
-        public float? Altitude { get; set; }
+        public double? Altitude { get; set; }
 
         /// <summary>
         /// heading degrees
         /// </summary>
         public short? Heading { get; set; }
 
-        /// <summary>
-        /// Battery Voltage
-        /// </summary>
-        public float? BatteryVoltage { get; set; }
         // This property is not saved
         /// <summary>Gets or sets the force trip end.</summary>
         /// <value>The force trip end.</value>
@@ -47,37 +48,37 @@ namespace Mojio.Events
         /// <summary>
         /// distance
         /// </summary>
-        public float? Distance { get; set; }
+        public double? Distance { get; set; }
 
         /// <summary>
         /// fuel level (percent 0 - 100)
         /// </summary>
-        public float? FuelLevel { get; set; }
+        public double? FuelLevel { get; set; }
 
         /// <summary>
         /// fuel efficiency (liters per 100km)
         /// </summary>
-        public float? FuelEfficiency { get; set; }
+        public double? FuelEfficiency { get; set; }
 
         /// <summary>
         /// Current speed
         /// </summary>
-        public float? Speed { get; set; }
+        public double? Speed { get; set; }
 
         /// <summary>
         /// Current acceleration
         /// </summary>
-        public float? Acceleration { get; set; }
+        public double? Acceleration { get; set; }
 
         /// <summary>
         /// Current deceleration
         /// </summary>
-        public float? Deceleration { get; set; }
+        public double? Deceleration { get; set; }
 
         /// <summary>
         /// stop time
         /// </summary>
-        public float? Odometer { get; set; }
+        public double? Odometer { get; set; }
 
         /// <summary>
         /// RPM
@@ -88,34 +89,6 @@ namespace Mojio.Events
         /// Address of this location
         /// </summary>
         public Address Address { get; set; }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString ()
-        {
-            try {
-                string str = base.ToString () + ", ";
-
-                str += string.Format ("Alt {0}, Hdg {1}, Battery {2}, Distance {3}, Fuel {4}, Efficiency {5}, Speed {6}, Odometer {7}, RPM {8}, Address {9}",
-                    this.Altitude,
-                    this.Heading,
-                    this.BatteryVoltage,
-                    this.Distance,
-                    this.FuelLevel,
-                    this.FuelEfficiency,
-                    this.Speed,
-                    this.Odometer,
-                    this.RPM,
-                    this.Address == null ? "nodata" : this.Address.ToString ());
-
-                return str;
-            } catch (Exception ex) {
-                //Console.WriteLine(ex.Message);
-                return ex.Message;
-            }
-        }
     }
 
     /// <summary>
@@ -150,27 +123,27 @@ namespace Mojio.Events
         /// <summary>
         /// max speed
         /// </summary>
-        public float? MaxSpeed { get; set; }
+        public double? MaxSpeed { get; set; }
 
         /// <summary>
         /// average speed
         /// </summary>
-        public float? AverageSpeed { get; set; }
+        public double? AverageSpeed { get; set; }
 
         /// <summary>
         /// moving time
         /// </summary>
-        public float? MovingTime { get; set; }
+        public double? MovingTime { get; set; }
 
         /// <summary>
         /// idle time
         /// </summary>
-        public float? IdleTime { get; set; }
+        public double? IdleTime { get; set; }
 
         /// <summary>
         /// stop time
         /// </summary>
-        public float? StopTime { get; set; }
+        public double? StopTime { get; set; }
 
         /// <summary>
         /// Max RPM
@@ -202,60 +175,60 @@ namespace Mojio.Events
         }
     }
 
-    /// <summary>
-    /// trip end event
-    /// </summary>
-    [CollectionNameAttribute (typeof(Event))]
-    public class TripEndEvent : TripStatusEvent
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TripEndEvent"/> class.
-        /// </summary>
-        public TripEndEvent ()
-        {
-            EventType = Events.EventType.TripEnd;
-        }
+    ///// <summary>
+    ///// trip end event
+    ///// </summary>
+    //[CollectionNameAttribute (typeof(Event))]
+    //public class TripEndEvent : TripStatusEvent
+    //{
+    //    /// <summary>
+    //    /// Initializes a new instance of the <see cref="TripEndEvent"/> class.
+    //    /// </summary>
+    //    public TripEndEvent ()
+    //    {
+    //        EventType = Events.EventType.TripEnd;
+    //    }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString ()
-        {
-            return "TripEnd:" + base.ToString ();
-        }
-    }
+    //    /// <summary>
+    //    /// Returns a <see cref="System.String" /> that represents this instance.
+    //    /// </summary>
+    //    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+    //    public override string ToString ()
+    //    {
+    //        return "TripEnd:" + base.ToString ();
+    //    }
+    //}
 
-    /// <summary>
-    /// trip start event
-    /// </summary>
-    [CollectionNameAttribute (typeof(Event))]
-    public class TripStartEvent : TripStatusEvent
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
-        /// </summary>
-        public TripStartEvent ()
-        {
-            EventType = Events.EventType.TripStart;
-        }
+    ///// <summary>
+    ///// trip start event
+    ///// </summary>
+    //[CollectionNameAttribute (typeof(Event))]
+    //public class TripStartEvent : TripStatusEvent
+    //{
+    //    /// <summary>
+    //    /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
+    //    /// </summary>
+    //    public TripStartEvent ()
+    //    {
+    //        EventType = Events.EventType.TripStart;
+    //    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
-        /// </summary>
-        /// <param name="tripEvent">The trip event.</param>
-        public TripStartEvent (TripEvent tripEvent)
-        {
-            EventType = Events.EventType.TripStart;
-        }
+    //    /// <summary>
+    //    /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
+    //    /// </summary>
+    //    /// <param name="tripEvent">The trip event.</param>
+    //    public TripStartEvent (TripEvent tripEvent)
+    //    {
+    //        EventType = Events.EventType.TripStart;
+    //    }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString ()
-        {
-            return "TripStart:" + base.ToString ();
-        }
-    }
+    //    /// <summary>
+    //    /// Returns a <see cref="System.String" /> that represents this instance.
+    //    /// </summary>
+    //    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+    //    public override string ToString ()
+    //    {
+    //        return "TripStart:" + base.ToString ();
+    //    }
+    //}
 }

@@ -12,10 +12,16 @@ namespace Mojio.Events
     /// </summary>
     public interface IEvent
     {
+        
         /// <summary>
         /// mojio Id
         /// </summary>
-        string MojioId { get; set; }
+        Guid MojioId { get; set; }
+
+        /// <summary>
+        /// vehicle Id
+        /// </summary>
+        Guid VehicleId { get; set; }
 
         /// <summary>
         /// owner Id
@@ -42,16 +48,33 @@ namespace Mojio.Events
     /// event
     /// </summary>
     [JsonConverter (typeof(EventConverter))]
-    public class Event : GuidEntity, IEvent, IOwner, ICloneable
+    public partial class Event : GuidEntity, IEvent, IOwner, ICloneable
     {
+        public Event()
+        {
+        }
+
+        public Event(EventType type)
+        {
+            EventType = type;
+        }
+
         /// <summary>
         /// mojio Id
         /// </summary>
-        public string MojioId { get; set; }
+        [Observable(typeof(Mojio))]
+        public Guid MojioId { get; set; }
+
+        /// <summary>
+        /// vehicle Id
+        /// </summary>
+        [Observable(typeof(Vehicle))]
+        public Guid VehicleId { get; set; }
 
         /// <summary>
         /// owner Id
         /// </summary>
+        [Observable(typeof(User))]
         public Guid? OwnerId { get; set; }
 
         /// <summary>
@@ -74,40 +97,42 @@ namespace Mojio.Events
         /// </summary>
         public bool? TimeIsApprox { get; set; }
 
+        /// <summary>
+        /// Battery Voltage
+        /// </summary>
+        public double? BatteryVoltage { get; set; }
+
+        /// <summary>
+        /// Connection Lost
+        /// </summary>
+        public bool? ConnectionLost { get; set; }
+
+        //TODO:: add GSM and GPS status to events.
+        ///// <summary>
+        ///// GSM Strength
+        ///// </summary>
+        //public double? GSMStrength { get; set; }
+
+        ///// <summary>
+        ///// GPS Connection
+        ///// </summary>
+        //public double? GPSConnection { get; set; }
+
+        ///// <summary>
+        ///// GPS Lost Time
+        ///// </summary>
+        //public double? GPSLostTime { get; set; }
+
+        ///// <summary>
+        ///// GPS State
+        ///// </summary>
+        //public GpsState? GpsState { get; set; }
+
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone ()
         {
             return this.MemberwiseClone ();
-        }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString ()
-        {
-            try {
-                string str = "MojioEvent-> ";
-
-                if (this.Location != null && this.Location.IsValid)
-                    return str + string.Format ("Type: {0}, Lat {1}, Lng {2}, Time {3}",
-                        this.EventType.ToString (),
-                        this.Location.Lat,
-                        this.Location.Lng,
-                        this.Time != null ? this.Time.ToString () : "nodata"
-                    );
-                else
-                    return str + string.Format ("Type: {0}, Lat {1}, Lng {2}, Time {3}",
-                        this.EventType.ToString (),
-                        "nodata",
-                        "nodata",
-                        this.Time != null ? this.Time.ToString () : "nodata"
-                    );
-            } catch (Exception ex) {
-                //Console.WriteLine(ex.Message);
-                return ex.Message;
-            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Mojio.Events
     /// tow event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class TowEvent : Event
+    public class TowEvent : TripEvent
     {
         public TowEvent()
         {

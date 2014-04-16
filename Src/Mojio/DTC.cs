@@ -9,7 +9,7 @@ namespace Mojio
     /// <summary>
     /// 
     /// </summary>
-    public class DTC:StringEntity
+    public class DTC : GuidEntity
     {
         /// <summary>
         /// Sets DTC description to unknown string value.
@@ -21,11 +21,7 @@ namespace Mojio
 
         /// <summary>Gets or sets the code.</summary>
         /// <value>The code.</value>
-        public string Code
-        {
-            get { return Id; }
-            set { Id = value; }
-        }
+        public string Code { get; set; }
         
         /// <summary>Gets or sets the description.</summary>
         /// <value>The description.</value>
@@ -35,7 +31,6 @@ namespace Mojio
         /// <value>The source.</value>
         public string Source { get; set; }
     }
-
 
     /// <summary>
     /// 

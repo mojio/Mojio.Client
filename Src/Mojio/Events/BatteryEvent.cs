@@ -7,21 +7,14 @@ using System.Threading.Tasks;
 namespace Mojio.Events
 {
     /// <summary>
-    /// battery event
+    /// Battery event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class BatteryEvent : Event
+    public class BatteryEvent : TripEvent
     {
-        public float Voltage;
         public BatteryEvent()
         {
             EventType = EventType.LowBattery;
-        }
-
-        public BatteryEvent(float voltage)
-        {
-            EventType = EventType.LowBattery;
-            Voltage = voltage;
         }
 
     }

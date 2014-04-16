@@ -12,5 +12,15 @@ namespace Mojio.Events
     [CollectionNameAttribute(typeof(Event))]
     public class FenceEvent : TripEvent
     {
+        public FenceEvent ()
+        {
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MileageEvent"/> class.
+        /// </summary>
+        public FenceEvent(bool isExit)
+        {
+            EventType = isExit ? Events.EventType.FenceExited : Events.EventType.FenceEntered;
+        }
     }
 }

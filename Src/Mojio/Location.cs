@@ -9,17 +9,17 @@ namespace Mojio
     /// <summary>
     /// Location
     /// </summary>
-    public class Location : ICloneable
+    public partial class Location : ICloneable
     {
         /// <summary>
         /// latitude coordinate
         /// </summary>
-         public float Lat { get; set; }
+         public double Lat { get; set; }
 
         /// <summary>
         /// longitiude coordinate
         /// </summary>
-        public float Lng { get; set; }
+        public double Lng { get; set; }
 
         /// <summary>
         /// Was the data obtained from a locked gps reading.
@@ -29,30 +29,7 @@ namespace Mojio
         /// <summary>
         /// possible error area of the lat lon data.  0 is undiluted.
         /// </summary>
-        public float Dilution { get; set; }
-
-        /// <summary>
-        /// Geospatial coordinates. Used by MongoDB.
-        /// Axis order: Longitude, Latitude
-        /// </summary>
-        [JsonIgnore]
-        public float[] Coordinates
-        {
-            get
-            {
-                if (!IsValid)
-                {
-                    return null;
-                }
-
-                return new float[] { Lng, Lat };
-            }
-            set
-            {
-                Lng = value[0];
-                Lat = value[1];
-            }
-        }
+        public double Dilution { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether [is valid].
@@ -62,8 +39,7 @@ namespace Mojio
         {
             get
             {
-                // f#@$!ing floating numbers.
-                return !(Lat != Lat || Lng != Lng);
+                return !(double.IsNaN(Lat) || double.IsNaN(Lng));
             }
         }
 
@@ -72,19 +48,10 @@ namespace Mojio
         /// </summary>
         public Location()
         {
-            Lat = float.NaN;
-            Lng = float.NaN;
+            Lat = double.NaN;
+            Lng = double.NaN;
         }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
-        {
-            return string.Format("Lat: {0}, Lng: {1}", Lat, Lng);
-        }
-        
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone()

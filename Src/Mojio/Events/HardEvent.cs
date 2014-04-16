@@ -17,6 +17,14 @@ namespace Mojio.Events
         /// <summary>
         /// force
         /// </summary>
-        public float Force { get; set; }
+        public double Force { get; set; }
+
+        public HardEvent()
+        {
+
+        }
+        public HardEvent(EventType type) : base(type)
+        {
+        }
     }
 }

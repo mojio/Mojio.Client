@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//using System.Configuration;
+using System.Globalization;
+
 namespace Mojio
 {
     /// <summary>
@@ -20,6 +23,8 @@ namespace Mojio
         Trip,
         /// <summary>The user</summary>
         User,
+        /// <summary>The vehicle</summary>
+        Vehicle,
     }
 
     /// <summary>
@@ -83,10 +88,10 @@ namespace Mojio
         /// <summary>Gets or sets the type of the entity.</summary>
         /// <value>The type of the entity.</value>
         public SubscriptionType EntityType { get; set; }
-
+        // TODO convert this to Guid?
         /// <summary>Gets or sets the entity identifier.</summary>
         /// <value>The entity identifier.</value>
-        public string EntityId { get; set; }
+        public Guid EntityId { get; set; }
 
         /// <summary>Gets or sets the interval.</summary>
         /// <value>The interval.</value>
@@ -115,14 +120,14 @@ namespace Mojio
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="maxForce">The maximum force.</param>
-        public HardSubscription (EventType type, float maxForce = 1f) : base (type)
+        public HardSubscription (EventType type, double maxForce = 1.0) : base (type)
         {
             MaxForce = maxForce;
         }
 
         /// <summary>Gets or sets the maximum force.</summary>
         /// <value>The maximum force.</value>
-        public float MaxForce { get; set; }
+        public double MaxForce { get; set; }
     }
 
     /// <summary>
@@ -143,14 +148,47 @@ namespace Mojio
         /// </summary>
         /// <param name="maxSpeed">The maximum speed.</param>
         /// <param name="interval">The interval.</param>
-        public SpeedSubscription (float maxSpeed = 65f, int interval = 60) : base (EventType.Speed)
+        public SpeedSubscription (double maxSpeed = 65.0, int interval = 60) : base (EventType.Speed)
         {
             MaxSpeed = maxSpeed;
-            Interval = 60;
+            Interval = interval;
         }
 
         /// <summary>Gets or sets the maximum speed.</summary>
         /// <value>The maximum speed.</value>
-        public float MaxSpeed { get; set; }
+        public double MaxSpeed { get; set; }
+    }
+
+    /// <summary>
+    /// Low Fuel Subscription
+    /// </summary>
+    [CollectionNameAttribute (typeof(Subscription))]
+    public partial class LowFuelSubscription : Subscription
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
+        /// </summary>
+        public LowFuelSubscription ()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FuelSubscription"/> class.
+        /// </summary>
+        /// <param name="fuelThreshold">The low fuel threshold as a percentage.</param>
+        /// <param name="interval">The interval.</param>
+        public LowFuelSubscription (double fuelThreshold = 0, 
+                                    int interval = 60)
+            : base (EventType.LowFuel)
+        {
+            if (fuelThreshold == 0)
+                fuelThreshold = 10; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+            LowFuelPercentageThreshold = fuelThreshold;
+            Interval = interval;
+        }
+
+        /// <summary>Gets or sets the low fuel threshold percentage.</summary>
+        /// <value>The low fuel threshold as a percentage 0..100.</value>
+        public double LowFuelPercentageThreshold { get; set; }
     }
 }

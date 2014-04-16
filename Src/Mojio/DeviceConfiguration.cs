@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace Mojio
 {
+    /** DEPRECATED??
+     * 
     /// <summary>
     /// 
     /// </summary>
@@ -269,4 +271,6 @@ namespace Mojio
             Value = val;
         }
     }
+     * 
+     * **/
 }

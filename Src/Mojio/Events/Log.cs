@@ -26,7 +26,9 @@ namespace Mojio.Events
             /// <summary>The error</summary>
             Error,
             /// <summary>The fatal</summary>
-            Fatal
+            Fatal,
+            /// <summary>TCU Report</summary>
+            TCUReport,
         }
 
         /// <summary>Initializes a new instance of the <see cref="Log"/> class.</summary>
@@ -51,6 +53,11 @@ namespace Mojio.Events
         /// message
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Device IMEI
+        /// </summary>
+        public string Imei { get; set; }
 
         /// <summary>
         /// user id

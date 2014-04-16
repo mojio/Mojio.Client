@@ -11,18 +11,18 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
-        public Trip MergeTrips(Trip intoTrip, Trip fromTrip)
+        public Trip MergeTrips (Trip intoTrip, Trip fromTrip)
         {
-            return MergeTrips(intoTrip.Id, fromTrip.Id);
+            return MergeTrips (intoTrip.Id, fromTrip.Id);
         }
 
-        public Trip MergeTrips( Guid intoId, Guid fromId )
+        public Trip MergeTrips (Guid intoId, Guid fromId)
         {
-            string action = Map[typeof(Trip)];
-            var request = GetRequest(Request(action,intoId,"merge"), Method.PUT);
-            request.AddBody(fromId);
+            string action = Map [typeof(Trip)];
+            var request = GetRequest (Request (action, intoId, "trip"), Method.POST);
+            request.AddBody (fromId);
 
-            var response = RestClient.Execute<Trip>(request);
+            var response = RestClient.Execute<Trip> (request);
             return response.Data;
         }
 
@@ -32,9 +32,9 @@ namespace Mojio.Client
         /// <param name="id">Trip</param>
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
-        public Results<Event> TripEvents(Guid id, int page = 1 )
+        public Results<Event> TripEvents (Guid id, int page = 1)
         {
-            return GetBy<Event, Trip>(id, page);
+            return GetBy<Event, Trip> (id, page);
         }
     }
 }
