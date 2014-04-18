@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Mojio
     public interface IOwner
     {
         /// <summary>
-        /// owner id
+        /// Owner ID
         /// </summary>
         Guid? OwnerId { get; set; }
     }

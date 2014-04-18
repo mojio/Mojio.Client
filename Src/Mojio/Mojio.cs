@@ -14,24 +14,24 @@ namespace Mojio
     public partial class Mojio : GuidEntity, IOwner
     {
         /// <summary>
-        /// owner id
+        /// Owner ID
         /// </summary>
         [Display (Name = "Owner")]
         [Observable(typeof(User))]
         public Guid? OwnerId { get; set; }
 
         /// <summary>
-        /// device name
+        /// Device name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// device IMEI number
+        /// Device IMEI number
         /// </summary>
         public string Imei { get; set; }
 
         /// <summary>
-        /// most recent communication time
+        /// Most recent communication time
         /// </summary>
         public DateTime LastContactTime { get; set; }
 
