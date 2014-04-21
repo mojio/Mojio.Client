@@ -42,15 +42,15 @@ namespace Mojio.Client
 
     public partial class MojioClient : IMojioClient
     {
-        public const string Sandbox = "http://sandbox.developer.moj.io/v1";
-        public const string Live = "https://developer.moj.io/v1";
+        public const string Sandbox = "http://sandbox.api.moj.io/v1";
+        public const string Live = "http://api.moj.io/v1";
 
         public int PageSize { get; set; }
 
         public int SessionTime { get; set; }
 
         RestClient RestClient;
-        public Token Token;
+        public Token Token { get; private set; }
         static MapEntity Map = new MapEntity ();
 
         static MojioClient ()
@@ -74,7 +74,7 @@ namespace Mojio.Client
 
             Map.Add (typeof(Subscription), "subscriptions");
 
-            Map.Add(typeof(Observer), "observe");
+            Map.Add (typeof(Observer), "observe");
         }
 
         /// <summary>
@@ -145,11 +145,11 @@ namespace Mojio.Client
                 // Key currently only used for storage
                 return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
             if (id != null && action != null)
-                return string.Format("{0}/{1}/{2}", controller, id, action);
+                return string.Format ("{0}/{1}/{2}", controller, id, action);
             else if (id != null)
-                return string.Format("{0}/{1}", controller, id);
+                return string.Format ("{0}/{1}", controller, id);
             else if (action != null)
-                return string.Format("{0}/{1}", controller, action);
+                return string.Format ("{0}/{1}", controller, action);
             
             return controller;
         }
@@ -166,7 +166,7 @@ namespace Mojio.Client
         {
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
-                    var request = new CustomRestRequest (Request ("login", tokenId.Value), Method.POST);
+                    var request = GetRequest (Request ("login", tokenId.Value), Method.GET);
                     var response = RestClient.Execute<Token> (request);
                     if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
                         Token = response.Data;
@@ -279,7 +279,7 @@ namespace Mojio.Client
 
             var request = GetRequest (Request ("login", userOrEmail, "user"), Method.POST);
 
-            //request.AddParameter("userOrEmail", userOrEmail);
+            request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
             request.AddParameter ("minutes", SessionTime);
 
@@ -287,7 +287,7 @@ namespace Mojio.Client
 
             return task.ContinueWith<MojioResponse<Token>> (r => {
                 var response = r.Result;
-                if (response.StatusCode == HttpStatusCode.OK) {
+                if (response != null && response.StatusCode == HttpStatusCode.OK) {
                     Token = response.Data;
                     ResetCurrentUser ();
                 }
@@ -389,7 +389,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Generate basic request.  Adds the session token to header if exists.
+        /// Generate basic request. Adds the session token to header if exists.
         /// </summary>
         /// <param name="resource">Resource URL</param>
         /// <param name="method">Request method</param>
@@ -452,7 +452,7 @@ namespace Mojio.Client
                             r.ErrorMessage = error;
                         } catch (Exception) {
                             // Exception thrown.  I don't think we need to do anything with it though.
-                            r.ErrorMessage = "No content";
+                            r.ErrorMessage = response.Content;
                         }
                     }
                 }
@@ -462,7 +462,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Create a new entity through API.
+        /// Create a new entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>
@@ -475,7 +475,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Create a new entity through API.
+        /// Create a new entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>
@@ -489,7 +489,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Create a new entity through API.
+        /// Create a new entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>
@@ -516,7 +516,7 @@ namespace Mojio.Client
 
             string action = Map [typeof(T)];
 
-            var request = GetRequest(Request(action), Method.POST);
+            var request = GetRequest (Request (action), Method.POST);
 
             request.AddBody (entity);
 
@@ -939,7 +939,7 @@ namespace Mojio.Client
         {
             string action = Map [typeof(T)];
 
-            var request = GetRequest(Request(action, id, "admin"), Method.POST);
+            var request = GetRequest (Request (action, id, "admin"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);
@@ -1000,7 +1000,7 @@ namespace Mojio.Client
         {
             string action = Map [typeof(T)];
 
-            var request = GetRequest(Request(action, id, "viewer"), Method.POST);
+            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
             request.AddBody (userId);
 
             var response = RestClient.Execute (request);

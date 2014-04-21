@@ -208,7 +208,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool IsLoggedIn ()
         {
-            return Token.UserId != null;
+            return Token != null && Token.UserId != null;
         }
 
         void ResetCurrentUser ()
@@ -370,7 +370,7 @@ namespace Mojio.Client
         public bool PasswordReset (ResetPassword reset, out HttpStatusCode code, out string message)
         {
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, reset.UserNameOrEmail, "Password"), Method.PUT);
+            var request = GetRequest (Request (action, reset.UserNameOrEmail, "Password"), Method.POST);
             request.AddBody (reset);
 
             var response = RestClient.Execute (request);
@@ -669,6 +669,22 @@ namespace Mojio.Client
                 tcs.SetException (ex);
             }
             return tcs.Task;
+        }
+
+        public Roles? GetRole(Guid? userId = null)
+        {
+            if (userId == null)
+                userId = CurrentUser.Id;
+
+            string action = Map[typeof(User)];
+            var request = GetRequest(Request(action, userId, "role"), Method.GET);
+
+            var response = RestClient.Execute<Roles?>(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                return response.Data;
+
+            return null;
         }
     }
 }

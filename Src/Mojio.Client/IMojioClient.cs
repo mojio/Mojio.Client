@@ -9,6 +9,8 @@ namespace Mojio.Client
 {
     public interface IMojioClient
     {
+        Token Token { get; }
+
         bool AddAdmin<T> (object id, Guid userId);
 
         bool AddAdmin<T> (T entity, Guid userId) where T : BaseEntity;
@@ -231,9 +233,10 @@ namespace Mojio.Client
 
         Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
 
-
         Task<string> GetStoredAsync<T> (Guid id, string key);
 
         Task<bool> SetStoredAsync<T> (Guid id, string key, string value);
+
+        Roles? GetRole(Guid? userId = null);
     }
 }

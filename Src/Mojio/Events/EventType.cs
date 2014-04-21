@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +11,14 @@ namespace Mojio.Events
     public enum EventType
     {
         /// <summary>
-        /// diagnostic event (device or server)
+        /// for server-side diagnostics
         /// </summary>
         Log = 1,
+
+        /// <summary>
+        /// for device communication session.
+        /// </summary>
+        Message = 2,
 
         /// <summary>
         /// information
@@ -69,16 +74,6 @@ namespace Mojio.Events
         /// fence exit (device)
         /// </summary>
         FenceExited = 1007,
-
-        ///// <summary>
-        ///// trip end (device)
-        ///// </summary>
-        //TripEnd = 1008,
-
-        ///// <summary>
-        ///// trip start (device)
-        ///// </summary>
-        //TripStart = 1009,
 
         /// <summary>
         /// trip status (device)
@@ -184,5 +179,12 @@ namespace Mojio.Events
         /// Mileage
         /// </summary>
         Mileage = 100016,
+
+        /// <summary>
+        /// LowFuel
+        /// </summary>
+        LowFuel = 100017,
+
+
     }
 }

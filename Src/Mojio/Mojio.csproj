@@ -70,7 +70,9 @@
     <Compile Include="Events\AccelerometerEvent.cs" />
     <Compile Include="Events\ActionType.cs" />
     <Compile Include="Events\BatteryEvent.cs" />
+    <Compile Include="Events\ConnectionLost.cs" />
     <Compile Include="Events\DecelerationEvent.cs" />
+    <Compile Include="Events\DeviceLog.cs" />
     <Compile Include="Events\DiagnosticEvent.cs" />
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Events\HeadingChangeEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
     <Compile Include="Events\Log.cs" />
+    <Compile Include="Events\FuelEvent.cs" />
     <Compile Include="Events\MileageEvent.cs" />
     <Compile Include="Events\ParkEvent.cs" />
     <Compile Include="Events\SpeedEvent.cs" />

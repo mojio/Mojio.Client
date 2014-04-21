@@ -166,14 +166,6 @@ namespace Mojio
         public Address StartAddress { get; set; }
 
         /// <summary>
-        /// Last Known Address.
-        /// </summary>
-        /// <value>
-        /// The last known address.
-        /// </value>
-        public Address LastKnownAddress { get; set; }
-
-        /// <summary>
         /// Address where the trip ended
         /// </summary>
         /// <value>
