@@ -36,4 +36,21 @@ namespace Mojio
         }
 
     }
+
+    /// <summary>
+    /// A APN observer token
+    /// </summary>
+    public class ApnObserverToken : ObserverToken
+    {
+        /// <summary>
+        /// Provided if using APN
+        /// </summary>
+        public string DeviceToken { get; set; }
+
+        public ApnObserverToken()
+        {
+            Transport = global::Mojio.Transport.ApplePush;
+        }
+
+    }
 }
