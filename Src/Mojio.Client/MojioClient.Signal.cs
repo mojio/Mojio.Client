@@ -38,7 +38,12 @@ namespace Mojio.Client
         HubConnection HubConnection {
             get {
                 if (_hubConnection == null)
-                    _hubConnection = new HubConnection (RestClient.BaseUrl);
+                {
+                    _hubConnection = new HubConnection(RestClient.BaseUrl, true);
+
+                    var s = new RSJsonSerializer();
+                    _hubConnection.JsonSerializer = s.Serializer;
+                }
 
                 return _hubConnection;
             }
@@ -50,9 +55,9 @@ namespace Mojio.Client
                     _mojioProxy = HubConnection.CreateHubProxy ("hub");
 
                     // Register callback events
-                    _mojioProxy.On<Event> ("event", m => {
+                    _mojioProxy.On<object> ("event", m => {
                         if (EventHandler != null)
-                            EventHandler (m);
+                            EventHandler ((Event) m);
                     });
                     _mojioProxy.On<Trip> ("trip", m => {
                         if (TripHandler != null)
@@ -62,6 +67,11 @@ namespace Mojio.Client
                         if (ErrorHandler != null)
                             ErrorHandler (m);
                     });
+
+                    HubConnection.Error += (e) =>
+                    {
+                        Console.WriteLine("ERROR: {0}", e);
+                    };
                 }
 
                 return _mojioProxy;
