@@ -55,7 +55,7 @@ namespace Mojio.Client
                     _mojioProxy = HubConnection.CreateHubProxy ("hub");
 
                     // Register callback events
-                    _mojioProxy.On<object> ("event", m => {
+                    _mojioProxy.On<Event> ("event", m => {
                         if (EventHandler != null)
                             EventHandler ((Event) m);
                     });
