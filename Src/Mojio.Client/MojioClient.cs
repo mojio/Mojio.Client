@@ -389,7 +389,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Generate basic request.  Adds the session token to header if exists.
+        /// Generate basic request. Adds the session token to header if exists.
         /// </summary>
         /// <param name="resource">Resource URL</param>
         /// <param name="method">Request method</param>
@@ -462,7 +462,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Create a new entity through API.
+        /// Create a new entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>
@@ -475,7 +475,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Create a new entity through API.
+        /// Create a new entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>
@@ -489,7 +489,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Create a new entity through API.
+        /// Create a new entity through the API.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity">Entity to create</param>

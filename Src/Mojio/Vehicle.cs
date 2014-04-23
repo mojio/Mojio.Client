@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Mojio
     public partial class Vehicle : GuidEntity, IOwner, IViewers
     {
         /// <summary>
-        /// owner id
+        /// Owner ID
         /// </summary>
         [Display(Name = "Owner")]
         [Observable(typeof(User))]
@@ -22,7 +22,7 @@ namespace Mojio
         public Guid? MojioId { get; set; }
 
         /// <summary>
-        /// vehicle name
+        /// Vehicle name
         /// </summary>
         public string Name { get; set; }
 
@@ -32,18 +32,18 @@ namespace Mojio
         public string VIN { get; set; }
 
         /// <summary>
-        /// license plate
+        /// License plate
         /// </summary>
         /// <value>The license plate.</value>
         public string LicensePlate { get; set; }
 
         /// <summary>
-        /// optional is ignition on?
+        /// Optional is ignition on?
         /// </summary>
         public bool? IgnitionOn { get; set; }
 
         /// <summary>
-        /// most recent trip event
+        /// Most recent trip event
         /// </summary>
         public Guid? LastTripEvent { get; set; }
 
@@ -53,37 +53,37 @@ namespace Mojio
         public DateTime? LastLocationTime { get; set; }
 
         /// <summary>
-        /// last known location
+        /// Last known location
         /// </summary>
         public Location LastLocation { get; set; }
 
         /// <summary>
-        /// last known speed
+        /// Last known speed
         /// </summary>
         public double LastSpeed { get; set; }
 
         /// <summary>
-        /// last known fuel level
+        /// Last known fuel level
         /// </summary>
         public double? FuelLevel { get; set; }
 
         /// <summary>
-        /// last mileage
+        /// Last mileage
         /// </summary>
         public double LastFuelEfficiency { get; set; }
 
         /// <summary>
-        /// current trip id
+        /// Current trip ID
         /// </summary>
         public Guid? CurrentTrip { get; set; }
 
         /// <summary>
-        /// current trip id
+        /// Current trip ID
         /// </summary>
         public Guid? LastTrip { get; set; }
 
         /// <summary>
-        /// most recent communication time
+        /// Most recent communication time
         /// </summary>
         public DateTime? LastContactTime { get; set; }
 
@@ -93,13 +93,13 @@ namespace Mojio
         public bool? MilStatus { get; set; }
 
         /// <summary>
-        /// public boolean flag to indicate DTC faults have been detected
+        /// Public boolean flag to indicate DTC faults have been detected
         /// </summary>
         public bool FaultsDetected { get; set; }
 
         // TODO: Maybe Viewers should be in private?
         /// <summary>
-        /// list of viewer ids
+        /// List of viewer IDs
         /// </summary>
         public Guid[] Viewers { get; set; }
     }

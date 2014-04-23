@@ -20,7 +20,7 @@ namespace Mojio.Client
 
         public string DateFormat { get; set; }
 
-        private readonly Newtonsoft.Json.JsonSerializer Serializer;
+        public Newtonsoft.Json.JsonSerializer Serializer { get; private set; }
 
         public RSJsonSerializer ()
         {

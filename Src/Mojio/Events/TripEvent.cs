@@ -84,11 +84,6 @@ namespace Mojio.Events
         /// RPM
         /// </summary>
         public int? RPM { get; set; }
-
-        /// <summary>
-        /// Address of this location
-        /// </summary>
-        public Address Address { get; set; }
     }
 
     /// <summary>
