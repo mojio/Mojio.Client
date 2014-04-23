@@ -96,6 +96,7 @@
     <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Logs\LogType.cs" />
     <Compile Include="Mojio.cs" />
     <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
