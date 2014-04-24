@@ -81,7 +81,6 @@
     <Compile Include="Events\EventType.cs" />
     <Compile Include="Events\HeadingChangeEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
-    <Compile Include="Events\Log.cs" />
     <Compile Include="Events\FuelEvent.cs" />
     <Compile Include="Events\MileageEvent.cs" />
     <Compile Include="Events\ParkEvent.cs" />
@@ -91,12 +90,11 @@
     <Compile Include="Events\TripEvent.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
-    <Compile Include="ILog.cs" />
     <Compile Include="ImageSize.cs" />
     <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
-    <Compile Include="Logs\LogType.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Mojio.cs" />
     <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
