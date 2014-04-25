@@ -864,11 +864,11 @@ namespace Mojio.Client
         /// <typeparam name="T">Entity type</typeparam>
         /// <param name="page">Page</param>
         /// <returns></returns>
-        public Results<T> Get<T> (int page = 1)
+        public Results<T> Get<T> (int page = 1, string criteria = null)
             where T : new()
         {
             HttpStatusCode ignore;
-            return Get<T> (out ignore, page);
+            return Get<T> (out ignore, page, criteria);
         }
 
         /// <summary>
@@ -878,11 +878,11 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="page">Page</param>
         /// <returns></returns>
-        public Results<T> Get<T> (out HttpStatusCode code, int page = 1)
+        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, string criteria = null)
             where T : new()
         {
             string ignore;
-            return Get<T> (out code, out ignore, page);
+            return Get<T> (out code, out ignore, page, criteria);
         }
 
         /// <summary>
@@ -893,17 +893,17 @@ namespace Mojio.Client
         /// <param name="message">Response message</param>
         /// <param name="page">Page</param>
         /// <returns></returns>
-        public Results<T> Get<T> (out HttpStatusCode code, out string message, int page = 1)
+        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, string criteria = null)
             where T : new()
         {
-            var response = GetAsync<T> (page).Result;
+            var response = GetAsync<T> (page, criteria).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-        public Task<MojioResponse<Results<T>>> GetAsync<T> (int page = 1)
+        public Task<MojioResponse<Results<T>>> GetAsync<T> (int page = 1, string criteria = null)
             where T : new()
         {
             string action = Map [typeof(T)];
@@ -911,6 +911,8 @@ namespace Mojio.Client
 
             request.AddParameter ("offset", Math.Max (0, (page - 1)) * PageSize);
             request.AddParameter ("limit", PageSize);
+            if (!string.IsNullOrWhiteSpace(criteria))
+                request.AddParameter ("criteria", criteria);
 
             return RequestAsync<Results<T>> (request);
         }
