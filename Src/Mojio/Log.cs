@@ -36,7 +36,7 @@ namespace Mojio
 
         public string Message { get; set; }
         public string Environment { get; set; }
-        public List<GuidEntity> Entities { get; set; }
+        public List<object> Entities { get; set; }
         public List<string> Tags { get; set; }
 
         public Log()
@@ -95,10 +95,10 @@ namespace Mojio
             return this;
         }
 
-        public Log ForEntity(GuidEntity entity)
+        public Log ForEntity(object entity)
         {
             if (Entities == null)
-                Entities = new List<GuidEntity>();
+                Entities = new List<object>();
             Entities.Add(entity);
 
             if (OwnerId == null)
