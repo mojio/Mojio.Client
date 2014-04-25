@@ -51,6 +51,10 @@ namespace Mojio
             return new Log() { Message = message };
         }
 
+        public static Log Create(string format, params object[] args)
+        {
+            return Create(string.Format(format, args));
+        }
         public static Log Create(Exception ex)
         {
             return new Log().WithException(ex);

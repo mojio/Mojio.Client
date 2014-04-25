@@ -75,6 +75,7 @@ namespace Mojio.Client
             Map.Add (typeof(Subscription), "subscriptions");
 
             Map.Add (typeof(Observer), "observe");
+            Map.Add(typeof(Log), "logs");
         }
 
         /// <summary>
