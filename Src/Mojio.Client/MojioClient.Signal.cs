@@ -41,8 +41,8 @@ namespace Mojio.Client
                 {
                     _hubConnection = new HubConnection(RestClient.BaseUrl, true);
 
-                    var s = new RSJsonSerializer();
-                    _hubConnection.JsonSerializer = s.Serializer;
+                    //var s = new RSJsonSerializer();
+                    //_hubConnection.JsonSerializer = s.Serializer;
                 }
 
                 return _hubConnection;
