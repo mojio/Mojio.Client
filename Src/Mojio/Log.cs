@@ -35,10 +35,7 @@ namespace Mojio
         public Guid? OwnerId { get; set; }
 
         public string Message { get; set; }
-
-        public string Action { get; set; }
-        public string Controller { get; set; }
-
+        public string Environment { get; set; }
         public List<GuidEntity> Entities { get; set; }
 
         public Log()
