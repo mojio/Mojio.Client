@@ -37,6 +37,7 @@ namespace Mojio
         public string Message { get; set; }
         public string Environment { get; set; }
         public List<GuidEntity> Entities { get; set; }
+        public List<string> Tags { get; set; }
 
         public Log()
         {
@@ -103,6 +104,14 @@ namespace Mojio
                     this.OwnerId = owned.OwnerId;
             }
 
+            return this;
+        }
+
+        public Log Tag(string tag)
+        {
+            if (Tags == null)
+                Tags = new List<string>();
+            Tags.Add(tag);
             return this;
         }
 
