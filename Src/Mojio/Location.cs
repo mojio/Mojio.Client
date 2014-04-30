@@ -14,7 +14,7 @@ namespace Mojio
         /// <summary>
         /// latitude coordinate
         /// </summary>
-         public double Lat { get; set; }
+        public double Lat { get; set; }
 
         /// <summary>
         /// longitiude coordinate
@@ -35,18 +35,16 @@ namespace Mojio
         /// Gets a value indicating whether [is valid].
         /// </summary>
         /// <value><c>true</c> if [is valid]; otherwise, <c>false</c>.</value>
-        public bool IsValid
-        {
-            get
-            {
-                return !(double.IsNaN(Lat) || double.IsNaN(Lng));
+        public bool IsValid {
+            get {
+                return !(double.IsNaN (Lat) || double.IsNaN (Lng)) && !(Lat == 0.0 && Lng == 0.0);
             }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Location"/> class.
         /// </summary>
-        public Location()
+        public Location ()
         {
             Lat = double.NaN;
             Lng = double.NaN;
@@ -54,9 +52,9 @@ namespace Mojio
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
-        public object Clone()
+        public object Clone ()
         {
-            return this.MemberwiseClone();
+            return this.MemberwiseClone ();
         }
     }
 }
