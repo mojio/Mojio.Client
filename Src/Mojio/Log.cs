@@ -113,9 +113,12 @@ namespace Mojio
 
         public Log Tag(string tag)
         {
-            if (Tags == null)
-                Tags = new List<string>();
-            Tags.Add(tag);
+            if (!string.IsNullOrEmpty(tag))
+            {
+                if (Tags == null)
+                    Tags = new List<string>();
+                Tags.Add(tag);
+            }
             return this;
         }
 
@@ -127,17 +130,34 @@ namespace Mojio
 
         public Log Line(string line)
         {
-            if (Message == null)
-                Message = line;
-            else
-                Message = '\n' + line;
+            if (!string.IsNullOrEmpty(line))
+            {
+                if (Message == null)
+                    Message = line;
+                else
+                    Message = '\n' + line;
+            }
             return this;
         }
 
         public Log Token(Token token)
         {
-            AppId = token.AppId;
-            OwnerId = token.UserId;
+            if (token != null)
+            {
+                AppId = token.AppId;
+                OwnerId = token.UserId;
+                Tag("TOKEN-" + token.IdToString);
+            }
+            return this;
+        }
+
+        public Log User(User user)
+        {
+            if (user != null)
+            {
+                Tag(user.UserName);
+                Tag(user.Email);
+            }
             return this;
         }
     }
