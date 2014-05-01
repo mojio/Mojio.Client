@@ -21,8 +21,6 @@ namespace Mojio
         /// <summary>An unexpected situation that the app or process cannot recover from and has to exit</summary>
         Fatal
     }
-
-    [JsonConverter(typeof(DiscriminatorConverter<Log>))]   
     public class Log : GuidEntity, IOwner
     {
         public LogLevels Level { get; set; }
