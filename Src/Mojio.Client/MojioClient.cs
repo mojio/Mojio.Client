@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Mojio.Client.Linq;
 using Mojio.Events;
 using RestSharp;
@@ -864,12 +865,15 @@ namespace Mojio.Client
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <param name="page">Page</param>
+        /// <param name="sortBy">Sort By</param>
+        /// <param name="desc">Descending?</param>
+        /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T> (int page = 1, string criteria = null)
+        public Results<T> Get<T>(int page = 1, int sortBy = 0, bool desc = false, string criteria = null)
             where T : new()
         {
             HttpStatusCode ignore;
-            return Get<T> (out ignore, page, criteria);
+            return Get<T> (out ignore, page, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -878,12 +882,15 @@ namespace Mojio.Client
         /// <typeparam name="T">Entity type</typeparam>
         /// <param name="code">Response code</param>
         /// <param name="page">Page</param>
+        /// <param name="sortBy">Sort By</param>
+        /// <param name="desc">Descending?</param>
+        /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, string criteria = null)
+        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, int sortBy = 0, bool desc = false, string criteria = null)
             where T : new()
         {
             string ignore;
-            return Get<T> (out code, out ignore, page, criteria);
+            return Get<T>(out code, out ignore, page, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -893,25 +900,30 @@ namespace Mojio.Client
         /// <param name="code">Response code</param>
         /// <param name="message">Response message</param>
         /// <param name="page">Page</param>
+        /// <param name="sortBy">Sort By</param>
+        /// <param name="desc">Descending?</param>
+        /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, string criteria = null)
+        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, int sortBy = 0, bool desc = false, string criteria = null)
             where T : new()
         {
-            var response = GetAsync<T> (page, criteria).Result;
+            var response = GetAsync<T>(page, sortBy, desc, criteria).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-        public Task<MojioResponse<Results<T>>> GetAsync<T> (int page = 1, string criteria = null)
+        public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1, int sortBy = 0, bool desc = false, string criteria = null)
             where T : new()
         {
             string action = Map [typeof(T)];
             var request = GetRequest (Request (action), Method.GET);
 
-            request.AddParameter ("offset", Math.Max (0, (page - 1)) * PageSize);
-            request.AddParameter ("limit", PageSize);
+            request.AddParameter("offset", Math.Max (0, (page - 1)) * PageSize);
+            request.AddParameter("limit", PageSize);
+            request.AddParameter("sortBy", sortBy);
+            request.AddParameter("desc", desc);
             if (!string.IsNullOrWhiteSpace(criteria))
                 request.AddParameter ("criteria", criteria);
 
