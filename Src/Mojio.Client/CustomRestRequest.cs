@@ -32,6 +32,9 @@ namespace Mojio.Client
         /// <param name="value">parameter value</param>
         public new void AddParameter(string name, object value)
         {
+            if (value == null)
+                return;
+
             Resource += (Resource.Contains("?") ? "&" : "?") +
                 string.Format("{0}={1}", name, value.ToString());
         }
