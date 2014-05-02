@@ -61,6 +61,7 @@ namespace Mojio
         /// </summary>
         public Guid? OwnerId { get;set; }
 
+        [DefaultSort]
         /// <summary>
         /// record creation timestamp
         /// </summary>
