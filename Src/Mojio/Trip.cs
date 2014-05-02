@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +29,7 @@ namespace Mojio
         [Observable(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// start timestamp
         /// </summary>
