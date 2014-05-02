@@ -870,7 +870,7 @@ namespace Mojio.Client
         /// <param name="desc">Descending?</param>
         /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
+        public Results<T> Get<T>(int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             HttpStatusCode ignore;
@@ -887,7 +887,7 @@ namespace Mojio.Client
         /// <param name="desc">Descending?</param>
         /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
+        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             string ignore;
@@ -905,7 +905,7 @@ namespace Mojio.Client
         /// <param name="desc">Descending?</param>
         /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
+        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             var response = GetAsync<T>(page, sortBy, desc, criteria).Result;
@@ -915,7 +915,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
+        public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             string action = Map [typeof(T)];
