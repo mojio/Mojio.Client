@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Mojio.Client
 {
@@ -869,7 +870,7 @@ namespace Mojio.Client
         /// <param name="desc">Descending?</param>
         /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(int page = 1, string sortBy = null, bool desc = false, string criteria = null)
+        public Results<T> Get<T>(int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             HttpStatusCode ignore;
@@ -886,7 +887,7 @@ namespace Mojio.Client
         /// <param name="desc">Descending?</param>
         /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, string sortBy = null, bool desc = false, string criteria = null)
+        public Results<T> Get<T>(out HttpStatusCode code, int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             string ignore;
@@ -904,7 +905,7 @@ namespace Mojio.Client
         /// <param name="desc">Descending?</param>
         /// <param name="criteria">Criteria</param>
         /// <returns></returns>
-        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, string sortBy = null, bool desc = false, string criteria = null)
+        public Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             var response = GetAsync<T>(page, sortBy, desc, criteria).Result;
@@ -914,7 +915,7 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1, string sortBy = null, bool desc = false, string criteria = null)
+        public Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1, Expression<Func<T, string>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             string action = Map [typeof(T)];
@@ -922,7 +923,12 @@ namespace Mojio.Client
 
             request.AddParameter("offset", Math.Max (0, (page - 1)) * PageSize);
             request.AddParameter("limit", PageSize);
-            request.AddParameter("sortBy", sortBy);
+            if (sortBy != null)
+            {
+                var expr = GetMemberInfo(sortBy);
+                request.AddParameter("sortBy", expr.Member.Name);
+
+            }
             request.AddParameter("desc", desc);
             if (!string.IsNullOrWhiteSpace(criteria))
                 request.AddParameter ("criteria", criteria);
@@ -1129,6 +1135,30 @@ namespace Mojio.Client
             request.AddParameter ("target", target);
 
             return RequestAsync (request);
+        }
+
+        MemberExpression GetMemberInfo(Expression method)
+        {
+            LambdaExpression lambda = method as LambdaExpression;
+            if (lambda == null)
+                throw new ArgumentNullException("method");
+
+            MemberExpression memberExpr = null;
+
+            if (lambda.Body.NodeType == ExpressionType.Convert)
+            {
+                memberExpr =
+                    ((UnaryExpression)lambda.Body).Operand as MemberExpression;
+            }
+            else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
+            {
+                memberExpr = lambda.Body as MemberExpression;
+            }
+
+            if (memberExpr == null)
+                throw new ArgumentException("method");
+
+            return memberExpr;
         }
     }
 }
