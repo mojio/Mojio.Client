@@ -22,6 +22,7 @@ namespace Mojio
         /// </summary>
         public Guid? AppId { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// invoice timestamp
         /// </summary>

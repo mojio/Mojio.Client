@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="Attributes\DefaultSortAttribute.cs" />
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CarState.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
