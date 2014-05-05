@@ -133,7 +133,7 @@ namespace Mojio
                 if (Message == null)
                     Message = line;
                 else
-                    Message = '\n' + line;
+                    Message += '\n' + line;
             }
             return this;
         }

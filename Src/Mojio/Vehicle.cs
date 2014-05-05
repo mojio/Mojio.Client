@@ -18,9 +18,16 @@ namespace Mojio
 
         public Guid? OwnerId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the mojio identifier.
+        /// </summary>
+        /// <value>
+        /// The mojio identifier.
+        /// </value>
         [Observable(typeof(Mojio))]
         public Guid? MojioId { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// Vehicle name
         /// </summary>

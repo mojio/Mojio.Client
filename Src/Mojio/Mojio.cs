@@ -30,6 +30,7 @@ namespace Mojio
         /// </summary>
         public string Imei { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// Most recent communication time
         /// </summary>

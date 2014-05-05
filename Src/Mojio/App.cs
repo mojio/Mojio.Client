@@ -27,6 +27,7 @@ namespace Mojio
         /// </summary>
         public string Description { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// record creation timestamp
         /// </summary>

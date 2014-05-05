@@ -82,6 +82,7 @@ namespace Mojio.Events
         /// </summary>
         public EventType EventType { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// event timestamp
         /// </summary>

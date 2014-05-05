@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +14,7 @@ namespace Mojio
     public partial class User : GuidEntity
     {
 
+        [DefaultSort]
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
