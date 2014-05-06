@@ -12,7 +12,18 @@ namespace Mojio
         View = 1 << 0,
         Share = 1 << 1,
         Delete = 1 << 2,
-        Modify = 1 << 3
+        Modify = 1 << 3,
+    }
+
+    public enum PermissionRoles
+    {
+        Viewer = Permissions.View,
+        Driver = Permissions.View | Permissions.Share,
+        Author = Permissions.View | Permissions.Modify | Permissions.Delete,
+        Sharer = Permissions.View | Permissions.Share,
+        Owner = Permissions.View | Permissions.Share | Permissions.Delete | Permissions.Modify,
+
+        Wrecker = Permissions.Delete
     }
 
     public class AccessRole : GuidEntity
