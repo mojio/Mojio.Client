@@ -23,6 +23,11 @@ namespace Mojio
     }
     public class Log : GuidEntity, IOwner
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Log; }
+        }
+
         public LogLevels Level { get; set; }
         public DateTime Time { get; set; }
 

@@ -11,6 +11,11 @@ namespace Mojio
     [Observable]
     public partial class Trip : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Trip; }
+        }
+
         /// <summary>
         /// mojio id
         /// </summary>

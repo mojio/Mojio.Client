@@ -50,6 +50,10 @@ namespace Mojio.Events
     [JsonConverter (typeof(EventConverter))]
     public partial class Event : GuidEntity, IEvent, IOwner, ICloneable
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Event; }
+        }
         public Event()
         {
         }

@@ -66,6 +66,7 @@
     <Compile Include="DeviceConfiguration.cs" />
     <Compile Include="DTC.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="EntityType.cs" />
     <Compile Include="EventBroadcast.cs" />
     <Compile Include="Events\AccelerationEvent.cs" />
     <Compile Include="Events\AccelerometerEvent.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Events\BatteryEvent.cs" />
     <Compile Include="Events\ConnectionLost.cs" />
     <Compile Include="Events\DecelerationEvent.cs" />
-    <Compile Include="Events\DeviceLog.cs" />
     <Compile Include="Events\DiagnosticEvent.cs" />
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />

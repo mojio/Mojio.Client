@@ -13,6 +13,11 @@ namespace Mojio
     [Observable]
     public partial class Mojio : GuidEntity, IOwner
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Mojio; }
+        }
+
         /// <summary>
         /// Owner ID
         /// </summary>

@@ -50,6 +50,11 @@ namespace Mojio
     [JsonConverter (typeof(SubscriptionConverter))]
     public partial class Subscription : GuidEntity, IOwner
     {
+        public override global::Mojio.EntityType Type
+        {
+            get { return global::Mojio.EntityType.Subscription; }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Subscription"/> class.
         /// </summary>
