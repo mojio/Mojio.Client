@@ -17,7 +17,7 @@ namespace Mojio
 
         public Guid UserId { get; set; }
 
-        public Guid RoleId { get; set; }
+        public Permissions Permissions { get; set; }
 
         public string EntityType { get; set; }
 

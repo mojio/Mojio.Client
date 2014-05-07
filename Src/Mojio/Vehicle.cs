@@ -15,6 +15,7 @@ namespace Mojio
         /// </summary>
         [Display(Name = "Owner")]
         [Observable(typeof(User))]
+        [Parent(typeof(User))]
 
         public Guid? OwnerId { get; set; }
 
