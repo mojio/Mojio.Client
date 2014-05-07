@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
-    <Compile Include="AccessRole.cs" />
+    <Compile Include="AccessGroup.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="App.cs" />
     <Compile Include="AuthenticationProvider.cs" />

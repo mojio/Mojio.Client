@@ -60,13 +60,12 @@ namespace Mojio
         /// </value>
         public string Key { get; set; }
 
-        // TODO: currently we still accept any OBJECT, but ONLY string works.
         /// <summary>
         /// value
         /// </summary>
         /// <value>
         /// The value.
         /// </value>
-        public object Value { get; set; }
+        public string Value { get; set; }
     }
 }

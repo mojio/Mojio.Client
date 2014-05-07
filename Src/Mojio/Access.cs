@@ -6,16 +6,34 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
+    [Flags]
+    public enum Permissions
+    {
+        None = 0,
+        View = 1 << 0,
+        Share = 1 << 1,
+        Delete = 1 << 2,
+        Modify = 1 << 3,
+
+        // Common permission combinations
+        Editor = Permissions.View | Permissions.Modify,
+        Author = Permissions.View | Permissions.Modify | Permissions.Delete,
+        Sharer = Permissions.View | Permissions.Share,
+        Owner = Permissions.View | Permissions.Share | Permissions.Delete | Permissions.Modify,
+
+        Wrecker = Permissions.Modify | Permissions.Delete,
+    }
+
     public class Access : GuidEntity
     {
         public static Guid Everyone = Guid.Empty;
 
         public Access()
         {
-            UserId = Everyone;
+            GroupId = Everyone;
         }
 
-        public Guid UserId { get; set; }
+        public Guid GroupId { get; set; }
 
         public Permissions Permissions { get; set; }
 
