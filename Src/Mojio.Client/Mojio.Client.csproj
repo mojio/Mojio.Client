@@ -77,6 +77,9 @@
     <Compile Include="Linq\MojioQueryProvider.cs" />
     <Compile Include="Linq\MojioCriteriaTranslator.cs" />
     <Compile Include="Linq\TypeHelper.cs" />
+    <Compile Include="MojioClient.Access.cs">
+      <DependentUpon>MojioClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="MojioClient.App.cs">
       <DependentUpon>MojioClient.cs</DependentUpon>
     </Compile>
