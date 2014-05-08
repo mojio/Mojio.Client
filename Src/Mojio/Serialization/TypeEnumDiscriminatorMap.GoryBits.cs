@@ -19,15 +19,19 @@ namespace Mojio.Serialization
             Type baseType = typeof(B);
             TypeEnumDiscriminatorMap<D> map;
 
+            var propertyName = (property.Body as MemberExpression).Member.Name;
             if (!Maps.ContainsKey(baseType))
             {
                 map = new TypeEnumDiscriminatorMap<D>();
                 Maps.Add(baseType, map);
+                map.Property = propertyName;
             }
             else
+            {
                 map = Maps[baseType] as TypeEnumDiscriminatorMap<D>;
-
-            map.Property = (property.Body as MemberExpression).Member.Name;
+                if (map.Property != propertyName)
+                    throw new ArgumentException("Attempt to change map property from " + map.Property + " to " + propertyName);
+            }
 
             return map;
         }

@@ -13,6 +13,11 @@ namespace Mojio
     [Observable]
     public partial class User : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.User; }
+        }
+
 
         [DefaultSort]
         /// <summary>

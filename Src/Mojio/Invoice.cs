@@ -12,6 +12,11 @@ namespace Mojio
     /// </summary>
     public class Invoice : GuidEntity , IOwner
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Invoice; }
+        }
+
         /// <summary>
         /// buyer id
         /// </summary>
