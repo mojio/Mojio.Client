@@ -11,9 +11,10 @@ namespace Mojio.Client
     partial class MojioClient
     {
         /// <summary>
-        /// Get an applications Private Key.
+        /// Get user or groups access permissions.
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
         public Permissions GetAccess(GuidEntity entity, Guid groupId)
         {
@@ -24,9 +25,10 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Get user or groups access permissions.
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
         public Task<MojioResponse<Permissions>> GetAccessAsync(GuidEntity entity, Guid groupId)
         {
@@ -39,9 +41,9 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Get current users permission of entity
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
         /// <returns></returns>
         public Permissions MyAccess(GuidEntity entity)
         {
@@ -52,9 +54,9 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Get current users permission of entity
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
         /// <returns></returns>
         public Task<MojioResponse<Permissions>> MyAccessAsync(GuidEntity entity)
         {
@@ -66,9 +68,11 @@ namespace Mojio.Client
 
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Grant user or group access to entity with given permissions. (Appends permissions)
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The group or user identifier.</param>
+        /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         public bool GrantAccess(GuidEntity entity, Guid groupId, Permissions flags = Permissions.View)
         {
@@ -79,9 +83,11 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Grant user or group access to entity with given permissions. (Appends permissions)
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The group or user identifier.</param>
+        /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         public Task<MojioResponse> GrantAccessAsync(GuidEntity entity, Guid groupId, Permissions flags = Permissions.View)
         {
@@ -98,10 +104,13 @@ namespace Mojio.Client
 
             return RequestAsync(request);
         }
+
         /// <summary>
-        /// Get an applications Private Key.
+        /// Set user or group access to entity with given permissions.
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The group or user identifier.</param>
+        /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         public bool SetAccess(GuidEntity entity, Guid groupId, Permissions flags = Permissions.View)
         {
@@ -112,9 +121,11 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Set user or group access to entity with given permissions.
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The group or user identifier.</param>
+        /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         public Task<MojioResponse> SetAccessAsync(GuidEntity entity, Guid groupId, Permissions flags = Permissions.View)
         {
@@ -132,9 +143,10 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Revoke user or group access to entity.
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The group or user identifier.</param>
         /// <returns></returns>
         public bool RevokeAccess(GuidEntity entity, Guid groupId)
         {
@@ -145,9 +157,10 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get an applications Private Key.
+        /// Revoke user or group access to entity.
         /// </summary>
-        /// <param name="app">Application Entity</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="groupId">The group or user identifier.</param>
         /// <returns></returns>
         public Task<MojioResponse> RevokeAccessAsync(GuidEntity entity, Guid groupId)
         {
@@ -159,7 +172,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Add a user to a access group
+        /// Add a user to an access group
         /// </summary>
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
@@ -175,7 +188,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Add a user to a access group
+        /// Add a user to an access group
         /// </summary>
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
@@ -189,7 +202,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Add a user to a access group
+        /// Remove a user from an access group
         /// </summary>
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
@@ -205,7 +218,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Add a user to a access group
+        /// Remove a user from an access group
         /// </summary>
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>

@@ -14,14 +14,15 @@ namespace Mojio
         Share = 1 << 1,
         Delete = 1 << 2,
         Modify = 1 << 3,
+        Inherit = 1 << 4,
 
         // Common permission combinations
         Editor = Permissions.View | Permissions.Modify,
         Author = Permissions.View | Permissions.Modify | Permissions.Delete,
         Sharer = Permissions.View | Permissions.Share,
-        Owner = Permissions.View | Permissions.Share | Permissions.Delete | Permissions.Modify,
+        Owner = Permissions.View | Permissions.Share | Permissions.Delete | Permissions.Modify | Permissions.Inherit,
 
-        Wrecker = Permissions.Modify | Permissions.Delete,
+        Wrecker = Permissions.Delete | Permissions.Inherit,
     }
 
     public class Access : GuidEntity
