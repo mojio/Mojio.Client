@@ -955,8 +955,15 @@ namespace Mojio.Client
         {
             string action = Map [typeof(T)];
 
-            var request = GetRequest (Request (action, id, "admin"), Method.POST);
-            request.AddBody (userId);
+            var request = GetRequest (Request (action, id, "access"), Method.POST);
+
+            var access = new Access()
+            {
+                GroupId = userId,
+                Permissions = Permissions.Owner
+            };
+
+            request.AddBody(access);
 
             var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
@@ -985,15 +992,15 @@ namespace Mojio.Client
         public bool RemoveAdmin<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "admin"), Method.DELETE);
-            request.AddParameter ("userId", userId);
+            var request = GetRequest(Request(action, id, "access"), Method.DELETE);
+            request.AddParameter("groupId", userId);
 
             var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         /// <summary>
-        /// Add a viewer to an entity.
+        /// Add a viewer to an entity. (DEPRECATED)
         /// </summary>
         /// <typeparam name="T">Entity Type</typeparam>
         /// <param name="entity">Entity</param>
@@ -1016,8 +1023,15 @@ namespace Mojio.Client
         {
             string action = Map [typeof(T)];
 
-            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
-            request.AddBody (userId);
+            var request = GetRequest(Request(action, id, "access"), Method.PUT);
+
+            var access = new Access()
+            {
+                GroupId = userId,
+                Permissions = Permissions.View
+            };
+
+            request.AddBody(access);
 
             var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
@@ -1046,8 +1060,8 @@ namespace Mojio.Client
         public bool RemoveViewer<T> (object id, Guid userId)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "viewer"), Method.DELETE);
-            request.AddParameter ("userId", userId);
+            var request = GetRequest(Request(action, id, "access"), Method.DELETE);
+            request.AddParameter("groupId", userId);
 
             var response = RestClient.Execute (request);
             return response.StatusCode == HttpStatusCode.OK;
