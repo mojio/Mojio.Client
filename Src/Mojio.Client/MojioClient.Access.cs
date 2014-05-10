@@ -61,7 +61,9 @@ namespace Mojio.Client
         public Task<MojioResponse<Permissions>> MyAccessAsync(GuidEntity entity)
         {
             string action = Map[entity.GetType()];
-            var request = GetRequest(Request(action, entity.Id, "myaccess"), Method.GET);
+            var request = GetRequest(Request(action, entity.Id, "access"), Method.GET);
+
+            request.AddParameter("groupId", CurrentUser.Id);
 
             return RequestAsync<Permissions>(request);
         }
