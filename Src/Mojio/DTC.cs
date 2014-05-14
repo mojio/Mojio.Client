@@ -11,6 +11,11 @@ namespace Mojio
     /// </summary>
     public class DTC : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.DTC; }
+        }
+
         /// <summary>
         /// Sets DTC description to unknown string value.
         /// </summary>

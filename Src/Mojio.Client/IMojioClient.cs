@@ -1,9 +1,10 @@
-﻿using Mojio.Client.Linq;
+using Mojio.Client.Linq;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Mojio.Client
 {
@@ -87,11 +88,11 @@ namespace Mojio.Client
 
         Task<Client.MojioResponse<Token>> FacebookLoginAsync (string access_token);
 
-        Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, int sortBy = 0, bool desc = false, string criteria = null) where T : new();
+        Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
 
-        Results<T> Get<T>(out HttpStatusCode code, int page = 1, int sortBy = 0, bool desc = false, string criteria = null) where T : new();
+        Results<T> Get<T>(out HttpStatusCode code, int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
 
-        Results<T> Get<T>(int page = 1, int sortBy = 0, bool desc = false, string criteria = null) where T : new();
+        Results<T> Get<T>(int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
 
         T Get<T> (object id) where T : new();
 
@@ -99,7 +100,7 @@ namespace Mojio.Client
 
         T Get<T> (object id, out HttpStatusCode code, out string message) where T : new();
 
-        Task<Client.MojioResponse<Results<T>>> GetAsync<T>(int page = 1, int sortBy = 0, bool desc = false, string criteria = null) where T : new();
+        Task<Client.MojioResponse<Results<T>>> GetAsync<T>(int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
 
         Task<Client.MojioResponse<T>> GetAsync<T> (object id) where T : new();
 

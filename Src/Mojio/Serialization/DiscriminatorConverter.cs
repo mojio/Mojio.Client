@@ -60,6 +60,7 @@ namespace Mojio.Serialization
         /// <exception cref="System.NotImplementedException"></exception>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            //serializer.Serialize(writer, value);
             throw new NotImplementedException();
         }
 

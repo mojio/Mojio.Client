@@ -19,15 +19,19 @@ namespace Mojio.Serialization
             Type baseType = typeof(B);
             TypeEnumDiscriminatorMap<D> map;
 
+            var propertyName = (property.Body as MemberExpression).Member.Name;
             if (!Maps.ContainsKey(baseType))
             {
                 map = new TypeEnumDiscriminatorMap<D>();
                 Maps.Add(baseType, map);
+                map.Property = propertyName;
             }
             else
+            {
                 map = Maps[baseType] as TypeEnumDiscriminatorMap<D>;
-
-            map.Property = (property.Body as MemberExpression).Member.Name;
+                if (map.Property != propertyName)
+                    throw new ArgumentException("Attempt to change map property from " + map.Property + " to " + propertyName);
+            }
 
             return map;
         }
@@ -62,10 +66,10 @@ namespace Mojio.Serialization
             if (!string.IsNullOrEmpty(discriminator))
             {
                 if (!Enum.TryParse<D>(discriminator, out disc))
-                    throw new ArgumentException(typeof(D) + " does not contain " + discriminator);
+                    return null;
 
                 if (!SubTypes.ContainsKey(disc))
-                    throw new ArgumentException("Map not contain " + discriminator);
+                    return null;
             }
 
             return SubTypes[disc];
@@ -74,7 +78,9 @@ namespace Mojio.Serialization
         public override object Create(string discriminator = null)
         {
             var type = Find(discriminator);
-            return Activator.CreateInstance(type);
+            if (type != null)
+                return Activator.CreateInstance(type);
+            return null;
         }
     }
 

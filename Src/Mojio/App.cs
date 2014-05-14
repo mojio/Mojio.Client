@@ -15,6 +15,11 @@ namespace Mojio
     [Observable]
     public partial class App : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.App; }
+        }
+
         /// <summary>
         /// app name
         /// </summary>
@@ -27,6 +32,7 @@ namespace Mojio
         /// </summary>
         public string Description { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// record creation timestamp
         /// </summary>

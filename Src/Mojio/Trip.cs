@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,11 @@ namespace Mojio
     [Observable]
     public partial class Trip : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Trip; }
+        }
+
         /// <summary>
         /// mojio id
         /// </summary>
@@ -30,6 +35,7 @@ namespace Mojio
         [Parent(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// start timestamp
         /// </summary>

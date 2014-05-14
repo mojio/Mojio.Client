@@ -1,4 +1,5 @@
 ﻿using Mojio.Converters;
+using Mojio.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,9 +48,13 @@ namespace Mojio.Events
     /// <summary>
     /// event
     /// </summary>
-    [JsonConverter (typeof(EventConverter))]
+    [JsonConverter(typeof(DiscriminatorConverter<Event>))]
     public partial class Event : GuidEntity, IEvent, IOwner, ICloneable
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Event; }
+        }
         public Event()
         {
         }
@@ -84,6 +89,7 @@ namespace Mojio.Events
         /// </summary>
         public EventType EventType { get; set; }
 
+        [DefaultSort]
         /// <summary>
         /// event timestamp
         /// </summary>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,13 @@ namespace Mojio
     [Observable]
     public partial class User : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.User; }
+        }
 
+
+        [DefaultSort]
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
