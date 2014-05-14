@@ -22,6 +22,13 @@ namespace Mojio.Client
 
         public Newtonsoft.Json.JsonSerializer Serializer { get; private set; }
 
+        public static bool IsJson (string input)
+        {
+            input = input.Trim ();
+            return input.StartsWith ("{") && input.EndsWith ("}")
+            || input.StartsWith ("[") && input.EndsWith ("]");
+        }
+
         public RSJsonSerializer ()
         {
             try {
@@ -33,8 +40,7 @@ namespace Mojio.Client
                 };
 
                 Serializer.Converters.Add (new Newtonsoft.Json.Converters.StringEnumConverter ());
-            } catch (Exception ex) {
-
+            } catch (Exception ex) {          
                 Log.Create (ex)
                     .AsError ()
                     .Submit ();
@@ -45,19 +51,20 @@ namespace Mojio.Client
         {
             try {
                 //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
+
                 using (var stringReader = new StringReader (content)) {
                     using (var jsonReader = new JsonTextReader (stringReader)) {
                         return Serializer.Deserialize<T> (jsonReader);
                     }
                 }
             } catch (Exception ex) {
-
-                Log.Create (ex)
-                    .AsError ()
-                    .Submit ();
+                if (!IsJson (content)) {
+                    Log.Create (ex)
+                        .AsError ()
+                        .Submit ();
+                }
                 throw ex;
             }
-
         }
 
         public T Deserialize<T> (RestSharp.IRestResponse response)
