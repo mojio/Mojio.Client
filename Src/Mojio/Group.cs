@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
-    public class AccessGroup : GuidEntity
+    public class Group : GuidEntity
     {
         public string Name { get; set; }
 
         [Parent(typeof(User))]
         public Guid OwnerId { get; set; }
-    }
 
-    public class AccessGroupUser : GuidEntity
-    {
-        public Guid UserId { get; set; }
+        public Guid[] UserId { get; set; }
 
-        [Parent(typeof(AccessGroup))]
-        public Guid GroupId { get; set; }
+        public override EntityType Type
+        {
+            get { return EntityType.AccessGroup; }
+        }
     }
 }

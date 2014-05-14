@@ -179,9 +179,9 @@ namespace Mojio.Client
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public Task<MojioResponse<bool>> AddUserAsync(AccessGroup group, Guid userId)
+        public Task<MojioResponse<bool>> AddUserAsync(Group group, Guid userId)
         {
-            string action = Map[typeof(AccessGroup)];
+            string action = Map[typeof(Group)];
             var request = GetRequest(Request(action, group.Id, "users"), Method.POST);
 
             request.AddBody(userId);
@@ -195,7 +195,7 @@ namespace Mojio.Client
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public bool AddUser(AccessGroup group, Guid userId)
+        public bool AddUser(Group group, Guid userId)
         {
             var task = AddUserAsync(group, userId);
             var response = task.Result;
@@ -209,9 +209,9 @@ namespace Mojio.Client
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public Task<MojioResponse<bool>> RemoveUserAsync(AccessGroup group, Guid userId)
+        public Task<MojioResponse<bool>> RemoveUserAsync(Group group, Guid userId)
         {
-            string action = Map[typeof(AccessGroup)];
+            string action = Map[typeof(Group)];
             var request = GetRequest(Request(action, group.Id, "users"), Method.DELETE);
 
             request.AddParameter("userId", userId);
@@ -225,7 +225,7 @@ namespace Mojio.Client
         /// <param name="group">The group.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public bool RemoveUser(AccessGroup group, Guid userId)
+        public bool RemoveUser(Group group, Guid userId)
         {
             var task = RemoveUserAsync(group, userId);
             var response = task.Result;
@@ -238,9 +238,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="group">The group.</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<AccessGroupUser>>> GetUsersAsync(AccessGroup group)
+        public Task<MojioResponse<Results<AccessGroupUser>>> GetUsersAsync(Group group)
         {
-            string action = Map[typeof(AccessGroup)];
+            string action = Map[typeof(Group)];
             var request = GetRequest(Request(action, group.Id, "users"), Method.GET);
 
             return RequestAsync<Results<AccessGroupUser>>(request);
@@ -251,7 +251,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="group">The group.</param>
         /// <returns></returns>
-        public Results<AccessGroupUser> GetUsers(AccessGroup group)
+        public Results<AccessGroupUser> GetUsers(Group group)
         {
             var task = GetUsersAsync(group);
             var response = task.Result;

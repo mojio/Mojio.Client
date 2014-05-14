@@ -27,19 +27,34 @@ namespace Mojio
 
     public class Access : GuidEntity
     {
-        public static Guid Everyone = Guid.Empty;
+        /// <summary>
+        /// Type of entity. This is only really needed for double checking?
+        /// </summary>
+        public EntityType EntityType { get; set; }
 
-        public Access()
+        public UserAccess[] Users { get; set; }
+
+        public GroupAccess[] Groups { get; set; }
+
+        public Permissions Everyone { get; set; }
+
+        public override EntityType Type
         {
-            GroupId = Everyone;
+            get { return global::Mojio.EntityType.Access; }
         }
+    }
 
+    public class UserAccess
+    {
+        public Guid UserId { get; set; }
+
+        public Permissions Permissions { get; set; }
+    }
+
+    public class GroupAccess
+    {
         public Guid GroupId { get; set; }
 
         public Permissions Permissions { get; set; }
-
-        public string EntityType { get; set; }
-
-        public Guid EntityId { get; set; }
     }
 }
