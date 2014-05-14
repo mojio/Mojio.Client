@@ -66,10 +66,10 @@ namespace Mojio.Serialization
             if (!string.IsNullOrEmpty(discriminator))
             {
                 if (!Enum.TryParse<D>(discriminator, out disc))
-                    throw new ArgumentException(typeof(D) + " does not contain " + discriminator);
+                    return null;
 
                 if (!SubTypes.ContainsKey(disc))
-                    throw new ArgumentException("Map not contain " + discriminator);
+                    return null;
             }
 
             return SubTypes[disc];
@@ -78,7 +78,9 @@ namespace Mojio.Serialization
         public override object Create(string discriminator = null)
         {
             var type = Find(discriminator);
-            return Activator.CreateInstance(type);
+            if (type != null)
+                return Activator.CreateInstance(type);
+            return null;
         }
     }
 
