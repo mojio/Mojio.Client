@@ -78,6 +78,11 @@ namespace Mojio.Converters
                 return new AccelerometerEvent();
             case EventType.LowFuel:
                 return new FuelEvent();
+            case EventType.RPM:
+                return new RPMEvent();
+            case EventType.MovementStart:
+            case EventType.MovementStop:
+                return new MovementEvent();
             default:
                 return new Event ();
             }
