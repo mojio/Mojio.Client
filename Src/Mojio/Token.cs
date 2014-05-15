@@ -7,6 +7,11 @@ namespace Mojio
     /// </summary>
     public class Token : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Token; }
+        }
+
         /// <summary>
         /// app id
         /// </summary>

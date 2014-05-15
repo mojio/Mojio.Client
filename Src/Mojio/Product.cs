@@ -11,6 +11,11 @@ namespace Mojio
     /// </summary>
     public class Product : GuidEntity,IOwner
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Product; }
+        }
+
         /// <summary>
         /// The mojio product identifier
         /// </summary>

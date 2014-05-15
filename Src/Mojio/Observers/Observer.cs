@@ -30,9 +30,14 @@ namespace Mojio
     [JsonConverter(typeof(DiscriminatorConverter<Observer>))]   
     public partial class Observer : GuidEntity, IOwner
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Observer; }
+        }
+
         public string Name { get; set; }
         
-        public ObserverType Type { get; set; }
+        public ObserverType ObserverType { get; set; }
 
         /// <summary>
         /// The AppId is required. This specifies which app created the Observer 
@@ -79,7 +84,7 @@ namespace Mojio
 
         public Observer(ObserverType type, Type subject = null, Type parent = null)
         {
-            Type = type;
+            ObserverType = type;
 
             if (subject != null)
                 Subject = subject.Name;

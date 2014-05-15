@@ -10,6 +10,11 @@ namespace Mojio
     [Observable]
     public partial class Vehicle : GuidEntity, IOwner, IViewers
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Vehicle; }
+        }
+
         /// <summary>
         /// Owner ID
         /// </summary>

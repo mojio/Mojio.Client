@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using System.Reflection;
+using Mojio.Serialization;
 
 namespace Mojio
 {
@@ -69,6 +70,7 @@ namespace Mojio
     /// <summary>
     /// 
     /// </summary>
+    [JsonConverter(typeof(DiscriminatorConverter<GuidEntity>))]   
     public abstract class GuidEntity : Entity<Guid>
     {
         /// <summary>Ensures the identifier.</summary>
@@ -77,6 +79,8 @@ namespace Mojio
             if (Id == Guid.Empty)
                 Id = Guid.NewGuid();
         }
+
+        public abstract EntityType Type { get; }
     }
 
     /// <summary>

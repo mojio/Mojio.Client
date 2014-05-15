@@ -11,6 +11,11 @@ namespace Mojio
     /// </summary>
     public class Storage : GuidEntity
     {
+        public override EntityType Type
+        {
+            get { return EntityType.Storage; }
+        }
+
         /// <summary>
         /// app owner id
         /// </summary>
