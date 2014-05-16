@@ -200,5 +200,10 @@ namespace Mojio.Events
         /// </summary>
         MovementStop = 100020,
 
+        /// <summary>
+        /// HeartBeat
+        /// </summary>
+        HeartBeat = 100021,
+
     }
 }

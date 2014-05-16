@@ -82,6 +82,7 @@
     <Compile Include="Converters\EventConverter.cs" />
     <Compile Include="Events\EventType.cs" />
     <Compile Include="Events\HeadingChangeEvent.cs" />
+    <Compile Include="Events\HeartBeatEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
     <Compile Include="Events\FuelEvent.cs" />
     <Compile Include="Events\MileageEvent.cs" />
