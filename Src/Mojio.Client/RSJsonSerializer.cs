@@ -31,7 +31,6 @@ namespace Mojio.Client
 
         public RSJsonSerializer ()
         {
-            try {
                 ContentType = "application/json";
                 Serializer = new Newtonsoft.Json.JsonSerializer {
                     MissingMemberHandling = MissingMemberHandling.Ignore,
@@ -40,16 +39,10 @@ namespace Mojio.Client
                 };
 
                 Serializer.Converters.Add (new Newtonsoft.Json.Converters.StringEnumConverter ());
-            } catch (Exception ex) {          
-                Log.Create (ex)
-                    .AsError ()
-                    .Submit ();
-            }
         }
 
         public T Deserialize<T> (string content)
         {
-            try {
                 //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
 
                 using (var stringReader = new StringReader (content)) {
@@ -57,14 +50,6 @@ namespace Mojio.Client
                         return Serializer.Deserialize<T> (jsonReader);
                     }
                 }
-            } catch (Exception ex) {
-                if (IsJson (content)) {
-                    Log.Create (ex)
-                        .AsError ()
-                        .Submit ();
-                }
-                throw ex;
-            }
         }
 
         public T Deserialize<T> (RestSharp.IRestResponse response)
@@ -74,7 +59,6 @@ namespace Mojio.Client
 
         public string Serialize (object obj)
         {
-            try {
                 //return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
                 using (var stringWriter = new StringWriter ()) {
                     using (var jsonTextWriter = new JsonTextWriter (stringWriter)) {
@@ -84,13 +68,6 @@ namespace Mojio.Client
                         return result;
                     }
                 }
-            } catch (Exception ex) {
-
-                Log.Create (ex)
-                    .AsError ()
-                    .Submit ();
-                throw ex;
-            }
         }
     }
 }
