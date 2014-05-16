@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Mojio.Events
 {
     /// <summary>
-    /// Speed Event
+    /// HeartBeat Event
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
     public class HeartBeatEvent : TripEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpeedEvent"/> class.
+        /// Initializes a new instance of the <see cref="HeartBeatEvent"/> class.
         /// </summary>
         public HeartBeatEvent()
         {

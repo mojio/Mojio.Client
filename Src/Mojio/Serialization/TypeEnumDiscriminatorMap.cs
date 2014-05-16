@@ -68,7 +68,11 @@ namespace Mojio.Serialization
                 .Contains<DecelerationEvent>(EventType.Deceleration)
                 .Contains<HeadingChangeEvent>(EventType.HeadingChange)
                 .Contains<MileageEvent>(EventType.Mileage)
-                .Contains<FuelEvent>(EventType.LowFuel);
+                .Contains<FuelEvent>(EventType.LowFuel)
+                .Contains<MovementEvent>(EventType.MovementStart)
+                .Contains<MovementEvent>(EventType.MovementStop)
+                .Contains<HeartBeatEvent>(EventType.HeartBeat)
+                .Contains<DeviceDiagnosticEvent>(EventType.DeviceDiagnostic);
                            
             BuildMap();
             /*Map<Event, EventType>(e => e.EventType)

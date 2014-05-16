@@ -205,5 +205,11 @@ namespace Mojio.Events
         /// </summary>
         HeartBeat = 100021,
 
+        /// <summary>
+        /// Device Diagnostic Data
+        /// </summary>
+        DeviceDiagnostic = 100022,
+
+
     }
 }
