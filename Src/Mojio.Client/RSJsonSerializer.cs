@@ -25,8 +25,8 @@ namespace Mojio.Client
         public static bool IsJson (string input)
         {
             input = input.Trim ();
-            return input.StartsWith ("{") && input.EndsWith ("}")
-            || input.StartsWith ("[") && input.EndsWith ("]");
+            return (input.StartsWith ("{") && input.EndsWith ("}"))
+            || (input.StartsWith ("[") && input.EndsWith ("]"));
         }
 
         public RSJsonSerializer ()
@@ -58,7 +58,7 @@ namespace Mojio.Client
                     }
                 }
             } catch (Exception ex) {
-                if (!IsJson (content)) {
+                if (IsJson (content)) {
                     Log.Create (ex)
                         .AsError ()
                         .Submit ();
