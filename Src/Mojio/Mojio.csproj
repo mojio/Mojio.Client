@@ -111,6 +111,7 @@
     <Compile Include="Serialization\DiscriminatorConverter.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.GoryBits.cs" />
+    <Compile Include="ServerAddress.cs" />
     <Compile Include="ServiceQueue.cs" />
     <Compile Include="Subscription.cs" />
     <Compile Include="Regions.cs" />

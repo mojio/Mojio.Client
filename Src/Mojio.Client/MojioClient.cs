@@ -53,7 +53,7 @@ namespace Mojio.Client
 
         RestClient RestClient;
         public Token Token { get; private set; }
-        static MapEntity Map = new MapEntity ();
+        protected static MapEntity Map = new MapEntity ();
 
         static MojioClient ()
         {
