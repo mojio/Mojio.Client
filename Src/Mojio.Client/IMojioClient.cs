@@ -12,14 +12,6 @@ namespace Mojio.Client
     {
         Token Token { get; }
 
-        bool AddAdmin<T> (object id, Guid userId);
-
-        bool AddAdmin<T> (T entity, Guid userId) where T : BaseEntity;
-
-        bool AddViewer<T> (object id, Guid userId);
-
-        bool AddViewer<T> (T entity, Guid userId) where T : BaseEntity;
-
         bool Begin (Guid appId, Guid secretKey);
 
         bool Begin (Guid appId, Guid secretKey, Guid? tokenId);
@@ -154,15 +146,7 @@ namespace Mojio.Client
 
         Task<Client.MojioResponse<User>> RegisterUserAsync (string username, string email, string password);
 
-        bool RemoveAdmin<T> (object id, Guid userId);
-
-        bool RemoveAdmin<T> (T entity, Guid userId) where T : BaseEntity;
-
-        bool RemoveViewer<T> (object id, Guid userId);
-
-        bool RemoveViewer<T> (T entity, Guid userId) where T : BaseEntity;
-
-        string Request (string controller, object id = null, string action = null, string key = null);
+        string Request (params object[] args);
 
         bool RequestPasswordReset (string userNameOrEmail, string returnUrl);
 

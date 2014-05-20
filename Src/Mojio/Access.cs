@@ -32,9 +32,7 @@ namespace Mojio
         /// </summary>
         public EntityType EntityType { get; set; }
 
-        public UserAccess[] Users { get; set; }
-
-        public GroupAccess[] Groups { get; set; }
+        public IList<UserAccess> Users { get; set; }
 
         public Permissions Everyone { get; set; }
 

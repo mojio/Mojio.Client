@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
-    <Compile Include="AccessGroup.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Attributes\DefaultSortAttribute.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="Events\PowerEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ImageSize.cs" />

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Mojio.Events;
+using Mojio.Serialization;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,15 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
-        static Dictionary<Type, SubscriptionType> SubscriptionMap = new Dictionary<Type, SubscriptionType> () {
-            { typeof(Vehicle), SubscriptionType.Vehicle },
-            { typeof(Mojio), SubscriptionType.Mojio },
-            { typeof(User), SubscriptionType.User },
-            { typeof(Trip), SubscriptionType.Trip }
-        };
+        private TypeEnumDiscriminatorMap<EntityType> _map;
+        public TypeEnumDiscriminatorMap<EntityType> EntityDiscriminatorMap
+        {
+            get
+            {
+                _map = _map ?? (TypeEnumDiscriminatorMap<EntityType>)TypeEnumDiscriminatorMap.GetMap(typeof(GuidEntity));
+                return _map;
+            }
+        }
 
         public delegate void MojioEventHandler (Event evt);
 
@@ -102,7 +106,7 @@ namespace Mojio.Client
             if (HubConnection.State != ConnectionState.Connected && Hub != null)
                 HubConnection.Start ().Wait ();
 
-            return Hub.Invoke ("Subscribe", Token.Id, SubscriptionMap [typeof(T)], id, events);
+            return Hub.Invoke("Subscribe", Token.Id, EntityDiscriminatorMap.Find(typeof(T)), id, events);
         }
 
         /// <summary>
@@ -126,7 +130,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Unsubscribe<T> (Guid[] id, EventType[] events)
         {
-            Hub.Invoke ("Unsubscribe", /*Token.Id,*/SubscriptionMap [typeof(T)], id, events);
+            Hub.Invoke("Unsubscribe", /*Token.Id,*/EntityDiscriminatorMap.Find(typeof(T)), id, events);
             return true;
         }
 

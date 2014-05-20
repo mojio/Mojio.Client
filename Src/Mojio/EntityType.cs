@@ -36,6 +36,5 @@ namespace Mojio
         BaseServiceTask,
         DeviceStats,
         Access,
-        AccessGroup
     }
 }

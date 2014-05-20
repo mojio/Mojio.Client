@@ -42,11 +42,13 @@ namespace Mojio.Serialization
                 return Maps[type];
             return null;
         }
+
         public abstract Type Find(string discriminator);
+
         public abstract object Create(string discriminator = null);
     }
 
-    class TypeEnumDiscriminatorMap<D> : TypeEnumDiscriminatorMap
+    public class TypeEnumDiscriminatorMap<D> : TypeEnumDiscriminatorMap
         where D : struct
     {
         public Dictionary<D, Type> SubTypes { get; set; }
@@ -67,12 +69,9 @@ namespace Mojio.Serialization
             {
                 if (!Enum.TryParse<D>(discriminator, out disc))
                     return null;
-
-                if (!SubTypes.ContainsKey(disc))
-                    return null;
             }
 
-            return SubTypes[disc];
+            return Find(disc);
         }
 
         public override object Create(string discriminator = null)
@@ -81,6 +80,23 @@ namespace Mojio.Serialization
             if (type != null)
                 return Activator.CreateInstance(type);
             return null;
+        }
+
+        public D Find(Type type)
+        {
+            var query = from d in SubTypes
+                        where d.Value.Equals(type)
+                        select d.Key;
+
+            return query.FirstOrDefault();
+        }
+
+        public Type Find(D discriminator)
+        {
+            if (!SubTypes.ContainsKey(discriminator))
+                return null;
+
+            return SubTypes[discriminator];
         }
     }
 
