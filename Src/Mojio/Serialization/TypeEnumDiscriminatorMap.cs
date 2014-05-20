@@ -38,7 +38,7 @@ namespace Mojio.Serialization
                 .Contains<Mojio>(EntityType.Mojio)
                 .Contains<App>(EntityType.App)
                 .Contains<Access>(EntityType.Access)
-                .Contains<Group>(EntityType.Group);
+                ;
 
             // The following allows a partial file to continue
             // building the map

@@ -48,11 +48,4 @@ namespace Mojio
 
         public Permissions Permissions { get; set; }
     }
-
-    public class GroupAccess
-    {
-        public Guid GroupId { get; set; }
-
-        public Permissions Permissions { get; set; }
-    }
 }

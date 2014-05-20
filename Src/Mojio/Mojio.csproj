@@ -91,7 +91,6 @@
     <Compile Include="Events\PowerEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
-    <Compile Include="Group.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ImageSize.cs" />
