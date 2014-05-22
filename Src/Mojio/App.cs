@@ -42,5 +42,17 @@ namespace Mojio
         /// total number of downloads
         /// </summary>
         public int? Downloads { get; set; }
+
+        /// <summary>
+        /// Valid redirect uris
+        /// </summary>
+        public string RedirectUris { get; set; }
+
+        public AppTypes ApplicationType { get; set; }
+    }
+
+    public enum AppTypes { 
+        web,
+        installed
     }
 }

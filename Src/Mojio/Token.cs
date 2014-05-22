@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 
 namespace Mojio
 {
@@ -35,5 +36,27 @@ namespace Mojio
         /// The valid until.
         /// </value>
         public DateTime ValidUntil { get; set; }
+
+        public Scope Scopes { get; set; }
+    }
+
+    [Flags]
+    public enum Scope { 
+        basic = 0,
+        user = 1 << 0
+    }
+
+    public static class ScopeExtensions {
+        public static string ClaimType = "urn:oauth:scope";
+
+        public static Scope AddClaim(this Scope scope, Claim input) {
+            if (input.Type == ClaimType)
+            {
+                return scope | (Scope)Enum.Parse(typeof(Scope), input.Value);
+            }
+            else {
+                return scope;
+            }
+        }
     }
 }
