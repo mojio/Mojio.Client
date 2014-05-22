@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Linq;
 
 namespace Mojio
 {
@@ -52,11 +54,58 @@ namespace Mojio
         public static Scope AddClaim(this Scope scope, Claim input) {
             if (input.Type == ClaimType)
             {
-                return scope | (Scope)Enum.Parse(typeof(Scope), input.Value);
+                return scope.AddScope(input.Value);
             }
             else {
                 return scope;
             }
+        }
+
+        /// <summary>
+        /// Splits out flags into individual scopes (useful for display purposes).
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <returns></returns>
+        public static IEnumerable<Scope> ToScopes(this Scope scope) {
+            return from s in (Scope[])Enum.GetValues(typeof(Scope))
+                   where scope.HasFlag(s)
+                   select s;
+        }
+
+        /// <summary>
+        /// Splits out flags into claims.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <returns></returns>
+        public static IEnumerable<Claim> ToClaims(this Scope scope) {
+            return scope.ToScopes().Select(s => new Claim(ClaimType, s.ToName()));
+        }
+
+        /// <summary>
+        /// Splits out flags into names.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> ToNames(this Scope scope) {
+            return scope.ToScopes().Select(s => Enum.GetName(typeof(Scope), s));
+        }
+
+        public static string ToName(this Scope scope) {
+            return scope.ToNames().FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Converts the input into a scope flag, the or's them together.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static Scope AddScope(this Scope scope, Scope input) {
+            return scope | input;
+        }
+
+        public static Scope AddScope(this Scope scope, string input) {
+            return scope | (Scope)Enum.Parse(typeof(Scope), input);
         }
     }
 }

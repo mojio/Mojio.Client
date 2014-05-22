@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Principal;
 
 namespace Mojio
 {
@@ -11,7 +12,7 @@ namespace Mojio
     /// User
     /// </summary>
     [Observable]
-    public partial class User : GuidEntity
+    public partial class User : GuidEntity, IIdentity
     {
         public override EntityType Type
         {
@@ -95,7 +96,29 @@ namespace Mojio
         /// <value>
         /// The last login date.
         /// </value>
-        public DateTime LastLoginDate { get; set; }        
+        public DateTime LastLoginDate { get; set; }
+
+        public string _AuthenticationType;
+
+        public bool _IsAuthenticated = false;
+
+        public bool IsAuthenticated
+        {
+            get
+            {
+                return this._IsAuthenticated;
+            }
+        }
+
+        public string Name
+        {
+            get { return Id.ToString(); }
+        }
+
+        public string AuthenticationType
+        {
+            get { return this._AuthenticationType; }
+        }
     }
 
 

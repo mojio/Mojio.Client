@@ -34,6 +34,8 @@ namespace Mojio
         MojioImage,
         UserImage,
         BaseServiceTask,
-        DeviceStats
+        DeviceStats,
+        AuthorizationToken,
+        RefreshToken
     }
 }
