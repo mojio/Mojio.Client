@@ -46,6 +46,8 @@ namespace Mojio.Client
     {
         public const string Sandbox = "http://sandbox.api.moj.io/v1";
         public const string Live = "http://api.moj.io/v1";
+        public const string OAuthAuthorize = "http://api.moj.io/oauth2/authorize";
+        public const string OAuthToken = "http://api.moj.io/oauth2/token";
 
         public int PageSize { get; set; }
 
@@ -78,6 +80,12 @@ namespace Mojio.Client
 
             Map.Add (typeof(Observer), "observe");
             Map.Add(typeof(Log), "logs");
+        }
+
+        public MojioClient(Guid tokenId, string Url = Live)
+            : this (Url)
+        {
+            Begin(tokenId);
         }
 
         /// <summary>
@@ -155,6 +163,23 @@ namespace Mojio.Client
                 return string.Format ("{0}/{1}", controller, action);
             
             return controller;
+        }
+
+        /// <summary>
+        /// Continue a session with a given tokenID.
+        /// </summary>
+        /// <param name="tokenId">A valid session token</param>
+        /// <returns></returns>
+        public bool Begin(Guid tokenId)
+        {
+            var request = GetRequest(Request("login", tokenId), Method.GET);
+            var response = RestClient.Execute<Token>(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Token = response.Data;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
