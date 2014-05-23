@@ -9,7 +9,7 @@ namespace Mojio
     /// <summary>
     /// 
     /// </summary>
-    public class AuthenticationProvider
+    public partial class AuthenticationProvider
     {
         /// <summary>
         /// provider

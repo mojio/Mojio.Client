@@ -48,6 +48,9 @@ namespace Mojio
         /// </summary>
         public string RedirectUris { get; set; }
 
+        /// <summary>
+        /// Identifies the OAuth type of this application
+        /// </summary>
         public AppTypes ApplicationType { get; set; }
     }
 

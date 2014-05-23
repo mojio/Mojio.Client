@@ -39,6 +39,9 @@ namespace Mojio
         /// </value>
         public DateTime ValidUntil { get; set; }
 
+        /// <summary>
+        /// An enum of scope (permission) flags.
+        /// </summary>
         public Scope Scopes { get; set; }
     }
 
@@ -51,6 +54,12 @@ namespace Mojio
     public static class ScopeExtensions {
         public static string ClaimType = "urn:oauth:scope";
 
+        /// <summary>
+        /// Converts input claim into scopes, if applicable.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static Scope AddClaim(this Scope scope, Claim input) {
             if (input.Type == ClaimType)
             {
@@ -104,6 +113,12 @@ namespace Mojio
             return scope | input;
         }
 
+        /// <summary>
+        /// Returns an or'd scope with the parsed input.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static Scope AddScope(this Scope scope, string input) {
             return scope | (Scope)Enum.Parse(typeof(Scope), input);
         }
