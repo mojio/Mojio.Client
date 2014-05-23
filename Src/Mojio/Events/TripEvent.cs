@@ -37,7 +37,7 @@ namespace Mojio.Events
         /// <summary>
         /// heading degrees
         /// </summary>
-        public short? Heading { get; set; }
+        public double? Heading { get; set; }
 
         // This property is not saved
         /// <summary>Gets or sets the force trip end.</summary>
