@@ -12,7 +12,7 @@ namespace Mojio
     /// User
     /// </summary>
     [Observable]
-    public partial class User : GuidEntity, IIdentity
+    public partial class User : GuidEntity
     {
         public override EntityType Type
         {
@@ -97,28 +97,6 @@ namespace Mojio
         /// The last login date.
         /// </value>
         public DateTime LastLoginDate { get; set; }
-
-        public string _AuthenticationType;
-
-        public bool _IsAuthenticated = false;
-
-        public bool IsAuthenticated
-        {
-            get
-            {
-                return this._IsAuthenticated;
-            }
-        }
-
-        public string Name
-        {
-            get { return Id.ToString(); }
-        }
-
-        public string AuthenticationType
-        {
-            get { return this._AuthenticationType; }
-        }
     }
 
 
