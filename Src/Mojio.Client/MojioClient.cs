@@ -44,8 +44,8 @@ namespace Mojio.Client
 
     public partial class MojioClient : IMojioClient
     {
-        public const string Sandbox = "http://sandbox.api.moj.io/v1";
-        public const string Live = "http://api.moj.io/v1";
+        public const string Sandbox = "https://sandbox.api.moj.io/v1";
+        public const string Live = "https://api.moj.io/v1";
 
         public int PageSize { get; set; }
 
