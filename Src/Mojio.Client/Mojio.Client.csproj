@@ -111,6 +111,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Mojio.Constants\Mojio.Constants.csproj">
+      <Project>{19decba5-2f82-4c3e-97c4-56c75f040f60}</Project>
+      <Name>Mojio.Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mojio\Mojio.csproj">
       <Project>{FAECCBE3-5E0C-4140-90F0-FF35059673E9}</Project>
       <Name>Mojio</Name>
