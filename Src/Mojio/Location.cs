@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +12,12 @@ namespace Mojio
     public partial class Location : ICloneable
     {
         /// <summary>
-        /// latitude coordinate
+        /// Latitude coordinate
         /// </summary>
         public double Lat { get; set; }
 
         /// <summary>
-        /// longitiude coordinate
+        /// Longitiude coordinate
         /// </summary>
         public double Lng { get; set; }
 
@@ -27,7 +27,7 @@ namespace Mojio
         public bool FromLockedGPS { get; set; }
 
         /// <summary>
-        /// possible error area of the lat lon data.  0 is undiluted.
+        /// Possible error area of the lat lon data.  0 is undiluted.
         /// </summary>
         public double Dilution { get; set; }
 
@@ -60,6 +60,11 @@ namespace Mojio
                 return true;
             
             return base.Equals (obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
