@@ -50,6 +50,18 @@ namespace Mojio
             Lng = double.NaN;
         }
 
+        public override bool Equals (object obj)
+        {
+            // If the locations are the same...
+            var location = obj as Location;
+            if (location != null
+               && location.Lat == Lat
+               && location.Lng == Lng)
+                return true;
+            
+            return base.Equals (obj);
+        }
+
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone ()
