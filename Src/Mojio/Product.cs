@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,58 +17,58 @@ namespace Mojio
         }
 
         /// <summary>
-        /// The mojio product identifier
+        /// The Mojio product identifier
         /// </summary>
         static public Guid MojioProductId = new Guid("15840D74-C48D-4F02-B60D-9D4C0C405B88");
         
         /// <summary>
-        /// The mojio SDK identifier
+        /// The Mojio SDK identifier
         /// </summary>
         static public Guid MojioSDKId = new Guid("B8621675-4499-45AE-8FA6-AF0F0A6B9A55");
 
         /// <summary>
-        /// app id
+        /// App id
         /// </summary>
         public Guid AppId { get; set; }
 
         /// <summary>
-        /// name
+        /// Name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// description
+        /// Description
         /// </summary>
         public string Description { get; set; }
         
         /// <summary>
-        /// shippable?
+        /// Shippable?
         /// </summary>
         public bool? Shipping { get; set; }
 
         /// <summary>
-        /// taxable?
+        /// Taxable?
         /// </summary>
         public bool? Taxable { get; set; }
         
         /// <summary>
-        /// price
+        /// Price
         /// </summary>
         public double Price { get; set; }
 
         /// <summary>
-        /// discontinued?
+        /// Discontinued?
         /// </summary>
         public bool Discontinued { get; set; }
 
         /// <summary>
-        /// owner id
+        /// Owner id
         /// </summary>
         public Guid? OwnerId { get;set; }
 
         [DefaultSort]
         /// <summary>
-        /// record creation timestamp
+        /// Record creation timestamp
         /// </summary>
         public DateTime CreationDate { get; set; }
     }
