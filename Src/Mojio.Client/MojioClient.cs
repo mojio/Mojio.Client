@@ -44,10 +44,10 @@ namespace Mojio.Client
 
     public partial class MojioClient : IMojioClient
     {
-        public const string Sandbox = "http://sandbox.api.moj.io/v1";
-        public const string Live = "http://api.moj.io/v1";
-        public const string OAuthAuthorize = "http://api.moj.io/oauth2/authorize";
-        public const string OAuthToken = "http://api.moj.io/oauth2/token";
+        public const string Sandbox = "https://sandbox.api.moj.io/v1";
+        public const string Live = "https://api.moj.io/v1";
+        public const string OAuthAuthorize = "https://api.moj.io/oauth2/authorize";
+        public const string OAuthToken = "https://api.moj.io/oauth2/token";
 
         public int PageSize { get; set; }
 

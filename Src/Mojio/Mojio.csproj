@@ -59,6 +59,7 @@
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CarState.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
+    <Compile Include="Constraints.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Events\BatteryEvent.cs" />
     <Compile Include="Events\ConnectionLost.cs" />
     <Compile Include="Events\DecelerationEvent.cs" />
+    <Compile Include="Events\DeviceDiagnosticEvent.cs" />
     <Compile Include="Events\DiagnosticEvent.cs" />
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
@@ -82,10 +84,13 @@
     <Compile Include="Converters\EventConverter.cs" />
     <Compile Include="Events\EventType.cs" />
     <Compile Include="Events\HeadingChangeEvent.cs" />
+    <Compile Include="Events\HeartBeatEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
     <Compile Include="Events\FuelEvent.cs" />
     <Compile Include="Events\MileageEvent.cs" />
+    <Compile Include="Events\MovementEvent.cs" />
     <Compile Include="Events\ParkEvent.cs" />
+    <Compile Include="Events\RPMEvent.cs" />
     <Compile Include="Events\SpeedEvent.cs" />
     <Compile Include="Events\PowerEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
@@ -108,6 +113,7 @@
     <Compile Include="Observers\ScriptObserver.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationState.cs" />
     <Compile Include="Serialization\DiscriminatorConverter.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.GoryBits.cs" />
@@ -127,7 +133,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>

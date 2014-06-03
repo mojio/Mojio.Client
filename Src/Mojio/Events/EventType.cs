@@ -185,6 +185,31 @@ namespace Mojio.Events
         /// </summary>
         LowFuel = 100017,
 
+        /// <summary>
+        /// RPM
+        /// </summary>
+        RPM = 100018,
+
+        /// <summary>
+        /// Movement Start
+        /// </summary>
+        MovementStart = 100019,
+
+        /// <summary>
+        /// Movement Stop
+        /// </summary>
+        MovementStop = 100020,
+
+        /// <summary>
+        /// HeartBeat
+        /// </summary>
+        HeartBeat = 100021,
+
+        /// <summary>
+        /// Device Diagnostic Data
+        /// </summary>
+        DeviceDiagnostic = 100022,
+
 
     }
 }
