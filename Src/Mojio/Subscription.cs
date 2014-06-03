@@ -186,8 +186,9 @@ namespace Mojio
                                     int interval = 60)
             : base (EventType.LowFuel)
         {
+            // rel Fuel Threshold Default  TODO:: one place to define low fuel for the API.
             if (fuelThreshold == 0)
-                fuelThreshold = 10; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+                fuelThreshold = 15; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
         }
