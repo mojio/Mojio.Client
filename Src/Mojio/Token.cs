@@ -110,7 +110,15 @@ namespace Mojio
         }
 
         public static string ToName(this Scope scope) {
-            return scope.ToNames().FirstOrDefault();
+            var baseScope = Enum.GetName(typeof(Scope), default(Scope));
+            var output = scope.ToNames();
+            if (output.Count() > 1) {
+                return String.Join(" ", output.Except(new[] { baseScope }));
+            }
+            else
+            {
+                return output.First();
+            }
         }
 
         /// <summary>
