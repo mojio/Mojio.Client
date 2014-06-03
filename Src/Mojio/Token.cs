@@ -48,7 +48,7 @@ namespace Mojio
     [Flags]
     public enum Scope { 
         basic = 0,
-        user = 1 << 0
+        full = 1 << 0
     }
 
     public static class ScopeExtensions {
@@ -120,7 +120,14 @@ namespace Mojio
         /// <param name="input"></param>
         /// <returns></returns>
         public static Scope AddScope(this Scope scope, string input) {
-            return scope | (Scope)Enum.Parse(typeof(Scope), input);
+            try
+            {
+                return scope | (Scope)Enum.Parse(typeof(Scope), input);
+            }
+            catch(ArgumentException e)
+            {
+                return scope | default(Scope);
+            }
         }
     }
 }
