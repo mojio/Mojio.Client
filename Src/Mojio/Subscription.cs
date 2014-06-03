@@ -50,8 +50,7 @@ namespace Mojio
     [JsonConverter (typeof(SubscriptionConverter))]
     public partial class Subscription : GuidEntity, IOwner
     {
-        public override global::Mojio.EntityType Type
-        {
+        public override global::Mojio.EntityType Type {
             get { return global::Mojio.EntityType.Subscription; }
         }
 
@@ -186,8 +185,9 @@ namespace Mojio
                                     int interval = 60)
             : base (EventType.LowFuel)
         {
+            //rel Fuel Threshold
             if (fuelThreshold == 0)
-                fuelThreshold = 10; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+                fuelThreshold = 15; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
         }
