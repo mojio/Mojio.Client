@@ -52,6 +52,16 @@ namespace Mojio
     }
 
     public static class ScopeExtensions {
+        public static Dictionary<Scope, string> Descriptions = new Dictionary<Scope, string>() { 
+            {Scope.basic, "Basic information about your Mojio account."},
+            {Scope.full, "Full access to your Mojio account."}
+        };
+
+        public static Dictionary<Scope, string> Names = new Dictionary<Scope, string>() { 
+            {Scope.basic, "Basic"},
+            {Scope.full, "Full"}
+        };
+
         public static string ClaimType = "urn:oauth:scope";
 
         /// <summary>
