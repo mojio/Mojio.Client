@@ -22,26 +22,34 @@ namespace Mojio.Client
 
         public Newtonsoft.Json.JsonSerializer Serializer { get; private set; }
 
+        public static bool IsJson (string input)
+        {
+            input = input.Trim ();
+            return (input.StartsWith ("{") && input.EndsWith ("}"))
+            || (input.StartsWith ("[") && input.EndsWith ("]"));
+        }
+
         public RSJsonSerializer ()
         {
-            ContentType = "application/json";
-            Serializer = new Newtonsoft.Json.JsonSerializer {
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Ignore
-            };
+                ContentType = "application/json";
+                Serializer = new Newtonsoft.Json.JsonSerializer {
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
 
-            Serializer.Converters.Add (new Newtonsoft.Json.Converters.StringEnumConverter ());
+                Serializer.Converters.Add (new Newtonsoft.Json.Converters.StringEnumConverter ());
         }
 
         public T Deserialize<T> (string content)
         {
-            //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
-            using (var stringReader = new StringReader (content)) {
-                using (var jsonReader = new JsonTextReader (stringReader)) {
-                    return Serializer.Deserialize<T> (jsonReader);
+                //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
+
+                using (var stringReader = new StringReader (content)) {
+                    using (var jsonReader = new JsonTextReader (stringReader)) {
+                        return Serializer.Deserialize<T> (jsonReader);
+                    }
                 }
-            }
         }
 
         public T Deserialize<T> (RestSharp.IRestResponse response)
@@ -51,15 +59,15 @@ namespace Mojio.Client
 
         public string Serialize (object obj)
         {
-            //return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            using (var stringWriter = new StringWriter ()) {
-                using (var jsonTextWriter = new JsonTextWriter (stringWriter)) {
-                    Serializer.Serialize (jsonTextWriter, obj);
+                //return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+                using (var stringWriter = new StringWriter ()) {
+                    using (var jsonTextWriter = new JsonTextWriter (stringWriter)) {
+                        Serializer.Serialize (jsonTextWriter, obj);
 
-                    var result = stringWriter.ToString ();
-                    return result;
+                        var result = stringWriter.ToString ();
+                        return result;
+                    }
                 }
-            }
         }
     }
 }

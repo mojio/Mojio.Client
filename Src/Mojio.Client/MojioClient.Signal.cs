@@ -74,7 +74,7 @@ namespace Mojio.Client
 
                     HubConnection.Error += (e) =>
                     {
-                        Console.WriteLine("ERROR: {0}", e);
+                        //Console.WriteLine("ERROR: {0}", e);
                     };
                 }
 
