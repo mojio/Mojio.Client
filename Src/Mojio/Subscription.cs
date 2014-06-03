@@ -14,21 +14,6 @@ using System.Configuration;
 namespace Mojio
 {
     /// <summary>
-    /// Subscription Type
-    /// </summary>
-    public enum SubscriptionType
-    {
-        /// <summary>The mojio</summary>
-        Mojio = 1,
-        /// <summary>The trip</summary>
-        Trip,
-        /// <summary>The user</summary>
-        User,
-        /// <summary>The vehicle</summary>
-        Vehicle,
-    }
-
-    /// <summary>
     /// Channel Type
     /// </summary>
     public enum ChannelType
@@ -93,7 +78,8 @@ namespace Mojio
 
         /// <summary>Gets or sets the type of the entity.</summary>
         /// <value>The type of the entity.</value>
-        public SubscriptionType EntityType { get; set; }
+        public EntityType EntityType { get; set; }
+
         // TODO convert this to Guid?
         /// <summary>Gets or sets the entity identifier.</summary>
         /// <value>The entity identifier.</value>

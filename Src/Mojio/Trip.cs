@@ -32,6 +32,7 @@ namespace Mojio
         /// The vehicle identifier.
         /// </value>
         [Observable(typeof(Vehicle))]
+        [Parent(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
 
         [DefaultSort]

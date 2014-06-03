@@ -20,6 +20,7 @@ namespace Mojio
         /// <summary>
         /// buyer id
         /// </summary>
+        [Parent(typeof(User))]
         public Guid BuyerId { get; set; }
 
         /// <summary>
