@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Linq;
@@ -142,7 +142,7 @@ namespace Mojio
             {
                 return scope | (Scope)Enum.Parse(typeof(Scope), input);
             }
-            catch(ArgumentException e)
+            catch(ArgumentException)
             {
                 return scope | default(Scope);
             }
