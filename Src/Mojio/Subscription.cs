@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 //using System.Configuration;
 using System.Globalization;
-using System.Configuration;
 
+//REL figure out how to do this on the mobile app side: using System.Configuration;
 namespace Mojio
 {
     /// <summary>
@@ -78,7 +78,6 @@ namespace Mojio
         /// <summary>Gets or sets the type of the entity.</summary>
         /// <value>The type of the entity.</value>
         public EntityType EntityType { get; set; }
-
         // TODO convert this to Guid?
         /// <summary>Gets or sets the entity identifier.</summary>
         /// <value>The entity identifier.</value>
@@ -174,7 +173,7 @@ namespace Mojio
         {
             // rel Fuel Threshold Default  TODO:: one place to define low fuel for the API.
             if (fuelThreshold == 0)
-                fuelThreshold = double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+                fuelThreshold = 15; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
         }
