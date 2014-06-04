@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Principal;
 
 namespace Mojio
 {
@@ -95,7 +96,7 @@ namespace Mojio
         /// <value>
         /// The last login date.
         /// </value>
-        public DateTime LastLoginDate { get; set; }        
+        public DateTime LastLoginDate { get; set; }
     }
 
 

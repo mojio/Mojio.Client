@@ -36,5 +36,7 @@ namespace Mojio
         BaseServiceTask,
         DeviceStats,
         Access,
+        AuthorizationToken,
+        RefreshToken
     }
 }
