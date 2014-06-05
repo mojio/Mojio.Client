@@ -10,23 +10,9 @@ using System.Threading.Tasks;
 //using System.Configuration;
 using System.Globalization;
 
+//REL figure out how to do this on the mobile app side: using System.Configuration;
 namespace Mojio
 {
-    /// <summary>
-    /// Subscription Type
-    /// </summary>
-    public enum SubscriptionType
-    {
-        /// <summary>The mojio</summary>
-        Mojio = 1,
-        /// <summary>The trip</summary>
-        Trip,
-        /// <summary>The user</summary>
-        User,
-        /// <summary>The vehicle</summary>
-        Vehicle,
-    }
-
     /// <summary>
     /// Channel Type
     /// </summary>
@@ -50,8 +36,7 @@ namespace Mojio
     [JsonConverter (typeof(SubscriptionConverter))]
     public partial class Subscription : GuidEntity, IOwner
     {
-        public override global::Mojio.EntityType Type
-        {
+        public override global::Mojio.EntityType Type {
             get { return global::Mojio.EntityType.Subscription; }
         }
 
@@ -92,7 +77,7 @@ namespace Mojio
 
         /// <summary>Gets or sets the type of the entity.</summary>
         /// <value>The type of the entity.</value>
-        public SubscriptionType EntityType { get; set; }
+        public EntityType EntityType { get; set; }
         // TODO convert this to Guid?
         /// <summary>Gets or sets the entity identifier.</summary>
         /// <value>The entity identifier.</value>
@@ -186,8 +171,9 @@ namespace Mojio
                                     int interval = 60)
             : base (EventType.LowFuel)
         {
+            // rel Fuel Threshold Default  TODO:: one place to define low fuel for the API.
             if (fuelThreshold == 0)
-                fuelThreshold = 10; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
+                fuelThreshold = 15; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
         }

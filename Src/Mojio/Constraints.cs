@@ -25,7 +25,7 @@ namespace Mojio
         public const string UsernameError = "Username may only contain letters, numbers, and dashes.";
         
         /// <summary>The password reg ex</summary>
-        public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?[A-Z])(?=.*?[a-z]))^.*";
+        public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[\d]))^.*";
         
         /// <summary>
         /// The password minimum length

@@ -35,7 +35,9 @@ namespace Mojio
         UserImage,
         BaseServiceTask,
         DeviceStats,
-        SimCard,
-        Device
+        Access,
+        AuthorizationToken,
+        RefreshToken,
+	SimCard
     }
 }

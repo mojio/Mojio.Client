@@ -34,25 +34,5 @@ namespace Mojio.Client
             var response = RestClient.Execute<Guid> (request);
             return response.Data;
         }
-
-        /// <summary>
-        /// Get collection of users who can view an application.
-        /// </summary>
-        /// <param name="appId">Application ID</param>
-        /// <returns></returns>
-        public Results<User> AppViewers (Guid appId, int page = 1)
-        {
-            return GetBy<User, App> (appId, page);
-        }
-
-        /// <summary>
-        /// Get collection of administrators for an application.
-        /// </summary>
-        /// <param name="appId">Application ID</param>
-        /// <returns></returns>
-        public Results<User> AppOwners (Guid appId, int page = 1)
-        {
-            return GetBy<User, App> (appId, page, "admins");
-        }
     }
 }

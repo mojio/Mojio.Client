@@ -46,6 +46,8 @@ namespace Mojio.Client
     {
         public const string Sandbox = "https://sandbox.api.moj.io/v1";
         public const string Live = "https://api.moj.io/v1";
+        public const string OAuthAuthorize = "https://api.moj.io/oauth2/authorize";
+        public const string OAuthToken = "https://api.moj.io/oauth2/token";
 
         public int PageSize { get; set; }
 
@@ -62,6 +64,7 @@ namespace Mojio.Client
             Map.Add (typeof(Mojio), "mojios");
             Map.Add (typeof(Vehicle), "vehicles");
             Map.Add (typeof(Event), "events");
+            Map.Add(typeof(Access), "access");
 
             //Map.Add(typeof(GPSEvent), "events");
             //Map.Add(typeof(IgnitionEvent), "events");
@@ -78,6 +81,12 @@ namespace Mojio.Client
 
             Map.Add (typeof(Observer), "observe");
             Map.Add(typeof(Log), "logs");
+        }
+
+        public MojioClient(Guid tokenId, string Url = Live)
+            : this (Url)
+        {
+            Begin(tokenId);
         }
 
         /// <summary>
@@ -142,19 +151,33 @@ namespace Mojio.Client
         /// <param name="action">Action Name</param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string Request (string controller, object id = null, string action = null, string key = null)
+        public string Request (params object[] args)
         {
-            if (key != null)
-                // Key currently only used for storage
-                return string.Format ("{0}/{1}/{2}/{3}", controller, id, action, key);
-            if (id != null && action != null)
-                return string.Format ("{0}/{1}/{2}", controller, id, action);
-            else if (id != null)
-                return string.Format ("{0}/{1}", controller, id);
-            else if (action != null)
-                return string.Format ("{0}/{1}", controller, action);
-            
-            return controller;
+            var str = "";
+            foreach(var arg in args)
+            {
+                if (arg != null)
+                    str += String.Format("{0}/", arg);
+            }
+
+            return str;
+        }
+
+        /// <summary>
+        /// Continue a session with a given tokenID.
+        /// </summary>
+        /// <param name="tokenId">A valid session token</param>
+        /// <returns></returns>
+        public bool Begin(Guid tokenId)
+        {
+            var request = GetRequest(Request("login", tokenId), Method.GET);
+            var response = RestClient.Execute<Token>(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Token = response.Data;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -934,128 +957,6 @@ namespace Mojio.Client
                 request.AddParameter ("criteria", criteria);
 
             return RequestAsync<Results<T>> (request);
-        }
-
-        /// <summary>
-        /// Add an administrator to entity.  Currently only apps can have administrators.
-        /// </summary>
-        /// <typeparam name="T">Entity type (Only App supported)</typeparam>
-        /// <param name="entity">Entity to add an admin to</param>
-        /// <param name="userId">Admin User ID</param>
-        /// <returns></returns>
-        public bool AddAdmin<T> (T entity, Guid userId)
-            where T : BaseEntity
-        {
-            return AddAdmin<T> (entity.IdToString, userId);
-        }
-
-        /// <summary>
-        /// Add an administrator to entity.  Currently only apps can have administrators.
-        /// </summary>
-        /// <typeparam name="T">Entity type (Only App supported)</typeparam>
-        /// <param name="id">Entity ID</param>
-        /// <param name="userId">Admin User ID</param>
-        /// <returns></returns>
-        public bool AddAdmin<T> (object id, Guid userId)
-        {
-            string action = Map [typeof(T)];
-
-            var request = GetRequest (Request (action, id, "admin"), Method.POST);
-            request.AddBody (userId);
-
-            var response = RestClient.Execute (request);
-            return response.StatusCode == HttpStatusCode.OK;
-        }
-
-        /// <summary>
-        /// Remove an administrator from an entity.  Currently only Apps supports administrators.
-        /// </summary>
-        /// <typeparam name="T">Entity type (Only App supported)</typeparam>
-        /// <param name="entity">Entity to remove admin from</param>
-        /// <param name="userId">Administrator's User ID</param>
-        /// <returns></returns>
-        public bool RemoveAdmin<T> (T entity, Guid userId)
-            where T : BaseEntity
-        {
-            return RemoveAdmin<T> (entity.IdToString, userId);
-        }
-
-        /// <summary>
-        /// Remove an administrator from an entity.  Currently only Apps supports administrators.
-        /// </summary>
-        /// <typeparam name="T">Entity type (Only App supported)</typeparam>
-        /// <param name="id">Entity ID</param>
-        /// <param name="userId">Administrator's User ID</param>
-        /// <returns></returns>
-        public bool RemoveAdmin<T> (object id, Guid userId)
-        {
-            string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "admin"), Method.DELETE);
-            request.AddParameter ("userId", userId);
-
-            var response = RestClient.Execute (request);
-            return response.StatusCode == HttpStatusCode.OK;
-        }
-
-        /// <summary>
-        /// Add a viewer to an entity.
-        /// </summary>
-        /// <typeparam name="T">Entity Type</typeparam>
-        /// <param name="entity">Entity</param>
-        /// <param name="userId">Viewer's User ID</param>
-        /// <returns></returns>
-        public bool AddViewer<T> (T entity, Guid userId)
-            where T : BaseEntity
-        {
-            return AddViewer<T> (entity.IdToString, userId);
-        }
-
-        /// <summary>
-        /// Add a viewer to an entity.
-        /// </summary>
-        /// <typeparam name="T">Entity Type</typeparam>
-        /// <param name="id">Entity ID</param>
-        /// <param name="userId">Viewer's User ID</param>
-        /// <returns></returns>
-        public bool AddViewer<T> (object id, Guid userId)
-        {
-            string action = Map [typeof(T)];
-
-            var request = GetRequest (Request (action, id, "viewer"), Method.POST);
-            request.AddBody (userId);
-
-            var response = RestClient.Execute (request);
-            return response.StatusCode == HttpStatusCode.OK;
-        }
-
-        /// <summary>
-        /// Remove a viewer from an entity.
-        /// </summary>
-        /// <typeparam name="T">Entity Type</typeparam>
-        /// <param name="entity">Entity</param>
-        /// <param name="userId">Viewer's User ID</param>
-        /// <returns></returns>
-        public bool RemoveViewer<T> (T entity, Guid userId)
-            where T : BaseEntity
-        {
-            return RemoveViewer<T> (entity.IdToString, userId);
-        }
-
-        /// <summary>
-        /// Remove a viewer from an entity.
-        /// </summary>
-        /// <typeparam name="T">Entity Type</typeparam>
-        /// <param name="id">Entity ID</param>
-        /// <param name="userId">Viewer's User ID</param>
-        /// <returns></returns>
-        public bool RemoveViewer<T> (object id, Guid userId)
-        {
-            string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id, "viewer"), Method.DELETE);
-            request.AddParameter ("userId", userId);
-
-            var response = RestClient.Execute (request);
-            return response.StatusCode == HttpStatusCode.OK;
         }
 
         public void ThrowError (string errorMessage)

@@ -36,7 +36,9 @@ namespace Mojio.Serialization
                 .Contains<Subscription>(EntityType.Subscription)
                 .Contains<Event>(EntityType.Event)
                 .Contains<Mojio>(EntityType.Mojio)
-                .Contains<App>(EntityType.App);
+                .Contains<App>(EntityType.App)
+                .Contains<Access>(EntityType.Access)
+                ;
 
             // The following allows a partial file to continue
             // building the map
