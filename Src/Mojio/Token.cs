@@ -46,7 +46,7 @@ namespace Mojio
 
     [Flags]
     public enum Scope { 
-        basic = 0,
-        full = 1 << 0
+        Basic = 0,
+        Full = 1 << 0
     }
 }
