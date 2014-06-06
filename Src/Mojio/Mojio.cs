@@ -24,6 +24,7 @@ namespace Mojio
         [Display (Name = "Owner")]
         [Observable(typeof(User))]
         [Parent(typeof(User))]
+        [Obsolete("Use the access record to determine owner")]
         public Guid? OwnerId { get; set; }
 
         /// <summary>

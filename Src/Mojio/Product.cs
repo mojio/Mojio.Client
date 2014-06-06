@@ -64,6 +64,7 @@ namespace Mojio
         /// <summary>
         /// Owner id
         /// </summary>
+        [Obsolete("Use the access record to determine owner")]
         public Guid? OwnerId { get;set; }
 
         [DefaultSort]
