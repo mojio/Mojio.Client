@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -36,6 +36,7 @@ namespace Mojio
         /// <summary>
         /// record creation timestamp
         /// </summary>
+        [Display(Name = "Creation Date")]
         public DateTime CreationDate { get; set; }
 
         /// <summary>
@@ -46,11 +47,13 @@ namespace Mojio
         /// <summary>
         /// Valid redirect uris
         /// </summary>
+        [Display(Name = "Redirect URIs")]
         public string RedirectUris { get; set; }
 
         /// <summary>
         /// Identifies the OAuth type of this application
         /// </summary>
+        [Display(Name = "Application Type")]
         public AppTypes ApplicationType { get; set; }
     }
 
