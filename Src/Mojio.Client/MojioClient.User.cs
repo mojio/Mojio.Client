@@ -211,7 +211,7 @@ namespace Mojio.Client
             return Token != null && Token.UserId != null;
         }
 
-        void ResetCurrentUser ()
+        protected void ResetCurrentUser ()
         {
             _currentUser = null;
         }
