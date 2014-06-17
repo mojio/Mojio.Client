@@ -32,6 +32,14 @@ namespace Mojio.Client
 
         Task<Client.MojioResponse<Mojio>> ClaimAsync (String imei, int? pin);
 
+        bool Unclaim(Guid id);
+
+        Task<MojioResponse<bool>> UnclaimAsync(Guid id);
+
+        bool UpdatePin(Guid id, int pin);
+
+        Task<MojioResponse<bool>> UpdatePinAsync(Guid id, int pin);
+
         bool ClearUser ();
 
         Task<Client.MojioResponse<Token>> ClearUserAsync ();

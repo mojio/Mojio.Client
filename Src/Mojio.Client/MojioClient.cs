@@ -564,6 +564,39 @@ namespace Mojio.Client
             return RequestAsync<Mojio> (request);
         }
 
+        public bool Unclaim(Guid id)
+        {
+            var response = UnclaimAsync(id).Result;
+
+            return response.Data;
+        }
+
+        public Task<MojioResponse<bool>> UnclaimAsync(Guid id)
+        {
+            string controller = Map[typeof(Mojio)];
+
+            var request = GetRequest(Request(controller, id, "user"), Method.DELETE);
+
+            return RequestAsync<bool>(request);
+        }
+
+        public bool UpdatePin(Guid id, int pin)
+        {
+            var response = UpdatePinAsync(id, pin).Result;
+
+            return response.Data;
+        }
+
+        public Task<MojioResponse<bool>> UpdatePinAsync(Guid id, int pin)
+        {
+            string controller = Map[typeof(Mojio)];
+
+            var request = GetRequest(Request(controller, id, "pin"), Method.PUT);
+            request.AddParameter("pin", pin);
+
+            return RequestAsync<bool>(request);
+        }
+
         /// <summary>
         /// Delete an entity through the API.
         /// </summary>
