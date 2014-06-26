@@ -8,7 +8,7 @@ namespace Mojio
 {
     public enum EntityType
     {
-        Token,
+        Token=0,
         Vehicle,
         Storage,
         Product,
@@ -37,6 +37,8 @@ namespace Mojio
         DeviceStats,
         Access,
         AuthorizationToken,
-        RefreshToken
+        RefreshToken,
+        Address,
+        Location
     }
 }
