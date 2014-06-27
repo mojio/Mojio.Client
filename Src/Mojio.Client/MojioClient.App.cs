@@ -10,26 +10,26 @@ namespace Mojio.Client
     public partial class MojioClient
     {
         /// <summary>
-        /// Get an applications Private Key.
+        /// Get an application's Private Key.
         /// </summary>
         /// <param name="app">Application Entity</param>
         /// <returns></returns>
-        public Guid SecretKey (App app)
+        public Guid SecretKey (App app, bool sandboxed = true)
         {
-            // TODO: make this restricted and remove from public client
-            return SecretKey (app.Id);
+            return SecretKey (app.Id, sandboxed);
         }
 
         /// <summary>
-        /// Get an applicaitons Privaet Key.
+        /// Get an application's Private Key.
         /// </summary>
         /// <param name="appId">Application ID</param>
         /// <returns></returns>
-        public Guid SecretKey (Guid appId)
+        public Guid SecretKey (Guid appId, bool sandboxed = true)
         {
-            // TODO: make this restricted and remove from public client
             string action = Map [typeof(App)];
             var request = GetRequest (Request (action, appId, "secret"), Method.GET);
+
+            request.AddParameter("sandboxed", sandboxed);
 
             var response = RestClient.Execute<Guid> (request);
             return response.Data;
