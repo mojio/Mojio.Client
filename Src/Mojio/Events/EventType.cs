@@ -210,6 +210,11 @@ namespace Mojio.Events
         /// </summary>
         DeviceDiagnostic = 100022,
 
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        Unknown = -1
+
 
     }
 }
