@@ -39,6 +39,7 @@ namespace Mojio
         AuthorizationToken,
         RefreshToken,
         Address,
-        Location
+        Location,
+		SimCard
     }
 }
