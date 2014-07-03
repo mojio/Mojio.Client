@@ -23,7 +23,17 @@ namespace Mojio
 
         /// <summary>The username error</summary>
         public const string UsernameError = "Username may only contain letters, numbers, and dashes.";
-        
+
+        /// <summary>
+        /// The minimum length error
+        /// </summary>
+        public const string MinLengthError = "Username must be at least 6 characters in length.";
+
+        /// <summary>
+        /// The maximum length error
+        /// </summary>
+        public const string MaxLengthError = "Username must be not more than 32 characters in length.";
+
         /// <summary>The password reg ex</summary>
         public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[\d]))^.*";
         
