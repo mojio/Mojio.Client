@@ -414,6 +414,29 @@ namespace Mojio.Client
             });
         }
 
+        public bool ChangeEnvironment(string environment)
+        {
+            var current = (Token.Sandboxed) ? "sandbox" : "live";
+            if (current != environment) {
+                var request = GetRequest(Request("login", Token.Id, "Environment"), Method.POST);
+                request.AddParameter("environment", environment);
+
+                try
+                {
+                    var task = RequestAsync<Token>(request);
+                    task.Wait();
+                    Token = task.Result.Data;
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }else{
+                return true;
+            }
+        }
+
         /// <summary>
         /// Generate basic request. Adds the session token to header if exists.
         /// </summary>
