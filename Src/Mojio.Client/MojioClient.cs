@@ -414,13 +414,11 @@ namespace Mojio.Client
             });
         }
 
-        public bool ChangeEnvironment(string environment)
+        public bool ChangeEnvironment(bool sandboxed)
         {
-            var current = (Token.Sandboxed) ? "sandbox" : "live";
-            if (current != environment) {
-                var request = GetRequest(Request("login", Token.Id, "Environment"), Method.POST);
-                request.AddParameter("environment", environment);
-
+            if (Token.Sandboxed != sandboxed) {
+                var request = GetRequest(Request("login", Token.Id, "Sandboxed"), Method.PUT);
+                request.AddParameter("sandboxed", sandboxed);
                 try
                 {
                     var task = RequestAsync<Token>(request);
