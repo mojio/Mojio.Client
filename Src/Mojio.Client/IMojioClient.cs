@@ -231,5 +231,7 @@ namespace Mojio.Client
         Task<bool> SetStoredAsync<T> (Guid id, string key, string value);
 
         Roles? GetRole(Guid? userId = null);
+
+        bool ChangeEnvironment(bool sandboxed);
     }
 }
