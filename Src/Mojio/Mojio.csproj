@@ -65,7 +65,6 @@
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
-    <Compile Include="DeviceConfiguration.cs" />
     <Compile Include="DeviceLog.cs" />
     <Compile Include="DTC.cs" />
     <Compile Include="Entity.cs" />
