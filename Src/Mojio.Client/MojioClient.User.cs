@@ -234,7 +234,7 @@ namespace Mojio.Client
                     newPassword = newPassword
                 });
 
-            var response = RestClient.Execute (request);
+            var response = RestClient.ExecuteAsync (request).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -373,7 +373,7 @@ namespace Mojio.Client
             var request = GetRequest (Request (action, reset.UserNameOrEmail, "Password"), Method.POST);
             request.AddBody (reset);
 
-            var response = RestClient.Execute (request);
+            var response = RestClient.ExecuteAsync (request).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -477,7 +477,7 @@ namespace Mojio.Client
             string action = Map [typeof(User)];
             var request = GetRequest (Request (action, userId, "shipping"), Method.GET);
 
-            var response = RestClient.Execute<Address> (request);
+            var response = RestClient.ExecuteAsync<Address> (request).Result;
             return response.Data;
         }
 
@@ -490,7 +490,7 @@ namespace Mojio.Client
             var request = GetRequest (Request (action, userId, "shipping"), Method.POST);
             request.AddBody (shipping);
 
-            var response = RestClient.Execute (request);
+            var response = RestClient.ExecuteAsync (request).Result;
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -561,7 +561,7 @@ namespace Mojio.Client
             var request = GetRequest (Request (action, userId, "creditcard"), Method.POST);
             request.AddBody (creditCard);
 
-            var response = RestClient.Execute<bool> (request);
+            var response = RestClient.ExecuteAsync<bool> (request).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -635,7 +635,7 @@ namespace Mojio.Client
             string action = Map [typeof(User)];
             var request = GetRequest (Request (action, userId, "image"), Method.DELETE);
 
-            var response = RestClient.Execute<bool> (request);
+            var response = RestClient.ExecuteAsync<bool> (request).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -659,7 +659,9 @@ namespace Mojio.Client
 
             var tcs = new TaskCompletionSource<byte[]> ();
             try {
-                RestClient.ExecuteAsync (request, response => {
+                RestClient.ExecuteAsync (request).ContinueWith( t => {
+                    var response = t.Result;
+
                     if (response.StatusCode == HttpStatusCode.OK)
                         tcs.SetResult (response.RawBytes);
                     else
@@ -679,7 +681,7 @@ namespace Mojio.Client
             string action = Map[typeof(User)];
             var request = GetRequest(Request(action, userId, "role"), Method.GET);
 
-            var response = RestClient.Execute<Roles?>(request);
+            var response = RestClient.ExecuteAsync<Roles?>(request).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
                 return response.Data;

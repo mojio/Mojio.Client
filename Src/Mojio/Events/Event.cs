@@ -49,7 +49,7 @@ namespace Mojio.Events
     /// event
     /// </summary>
     [JsonConverter(typeof(DiscriminatorConverter<Event>))]
-    public partial class Event : GuidEntity, IEvent, IOwner, ICloneable
+    public partial class Event : GuidEntity, IEvent, IOwner
     {
         public override EntityType Type
         {

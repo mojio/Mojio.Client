@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using Mojio.Client.Linq;
 using Mojio.Events;
 using RestSharp;
@@ -9,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Mojio.Client
 {
@@ -27,7 +27,8 @@ namespace Mojio.Client
                     return Map [type];
 
                 foreach (var pair in Map) {
-                    if (type.IsSubclassOf (pair.Key)) {
+                    if (type.GetTypeInfo().IsSubclassOf(pair.Key))
+                    {
                         // Lets add it now... might be faster?
                         Add (type, pair.Value);
                         return pair.Value;
@@ -171,7 +172,7 @@ namespace Mojio.Client
         public bool Begin(Guid tokenId)
         {
             var request = GetRequest(Request("login", tokenId), Method.GET);
-            var response = RestClient.Execute<Token>(request);
+            var response = RestClient.ExecuteAsync<Token>(request).Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 Token = response.Data;
@@ -193,7 +194,7 @@ namespace Mojio.Client
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
                     var request = GetRequest (Request ("login", tokenId.Value), Method.GET);
-                    var response = RestClient.Execute<Token> (request);
+                    var response = RestClient.ExecuteAsync<Token> (request).Result;
                     if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId) {
                         Token = response.Data;
                         return true;
@@ -218,7 +219,7 @@ namespace Mojio.Client
             var request = new CustomRestRequest (Request ("login", appId), Method.POST);
 
             request.AddParameter ("secretKey", secretKey);
-            var response = RestClient.Execute<Token> (request);
+            var response = RestClient.ExecuteAsync<Token> (request).Result;
             if (response.StatusCode == HttpStatusCode.OK) {
                 Token = response.Data;
                 return true;
@@ -245,7 +246,7 @@ namespace Mojio.Client
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
-            var response = RestClient.Execute<Token> (request);
+            var response = RestClient.ExecuteAsync<Token> (request).Result;
             if (response.StatusCode == HttpStatusCode.OK) {
                 Token = response.Data;
                 return true;
@@ -460,7 +461,9 @@ namespace Mojio.Client
         {
             var tcs = new TaskCompletionSource<MojioResponse> ();
             try {
-                RestClient.ExecuteAsync (request, response => {
+                RestClient.ExecuteAsync (request).ContinueWith(t => {
+                    var response = t.Result;
+
                     tcs.SetResult (new MojioResponse {
                         Content = response.Content,
                         StatusCode = response.StatusCode
@@ -477,9 +480,10 @@ namespace Mojio.Client
         {
             var tcs = new TaskCompletionSource<MojioResponse<T>> ();
 
-            RestClient.ExecuteAsync<T> (request, response => {
-                MojioResponse<T> r;
+            RestClient.ExecuteAsync<T> (request).ContinueWith( t => {
+                var response = t.Result;
 
+                MojioResponse<T> r;
                 if (response.StatusCode == 0) {
                     r = new MojioResponse<T> {
                         ErrorMessage = response.ErrorMessage,

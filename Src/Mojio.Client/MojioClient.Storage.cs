@@ -74,7 +74,7 @@ namespace Mojio.Client
             var request = GetRequest(Request(action, id, "store", key), Method.PUT);
             request.AddBody(value);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.ExecuteAsync(request).Result;
             return response.StatusCode == HttpStatusCode.OK
                 || response.StatusCode == HttpStatusCode.Created;
         }
@@ -95,7 +95,7 @@ namespace Mojio.Client
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.GET);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.ExecuteAsync(request).Result;
 
             // Invalid response.
             // TODO: we should add methods to pass back the HttpStatusCode and message
@@ -114,7 +114,7 @@ namespace Mojio.Client
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.GET);
 
-            var response = RestClient.Execute<T>(request);
+            var response = RestClient.ExecuteAsync<T>(request).Result;
             return response.Data;
         }
 
@@ -128,7 +128,7 @@ namespace Mojio.Client
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.DELETE);
 
-            var response = RestClient.Execute(request);
+            var response = RestClient.ExecuteAsync(request).Result;
             return response.StatusCode == HttpStatusCode.OK;
         }
     }

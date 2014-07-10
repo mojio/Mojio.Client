@@ -59,7 +59,7 @@ namespace Mojio.Client
             string action = Map [typeof(Vehicle)];
             var request = GetRequest (Request (action, id, "image"), Method.DELETE);
 
-            var response = RestClient.Execute<bool> (request);
+            var response = RestClient.ExecuteAsync<bool> (request).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -83,7 +83,9 @@ namespace Mojio.Client
 
             var tcs = new TaskCompletionSource<byte[]> ();
             try {
-                RestClient.ExecuteAsync (request, response => {
+                RestClient.ExecuteAsync (request).ContinueWith(t => {
+                    var response = t.Result;
+
                     if (response.StatusCode == HttpStatusCode.OK)
                         tcs.SetResult (response.RawBytes);
                     else

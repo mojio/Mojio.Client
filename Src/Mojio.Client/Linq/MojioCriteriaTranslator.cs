@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Mojio.Client.Linq
 {
@@ -75,7 +76,7 @@ namespace Mojio.Client.Linq
                 return value;
             }
 
-            if (type.IsSubclassOf(typeof(Enum)))
+            if (type.GetTypeInfo().IsSubclassOf(typeof(Enum)))
                 return Enum.GetName(type, constant.Value);
             else //if (constant.Type == type)
                 return constant.Value.ToString();
@@ -110,12 +111,12 @@ namespace Mojio.Client.Linq
             if (constantExpression != null)
             {
                 var constantType = constantExpression.Type;
-                if (constantType.IsGenericType)
+                if (constantType.GetTypeInfo().IsGenericType)
                 {
-                    var genericTypeDefinition = constantType.GetGenericTypeDefinition();
+                    var genericTypeDefinition = constantType.GetTypeInfo().GetGenericTypeDefinition();
                     if (genericTypeDefinition == typeof(MojioQueryable<>))
                     {
-                        return constantType.GetGenericArguments()[0];
+                        return constantType.GetTypeInfo().GenericTypeArguments[0];
                     }
                 }
             }
@@ -203,7 +204,7 @@ namespace Mojio.Client.Linq
                 string currentValue;
                 if (criteria.TryGetValue (key, out currentValue)) {
                     // Value already exists, lets fetch the current criteria.
-                    if (!currentValue.Contains ('-')) {
+                    if (!currentValue.Contains ("-")) {
                         throw new ArgumentException ("Huh? We have already performed an equals on this parameter");
                     }
 

@@ -23,7 +23,7 @@ namespace Mojio.Client
 
             request.AddBody (events);
 
-            var response = RestClient.Execute (request);
+            var response = RestClient.ExecuteAsync (request);
 
             return;
         }
