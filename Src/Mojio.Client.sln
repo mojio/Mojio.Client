@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio", "Mojio\Mojio.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio.Client", "Mojio.Client\Mojio.Client.csproj", "{4CB66C66-146B-4C1B-B9A0-E3C901616152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharp.Portable", "Components\RestSharp\RestSharp.Portable\RestSharp.Portable.csproj", "{BA2352E1-CB07-4795-A2EB-F70720B2BBC9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA2352E1-CB07-4795-A2EB-F70720B2BBC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA2352E1-CB07-4795-A2EB-F70720B2BBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA2352E1-CB07-4795-A2EB-F70720B2BBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA2352E1-CB07-4795-A2EB-F70720B2BBC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

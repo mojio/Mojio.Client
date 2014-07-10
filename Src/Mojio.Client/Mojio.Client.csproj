@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4CB66C66-146B-4C1B-B9A0-E3C901616152}</ProjectGuid>
+    <ProjectGuid>{64B1AA53-3183-400B-82D7-DC34CA2EE35A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mojio.Client</RootNamespace>
@@ -67,6 +67,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\Components\RestSharp.Portable\bin\Release\RestSharp.Portable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\portable-net40+sl4+win8+wp71\System.Net.Http.dll</HintPath>
     </Reference>
@@ -82,10 +85,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Components\RestSharp\RestSharp.Portable\RestSharp.Portable.csproj">
-      <Project>{ba2352e1-cb07-4795-a2eb-f70720b2bbc9}</Project>
-      <Name>RestSharp.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mojio\Mojio.csproj">
       <Project>{92991279-9ba1-44f4-8e30-cc0bf5133900}</Project>
       <Name>Mojio</Name>
