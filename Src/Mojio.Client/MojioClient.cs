@@ -27,7 +27,7 @@ namespace Mojio.Client
                     return Map [type];
 
                 foreach (var pair in Map) {
-                    if (type.GetTypeInfo().IsSubclassOf(pair.Key))
+                    if (type.IsSubclassOf(pair.Key))
                     {
                         // Lets add it now... might be faster?
                         Add (type, pair.Value);
