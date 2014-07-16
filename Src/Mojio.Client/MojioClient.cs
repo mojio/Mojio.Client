@@ -141,7 +141,9 @@ namespace Mojio.Client
             SessionTime = 24 * 60;
 
             RestClient = new RestClient (Url);
+            RestClient.ClearHandlers ();
             RestClient.AddHandler ("application/json", new RSJsonSerializer ());
+            RestClient.AddHandler ("*", new RSJsonSerializer ());
         }
 
         /// <summary>
@@ -216,8 +218,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey)
         {
-            var request = new CustomRestRequest (Request ("login", appId), Method.POST);
-
+            var request = GetRequest (Request ("login", appId), Method.POST);
+            request.AddBody ("");
             request.AddParameter ("secretKey", secretKey);
             var response = RestClient.ExecuteAsync<Token> (request).Result;
             if (response.StatusCode == HttpStatusCode.OK) {
@@ -241,8 +243,8 @@ namespace Mojio.Client
         /// <returns></returns>
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = new CustomRestRequest (Request ("login", appId), Method.POST);
-
+            var request = GetRequest (Request ("login", appId), Method.POST);
+            request.AddBody ("");
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -305,7 +307,7 @@ namespace Mojio.Client
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
             var request = GetRequest (Request ("login", userOrEmail, "user"), Method.POST);
-
+            request.AddBody ("");
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
             request.AddParameter ("minutes", SessionTime);
@@ -402,6 +404,7 @@ namespace Mojio.Client
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
             var request = GetRequest (Request ("login", Token.Id, "Session"), Method.POST);
+            request.AddBody ("");
             request.AddParameter ("minutes", minutes);
 
             var task = RequestAsync<Token> (request);
