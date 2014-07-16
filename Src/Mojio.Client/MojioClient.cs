@@ -418,25 +418,42 @@ namespace Mojio.Client
             });
         }
 
-        public bool ChangeEnvironment(bool sandboxed)
+        public Task<bool> ChangeEnvironmentAsync(bool sandboxed)
         {
             if (Token.Sandboxed != sandboxed) {
                 var request = GetRequest(Request("login", Token.Id, "Sandboxed"), Method.PUT);
+                request.AddBody ("");
                 request.AddParameter("sandboxed", sandboxed);
                 try
                 {
-                    var task = RequestAsync<Token>(request);
-                    task.Wait();
-                    Token = task.Result.Data;
-                    return true;
+                    return RequestAsync<Token>(request).ContinueWith(t => {
+                        var result = t.Result;
+                        var token = result.Data;
+
+                        if(token != null) {
+                            Token = token;
+                            return true;
+                        }else {
+                            System.Diagnostics.Debug.WriteLine("Failed {0}: {1}", result.Content, result.ErrorMessage);
+                            return false;
+                        }
+
+                        return false;
+                    });
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return Task.Factory.StartNew (() => false);
                 }
             }else{
-                return true;
+                return Task.Factory.StartNew (() => true);
             }
+        }
+
+        public bool ChangeEnvironment(bool sandboxed)
+        {
+            var task = ChangeEnvironmentAsync (sandboxed);
+            return task.Result;
         }
 
         /// <summary>
@@ -587,6 +604,7 @@ namespace Mojio.Client
             string controller = Map [typeof(Mojio)];
 
             var request = GetRequest (Request (controller, imei, "user"), Method.PUT);
+            request.AddBody ("");
             request.AddParameter ("pin", pin);
 
             return RequestAsync<Mojio> (request);
@@ -620,6 +638,7 @@ namespace Mojio.Client
             string controller = Map[typeof(Mojio)];
 
             var request = GetRequest(Request(controller, id, "pin"), Method.PUT);
+            request.AddBody ("");
             request.AddParameter("pin", pin);
 
             return RequestAsync<bool>(request);

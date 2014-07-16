@@ -85,7 +85,7 @@ namespace Mojio.Client
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
                 
             var request = GetRequest (Request ("login", "facebook", "externaluser"), Method.POST);
-
+            request.AddBody ("");
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("accessToken", access_token);
 

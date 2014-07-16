@@ -233,5 +233,7 @@ namespace Mojio.Client
         Roles? GetRole(Guid? userId = null);
 
         bool ChangeEnvironment(bool sandboxed);
+
+        Task<bool> ChangeEnvironmentAsync(bool sandboxed);
     }
 }
