@@ -891,12 +891,12 @@ namespace Mojio.Client
         /// <returns></returns>
         private async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
         {
-            return await Task.Factory.StartNew(() =>
-            {
-                var task = func();
-
-                return task.Result;
-            }).ConfigureAwait(continueOnCapturedContext: false);
+            return await Task.Factory.StartNew(
+                () => func().Result, 
+                CancellationToken.None, 
+                TaskCreationOptions.None, 
+                TaskScheduler.Default
+            ).ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
