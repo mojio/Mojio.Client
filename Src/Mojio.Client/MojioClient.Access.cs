@@ -16,9 +16,10 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public Access GetAccess(GuidEntity entity)
         {
-            var task = GetAccessAsync(entity);
+            var task = AvoidAsyncDeadlock(() => GetAccessAsync(entity));
             var response = task.Result;
 
             return response.Data;
@@ -30,6 +31,7 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public Permissions GetUserAccess(GuidEntity entity, Guid userId)
         {
             var access = GetAccess(entity);
@@ -59,9 +61,10 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public Permissions MyAccess(GuidEntity entity)
         {
-            var task = GetAccessAsync(entity);
+            var task = AvoidAsyncDeadlock(() => GetAccessAsync(entity));
             var response = task.Result;
 
             var access = response.Data;
@@ -82,9 +85,10 @@ namespace Mojio.Client
         /// <param name="groupId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public bool GrantUserAccess(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
         {
-            var task = GrantUserAccessAsync(entity, userId, flags);
+            var task = AvoidAsyncDeadlock(() => GrantUserAccessAsync(entity, userId, flags));
             var response = task.Result;
 
             return response.StatusCode == HttpStatusCode.OK;
@@ -120,9 +124,10 @@ namespace Mojio.Client
         /// <param name="groupId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public bool SetUserAccess(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
         {
-            var task = SetUserAccessAsync(entity, userId, flags);
+            var task = AvoidAsyncDeadlock(() => SetUserAccessAsync(entity, userId, flags));
             var response = task.Result;
 
             return response.StatusCode == HttpStatusCode.OK;
@@ -156,9 +161,10 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="groupId">The group or user identifier.</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public bool RevokeUserAccess(GuidEntity entity, Guid groupId)
         {
-            var task = RevokeUserAccessAsync(entity, groupId);
+            var task = AvoidAsyncDeadlock(() => RevokeUserAccessAsync(entity, groupId));
             var response = task.Result;
 
             return response.StatusCode == HttpStatusCode.OK;
