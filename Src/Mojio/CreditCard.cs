@@ -51,20 +51,4 @@ namespace Mojio
         /// </summary>
         public Address Address { get; set; }
     }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    public class BetaPayment
-    {
-        /// <summary>Gets or sets the credit card.</summary>
-        /// <value>The credit card.</value>
-        public CreditCard CreditCard { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [authorize charge].
-        /// </summary>
-        /// <value><c>true</c> if [authorize charge]; otherwise, <c>false</c>.</value>
-        public bool AuthorizeCharge { get; set; }
-    }
 }
