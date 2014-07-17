@@ -13,7 +13,7 @@ namespace Mojio
     /// </summary>
     public abstract partial class BaseEntity
     {
-        static Type[] Types = typeof(BaseEntity).Assembly.GetTypes();
+        static Type[] Types = typeof(BaseEntity).Assembly.GetExportedTypes();
 
         /// <summary>
         /// Gets or sets a value indicating whether [delete].

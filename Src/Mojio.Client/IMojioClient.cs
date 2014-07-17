@@ -66,7 +66,7 @@ namespace Mojio.Client
 
         bool Delete<T> (T entity, out HttpStatusCode code, out string message) where T : BaseEntity;
 
-        Task<Client.MojioResponse> DeleteAsync<T> (object id);
+        Task<MojioResponse<bool>> DeleteAsync<T>(object id);
 
         bool DeleteImage (out HttpStatusCode code, out string message, Guid? userId = null);
 
@@ -233,5 +233,7 @@ namespace Mojio.Client
         Roles? GetRole(Guid? userId = null);
 
         bool ChangeEnvironment(bool sandboxed);
+
+        Task<bool> ChangeEnvironmentAsync(bool sandboxed);
     }
 }

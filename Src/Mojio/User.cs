@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 using System.Security.Principal;
 
 namespace Mojio
@@ -34,9 +33,7 @@ namespace Mojio
         /// </summary>
         /// <value>
         /// The first name.
-        /// </value>
-        [Display(Name="First Name")]
-        [MaxLength(32, ErrorMessage="Maximum lenght 32 characters")]
+        /// </value>        
         public string FirstName { get; set; }
 
         /// <summary>
@@ -45,8 +42,6 @@ namespace Mojio
         /// <value>
         /// The last name.
         /// </value>
-        [Display(Name = "Last Name")]
-        [MaxLength(32, ErrorMessage = "Maximum lenght 32 characters")]
         public string LastName { get; set; }
 
         /// <summary>
@@ -55,7 +50,6 @@ namespace Mojio
         /// <value>
         /// The email.
         /// </value>
-        [Display(Name = "Email")]
         public string Email { get; set; }
 
         /// <summary>

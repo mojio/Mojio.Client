@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FAECCBE3-5E0C-4140-90F0-FF35059673E9}</ProjectGuid>
+    <ProjectGuid>{92991279-9BA1-44F4-8E30-CC0BF5133900}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mojio</RootNamespace>
     <AssemblyName>Mojio</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -24,8 +26,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Mojio.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,23 +34,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="Mojio\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
@@ -62,6 +49,7 @@
     <Compile Include="CollectionNameAttribute.cs" />
     <Compile Include="Constraints.cs" />
     <Compile Include="Converters\Converter.cs" />
+    <Compile Include="Converters\EventConverter.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
@@ -79,26 +67,27 @@
     <Compile Include="Events\DecelerationEvent.cs" />
     <Compile Include="Events\DeviceDiagnosticEvent.cs" />
     <Compile Include="Events\DiagnosticEvent.cs" />
-    <Compile Include="Events\FenceEvent.cs" />
-    <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\Event.cs" />
-    <Compile Include="Converters\EventConverter.cs" />
     <Compile Include="Events\EventType.cs" />
+    <Compile Include="Events\FenceEvent.cs" />
+    <Compile Include="Events\FuelEvent.cs" />
+    <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\HeadingChangeEvent.cs" />
     <Compile Include="Events\HeartBeatEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
-    <Compile Include="Events\FuelEvent.cs" />
+    <Compile Include="Events\Log.cs" />
     <Compile Include="Events\MileageEvent.cs" />
     <Compile Include="Events\MovementEvent.cs" />
     <Compile Include="Events\ParkEvent.cs" />
+    <Compile Include="Events\PowerEvent.cs" />
     <Compile Include="Events\RPMEvent.cs" />
     <Compile Include="Events\SpeedEvent.cs" />
-    <Compile Include="Events\PowerEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ImageSize.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
@@ -115,32 +104,34 @@
     <Compile Include="ParentAttribute.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regions.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RegistrationState.cs" />
+    <Compile Include="Results.cs" />
     <Compile Include="Serialization\DiscriminatorConverter.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.GoryBits.cs" />
     <Compile Include="ServerAddress.cs" />
-    <Compile Include="ServiceQueue.cs" />
-    <Compile Include="Subscription.cs" />
-    <Compile Include="Regions.cs" />
-    <Compile Include="Register.cs" />
-    <Compile Include="Results.cs" />
-    <Compile Include="Invoice.cs" />
     <Compile Include="Storage.cs" />
+    <Compile Include="Subscription.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Vehicle.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.6.0.3\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

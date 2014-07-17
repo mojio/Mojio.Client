@@ -22,7 +22,7 @@ namespace Mojio.Client
             var request = GetRequest (Request (action, intoId, "trip"), Method.POST);
             request.AddBody (fromId);
 
-            var response = RestClient.Execute<Trip> (request);
+            var response = RestClient.ExecuteAsync<Trip> (request).Result;
             return response.Data;
         }
 

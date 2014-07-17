@@ -16,6 +16,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public Results<Event> MojioEvents (Guid id, int page = 1)
         {
             return GetBy<Event, Mojio> (id, page);
@@ -26,14 +27,16 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <returns></returns>
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public Results<Trip> MojioTrips (Guid id, int page = 1)
         {
             return GetBy<Trip, Mojio> (id, page);
         }
 
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public bool SetVehicleImage (Guid id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
         {
-            var result = SetVehicleImageAsync (id, data, mimetype).Result;
+            var result = AvoidAsyncDeadlock(() => SetVehicleImageAsync(id, data, mimetype)).Result;
             code = result.StatusCode;
             message = result.Content;
             return result.Data;
@@ -51,24 +54,30 @@ namespace Mojio.Client
             return RequestAsync<bool> (request);
         }
 
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public bool DeleteVehicleImage (Guid id, out HttpStatusCode code, out string message)
         {
-            if (id == Guid.Empty)
-                throw new ArgumentException ("Vehicle Id is required");
-
-            string action = Map [typeof(Vehicle)];
-            var request = GetRequest (Request (action, id, "image"), Method.DELETE);
-
-            var response = RestClient.Execute<bool> (request);
+            var response = AvoidAsyncDeadlock(() => DeleteVehicleImageAsync(id)).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
+        public Task<MojioResponse<bool>> DeleteVehicleImageAsync(Guid id) {
+            if (id == Guid.Empty)
+                throw new ArgumentException ("Vehicle Id is required");
+
+            string action = Map [typeof(Vehicle)];
+            var request = GetRequest (Request (action, id, "image"), Method.DELETE);
+
+            return RequestAsync<bool> (request);
+        }
+
+        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
         public byte[] GetVehicleImage (Guid id, ImageSize size = ImageSize.Small)
         {
-            var task = GetVehicleImageAsync (id, size);
+            var task = AvoidAsyncDeadlock(() => GetVehicleImageAsync(id, size));
             return task.Result; // Will block
         }
 
@@ -81,18 +90,15 @@ namespace Mojio.Client
             var request = GetRequest (Request (action, id, "image"), Method.GET);
             request.AddParameter ("size", size);
 
-            var tcs = new TaskCompletionSource<byte[]> ();
-            try {
-                RestClient.ExecuteAsync (request, response => {
-                    if (response.StatusCode == HttpStatusCode.OK)
-                        tcs.SetResult (response.RawBytes);
-                    else
-                        tcs.SetResult (null);
-                });
-            } catch (Exception ex) {
-                tcs.SetException (ex);
-            }
-            return tcs.Task;
+            return RestClient.ExecuteAsync(request).ContinueWith(t =>
+            {
+                var response = t.Result;
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                    return response.RawBytes;
+                else
+                    return null;
+            });
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Mojio.Client.Linq
 {
@@ -203,7 +204,7 @@ namespace Mojio.Client.Linq
                 string currentValue;
                 if (criteria.TryGetValue (key, out currentValue)) {
                     // Value already exists, lets fetch the current criteria.
-                    if (!currentValue.Contains ('-')) {
+                    if (!currentValue.Contains ("-")) {
                         throw new ArgumentException ("Huh? We have already performed an equals on this parameter");
                     }
 

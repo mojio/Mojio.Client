@@ -31,7 +31,7 @@ namespace Mojio.Client
 
             request.AddParameter("sandboxed", sandboxed);
 
-            var response = RestClient.Execute<Guid> (request);
+            var response = RestClient.ExecuteAsync<Guid> (request).Result;
             return response.Data;
         }
     }

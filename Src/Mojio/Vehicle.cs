@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +17,6 @@ namespace Mojio
         /// <summary>
         /// Owner ID
         /// </summary>
-        [Display(Name = "Owner")]
         [Observable(typeof(User))]
         [Parent(typeof(User))]
 

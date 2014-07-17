@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using RestSharp.Deserializers;
 using RestSharp.Serializers;
 using System;
@@ -43,6 +44,7 @@ namespace Mojio.Client
 
         public T Deserialize<T> (string content)
         {
+            try {
                 //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(response.Content);
 
                 using (var stringReader = new StringReader (content)) {
@@ -50,9 +52,13 @@ namespace Mojio.Client
                         return Serializer.Deserialize<T> (jsonReader);
                     }
                 }
+            }catch(Exception e) {
+                Log.Create (e);
+                return default(T);
+            }
         }
 
-        public T Deserialize<T> (RestSharp.IRestResponse response)
+        public T Deserialize<T> (IRestResponse response)
         {
             return Deserialize<T> (response.Content);
         }

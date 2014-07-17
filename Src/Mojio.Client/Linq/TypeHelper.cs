@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Mojio.Client.Linq
 {
@@ -32,8 +33,8 @@ namespace Mojio.Client.Linq
                     }
                 }
             }
-            Type[] ifaces = seqType.GetInterfaces();
-            if (ifaces != null && ifaces.Length > 0)
+            var ifaces = seqType.GetInterfaces();
+            if (ifaces != null && ifaces.Count() > 0)
             {
                 foreach (Type iface in ifaces)
                 {

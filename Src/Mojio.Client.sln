@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio.Client", "Mojio.Client\Mojio.Client.csproj", "{64B1AA53-3183-400B-82D7-DC34CA2EE35A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio", "Mojio\Mojio.csproj", "{92991279-9BA1-44F4-8E30-CC0BF5133900}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio", "Mojio\Mojio.csproj", "{FAECCBE3-5E0C-4140-90F0-FF35059673E9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio.Client.MonoDroid", "Mojio.Client.MonoDroid\Mojio.Client.MonoDroid.csproj", "{CEC4E7AF-9916-44D0-8D39-5FAD509DBF77}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio.Client.MonoTouch", "Mojio.Client.MonoTouch\Mojio.Client.MonoTouch.csproj", "{7FC78FA0-161A-44B6-8029-0D18DE00FCD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mojio.Client", "Mojio.Client\Mojio.Client.csproj", "{4CB66C66-146B-4C1B-B9A0-E3C901616152}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{64B1AA53-3183-400B-82D7-DC34CA2EE35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64B1AA53-3183-400B-82D7-DC34CA2EE35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64B1AA53-3183-400B-82D7-DC34CA2EE35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64B1AA53-3183-400B-82D7-DC34CA2EE35A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAECCBE3-5E0C-4140-90F0-FF35059673E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAECCBE3-5E0C-4140-90F0-FF35059673E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAECCBE3-5E0C-4140-90F0-FF35059673E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAECCBE3-5E0C-4140-90F0-FF35059673E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEC4E7AF-9916-44D0-8D39-5FAD509DBF77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEC4E7AF-9916-44D0-8D39-5FAD509DBF77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEC4E7AF-9916-44D0-8D39-5FAD509DBF77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEC4E7AF-9916-44D0-8D39-5FAD509DBF77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FC78FA0-161A-44B6-8029-0D18DE00FCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FC78FA0-161A-44B6-8029-0D18DE00FCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FC78FA0-161A-44B6-8029-0D18DE00FCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FC78FA0-161A-44B6-8029-0D18DE00FCD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92991279-9BA1-44F4-8E30-CC0BF5133900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92991279-9BA1-44F4-8E30-CC0BF5133900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92991279-9BA1-44F4-8E30-CC0BF5133900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92991279-9BA1-44F4-8E30-CC0BF5133900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CB66C66-146B-4C1B-B9A0-E3C901616152}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,6 @@
+[submodule "Src/RestSharp"]
+	path = Src/RestSharp
+	url = https://github.com/restsharp/RestSharp.git
+[submodule "Src/Components/RestSharp"]
+	path = Src/Components/RestSharp
+	url = https://github.com/restsharp/RestSharp.git

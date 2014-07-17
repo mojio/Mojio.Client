@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace Mojio
 {
@@ -21,7 +20,6 @@ namespace Mojio
         /// <summary>
         /// Owner ID
         /// </summary>
-        [Display (Name = "Owner")]
         [Observable(typeof(User))]
         [Parent(typeof(User))]
         [Obsolete("Use the access record to determine owner")]
