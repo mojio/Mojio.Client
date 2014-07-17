@@ -211,24 +211,21 @@ namespace Mojio.Client
         /// <param name="secretKey">Secret Key</param>
         /// <param name="tokenId">Session Token</param>
         /// <returns></returns>
-        public Task<bool> BeginAsync(Guid appId, Guid secretKey, Guid? tokenId)
+        public async Task<bool> BeginAsync(Guid appId, Guid secretKey, Guid? tokenId)
         {
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
                     var request = GetRequest (Request ("login", tokenId.Value), Method.GET);
-                    return RequestAsync<Token> (request).ContinueWith(t => {
-                        var response = t.Result;
-                        if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId)
-                        {
-                            Token = response.Data;
-                            return true;
-                        }
-                        return false;
-                    });
+                    var response = await RequestAsync<Token>(request);
+
+                    if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId)
+                    {
+                        Token = response.Data;
+                        return true;
+                    }
                 }
-                return BeginAsync (appId, secretKey).ContinueWith(t => {
-                    return t.Result;
-                });
+
+                return await BeginAsync (appId, secretKey);
             } catch (Exception ex) {
                 throw new Exception ("Exception" + ex.Message + "\n  Stack:\n" + ex.StackTrace.ToString () + "\n");
                 //return false;
