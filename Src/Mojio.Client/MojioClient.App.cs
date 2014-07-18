@@ -24,6 +24,7 @@ namespace Mojio.Client
         /// Get an application's Private Key.
         /// </summary>
         /// <param name="appId">Application ID</param>
+        /// <param name="sandboxed">if set to <c>true</c> [sandboxed].</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Guid SecretKey (Guid appId, bool sandboxed = true)
@@ -36,6 +37,7 @@ namespace Mojio.Client
         /// Get an application's Private Key.
         /// </summary>
         /// <param name="app">Application Entity</param>
+        /// <param name="sandboxed">if set to <c>true</c> [sandboxed].</param>
         /// <returns></returns>
         public Task<MojioResponse<Guid>> SecretKeyAsync(App app, bool sandboxed = true)
         {
@@ -46,6 +48,7 @@ namespace Mojio.Client
         /// Get an application's Private Key.
         /// </summary>
         /// <param name="appId">Application ID</param>
+        /// <param name="sandboxed">if set to <c>true</c> [sandboxed].</param>
         /// <returns></returns>
         public Task<MojioResponse<Guid>> SecretKeyAsync(Guid appId, bool sandboxed = true)
         {

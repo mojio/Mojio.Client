@@ -11,11 +11,27 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+        /// <summary>
+        /// Sets a stored value asynchronously.
+        /// </summary>
+        /// <typeparam name="T">The entity type.</typeparam>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The stored value.</param>
+        /// <returns></returns>
         public Task<bool> SetStoredAsync<T> (Guid id, string key, string value) {
             var type = typeof(T);
             return SetStoredAsync (type, id, key, value);
         }
 
+        /// <summary>
+        /// Sets the stored asynchronous.
+        /// </summary>
+        /// <param name="type">The entity type.</param>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The stored value.</param>
+        /// <returns></returns>
         public Task<bool> SetStoredAsync (Type type, Guid id, string key, string value) {
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.PUT);
@@ -28,11 +44,25 @@ namespace Mojio.Client
             });
         }
 
+        /// <summary>
+        /// Gets the stored asynchronously.
+        /// </summary>
+        /// <typeparam name="T">The entity type.</typeparam>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <returns></returns>
         public Task<string> GetStoredAsync<T> (Guid id, string key) {
             var type = typeof(T);
             return GetStoredAsync (type, id, key);
         }
 
+        /// <summary>
+        /// Gets the stored asynchronous.
+        /// </summary>
+        /// <param name="type">The entity type.</param>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <returns></returns>
         public Task<String> GetStoredAsync (Type type, Guid id, string key) {
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.GET);
@@ -52,9 +82,9 @@ namespace Mojio.Client
         /// <summary>
         /// Save storage value.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The stored value.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetStored(GuidEntity entity, string key, string value)
@@ -65,9 +95,10 @@ namespace Mojio.Client
         /// <summary>
         /// Save storage value.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="type">The entity type.</param>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetStored(Type type, Guid id, string key, string value)

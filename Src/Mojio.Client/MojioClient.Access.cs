@@ -14,7 +14,6 @@ namespace Mojio.Client
         /// Get access record for entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Access GetAccess(GuidEntity entity)
@@ -29,7 +28,7 @@ namespace Mojio.Client
         /// Get user access permissions.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user or group identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Permissions GetUserAccess(GuidEntity entity, Guid userId)
@@ -48,7 +47,6 @@ namespace Mojio.Client
         /// Get user or groups access permissions.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
         public Task<MojioResponse<Access>> GetAccessAsync(GuidEntity entity)
         {
@@ -86,7 +84,7 @@ namespace Mojio.Client
         /// Grant user access to entity with given permissions. (Appends permissions)
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
@@ -102,7 +100,7 @@ namespace Mojio.Client
         /// Grant user access to entity with given permissions. (Appends permissions)
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         public Task<MojioResponse> GrantUserAccessAsync(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
@@ -125,7 +123,7 @@ namespace Mojio.Client
         /// Set user access to entity with given permissions.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
@@ -141,7 +139,7 @@ namespace Mojio.Client
         /// Set user access to entity with given permissions.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <param name="groupId">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
         public Task<MojioResponse> SetUserAccessAsync(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
