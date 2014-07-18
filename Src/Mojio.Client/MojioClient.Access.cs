@@ -16,7 +16,7 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Access GetAccess(GuidEntity entity)
         {
             var task = AvoidAsyncDeadlock(() => GetAccessAsync(entity));
@@ -31,10 +31,12 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="groupId">The user or group identifier.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Permissions GetUserAccess(GuidEntity entity, Guid userId)
         {
+#pragma warning disable 0618
             var access = GetAccess(entity);
+#pragma warning restore 0618
             var query = from u in access.Users
                         where u.UserId.Equals(userId)
                         select u.Permissions;
@@ -61,7 +63,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Permissions MyAccess(GuidEntity entity)
         {
             var task = AvoidAsyncDeadlock(() => GetAccessAsync(entity));
@@ -71,9 +73,11 @@ namespace Mojio.Client
             if (access.Users == null)
                 return Permissions.None;
 
+#pragma warning disable 0618
             var query = from u in access.Users
                         where u.UserId.Equals(CurrentUser.Id)
                         select u.Permissions;
+#pragma warning restore 0618
 
             return query.FirstOrDefault();
         }
@@ -85,7 +89,7 @@ namespace Mojio.Client
         /// <param name="groupId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool GrantUserAccess(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
         {
             var task = AvoidAsyncDeadlock(() => GrantUserAccessAsync(entity, userId, flags));
@@ -124,7 +128,7 @@ namespace Mojio.Client
         /// <param name="groupId">The user identifier.</param>
         /// <param name="flags">The permission flags.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetUserAccess(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
         {
             var task = AvoidAsyncDeadlock(() => SetUserAccessAsync(entity, userId, flags));
@@ -161,7 +165,7 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="groupId">The group or user identifier.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool RevokeUserAccess(GuidEntity entity, Guid groupId)
         {
             var task = AvoidAsyncDeadlock(() => RevokeUserAccessAsync(entity, groupId));

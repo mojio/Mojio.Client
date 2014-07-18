@@ -14,9 +14,10 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="app">Application Entity</param>
         /// <returns></returns>
-        public Guid SecretKey (App app, bool sandboxed = true)
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        public Guid SecretKey(App app, bool sandboxed = true)
         {
-            return SecretKey (app.Id, sandboxed);
+            return SecretKey(app.Id, sandboxed);
         }
 
         /// <summary>
@@ -24,15 +25,36 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="appId">Application ID</param>
         /// <returns></returns>
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Guid SecretKey (Guid appId, bool sandboxed = true)
         {
-            string action = Map [typeof(App)];
-            var request = GetRequest (Request (action, appId, "secret"), Method.GET);
+            var response = AvoidAsyncDeadlock(() => SecretKeyAsync(appId, sandboxed)).Result;
+            return response.Data;
+        }
+
+        /// <summary>
+        /// Get an application's Private Key.
+        /// </summary>
+        /// <param name="app">Application Entity</param>
+        /// <returns></returns>
+        public Task<MojioResponse<Guid>> SecretKeyAsync(App app, bool sandboxed = true)
+        {
+            return SecretKeyAsync(app.Id, sandboxed);
+        }
+
+        /// <summary>
+        /// Get an application's Private Key.
+        /// </summary>
+        /// <param name="appId">Application ID</param>
+        /// <returns></returns>
+        public Task<MojioResponse<Guid>> SecretKeyAsync(Guid appId, bool sandboxed = true)
+        {
+            string action = Map[typeof(App)];
+            var request = GetRequest(Request(action, appId, "secret"), Method.GET);
 
             request.AddParameter("sandboxed", sandboxed);
 
-            var response = RestClient.ExecuteAsync<Guid> (request).Result;
-            return response.Data;
+            return RequestAsync<Guid>(request);
         }
     }
 }

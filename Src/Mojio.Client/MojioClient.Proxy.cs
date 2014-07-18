@@ -14,7 +14,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public IList<ServerAddress> GetProxyServers(Guid mojioId)
         {
             var response = AvoidAsyncDeadlock(() => GetProxyServersAsync(mojioId)).Result;
@@ -40,7 +40,7 @@ namespace Mojio.Client
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="address">The address.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool AddProxyServer(Guid mojioId, ServerAddress address)
         {
             var response = AvoidAsyncDeadlock(() => AddProxyServerAsync(mojioId, address)).Result;
@@ -54,7 +54,7 @@ namespace Mojio.Client
         /// <param name="address">The address.</param>
         /// <param name="port">The port.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool AddProxyServer(Guid mojioId, string address, int port)
         {
             var response = AvoidAsyncDeadlock(() => AddProxyServerAsync(mojioId, address, port)).Result;
@@ -94,7 +94,7 @@ namespace Mojio.Client
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="servers">The servers.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetProxyServer(Guid mojioId, IList<ServerAddress> servers)
         {
             var response = AvoidAsyncDeadlock(() => SetProxyServerAsync(mojioId, servers)).Result;
@@ -121,7 +121,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ClearProxyServers(Guid mojioId)
         {
             var response = AvoidAsyncDeadlock(() => ClearProxyServersAsync(mojioId)).Result;

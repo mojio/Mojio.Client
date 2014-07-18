@@ -16,7 +16,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<Event> MojioEvents (Guid id, int page = 1)
         {
             return GetBy<Event, Mojio> (id, page);
@@ -27,13 +27,13 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<Trip> MojioTrips (Guid id, int page = 1)
         {
             return GetBy<Trip, Mojio> (id, page);
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetVehicleImage (Guid id, byte[] data, string mimetype, out HttpStatusCode code, out string message)
         {
             var result = AvoidAsyncDeadlock(() => SetVehicleImageAsync(id, data, mimetype)).Result;
@@ -54,7 +54,7 @@ namespace Mojio.Client
             return RequestAsync<bool> (request);
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteVehicleImage (Guid id, out HttpStatusCode code, out string message)
         {
             var response = AvoidAsyncDeadlock(() => DeleteVehicleImageAsync(id)).Result;
@@ -74,7 +74,7 @@ namespace Mojio.Client
             return RequestAsync<bool> (request);
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public byte[] GetVehicleImage (Guid id, ImageSize size = ImageSize.Small)
         {
             var task = AvoidAsyncDeadlock(() => GetVehicleImageAsync(id, size));

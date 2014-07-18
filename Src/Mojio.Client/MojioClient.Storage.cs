@@ -56,7 +56,7 @@ namespace Mojio.Client
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetStored(GuidEntity entity, string key, string value)
         {
             return SetStored(entity.GetType(), entity.Id, key, value);
@@ -69,31 +69,31 @@ namespace Mojio.Client
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetStored(Type type, Guid id, string key, string value)
         {
             return AvoidAsyncDeadlock(() => SetStoredAsync(type, id, key, value)).Result;
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public string GetStored(GuidEntity entity, string key)
         {
             return GetStored(entity.GetType(), entity.Id, key);
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public string GetStored(Type type, Guid id, string key)
         {
             return AvoidAsyncDeadlock(() => GetStoredAsync(type, id, key)).Result;
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteStored(GuidEntity entity, string key)
         {
             return DeleteStored(entity.GetType(), entity.Id, key);
         }
 
-        [Obsolete("Synchronous are deprecated, please use Async metho instead.")]
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteStored(Type type, Guid id, string key)
         {
             var response = AvoidAsyncDeadlock(() => DeleteStoredAsync(type, id, key)).Result;
