@@ -97,7 +97,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="type">The entity type.</param>
         /// <param name="id">The entity identifier.</param>
-        /// <param name="key">The key.</param>
+        /// <param name="key">The storage key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]

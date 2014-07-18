@@ -1,239 +1,192 @@
-using Mojio.Client.Linq;
-using System;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System;
+using Mojio;
 
 namespace Mojio.Client
 {
-    public interface IMojioClient
+    interface IMojioClient
     {
-        Token Token { get; }
-
-        bool Begin (Guid appId, Guid secretKey);
-
-        bool Begin (Guid appId, Guid secretKey, Guid? tokenId);
-
-        bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password);
-
-        bool ChangePassword (string oldPassword, string newPassword);
-
-        bool ChangePassword (string oldPassword, string newPassword, out HttpStatusCode code);
-
-        bool ChangePassword (string oldPassword, string newPassword, out HttpStatusCode code, out string message);
-
-        bool ChangePassword (string oldPassword, string newPassword, out string message);
-
-        Task<MojioResponse<bool>> RequestPasswordResetAsync (string userNameOrEmail, string returnUrl = null);
-
-        Task<Client.MojioResponse<Mojio>> ClaimAsync (Mojio entity, int? pin);
-
-        Task<Client.MojioResponse<Mojio>> ClaimAsync (String imei, int? pin);
-
-        bool Unclaim(Guid id);
-
-        Task<MojioResponse<bool>> UnclaimAsync(Guid id);
-
-        bool UpdatePin(Guid id, int pin);
-
-        Task<MojioResponse<bool>> UpdatePinAsync(Guid id, int pin);
-
-        bool ClearUser ();
-
-        Task<Client.MojioResponse<Token>> ClearUserAsync ();
-
-        T Create<T> (T entity) where T : BaseEntity, new();
-
-        T Create<T> (T entity, out HttpStatusCode code) where T : BaseEntity, new();
-
-        T Create<T> (T entity, out HttpStatusCode code, out string message) where T : BaseEntity, new();
-
-        Task<Client.MojioResponse<T>> CreateAsync<T> (T entity) where T : BaseEntity, new();
-
-        User CurrentUser { get; }
-
-        bool Delete<T> (object id);
-
-        bool Delete<T> (object id, out HttpStatusCode code);
-
-        bool Delete<T> (object id, out HttpStatusCode code, out string message);
-
-        bool Delete<T> (T entity) where T : BaseEntity;
-
-        bool Delete<T> (T entity, out HttpStatusCode code) where T : BaseEntity;
-
-        bool Delete<T> (T entity, out HttpStatusCode code, out string message) where T : BaseEntity;
-
-        Task<MojioResponse<bool>> DeleteAsync<T>(object id);
-
-        bool DeleteImage (out HttpStatusCode code, out string message, Guid? userId = null);
-
-        bool ExtendSession (int minutes);
-
-        bool ExtendSession (int minutes, out HttpStatusCode code);
-
-        bool ExtendSession (int minutes, out HttpStatusCode code, out string message);
-
-        Task<Client.MojioResponse<Token>> ExtendSessionAsync (int minutes);
-
-        Token FacebookLogin (string access_token);
-
-        Token FacebookLogin (string access_token, out HttpStatusCode code);
-
-        Token FacebookLogin (string access_token, out HttpStatusCode code, out string message);
-
-        Token FacebookLogin (string access_token, out string message);
-
-        Task<Client.MojioResponse<Token>> FacebookLoginAsync (string access_token);
-
-        Results<T> Get<T>(out HttpStatusCode code, out string message, int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
-
-        Results<T> Get<T>(out HttpStatusCode code, int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
-
-        Results<T> Get<T>(int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
-
-        T Get<T> (object id) where T : new();
-
-        T Get<T> (object id, out HttpStatusCode code) where T : new();
-
-        T Get<T> (object id, out HttpStatusCode code, out string message) where T : new();
-
-        Task<Client.MojioResponse<Results<T>>> GetAsync<T>(int page = 1, Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
-
-        Task<Client.MojioResponse<T>> GetAsync<T> (object id) where T : new();
-
-        Results<M> GetBy<M, T> (object id, out HttpStatusCode code, out string message, int page = 1, string action = null) where T : new();
-
-        Results<M> GetBy<M, T> (object id, out HttpStatusCode code, int page = 1, string action = null) where T : new();
-
-        Results<M> GetBy<M, T> (object id, int page = 1, string action = null) where T : new();
-
-        Results<M> GetBy<M, T> (T entity, out HttpStatusCode code, out string message, int page = 1) where T : BaseEntity, new();
-
-        Results<M> GetBy<M, T> (T entity, out HttpStatusCode code, int page = 1) where T : BaseEntity, new();
-
-        Results<M> GetBy<M, T> (T entity, int page = 1) where T : BaseEntity, new();
-
-        Task<Client.MojioResponse<Results<M>>> GetByAsync<M, T> (object id, int page = 1, string action = null) where T : new();
-
-        CreditCard GetCreditCard (Guid? userId = null);
-
-        byte[] GetImage (ImageSize size = ImageSize.Small, Guid? userId = null);
-
-        Task<byte[]> GetImageAsync (ImageSize size = ImageSize.Small, Guid? userId = null);
-
-        Address GetShipping (Guid? userId = null);
-
-        void GetSubscriptions ();
-
-        bool IsLoggedIn ();
-
-        int PageSize { get; set; }
-
-        bool PasswordReset (ResetPassword reset);
-
-        bool PasswordReset (ResetPassword reset, out HttpStatusCode code);
-
-        bool PasswordReset (ResetPassword reset, out HttpStatusCode code, out string message);
-
-        bool PasswordReset (ResetPassword reset, out string message);
-
-        string PushRegistrationId { get; set; }
-
-        ChannelType PushRegistrationType { get; set; }
-
-        User RegisterUser (string username, string email, string password);
-
-        User RegisterUser (string username, string email, string password, out HttpStatusCode code);
-
-        User RegisterUser (string username, string email, string password, out HttpStatusCode code, out string message);
-
-        User RegisterUser (string username, string email, string password, out string message);
-
-        Task<Client.MojioResponse<User>> RegisterUserAsync (string username, string email, string password);
-
-        string Request (params object[] args);
-
-        bool RequestPasswordReset (string userNameOrEmail, string returnUrl);
-
-        bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out HttpStatusCode code);
-
-        bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out HttpStatusCode code, out string message);
-
-        bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out string message);
-
-        bool SaveCreditCard (CreditCard creditCard, out HttpStatusCode code, out string message, Guid? userId = null);
-
-        bool SaveCreditCard (CreditCard creditCard, out HttpStatusCode code, Guid? userId = null);
-
-        bool SaveCreditCard (CreditCard creditCard, out string message, Guid? userId = null);
-
-        bool SaveCreditCard (CreditCard creditCard, Guid? userId = null);
-
-        bool SaveShipping (Address shipping, Guid? userId = null);
-
-        int SessionTime { get; set; }
-
-        bool SetImage (byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null);
-
-        Task<MojioResponse<bool>> SetImageAsync (byte[] data, string mimetype, Guid? userId = null);
-
-        byte[] GetVehicleImage (Guid id, ImageSize size = ImageSize.Small);
-
-        Task<byte[]> GetVehicleImageAsync (Guid id, ImageSize size = ImageSize.Small);
-
-        bool SetVehicleImage (Guid id, byte[] data, string mimetype, out HttpStatusCode code, out string message);
-
-        Task<MojioResponse<bool>> SetVehicleImageAsync (Guid id, byte[] data, string mimetype);
-
-        bool SetUser (string userOrEmail, string password);
-
-        bool SetUser (string userOrEmail, string password, out HttpStatusCode code);
-
-        bool SetUser (string userOrEmail, string password, out HttpStatusCode code, out string message);
-
-        Task<Client.MojioResponse<Token>> SetUserAsync (string userOrEmail, string password);
-
-        void SubscribePush<T> (Guid id, Events.EventType events);
-
-        void ThrowError (string errorMessage);
-
-        T Update<T> (T entity) where T : BaseEntity, new();
-
-        T Update<T> (T entity, out HttpStatusCode code) where T : BaseEntity, new();
-
-        T Update<T> (T entity, out HttpStatusCode code, out string message) where T : BaseEntity, new();
-
-        Task<Client.MojioResponse<T>> UpdateAsync<T> (T entity) where T : BaseEntity, new();
-
-        Results<App> UserApps (Guid userId, int page = 1);
-
-        Results<Events.Event> UserEvents (Guid userId, int page = 1);
-
-        Results<Mojio> UserMojios (Guid userId, int page = 1);
-
-        Results<Trip> UserTrips (Guid userId, int page = 1);
-
-        IMojioQueryable<T> Queryable<T> () where T : BaseEntity, new();
-
-        bool ClearSubscriptions (ChannelType channel, String target);
-
-        bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code);
-
-        bool ClearSubscriptions (ChannelType channel, String target, out HttpStatusCode code, out string message);
-
-        Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target);
-
-        Task<string> GetStoredAsync<T> (Guid id, string key);
-
-        Task<bool> SetStoredAsync<T> (Guid id, string key, string value);
-
-        Roles? GetRole(Guid? userId = null);
-
+        bool AddProxyServer(Guid mojioId, ServerAddress address);
+        bool AddProxyServer(Guid mojioId, string address, int port);
+        System.Threading.Tasks.Task<MojioResponse<bool>> AddProxyServerAsync(Guid mojioId, ServerAddress address);
+        System.Threading.Tasks.Task<MojioResponse<bool>> AddProxyServerAsync(Guid mojioId, string address, int port);
+        bool Begin(Guid appId, Guid secretKey);
+        bool Begin(Guid appId, Guid secretKey, Guid? tokenId);
+        bool Begin(Guid appId, Guid secretKey, string userOrEmail, string password);
+        bool Begin(Guid tokenId);
+        System.Threading.Tasks.Task<bool> BeginAsync(Guid appId, Guid secretKey);
+        System.Threading.Tasks.Task<bool> BeginAsync(Guid appId, Guid secretKey, Guid? tokenId);
         bool ChangeEnvironment(bool sandboxed);
-
-        Task<bool> ChangeEnvironmentAsync(bool sandboxed);
+        System.Threading.Tasks.Task<bool> ChangeEnvironmentAsync(bool sandboxed);
+        bool ChangePassword(string oldPassword, string newPassword);
+        bool ChangePassword(string oldPassword, string newPassword, out System.Net.HttpStatusCode code);
+        bool ChangePassword(string oldPassword, string newPassword, out System.Net.HttpStatusCode code, out string message);
+        bool ChangePassword(string oldPassword, string newPassword, out string message);
+        System.Threading.Tasks.Task<MojioResponse<bool>> ChangePasswordAsync(string oldPassword, string newPassword);
+        System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(Mojio entity, int? pin);
+        System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(string imei, int? pin);
+        bool ClearProxyServers(Guid mojioId);
+        System.Threading.Tasks.Task<MojioResponse<bool>> ClearProxyServersAsync(Guid mojioId);
+        bool ClearSubscriptions(ChannelType channel, string target);
+        bool ClearSubscriptions(ChannelType channel, string target, out System.Net.HttpStatusCode code);
+        bool ClearSubscriptions(ChannelType channel, string target, out System.Net.HttpStatusCode code, out string message);
+        System.Threading.Tasks.Task<MojioResponse> ClearSubscriptionsAsync(ChannelType channel, string target);
+        bool ClearUser();
+        System.Threading.Tasks.Task<MojioResponse<Token>> ClearUserAsync();
+        T Create<T>(T entity) where T : BaseEntity, new();
+        T Create<T>(T entity, out System.Net.HttpStatusCode code) where T : BaseEntity, new();
+        T Create<T>(T entity, out System.Net.HttpStatusCode code, out string message) where T : BaseEntity, new();
+        System.Threading.Tasks.Task<MojioResponse<T>> CreateAsync<T>(T entity) where T : BaseEntity, new();
+        User CurrentUser { get; }
+        bool Delete<T>(object id);
+        bool Delete<T>(object id, out System.Net.HttpStatusCode code);
+        bool Delete<T>(object id, out System.Net.HttpStatusCode code, out string message);
+        bool Delete<T>(T entity) where T : BaseEntity;
+        bool Delete<T>(T entity, out System.Net.HttpStatusCode code) where T : BaseEntity;
+        bool Delete<T>(T entity, out System.Net.HttpStatusCode code, out string message) where T : BaseEntity;
+        System.Threading.Tasks.Task<MojioResponse<bool>> DeleteAsync<T>(object id);
+        bool DeleteCreditCard(out System.Net.HttpStatusCode code, out string message, Guid? userId = null);
+        bool DeleteCreditCard(out System.Net.HttpStatusCode code, Guid? userId = null);
+        bool DeleteCreditCard(out string message, Guid? userId = null);
+        bool DeleteCreditCard(Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<bool>> DeleteCreditCardAsync(Guid? userId = null);
+        bool DeleteImage(out System.Net.HttpStatusCode code, out string message, Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<bool>> DeleteImageAsync(Guid? userId = null);
+        bool DeleteStored(GuidEntity entity, string key);
+        bool DeleteStored(Type type, Guid id, string key);
+        System.Threading.Tasks.Task<MojioResponse<bool>> DeleteStoredAsync(Type type, Guid id, string key);
+        bool DeleteVehicleImage(Guid id, out System.Net.HttpStatusCode code, out string message);
+        System.Threading.Tasks.Task<MojioResponse<bool>> DeleteVehicleImageAsync(Guid id);
+        bool ExtendSession(int minutes);
+        bool ExtendSession(int minutes, out System.Net.HttpStatusCode code);
+        bool ExtendSession(int minutes, out System.Net.HttpStatusCode code, out string message);
+        System.Threading.Tasks.Task<MojioResponse<Token>> ExtendSessionAsync(int minutes);
+        Token FacebookLogin(string access_token);
+        Token FacebookLogin(string access_token, out System.Net.HttpStatusCode code);
+        Token FacebookLogin(string access_token, out System.Net.HttpStatusCode code, out string message);
+        Token FacebookLogin(string access_token, out string message);
+        System.Threading.Tasks.Task<MojioResponse<Token>> FacebookLoginAsync(string access_token);
+        Results<T> Get<T>(out System.Net.HttpStatusCode code, out string message, int page = 1, System.Linq.Expressions.Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
+        Results<T> Get<T>(out System.Net.HttpStatusCode code, int page = 1, System.Linq.Expressions.Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
+        Results<T> Get<T>(int page = 1, System.Linq.Expressions.Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
+        T Get<T>(object id) where T : new();
+        T Get<T>(object id, out System.Net.HttpStatusCode code) where T : new();
+        T Get<T>(object id, out System.Net.HttpStatusCode code, out string message) where T : new();
+        Access GetAccess(GuidEntity entity);
+        System.Threading.Tasks.Task<MojioResponse<Access>> GetAccessAsync(GuidEntity entity);
+        System.Threading.Tasks.Task<MojioResponse<Results<T>>> GetAsync<T>(int page = 1, System.Linq.Expressions.Expression<Func<T, object>> sortBy = null, bool desc = false, string criteria = null) where T : new();
+        System.Threading.Tasks.Task<MojioResponse<T>> GetAsync<T>(object id) where T : new();
+        Results<M> GetBy<M, T>(object id, out System.Net.HttpStatusCode code, out string message, int page = 1, string action = null) where T : new();
+        Results<M> GetBy<M, T>(object id, out System.Net.HttpStatusCode code, int page = 1, string action = null) where T : new();
+        Results<M> GetBy<M, T>(object id, int page = 1, string action = null) where T : new();
+        Results<M> GetBy<M, T>(T entity, out System.Net.HttpStatusCode code, out string message, int page = 1) where T : BaseEntity, new();
+        Results<M> GetBy<M, T>(T entity, out System.Net.HttpStatusCode code, int page = 1) where T : BaseEntity, new();
+        Results<M> GetBy<M, T>(T entity, int page = 1) where T : BaseEntity, new();
+        System.Threading.Tasks.Task<MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null) where T : new();
+        CreditCard GetCreditCard(out System.Net.HttpStatusCode code, out string message, Guid? userId = null);
+        CreditCard GetCreditCard(out System.Net.HttpStatusCode code, Guid? userId = null);
+        CreditCard GetCreditCard(out string message, Guid? userId = null);
+        CreditCard GetCreditCard(Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<CreditCard>> GetCreditCardAsync(Guid? userId = null);
+        System.Threading.Tasks.Task<User> GetCurrentUserAsync();
+        byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null);
+        System.Threading.Tasks.Task<byte[]> GetImageAsync(ImageSize size = ImageSize.Small, Guid? userId = null);
+        System.Collections.Generic.IList<ServerAddress> GetProxyServers(Guid mojioId);
+        System.Threading.Tasks.Task<MojioResponse<System.Collections.Generic.List<ServerAddress>>> GetProxyServersAsync(Guid mojioId);
+        CustomRestRequest GetRequest(string resource, RestSharp.Method method);
+        Roles? GetRole(Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<Roles?>> GetRoleAsync(Guid? userId = null);
+        Address GetShipping(Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<Address>> GetShippingAsync(Guid? userId = null);
+        string GetStored(GuidEntity entity, string key);
+        string GetStored(Type type, Guid id, string key);
+        System.Threading.Tasks.Task<string> GetStoredAsync(Type type, Guid id, string key);
+        System.Threading.Tasks.Task<string> GetStoredAsync<T>(Guid id, string key);
+        void GetSubscriptions();
+        Permissions GetUserAccess(GuidEntity entity, Guid userId);
+        byte[] GetVehicleImage(Guid id, ImageSize size = ImageSize.Small);
+        System.Threading.Tasks.Task<byte[]> GetVehicleImageAsync(Guid id, ImageSize size = ImageSize.Small);
+        bool GrantUserAccess(GuidEntity entity, Guid userId, Permissions flags = Permissions.View);
+        System.Threading.Tasks.Task<MojioResponse> GrantUserAccessAsync(GuidEntity entity, Guid userId, Permissions flags = Permissions.View);
+        bool IsLoggedIn();
+        Trip MergeTrips(Trip intoTrip, Trip fromTrip);
+        Trip MergeTrips(Guid intoId, Guid fromId);
+        System.Threading.Tasks.Task<MojioResponse<Trip>> MergeTripsAsync(Guid intoId, Guid fromId);
+        Results<Events.Event> MojioEvents(Guid id, int page = 1);
+        Results<Trip> MojioTrips(Guid id, int page = 1);
+        Permissions MyAccess(GuidEntity entity);
+        int PageSize { get; set; }
+        bool PasswordReset(ResetPassword reset);
+        bool PasswordReset(ResetPassword reset, out System.Net.HttpStatusCode code);
+        bool PasswordReset(ResetPassword reset, out System.Net.HttpStatusCode code, out string message);
+        bool PasswordReset(ResetPassword reset, out string message);
+        System.Threading.Tasks.Task<MojioResponse<bool>> PasswordResetAsync(ResetPassword reset);
+        string PushRegistrationId { get; set; }
+        ChannelType PushRegistrationType { get; set; }
+        Client.Linq.IMojioQueryable<T> Queryable<T>() where T : BaseEntity, new();
+        User RegisterUser(string username, string email, string password);
+        User RegisterUser(string username, string email, string password, out System.Net.HttpStatusCode code);
+        User RegisterUser(string username, string email, string password, out System.Net.HttpStatusCode code, out string message);
+        User RegisterUser(string username, string email, string password, out string message);
+        System.Threading.Tasks.Task<MojioResponse<User>> RegisterUserAsync(string username, string email, string password);
+        bool RequestPasswordReset(string userNameOrEmail, string returnUrl);
+        bool RequestPasswordReset(string userNameOrEmail, string returnUrl, out System.Net.HttpStatusCode code);
+        bool RequestPasswordReset(string userNameOrEmail, string returnUrl, out System.Net.HttpStatusCode code, out string message);
+        bool RequestPasswordReset(string userNameOrEmail, string returnUrl, out string message);
+        System.Threading.Tasks.Task<MojioResponse<bool>> RequestPasswordResetAsync(string userNameOrEmail, string returnUrl = null);
+        bool RevokeUserAccess(GuidEntity entity, Guid groupId);
+        System.Threading.Tasks.Task<MojioResponse> RevokeUserAccessAsync(GuidEntity entity, Guid groupId);
+        bool SaveCreditCard(CreditCard creditCard, out System.Net.HttpStatusCode code, out string message, Guid? userId = null);
+        bool SaveCreditCard(CreditCard creditCard, out System.Net.HttpStatusCode code, Guid? userId = null);
+        bool SaveCreditCard(CreditCard creditCard, out string message, Guid? userId = null);
+        bool SaveCreditCard(CreditCard creditCard, Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<bool>> SaveCreditCardAsync(CreditCard creditCard, Guid? userId = null);
+        bool SaveShipping(Address shipping, Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<bool>> SaveShippingAsync(Address shipping, Guid? userId = null);
+        Guid SecretKey(App app, bool sandboxed = true);
+        Guid SecretKey(Guid appId, bool sandboxed = true);
+        System.Threading.Tasks.Task<MojioResponse<Guid>> SecretKeyAsync(App app, bool sandboxed = true);
+        System.Threading.Tasks.Task<MojioResponse<Guid>> SecretKeyAsync(Guid appId, bool sandboxed = true);
+        bool SetImage(byte[] data, string mimetype, out System.Net.HttpStatusCode code, out string message, Guid? userId = null);
+        System.Threading.Tasks.Task<MojioResponse<bool>> SetImageAsync(byte[] data, string mimetype, Guid? userId = null);
+        bool SetProxyServer(Guid mojioId, System.Collections.Generic.IList<ServerAddress> servers);
+        System.Threading.Tasks.Task<MojioResponse<bool>> SetProxyServerAsync(Guid mojioId, System.Collections.Generic.IList<ServerAddress> servers);
+        bool SetStored(GuidEntity entity, string key, string value);
+        bool SetStored(Type type, Guid id, string key, string value);
+        System.Threading.Tasks.Task<bool> SetStoredAsync(Type type, Guid id, string key, string value);
+        System.Threading.Tasks.Task<bool> SetStoredAsync<T>(Guid id, string key, string value);
+        bool SetUser(string userOrEmail, string password);
+        bool SetUser(string userOrEmail, string password, out System.Net.HttpStatusCode code);
+        bool SetUser(string userOrEmail, string password, out System.Net.HttpStatusCode code, out string message);
+        bool SetUserAccess(GuidEntity entity, Guid userId, Permissions flags = Permissions.View);
+        System.Threading.Tasks.Task<MojioResponse> SetUserAccessAsync(GuidEntity entity, Guid userId, Permissions flags = Permissions.View);
+        System.Threading.Tasks.Task<MojioResponse<Token>> SetUserAsync(string userOrEmail, string password);
+        bool SetVehicleImage(Guid id, byte[] data, string mimetype, out System.Net.HttpStatusCode code, out string message);
+        System.Threading.Tasks.Task<MojioResponse<bool>> SetVehicleImageAsync(Guid id, byte[] data, string mimetype);
+        System.Threading.Tasks.Task Subscribe<T>(Guid id, Events.EventType[] events);
+        System.Threading.Tasks.Task Subscribe<T>(Guid[] id, Events.EventType[] events);
+        void SubscribePush<T>(Guid id, Events.EventType events);
+        Token Token { get; }
+        Results<Events.Event> TripEvents(Guid id, int page = 1);
+        System.Threading.Tasks.Task<MojioResponse<Results<Events.Event>>> TripEventsAsync(Guid id, int page = 1);
+        bool Unclaim(Guid id);
+        System.Threading.Tasks.Task<MojioResponse<bool>> UnclaimAsync(Guid id);
+        bool Unsubscribe<T>(Guid id, Events.EventType[] events);
+        bool Unsubscribe<T>(Guid[] id, Events.EventType[] events);
+        T Update<T>(T entity) where T : BaseEntity, new();
+        T Update<T>(T entity, out System.Net.HttpStatusCode code) where T : BaseEntity, new();
+        T Update<T>(T entity, out System.Net.HttpStatusCode code, out string message) where T : BaseEntity, new();
+        System.Threading.Tasks.Task<MojioResponse<T>> UpdateAsync<T>(T entity) where T : BaseEntity, new();
+        bool UpdatePin(Guid id, int pin);
+        System.Threading.Tasks.Task<MojioResponse<bool>> UpdatePinAsync(Guid id, int pin);
+        Results<App> UserApps(Guid userId, int page = 1);
+        System.Threading.Tasks.Task<MojioResponse<Results<App>>> UserAppsAsnc(Guid userId, int page = 1);
+        Results<Events.Event> UserEvents(Guid userId, int page = 1);
+        System.Threading.Tasks.Task<MojioResponse<Results<Events.Event>>> UserEventsAsync(Guid userId, int page = 1);
+        Results<Mojio> UserMojios(Guid userId, int page = 1);
+        System.Threading.Tasks.Task<MojioResponse<Results<Mojio>>> UserMojiosAsync(Guid userId, int page = 1);
+        Results<Trip> UserTrips(Guid userId, int page = 1);
+        System.Threading.Tasks.Task<MojioResponse<Results<Trip>>> UserTripsAsync(Guid userId, int page = 1);
+        Results<Vehicle> UserVehicles(Guid userId, int page = 1);
+        System.Threading.Tasks.Task<MojioResponse<Results<Vehicle>>> UserVehiclesAsync(Guid userId, int page = 1);
     }
 }
