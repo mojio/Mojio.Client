@@ -1,4 +1,4 @@
-﻿using Mojio.Events;
+using Mojio.Events;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,23 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+        /// <summary>
+        /// Gets the Mojio's current sim card.
+        /// </summary>
+        /// <param name="id">Mojio ID.</param>
+        /// <returns></returns>
+        public Task<MojioResponse<SimCard>> GetMojioSimCardAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+                throw new ArgumentException("Mojio Id is required");
+
+            string controller = Map[typeof(Mojio)];
+            string action = Map[typeof(SimCard)];
+            var request = GetRequest(Request(controller, id, action), Method.GET);
+
+            return RequestAsync<SimCard>(request);
+        }
+
         /// <summary>
         /// Get a collection of events associated with a mojio device.
         /// </summary>

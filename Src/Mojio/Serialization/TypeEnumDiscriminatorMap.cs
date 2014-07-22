@@ -39,6 +39,7 @@ namespace Mojio.Serialization
                 .Contains<Mojio>(EntityType.Mojio)
                 .Contains<App>(EntityType.App)
                 .Contains<Access>(EntityType.Access)
+                .Contains<SimCard>(EntityType.SimCard)
                 ;
 
             // The following allows a partial file to continue

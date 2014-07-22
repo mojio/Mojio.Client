@@ -110,6 +110,7 @@
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.GoryBits.cs" />
     <Compile Include="ServerAddress.cs" />
+    <Compile Include="SimCard.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Subscription.cs" />
     <Compile Include="Token.cs" />
