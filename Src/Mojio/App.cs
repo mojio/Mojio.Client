@@ -43,7 +43,7 @@ namespace Mojio
         /// <summary>
         /// Valid redirect uris
         /// </summary>
-        public string RedirectUris { get; set; }
+        public string[] RedirectUris { get; set; }
 
         /// <summary>
         /// Identifies the OAuth type of this application
