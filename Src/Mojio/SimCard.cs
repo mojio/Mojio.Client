@@ -13,6 +13,7 @@ namespace Mojio
             get { return EntityType.SimCard; }
         }
 
+        public Guid? MojioId { get; set; }
         public string Iccid { get; set; }
         public string Msisdn { get; set; }
         public string Apn { get; set; }
