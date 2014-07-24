@@ -1,4 +1,4 @@
-﻿using Mojio;
+using Mojio;
 using Mojio.Events;
 using RestSharp;
 using System;
@@ -347,7 +347,7 @@ namespace Mojio.Client
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out HttpStatusCode code, out string message)
         {
-            var task = RequestPasswordResetAsync (userNameOrEmail, returnUrl);
+            var task = AvoidAsyncDeadlock(() => RequestPasswordResetAsync (userNameOrEmail, returnUrl));
             var response = task.Result;
 
             if (response != null) {
