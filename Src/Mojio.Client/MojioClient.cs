@@ -983,7 +983,7 @@ namespace Mojio.Client
         /// <typeparam name="T"></typeparam>
         /// <param name="func">The async request task.</param>
         /// <returns></returns>
-        private async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
+        internal static async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
         {
             return await Task.Factory.StartNew(
                 () => func().Result, 
