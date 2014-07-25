@@ -20,23 +20,23 @@ namespace Mojio
         }
 
         /// <summary>
-        /// app name
+        /// App name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// description
+        /// Description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// record creation timestamp
+        /// Record creation timestamp
         /// </summary>
         [DefaultSort]
         public DateTime CreationDate { get; set; }
 
         /// <summary>
-        /// total number of downloads
+        /// Total number of downloads
         /// </summary>
         public int? Downloads { get; set; }
 
