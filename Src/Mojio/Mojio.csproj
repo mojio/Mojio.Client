@@ -91,6 +91,7 @@
     <Compile Include="Location.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mojio.cs" />
+    <Compile Include="MojioReport.cs" />
     <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
