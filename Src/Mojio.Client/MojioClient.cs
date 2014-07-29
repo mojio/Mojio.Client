@@ -978,12 +978,12 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Not so pretty fix for async deadlocks.  All synchronous calls are being deprecated.
+        /// Not so pretty fix for async deadlocks. All synchronous calls are being deprecated.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="func">The async request task.</param>
         /// <returns></returns>
-        internal static async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
+        public static async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
         {
             return await Task.Factory.StartNew(
                 () => func().Result, 
