@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Mojio
 {
@@ -35,5 +37,21 @@ namespace Mojio
         /// The valid until.
         /// </value>
         public DateTime ValidUntil { get; set; }
+
+        /// <summary>
+        /// An enum of scope (permission) flags.
+        /// </summary>
+        public Scope Scopes { get; set; }
+
+        /// <summary>
+        /// Whether this token will attempt to access the sandboxed databases.
+        /// </summary>
+        public Boolean Sandboxed { get; set; }
+    }
+
+    [Flags]
+    public enum Scope { 
+        Basic = 0,
+        Full = 1 << 0
     }
 }

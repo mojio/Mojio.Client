@@ -11,11 +11,27 @@ namespace Mojio.Client
 {
     public partial class MojioClient
     {
+        /// <summary>
+        /// Sets a stored value asynchronously.
+        /// </summary>
+        /// <typeparam name="T">The entity type.</typeparam>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The stored value.</param>
+        /// <returns></returns>
         public Task<bool> SetStoredAsync<T> (Guid id, string key, string value) {
             var type = typeof(T);
             return SetStoredAsync (type, id, key, value);
         }
 
+        /// <summary>
+        /// Sets the stored asynchronous.
+        /// </summary>
+        /// <param name="type">The entity type.</param>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The stored value.</param>
+        /// <returns></returns>
         public Task<bool> SetStoredAsync (Type type, Guid id, string key, string value) {
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.PUT);
@@ -28,11 +44,25 @@ namespace Mojio.Client
             });
         }
 
+        /// <summary>
+        /// Gets the stored asynchronously.
+        /// </summary>
+        /// <typeparam name="T">The entity type.</typeparam>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <returns></returns>
         public Task<string> GetStoredAsync<T> (Guid id, string key) {
             var type = typeof(T);
             return GetStoredAsync (type, id, key);
         }
 
+        /// <summary>
+        /// Gets the stored asynchronous.
+        /// </summary>
+        /// <param name="type">The entity type.</param>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <returns></returns>
         public Task<String> GetStoredAsync (Type type, Guid id, string key) {
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.GET);
@@ -52,11 +82,12 @@ namespace Mojio.Client
         /// <summary>
         /// Save storage value.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The stored value.</param>
         /// <returns></returns>
-        public bool SetStored(GuidEntity entity, string key, object value)
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        public bool SetStored(GuidEntity entity, string key, string value)
         {
             return SetStored(entity.GetType(), entity.Id, key, value);
         }
@@ -64,72 +95,48 @@ namespace Mojio.Client
         /// <summary>
         /// Save storage value.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="type">The entity type.</param>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="key">The storage key.</param>
+        /// <param name="value">The value.</param>
         /// <returns></returns>
-        public bool SetStored(Type type, Guid id, string key, object value)
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        public bool SetStored(Type type, Guid id, string key, string value)
         {
-            string action = Map[type];
-            var request = GetRequest(Request(action, id, "store", key), Method.PUT);
-            request.AddBody(value);
-
-            var response = RestClient.Execute(request);
-            return response.StatusCode == HttpStatusCode.OK
-                || response.StatusCode == HttpStatusCode.Created;
+            return AvoidAsyncDeadlock(() => SetStoredAsync(type, id, key, value)).Result;
         }
 
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public string GetStored(GuidEntity entity, string key)
         {
             return GetStored(entity.GetType(), entity.Id, key);
         }
 
-        public T GetStored<T>(GuidEntity entity, string key)
-             where T : new()
-        {
-            return GetStored<T>(entity.GetType(), entity.Id, key);
-        }
-
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public string GetStored(Type type, Guid id, string key)
         {
-            string action = Map[type];
-            var request = GetRequest(Request(action, id, "store", key), Method.GET);
-
-            var response = RestClient.Execute(request);
-
-            // Invalid response.
-            // TODO: we should add methods to pass back the HttpStatusCode and message
-            if (response.StatusCode != HttpStatusCode.OK)
-                return null;
-
-            // TODO: This isn't exactly a good way of doing this. But we need an 
-            //   alternative way to get string responses.
-            var deserializer = new RSJsonSerializer();
-            return deserializer.Deserialize<string>(response);
+            return AvoidAsyncDeadlock(() => GetStoredAsync(type, id, key)).Result;
         }
 
-        public T GetStored<T>(Type type, Guid id, string key)
-            where T : new()
-        {
-            string action = Map[type];
-            var request = GetRequest(Request(action, id, "store", key), Method.GET);
-
-            var response = RestClient.Execute<T>(request);
-            return response.Data;
-        }
-
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteStored(GuidEntity entity, string key)
         {
             return DeleteStored(entity.GetType(), entity.Id, key);
         }
 
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteStored(Type type, Guid id, string key)
+        {
+            var response = AvoidAsyncDeadlock(() => DeleteStoredAsync(type, id, key)).Result;
+
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+        public Task<MojioResponse<bool>> DeleteStoredAsync(Type type, Guid id, string key) 
         {
             string action = Map[type];
             var request = GetRequest(Request(action, id, "store", key), Method.DELETE);
 
-            var response = RestClient.Execute(request);
-            return response.StatusCode == HttpStatusCode.OK;
+            return RequestAsync<bool>(request);
         }
     }
 }

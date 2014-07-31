@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{64B1AA53-3183-400B-82D7-DC34CA2EE35A}</ProjectGuid>
@@ -9,12 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mojio.Client</RootNamespace>
     <AssemblyName>Mojio.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
+    <ReleaseVersion>1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,97 +37,78 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\packages\Microsoft.AspNet.SignalR.Client.2.0.3\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Android">
-      <HintPath>$(SolutionDir)\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Apple">
-      <HintPath>$(SolutionDir)\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Apple.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Core">
-      <HintPath>$(SolutionDir)\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Windows">
-      <HintPath>$(SolutionDir)\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.WindowsPhone">
-      <HintPath>$(SolutionDir)\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.WindowsPhone.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>$(SolutionDir)\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="CustomRestRequest.cs" />
     <Compile Include="IMojioClient.cs" />
     <Compile Include="Linq\Extensions.cs" />
     <Compile Include="Linq\IMojioQueryable.cs" />
+    <Compile Include="Linq\MojioCriteriaTranslator.cs" />
     <Compile Include="Linq\MojioQueryable.cs" />
     <Compile Include="Linq\MojioQueryProvider.cs" />
-    <Compile Include="Linq\MojioCriteriaTranslator.cs" />
     <Compile Include="Linq\TypeHelper.cs" />
-    <Compile Include="MojioClient.App.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
+    <Compile Include="MojioClient.Access.cs" />
+    <Compile Include="MojioClient.Admin.cs" />
+    <Compile Include="MojioClient.App.cs" />
     <Compile Include="MojioClient.cs" />
-    <Compile Include="MojioClient.Mojio.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MojioClient.Proxy.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MojioClient.Push.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MojioClient.Signal.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MojioClient.Storage.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MojioClient.Trip.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MojioClient.User.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
+    <Compile Include="MojioClient.Mojio.cs" />
+    <Compile Include="MojioClient.Proxy.cs" />
+    <Compile Include="MojioClient.Push.cs" />
+    <Compile Include="MojioClient.Signal.cs" />
+    <Compile Include="MojioClient.Storage.cs" />
+    <Compile Include="MojioClient.Trip.cs" />
+    <Compile Include="MojioClient.User.cs" />
     <Compile Include="MojioRequest.cs" />
+    <Compile Include="MojioResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSJsonSerializer.cs" />
-    <Compile Include="MojioResponse.cs" />
-    <Compile Include="MojioClient.Admin.cs">
-      <DependentUpon>MojioClient.cs</DependentUpon>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Client">
+      <HintPath>$(SolutionDir)\packages\Microsoft.AspNet.SignalR.Client.2.0.3\lib\portable-net45+sl5+netcore45+wp8\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.6.0.3\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\Components\RestSharp.Portable\bin\Release\RestSharp.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Bcl.1.1.9\lib\portable-net40+sl5+win8+wp8+wpa81\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Net.Http.2.2.22\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Net.Http.2.2.22\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Net.Http.2.2.22\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Bcl.1.1.9\lib\portable-net40+sl5+win8+wp8+wpa81\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Bcl.1.1.9\lib\portable-net40+sl5+win8+wp8+wpa81\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net40+sl4+win8+wp71+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>$(SolutionDir)\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net40+sl4+win8+wp71+wpa81\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mojio\Mojio.csproj">
-      <Project>{FAECCBE3-5E0C-4140-90F0-FF35059673E9}</Project>
+      <Project>{92991279-9BA1-44F4-8E30-CC0BF5133900}</Project>
       <Name>Mojio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="$(SolutionDir)\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('$(SolutionDir)\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

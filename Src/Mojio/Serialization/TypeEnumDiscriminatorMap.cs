@@ -1,4 +1,5 @@
-﻿using Mojio.Events;
+using Mojio.Events;
+using Mojio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,10 @@ namespace Mojio.Serialization
                 .Contains<Subscription>(EntityType.Subscription)
                 .Contains<Event>(EntityType.Event)
                 .Contains<Mojio>(EntityType.Mojio)
-                .Contains<App>(EntityType.App);
+                .Contains<App>(EntityType.App)
+                .Contains<Access>(EntityType.Access)
+                .Contains<SimCard>(EntityType.SimCard)
+                ;
 
             // The following allows a partial file to continue
             // building the map
@@ -68,7 +72,12 @@ namespace Mojio.Serialization
                 .Contains<DecelerationEvent>(EventType.Deceleration)
                 .Contains<HeadingChangeEvent>(EventType.HeadingChange)
                 .Contains<MileageEvent>(EventType.Mileage)
-                .Contains<FuelEvent>(EventType.LowFuel);
+                .Contains<FuelEvent>(EventType.LowFuel)
+                .Contains<MovementEvent>(EventType.MovementStart)
+                .Contains<MovementEvent>(EventType.MovementStop)
+                .Contains<HeartBeatEvent>(EventType.HeartBeat)
+                .Contains<DeviceDiagnosticEvent>(EventType.DeviceDiagnostic)
+                .Contains<RPMEvent>(EventType.RPM);
                            
             BuildMap();
             /*Map<Event, EventType>(e => e.EventType)

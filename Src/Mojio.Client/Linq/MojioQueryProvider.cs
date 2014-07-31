@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
@@ -110,7 +110,7 @@ namespace Mojio.Client.Linq
 
         private int Count()
 		{
-			var request = CountAsync ();
+			var request = MojioClient.AvoidAsyncDeadlock(() => CountAsync ());
 			request.Wait ();
 			return request.Result;
 		}
@@ -145,7 +145,7 @@ namespace Mojio.Client.Linq
 
 		public IEnumerable<TData> Fetch(Expression expression = null)
 		{
-			return FetchAsync (expression).Result;
+            return MojioClient.AvoidAsyncDeadlock(() => FetchAsync(expression)).Result;
 		}
 
         public Task<IEnumerable<TData>> FetchAsync(Expression expression = null)

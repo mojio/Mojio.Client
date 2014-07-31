@@ -10,49 +10,54 @@ namespace Mojio.Client
     public partial class MojioClient
     {
         /// <summary>
-        /// Get an applications Private Key.
+        /// Get an application's Private Key.
         /// </summary>
         /// <param name="app">Application Entity</param>
         /// <returns></returns>
-        public Guid SecretKey (App app)
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        public Guid SecretKey(App app, bool sandboxed = true)
         {
-            // TODO: make this restricted and remove from public client
-            return SecretKey (app.Id);
+            return SecretKey(app.Id, sandboxed);
         }
 
         /// <summary>
-        /// Get an applicaitons Privaet Key.
+        /// Get an application's Private Key.
         /// </summary>
         /// <param name="appId">Application ID</param>
+        /// <param name="sandboxed">if set to <c>true</c> [sandboxed].</param>
         /// <returns></returns>
-        public Guid SecretKey (Guid appId)
+        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        public Guid SecretKey (Guid appId, bool sandboxed = true)
         {
-            // TODO: make this restricted and remove from public client
-            string action = Map [typeof(App)];
-            var request = GetRequest (Request (action, appId, "secret"), Method.GET);
-
-            var response = RestClient.Execute<Guid> (request);
+            var response = AvoidAsyncDeadlock(() => SecretKeyAsync(appId, sandboxed)).Result;
             return response.Data;
         }
 
         /// <summary>
-        /// Get collection of users who can view an application.
+        /// Get an application's Private Key.
         /// </summary>
-        /// <param name="appId">Application ID</param>
+        /// <param name="app">Application Entity</param>
+        /// <param name="sandboxed">if set to <c>true</c> [sandboxed].</param>
         /// <returns></returns>
-        public Results<User> AppViewers (Guid appId, int page = 1)
+        public Task<MojioResponse<Guid>> SecretKeyAsync(App app, bool sandboxed = true)
         {
-            return GetBy<User, App> (appId, page);
+            return SecretKeyAsync(app.Id, sandboxed);
         }
 
         /// <summary>
-        /// Get collection of administrators for an application.
+        /// Get an application's Private Key.
         /// </summary>
         /// <param name="appId">Application ID</param>
+        /// <param name="sandboxed">if set to <c>true</c> [sandboxed].</param>
         /// <returns></returns>
-        public Results<User> AppOwners (Guid appId, int page = 1)
+        public Task<MojioResponse<Guid>> SecretKeyAsync(Guid appId, bool sandboxed = true)
         {
-            return GetBy<User, App> (appId, page, "admins");
+            string action = Map[typeof(App)];
+            var request = GetRequest(Request(action, appId, "secret"), Method.GET);
+
+            request.AddParameter("sandboxed", sandboxed);
+
+            return RequestAsync<Guid>(request);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Mojio
 {
     public enum EntityType
     {
-        Token,
+        Token=0,
         Vehicle,
         Storage,
         Product,
@@ -34,6 +34,14 @@ namespace Mojio
         MojioImage,
         UserImage,
         BaseServiceTask,
-        DeviceStats
+        DeviceStats,
+        Access,
+        AuthorizationToken,
+        RefreshToken,
+        Address,
+        Location,
+		SimCard,
+        MojioConfiguration,
+        MojioUpdate
     }
 }

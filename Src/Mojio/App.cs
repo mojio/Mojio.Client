@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,26 +20,39 @@ namespace Mojio
         }
 
         /// <summary>
-        /// app name
+        /// App name
         /// </summary>
-        [Display(Name = "Display Name")]
-        [StringLength(32, MinimumLength=5, ErrorMessage="Name has to be between 5 and 32 characters")]
         public string Name { get; set; }
 
         /// <summary>
-        /// description
+        /// Description
         /// </summary>
         public string Description { get; set; }
 
-        [DefaultSort]
         /// <summary>
-        /// record creation timestamp
+        /// Record creation timestamp
         /// </summary>
+        [DefaultSort]
         public DateTime CreationDate { get; set; }
 
         /// <summary>
-        /// total number of downloads
+        /// Total number of downloads
         /// </summary>
         public int? Downloads { get; set; }
+
+        /// <summary>
+        /// Valid redirect uris
+        /// </summary>
+        public string[] RedirectUris { get; set; }
+
+        /// <summary>
+        /// Identifies the OAuth type of this application
+        /// </summary>
+        public AppTypes ApplicationType { get; set; }
+    }
+
+    public enum AppTypes { 
+        web,
+        installed
     }
 }

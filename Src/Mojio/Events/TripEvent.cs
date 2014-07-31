@@ -27,6 +27,7 @@ namespace Mojio.Events
         /// <summary>Gets or sets the trip identifier.</summary>
         /// <value>The trip identifier.</value>
         [Observable(typeof(Trip))]
+        [Parent(typeof(Trip))]
         public Guid? TripId { get; set; }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Mojio.Events
         /// <summary>
         /// heading degrees
         /// </summary>
-        public short? Heading { get; set; }
+        public double? Heading { get; set; }
 
         // This property is not saved
         /// <summary>Gets or sets the force trip end.</summary>
