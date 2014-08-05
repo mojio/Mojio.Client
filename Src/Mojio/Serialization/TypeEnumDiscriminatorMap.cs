@@ -32,7 +32,6 @@ namespace Mojio.Serialization
                 .Contains<Trip>(EntityType.Trip)
                 .Contains<Invoice>(EntityType.Invoice)
                 .Contains<User>(EntityType.User)
-                .Contains<Log>(EntityType.Log)
                 .Contains<Observer>(EntityType.Observer)
                 .Contains<Subscription>(EntityType.Subscription)
                 .Contains<Event>(EntityType.Event)

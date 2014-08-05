@@ -59,6 +59,7 @@
     <Compile Include="MojioRequest.cs" />
     <Compile Include="MojioResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
     <Compile Include="RSJsonSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
