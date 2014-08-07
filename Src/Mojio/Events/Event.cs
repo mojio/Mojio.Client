@@ -43,6 +43,11 @@ namespace Mojio.Events
         /// location
         /// </summary>
         Location Location { get; set; }
+
+        /// <summary>
+        /// accelerometer
+        /// </summary>
+        Accelerometer Accelerometer { get; set; }
     }
 
     /// <summary>
@@ -99,6 +104,11 @@ namespace Mojio.Events
         /// location
         /// </summary>
         public Location Location { get; set; }
+
+        /// <summary>
+        /// location
+        /// </summary>
+        public Accelerometer Accelerometer { get; set; }
 
         /// <summary>
         /// TimeIsApproximate
