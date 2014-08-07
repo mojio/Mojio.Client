@@ -74,9 +74,9 @@ namespace Mojio
             set { _gpsState = value; }
         }
 
-        public int? AccelerometerX { get; set; }
-        public int? AccelerometerY { get; set; }
-        public int? AccelerometerZ { get; set; }
+        public double? AccelerometerX { get; set; }
+        public double? AccelerometerY { get; set; }
+        public double? AccelerometerZ { get; set; }
         public int? NumDtc { get; set; }
         public bool? MilStatus { get; set; }
         public bool? Ignition { get; set; }
