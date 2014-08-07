@@ -59,6 +59,7 @@
     <Compile Include="EntityType.cs" />
     <Compile Include="EventBroadcast.cs" />
     <Compile Include="Events\AccelerationEvent.cs" />
+    <Compile Include="Events\Accelerometer.cs" />
     <Compile Include="Events\AccelerometerEvent.cs" />
     <Compile Include="Events\ActionType.cs" />
     <Compile Include="Events\BatteryEvent.cs" />
