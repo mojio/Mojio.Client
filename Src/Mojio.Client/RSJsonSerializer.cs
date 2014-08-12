@@ -53,7 +53,6 @@ namespace Mojio.Client
                     }
                 }
             }catch(Exception e) {
-                Log.Create (e);
                 return default(T);
             }
         }
