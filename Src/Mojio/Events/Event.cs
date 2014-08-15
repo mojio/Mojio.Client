@@ -142,5 +142,24 @@ namespace Mojio.Events
         {
             return this.MemberwiseClone ();
         }
+
+        public static bool operator ==(Event a, Event b)
+        {
+            return a.EventType == b.EventType;
+        }
+        public static bool operator !=(Event a, Event b)
+        {
+            return a.EventType != b.EventType;
+        }
+
+        public static bool operator ==(Event a, EventType eventType)
+        {
+            return a.EventType == eventType;
+        }
+
+        public static bool operator !=(Event a, EventType eventType)
+        {
+            return a.EventType != eventType;
+        }
     }
 }

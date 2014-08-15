@@ -98,6 +98,16 @@ namespace Mojio.Serialization
 
             return SubTypes[discriminator];
         }
+
+        public void MapUnmappedTo(Type defaultType)
+        {
+            var discType = typeof(D);
+            if (discType.IsEnum)
+                foreach (var enumVal in Enum.GetValues(discType))
+                    if (!SubTypes.ContainsKey((D)enumVal))
+                         SubTypes.Add((D)enumVal, defaultType);
+
+        }
     }
 
 }
