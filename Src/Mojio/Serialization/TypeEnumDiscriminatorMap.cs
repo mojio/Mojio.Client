@@ -33,7 +33,6 @@ namespace Mojio.Serialization
                 .Contains<Invoice>(EntityType.Invoice)
                 .Contains<User>(EntityType.User)
                 .Contains<Observer>(EntityType.Observer)
-                .Contains<Subscription>(EntityType.Subscription)
                 .Contains<Event>(EntityType.Event)
                 .Contains<Mojio>(EntityType.Mojio)
                 .Contains<App>(EntityType.App)

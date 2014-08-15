@@ -10,7 +10,7 @@ namespace Mojio
     /// <summary>
     /// Invoice
     /// </summary>
-    public class Invoice : GuidEntity , IOwner
+    public class Invoice : GuidEntity
     {
         public override EntityType Type
         {
@@ -114,16 +114,6 @@ namespace Mojio
         /// stripe id
         /// </summary>
         public string StripeId { get; set; }
-
-        /// <summary>
-        /// owner di
-        /// </summary>
-        [JsonIgnore]
-        public Guid? OwnerId
-        {
-            get { return BuyerId; }
-            set { this.BuyerId = value.Value; }
-        }
     }
 
     /// <summary>

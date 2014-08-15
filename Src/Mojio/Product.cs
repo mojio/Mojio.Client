@@ -9,7 +9,7 @@ namespace Mojio
     /// <summary>
     /// Product
     /// </summary>
-    public class Product : GuidEntity,IOwner
+    public class Product : GuidEntity
     {
         public override EntityType Type
         {
@@ -60,12 +60,6 @@ namespace Mojio
         /// Discontinued?
         /// </summary>
         public bool Discontinued { get; set; }
-
-        /// <summary>
-        /// Owner id
-        /// </summary>
-        [Obsolete("Use the access record to determine owner")]
-        public Guid? OwnerId { get;set; }
 
         [DefaultSort]
         /// <summary>

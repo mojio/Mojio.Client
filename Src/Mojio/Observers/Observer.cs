@@ -28,7 +28,7 @@ namespace Mojio
 
 
     [JsonConverter(typeof(DiscriminatorConverter<Observer>))]   
-    public partial class Observer : GuidEntity, IOwner
+    public partial class Observer : GuidEntity
     {
         public override EntityType Type
         {
@@ -43,13 +43,6 @@ namespace Mojio
         /// The AppId is required. This specifies which app created the Observer 
         /// </summary>
         public Guid AppId { get; set; }
-
-        /// <summary>
-        /// If unspecified, events for the logged in user will go to the app unless the App has SystemObserver access
-        /// If specified, restricts messages for entities belonging to this user
-        /// If the user is different than the entity owner than the Status has to be Approved
-        /// </summary>
-        public Guid? OwnerId { get; set; }
 
         /// <summary>
         /// The Parent Type to observe on

@@ -49,7 +49,6 @@
     <Compile Include="CollectionNameAttribute.cs" />
     <Compile Include="Constraints.cs" />
     <Compile Include="Converters\Converter.cs" />
-    <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="DeviceLog.cs" />
@@ -68,7 +67,6 @@
     <Compile Include="IClient.cs" />
     <Compile Include="ImageSize.cs" />
     <Compile Include="Invoice.cs" />
-    <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Mojio.cs" />
@@ -93,7 +91,6 @@
     <Compile Include="ServerAddress.cs" />
     <Compile Include="SimCard.cs" />
     <Compile Include="Storage.cs" />
-    <Compile Include="Subscription.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />

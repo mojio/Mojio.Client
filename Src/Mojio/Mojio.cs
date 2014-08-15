@@ -10,21 +10,12 @@ namespace Mojio
     /// Device
     /// </summary>
     [Observable]
-    public partial class Mojio : GuidEntity, IOwner
+    public partial class Mojio : GuidEntity
     {
         public override EntityType Type
         {
             get { return EntityType.Mojio; }
         }
-
-        /// <summary>
-        /// Owner ID
-        /// </summary>
-        [Observable(typeof(User))]
-        [Parent(typeof(User))]
-        [Obsolete("Use the access record to determine owner")]
-        public Guid? OwnerId { get; set; }
-
         /// <summary>
         /// Device name
         /// </summary>
