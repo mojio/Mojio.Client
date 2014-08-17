@@ -3,7 +3,7 @@ using Mojio;
 
 namespace Mojio.Client
 {
-    interface IMojioClient
+    public interface IMojioClient
     {
         bool AddProxyServer(Guid mojioId, ServerAddress address);
         bool AddProxyServer(Guid mojioId, string address, int port);
