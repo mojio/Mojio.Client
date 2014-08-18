@@ -6,7 +6,7 @@ using System.Text;
 namespace Mojio
 {
     //TODO:: this could be produced by mojio machine as a log of the TCU report.
-    class MojioReport : GuidEntity, IOwner
+    public class MojioReport : GuidEntity, IOwner
     {
         public override EntityType Type
         {
