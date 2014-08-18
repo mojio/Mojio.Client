@@ -40,11 +40,6 @@ namespace Mojio
         public ObserverType ObserverType { get; set; }
 
         /// <summary>
-        /// The AppId is required. This specifies which app created the Observer 
-        /// </summary>
-        public Guid AppId { get; set; }
-
-        /// <summary>
         /// The Parent Type to observe on
         /// </summary>
         public string Parent { get; set; }

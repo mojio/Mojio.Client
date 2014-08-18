@@ -25,21 +25,11 @@ namespace Mojio
         Wrecker = Permissions.Delete | Permissions.Inherit,
     }
 
-    public class Access : GuidEntity
+    public class Access
     {
-        /// <summary>
-        /// Type of entity. This is only really needed for double checking?
-        /// </summary>
-        public EntityType EntityType { get; set; }
-
         public IList<UserAccess> Users { get; set; }
 
         public Permissions Everyone { get; set; }
-
-        public override EntityType Type
-        {
-            get { return global::Mojio.EntityType.Access; }
-        }
     }
 
     public class UserAccess
