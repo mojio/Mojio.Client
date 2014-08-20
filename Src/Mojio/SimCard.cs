@@ -8,21 +8,38 @@ namespace Mojio
 {
     public class SimCard : GuidEntity
     {
+        private string iccid;
+        private string msisdn;
+
         public override EntityType Type
         {
             get { return EntityType.SimCard; }
         }
 
         public Guid? MojioId { get; set; }
-        public string Iccid { get; set; }
-        public string Msisdn { get; set; }
-        public string Apn { get; set; }
-        public bool Activated { get; set; }
-
-        public void FilterSimCharacters()
+        public string Iccid
         {
-            Iccid = Iccid.Replace("-", "").Replace(".", "").Replace(" ", "");
-            Msisdn = Msisdn.Replace("-", "").Replace(".", "").Replace(" ", "");
+            get
+            {
+                return iccid;
+            }
+            set
+            {
+                iccid = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
+            }
+        }
+
+
+        public string Msisdn {
+            get
+            {
+                return msisdn;
+            }
+            set
+            {
+                msisdn = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
+            }
+        
         }
     }
 }
