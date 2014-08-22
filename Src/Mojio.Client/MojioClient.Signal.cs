@@ -24,6 +24,10 @@ namespace Mojio.Client
             }
         }
 
+        public event MojioObserveHandler ObserveHandler;
+
+        public delegate void MojioObserveHandler(GuidEntity entity);
+
         public delegate void MojioEventHandler (Event evt);
 
         public event MojioEventHandler EventHandler;
@@ -82,6 +86,76 @@ namespace Mojio.Client
             }
         }
 
+        public IHubProxy ObserverHub
+        {
+            get
+            {
+                if (_mojioProxy == null)
+                {
+                    _mojioProxy = HubConnection.CreateHubProxy("ObserverHub");
+
+                    // Register callback events
+                    _mojioProxy.On<GuidEntity>("UpdateEntity", m =>
+                    {
+                        if (ObserveHandler != null)
+                            ObserveHandler(m);
+                    });
+                    _mojioProxy.On<String>("Error", m =>
+                    {
+                        if (ErrorHandler != null)
+                            ErrorHandler(m);
+                    });
+
+                    HubConnection.Error += (e) =>
+                    {
+                        //Console.WriteLine("ERROR: {0}", e);
+                    };
+                }
+
+                return _mojioProxy;
+            }
+        }
+
+        public Task Observe(Observer observer)
+        {
+            return Observe(observer.Id);
+        }
+
+        /// <summary>
+        /// Subscribe to new signalR events for a set of entities.
+        /// </summary>
+        /// <typeparam name="T">Entity Type (Mojio,User,Trip)</typeparam>
+        /// <param name="id">Entity IDs</param>
+        /// <param name="events">Event types to receive</param>
+        /// <returns></returns>
+        public async Task Observe(Guid id)
+        {
+            if (HubConnection.State != ConnectionState.Connected && ObserverHub != null)
+                await HubConnection.Start();
+
+            await ObserverHub.Invoke("Subscribe", id);
+        }
+
+        public Task Unobserve(Observer observer)
+        {
+            return Unobserve(observer.Id);
+        }
+
+        /// <summary>
+        /// Subscribe to new signalR events for a set of entities.
+        /// </summary>
+        /// <typeparam name="T">Entity Type (Mojio,User,Trip)</typeparam>
+        /// <param name="id">Entity IDs</param>
+        /// <param name="events">Event types to receive</param>
+        /// <returns></returns>
+        public async Task Unobserve(Guid id)
+        {
+            if (HubConnection.State != ConnectionState.Connected && ObserverHub != null)
+                await HubConnection.Start();
+
+            await ObserverHub.Invoke("Unsubscribe", id);
+        }
+
         /// <summary>
         /// Subscribe to new signalR events for a particular entity.
         /// </summary>
@@ -101,12 +175,12 @@ namespace Mojio.Client
         /// <param name="id">Entity IDs</param>
         /// <param name="events">Event types to receive</param>
         /// <returns></returns>
-        public Task Subscribe<T> (Guid[] id, EventType[] events)
+        public async Task Subscribe<T> (Guid[] id, EventType[] events)
         {
             if (HubConnection.State != ConnectionState.Connected && Hub != null)
-                HubConnection.Start ().Wait ();
+                await HubConnection.Start ();
 
-            return Hub.Invoke("Subscribe", Token.Id, EntityDiscriminatorMap.Find(typeof(T)), id, events);
+            await Hub.Invoke("Subscribe", Token.Id, EntityDiscriminatorMap.Find(typeof(T)), id, events);
         }
 
         /// <summary>
