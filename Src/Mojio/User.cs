@@ -94,20 +94,5 @@ namespace Mojio
     }
 
 
-    /// <summary>
-    /// user roles
-    /// </summary>
-    [Flags]
-    public enum Roles
-    {
-        /// <summary>
-        /// no role
-        /// </summary>
-        None = 0,
 
-        /// <summary>
-        /// admin role
-        /// </summary>
-        Admin = 1 << 0
-    }
 }

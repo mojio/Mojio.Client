@@ -37,29 +37,20 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Mojio\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
-    <Compile Include="Address.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="Attributes\CollectionNameAttribute.cs" />
     <Compile Include="Attributes\DefaultSortAttribute.cs" />
-    <Compile Include="AuthenticationProvider.cs" />
-    <Compile Include="CarState.cs" />
-    <Compile Include="CollectionNameAttribute.cs" />
-    <Compile Include="Constraints.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\EventConverter.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
-    <Compile Include="CreditCard.cs" />
     <Compile Include="DeviceLog.cs" />
     <Compile Include="DTC.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="EntityType.cs" />
-    <Compile Include="EventBroadcast.cs" />
     <Compile Include="Events\AccelerationEvent.cs" />
-    <Compile Include="Events\Accelerometer.cs" />
     <Compile Include="Events\AccelerometerEvent.cs" />
     <Compile Include="Events\ActionType.cs" />
     <Compile Include="Events\BatteryEvent.cs" />
@@ -68,7 +59,6 @@
     <Compile Include="Events\DeviceDiagnosticEvent.cs" />
     <Compile Include="Events\DiagnosticEvent.cs" />
     <Compile Include="Events\Event.cs" />
-    <Compile Include="Events\EventType.cs" />
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\FuelEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
@@ -83,15 +73,11 @@
     <Compile Include="Events\SpeedEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
-    <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
-    <Compile Include="ImageSize.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="IOwner.cs" />
     <Compile Include="IViewers.cs" />
-    <Compile Include="Location.cs" />
     <Compile Include="Mojio.cs" />
-    <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
@@ -99,17 +85,11 @@
     <Compile Include="Observers\ObserverToken.cs" />
     <Compile Include="Observers\ObserverType.cs" />
     <Compile Include="Observers\ScriptObserver.cs" />
-    <Compile Include="ParentAttribute.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Regions.cs" />
-    <Compile Include="Register.cs" />
-    <Compile Include="RegistrationState.cs" />
-    <Compile Include="Results.cs" />
     <Compile Include="Serialization\DiscriminatorConverter.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.GoryBits.cs" />
-    <Compile Include="ServerAddress.cs" />
     <Compile Include="SimCard.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Subscription.cs" />
@@ -128,6 +108,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.6.0.3\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mojio.Public\Mojio.Public.csproj">
+      <Project>{f7e63cdf-c5fc-426f-ae5b-aeb4109d5588}</Project>
+      <Name>Mojio.Public</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

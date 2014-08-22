@@ -49,9 +49,5 @@ namespace Mojio
         public Boolean Sandboxed { get; set; }
     }
 
-    [Flags]
-    public enum Scope { 
-        Basic = 0,
-        Full = 1 << 0
-    }
+
 }

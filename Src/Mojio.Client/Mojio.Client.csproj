@@ -102,6 +102,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mojio.Public\Mojio.Public.csproj">
+      <Project>{f7e63cdf-c5fc-426f-ae5b-aeb4109d5588}</Project>
+      <Name>Mojio.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mojio\Mojio.csproj">
       <Project>{92991279-9BA1-44F4-8E30-CC0BF5133900}</Project>
       <Name>Mojio</Name>

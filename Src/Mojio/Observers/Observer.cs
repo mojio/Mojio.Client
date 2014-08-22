@@ -8,24 +8,6 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
-    [Flags]
-    public enum Transport
-    {
-        Unspecified     =   0,
-        SignalR         =   1 << 0,
-        Pubnub          =   1 << 1,
-        ApplePush       =   1 << 2,
-        AndroidPush     =   1 << 3,
-        HttpPost        =   1 << 4   
-    }
-
-    public enum ObserveStatus
-    {
-        Pending         = 0,
-        Denied          = 1,
-        Approved        = 2
-    }
-
 
     [JsonConverter(typeof(DiscriminatorConverter<Observer>))]   
     public partial class Observer : GuidEntity, IOwner

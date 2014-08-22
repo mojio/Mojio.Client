@@ -13,22 +13,7 @@ using System.Globalization;
 //REL figure out how to do this on the mobile app side: using System.Configuration;
 namespace Mojio
 {
-    /// <summary>
-    /// Channel Type
-    /// </summary>
-    public enum ChannelType
-    {
-        /// <summary>The apple</summary>
-        Apple,
-        /// <summary>The android</summary>
-        Android,
-        /// <summary>The windows</summary>
-        Windows,
-        /// <summary>The post</summary>
-        Post,
-        /// <summary>The signal r</summary>
-        SignalR
-    }
+
 
     /// <summary>
     /// Subscription
