@@ -73,10 +73,10 @@
     <Compile Include="Events\SpeedEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
-    <Compile Include="IClient.cs" />
+    <Compile Include="interfaces\IClient.cs" />
     <Compile Include="Invoice.cs" />
-    <Compile Include="IOwner.cs" />
-    <Compile Include="IViewers.cs" />
+    <Compile Include="interfaces\IOwner.cs" />
+    <Compile Include="interfaces\IViewers.cs" />
     <Compile Include="Mojio.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
