@@ -220,13 +220,11 @@ namespace Mojio.Client
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
                     var request = GetRequest (Request ("login", tokenId.Value), Method.GET);
-                    var response = await RequestAsync<Result<Token>>(request);
+                    var response = await RequestAsync<Token>(request);
 
-                    if (response.StatusCode == HttpStatusCode.OK &&
-                        response.Data &&
-                        response.Data.Item.AppId == appId)
+                    if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId)
                     {
-                        Token = response.Data.Item;
+                        Token = response.Data;
                         return true;
                     }
                 }
@@ -263,11 +261,9 @@ namespace Mojio.Client
             var request = GetRequest (Request ("login", appId), Method.POST);
             request.AddBody ("");
             request.AddParameter ("secretKey", secretKey);
-            var response = await RequestAsync<Result<Token>> (request);
-            if (response.StatusCode == HttpStatusCode.OK &&
-                response.Data)
-            {
-                Token = response.Data.Item;
+            var response = await RequestAsync<Token> (request);
+            if (response.StatusCode == HttpStatusCode.OK) {
+                Token = response.Data;
                 return true;
             } else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 throw new UnauthorizedAccessException ("Invalid AppID/Secret Key");
@@ -292,11 +288,9 @@ namespace Mojio.Client
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
 
-            var response = AvoidAsyncDeadlock(() => RequestAsync<Result<Token>>(request)).Result;
-            if (response.StatusCode == HttpStatusCode.OK &&
-                response.Data)
-            {
-                Token = response.Data.Item;
+            var response = AvoidAsyncDeadlock(() => RequestAsync<Token>(request)).Result;
+            if (response.StatusCode == HttpStatusCode.OK) {
+                Token = response.Data;
                 return true;
             }
             return false;

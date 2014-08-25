@@ -52,7 +52,7 @@ namespace Mojio.Client
                         return Serializer.Deserialize<T> (jsonReader);
                     }
                 }
-            }catch(Exception e) {
+            }catch {
                 return default(T);
             }
         }
