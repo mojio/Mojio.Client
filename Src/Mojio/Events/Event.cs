@@ -27,7 +27,7 @@ namespace Mojio.Events
         /// <summary>
         /// owner Id
         /// </summary>
-        Guid? OwnerId { get; set; }
+        //Guid? OwnerId { get; set; }
 
         /// <summary>
         /// event type
