@@ -153,23 +153,30 @@ namespace Mojio.Events
             return this.MemberwiseClone ();
         }
 
+        // This class should probably just implement Equals(...) and GetHashCode().
+
+        static bool NotNull(params object[] list)
+        {
+            return list.All(i => !object.ReferenceEquals(i, null));
+        }
+
         public static bool operator ==(Event a, Event b)
         {
-            return a.EventType == b.EventType;
+            return NotNull(a, b) && a.EventType == b.EventType;
         }
         public static bool operator !=(Event a, Event b)
         {
-            return a.EventType != b.EventType;
+            return NotNull(a, b) && a.EventType != b.EventType;
         }
 
         public static bool operator ==(Event a, EventType eventType)
         {
-            return a.EventType == eventType;
+            return NotNull(a, eventType) && a.EventType == eventType;
         }
 
         public static bool operator !=(Event a, EventType eventType)
         {
-            return a.EventType != eventType;
+            return NotNull(a, eventType) && a.EventType != eventType;
         }
     }
 }
