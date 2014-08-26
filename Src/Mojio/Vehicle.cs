@@ -115,12 +115,6 @@ namespace Mojio
         /// </summary>
         public Guid[] Viewers { get; set; }
 
-
-        //TODO:: //rel //cb  remove this and put it into vehicle domain.
-        // this is problably not needed:
-        //[JsonIgnore]
-        //public VehiclePrivate VehiclePrivate { get; set; }
-
         [JsonIgnore]
         virtual public Trip LastTripObject { get; set; }
 

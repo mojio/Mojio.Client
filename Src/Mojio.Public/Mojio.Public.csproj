@@ -43,6 +43,7 @@
     <Compile Include="ChannelType.cs" />
     <Compile Include="Constraints.cs" />
     <Compile Include="CreditCard.cs" />
+    <Compile Include="DTCStatus.cs" />
     <Compile Include="EntityType.cs" />
     <Compile Include="EventBroadcast.cs" />
     <Compile Include="EventType.cs" />
