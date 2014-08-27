@@ -13,6 +13,12 @@ namespace Mojio
         {
 
         }
+
+        public ConditionalObserver(ObserverType type, Type subject = null, Type parent = null)
+            : base(type, subject, parent)
+        {
+
+        }
     }
 
 }
