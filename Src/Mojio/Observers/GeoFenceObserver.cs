@@ -30,10 +30,12 @@ namespace Mojio
 
         }
 
-        public GeoFenceObserver(Guid vehicleId)
+        public GeoFenceObserver(Guid vehicleId, Location location, double radiusInKm)
             : this()
         {
             SubjectId = vehicleId;
+            Location = location;
+            Radius = radiusInKm;
         }
     }
 }
