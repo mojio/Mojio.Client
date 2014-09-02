@@ -26,10 +26,6 @@ namespace Mojio.Client
         System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(string imei, int? pin);
         bool ClearProxyServers(Guid mojioId);
         System.Threading.Tasks.Task<MojioResponse<bool>> ClearProxyServersAsync(Guid mojioId);
-        bool ClearSubscriptions(ChannelType channel, string target);
-        bool ClearSubscriptions(ChannelType channel, string target, out System.Net.HttpStatusCode code);
-        bool ClearSubscriptions(ChannelType channel, string target, out System.Net.HttpStatusCode code, out string message);
-        System.Threading.Tasks.Task<MojioResponse> ClearSubscriptionsAsync(ChannelType channel, string target);
         bool ClearUser();
         System.Threading.Tasks.Task<MojioResponse<Token>> ClearUserAsync();
         T Create<T>(T entity) where T : BaseEntity, new();
@@ -101,7 +97,6 @@ namespace Mojio.Client
         string GetStored(Type type, Guid id, string key);
         System.Threading.Tasks.Task<string> GetStoredAsync(Type type, Guid id, string key);
         System.Threading.Tasks.Task<string> GetStoredAsync<T>(Guid id, string key);
-        void GetSubscriptions();
         Permissions GetUserAccess(GuidEntity entity, Guid userId);
         byte[] GetVehicleImage(Guid id, ImageSize size = ImageSize.Small);
         System.Threading.Tasks.Task<byte[]> GetVehicleImageAsync(Guid id, ImageSize size = ImageSize.Small);
@@ -120,8 +115,6 @@ namespace Mojio.Client
         bool PasswordReset(ResetPassword reset, out System.Net.HttpStatusCode code, out string message);
         bool PasswordReset(ResetPassword reset, out string message);
         System.Threading.Tasks.Task<MojioResponse<bool>> PasswordResetAsync(ResetPassword reset);
-        string PushRegistrationId { get; set; }
-        ChannelType PushRegistrationType { get; set; }
         Client.Linq.IMojioQueryable<T> Queryable<T>() where T : BaseEntity, new();
         User RegisterUser(string username, string email, string password);
         User RegisterUser(string username, string email, string password, out System.Net.HttpStatusCode code);
@@ -162,9 +155,6 @@ namespace Mojio.Client
         System.Threading.Tasks.Task<MojioResponse<Token>> SetUserAsync(string userOrEmail, string password);
         bool SetVehicleImage(Guid id, byte[] data, string mimetype, out System.Net.HttpStatusCode code, out string message);
         System.Threading.Tasks.Task<MojioResponse<bool>> SetVehicleImageAsync(Guid id, byte[] data, string mimetype);
-        System.Threading.Tasks.Task Subscribe<T>(Guid id, Events.EventType[] events);
-        System.Threading.Tasks.Task Subscribe<T>(Guid[] id, Events.EventType[] events);
-        void SubscribePush<T>(Guid id, Events.EventType events);
         Token Token { get; }
         Results<Events.Event> TripEvents(Guid id, int page = 1);
         System.Threading.Tasks.Task<MojioResponse<Results<Events.Event>>> TripEventsAsync(Guid id, int page = 1);

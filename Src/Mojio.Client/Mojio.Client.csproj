@@ -51,7 +51,6 @@
     <Compile Include="MojioClient.cs" />
     <Compile Include="MojioClient.Mojio.cs" />
     <Compile Include="MojioClient.Proxy.cs" />
-    <Compile Include="MojioClient.Push.cs" />
     <Compile Include="MojioClient.Signal.cs" />
     <Compile Include="MojioClient.Storage.cs" />
     <Compile Include="MojioClient.Trip.cs" />
