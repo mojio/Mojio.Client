@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Mojio;
 
 namespace Mojio.Client
 {
-    interface IMojioClient
+    public interface IMojioClient
     {
         bool AddProxyServer(Guid mojioId, ServerAddress address);
         bool AddProxyServer(Guid mojioId, string address, int port);
@@ -22,8 +22,8 @@ namespace Mojio.Client
         bool ChangePassword(string oldPassword, string newPassword, out System.Net.HttpStatusCode code, out string message);
         bool ChangePassword(string oldPassword, string newPassword, out string message);
         System.Threading.Tasks.Task<MojioResponse<bool>> ChangePasswordAsync(string oldPassword, string newPassword);
-        System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(Mojio entity, int? pin);
-        System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(string imei, int? pin);
+        System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(Mojio entity);
+        System.Threading.Tasks.Task<MojioResponse<Mojio>> ClaimAsync(string imei);
         bool ClearProxyServers(Guid mojioId);
         System.Threading.Tasks.Task<MojioResponse<bool>> ClearProxyServersAsync(Guid mojioId);
         bool ClearSubscriptions(ChannelType channel, string target);

@@ -21,7 +21,8 @@ namespace Mojio.Serialization
             Map<Observer, ObserverType>(o => o.ObserverType)
                .Contains<Observer>(ObserverType.Generic)
                .Contains<EventObserver>(ObserverType.Event)
-               .Contains<ScriptObserver>(ObserverType.Script);
+               .Contains<ScriptObserver>(ObserverType.Script)
+               .Contains<GeoFenceObserver>(ObserverType.GeoFence);
 
             Map<GuidEntity, EntityType>(e => e.Type)
                 .Contains<Token>(EntityType.Token)
@@ -40,6 +41,7 @@ namespace Mojio.Serialization
                 .Contains<App>(EntityType.App)
                 .Contains<Access>(EntityType.Access)
                 .Contains<SimCard>(EntityType.SimCard)
+                .Contains<MojioReport>(EntityType.MojioReport)
                 ;
 
             // The following allows a partial file to continue

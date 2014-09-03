@@ -92,6 +92,7 @@
     <Compile Include="Location.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mojio.cs" />
+    <Compile Include="MojioReport.cs" />
     <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
@@ -123,6 +124,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="Observers\GeoFenceObserver.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
