@@ -20,6 +20,8 @@ namespace Mojio
         /// The Mojio product identifier
         /// </summary>
         static public Guid MojioProductId = new Guid("15840D74-C48D-4F02-B60D-9D4C0C405B88");
+
+        static public Guid MojioCanadaProductId = new Guid("44be2671-0ad6-41ab-bb6c-0f9a4acf764d");
         
         /// <summary>
         /// The Mojio SDK identifier
