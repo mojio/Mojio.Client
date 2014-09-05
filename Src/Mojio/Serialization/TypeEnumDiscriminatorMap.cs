@@ -59,6 +59,8 @@ namespace Mojio.Serialization
                 .Contains<FenceEvent>(EventType.FenceExited)
                 .Contains<TripStatusEvent>(EventType.TripStatus)
                 .Contains<ConnectionLost>(EventType.ConnectionLost)
+                .Contains<TripEvent>(EventType.Accident)
+                .Contains<Event>(EventType.MILWarning)
                 .Contains<TowEvent>(EventType.TowStart)
                 .Contains<TowEvent>(EventType.TowStop)
                 .Contains<HardEvent>(EventType.HardAcceleration)
