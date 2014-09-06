@@ -25,8 +25,7 @@ namespace Mojio
             }
             set
             {
-                if (iccid != null)
-                    iccid = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
+                iccid = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
             }
         }
 
