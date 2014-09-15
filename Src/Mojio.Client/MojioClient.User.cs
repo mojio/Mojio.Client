@@ -213,7 +213,7 @@ namespace Mojio.Client
 
         public async Task<User> GetCurrentUserAsync()
         {
-            if (Token == null || Token.UserId.HasValue)
+            if (Token == null || !Token.UserId.HasValue)
                 return null;
 
             if (_currentUser == null)
