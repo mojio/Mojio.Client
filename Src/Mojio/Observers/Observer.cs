@@ -24,7 +24,7 @@ namespace Mojio
         /// <summary>
         /// The AppId is required. This specifies which app created the Observer 
         /// </summary>
-        public Guid AppId { get; set; }
+        public Guid[] AppIds { get; set; }
 
         /// <summary>
         /// If unspecified, events for the logged in user will go to the app unless the App has SystemObserver access

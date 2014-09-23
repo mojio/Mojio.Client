@@ -12,8 +12,6 @@ namespace Mojio
         /// <summary>
         /// Type of entity. This is only really needed for double checking?
         /// </summary>
-        public EntityType EntityType { get; set; }
-
         public IList<UserAccess> Users { get; set; }
 
         public Permissions Everyone { get; set; }

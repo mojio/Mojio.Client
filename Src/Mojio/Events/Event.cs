@@ -25,11 +25,6 @@ namespace Mojio.Events
         Guid VehicleId { get; set; }
 
         /// <summary>
-        /// owner Id
-        /// </summary>
-        //Guid? OwnerId { get; set; }
-
-        /// <summary>
         /// event type
         /// </summary>
         EventType EventType { get; set; }
@@ -43,18 +38,13 @@ namespace Mojio.Events
         /// location
         /// </summary>
         Location Location { get; set; }
-
-        /// <summary>
-        /// accelerometer
-        /// </summary>
-        Accelerometer Accelerometer { get; set; }
     }
 
     /// <summary>
     /// event
     /// </summary>
     [JsonConverter(typeof(DiscriminatorConverter<Event>))]
-    public partial class Event : GuidEntity, IEvent, IOwner
+    public partial class Event : GuidEntity, IEvent
     {
         public override EntityType Type
         {
@@ -83,13 +73,6 @@ namespace Mojio.Events
         public Guid VehicleId { get; set; }
 
         /// <summary>
-        /// owner Id
-        /// </summary>
-        [Observable(typeof(User))]
-        [Parent(typeof(User))]
-        public Guid? OwnerId { get; set; }
-
-        /// <summary>
         /// event type
         /// </summary>
         public EventType EventType { get; set; }
@@ -104,11 +87,6 @@ namespace Mojio.Events
         /// location
         /// </summary>
         public Location Location { get; set; }
-
-        /// <summary>
-        /// location
-        /// </summary>
-        public Accelerometer Accelerometer { get; set; }
 
         /// <summary>
         /// TimeIsApproximate
@@ -153,30 +131,23 @@ namespace Mojio.Events
             return this.MemberwiseClone ();
         }
 
-        // This class should probably just implement Equals(...) and GetHashCode().
-
-        static bool NotNull(params object[] list)
-        {
-            return list.All(i => !object.ReferenceEquals(i, null));
-        }
-
         public static bool operator ==(Event a, Event b)
         {
-            return NotNull(a, b) && a.EventType == b.EventType;
+            return a.EventType == b.EventType;
         }
         public static bool operator !=(Event a, Event b)
         {
-            return NotNull(a, b) && a.EventType != b.EventType;
+            return a.EventType != b.EventType;
         }
 
         public static bool operator ==(Event a, EventType eventType)
         {
-            return NotNull(a, eventType) && a.EventType == eventType;
+            return a.EventType == eventType;
         }
 
         public static bool operator !=(Event a, EventType eventType)
         {
-            return NotNull(a, eventType) && a.EventType != eventType;
+            return a.EventType != eventType;
         }
     }
 }
