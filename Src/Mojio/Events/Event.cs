@@ -25,11 +25,6 @@ namespace Mojio.Events
         Guid VehicleId { get; set; }
 
         /// <summary>
-        /// owner Id
-        /// </summary>
-        Guid? OwnerId { get; set; }
-
-        /// <summary>
         /// event type
         /// </summary>
         EventType EventType { get; set; }
@@ -49,7 +44,7 @@ namespace Mojio.Events
     /// event
     /// </summary>
     [JsonConverter(typeof(DiscriminatorConverter<Event>))]
-    public partial class Event : GuidEntity, IEvent, IOwner
+    public partial class Event : GuidEntity, IEvent
     {
         public override EntityType Type
         {
@@ -76,13 +71,6 @@ namespace Mojio.Events
         [Observable(typeof(Vehicle))]
         [Parent(typeof(Vehicle))]
         public Guid VehicleId { get; set; }
-
-        /// <summary>
-        /// owner Id
-        /// </summary>
-        [Observable(typeof(User))]
-        [Parent(typeof(User))]
-        public Guid? OwnerId { get; set; }
 
         /// <summary>
         /// event type
