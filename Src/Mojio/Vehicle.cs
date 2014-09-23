@@ -10,16 +10,15 @@ namespace Mojio
     [Observable]
     public partial class Vehicle : GuidEntity, IOwner, IViewers
     {
-        public override EntityType Type
-        {
+        public override EntityType Type {
             get { return EntityType.Vehicle; }
         }
 
         /// <summary>
         /// Owner ID
         /// </summary>
-        [Observable(typeof(User))]
-        [Parent(typeof(User))]
+        [Observable (typeof(User))]
+        [Parent (typeof(User))]
 
         public Guid? OwnerId { get; set; }
 
@@ -29,7 +28,7 @@ namespace Mojio
         /// <value>
         /// The mojio identifier.
         /// </value>
-        [Observable(typeof(Mojio))]
+        [Observable (typeof(Mojio))]
         public Guid? MojioId { get; set; }
 
         [DefaultSort]

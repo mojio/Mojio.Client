@@ -81,8 +81,8 @@ namespace Mojio.Client
 
             Map.Add (typeof(Subscription), "subscriptions");
 
-            Map.Add (typeof(Observer), "observe");
-            //Map.Add(typeof(Log), "logs");
+            Map.Add (typeof(Observer), "observers");
+            Map.Add(typeof(Log), "logs");
 
             Map.Add(typeof(SimCard), "simcard");
         }
