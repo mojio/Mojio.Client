@@ -82,7 +82,7 @@ namespace Mojio.Client
             Map.Add (typeof(Subscription), "subscriptions");
 
             Map.Add (typeof(Observer), "observers");
-            Map.Add(typeof(Log), "logs");
+            // Map.Add(typeof(Log), "logs");
 
             Map.Add(typeof(SimCard), "simcard");
         }
@@ -701,9 +701,9 @@ namespace Mojio.Client
         /// <param name="entity">The entity.</param>
         /// <param name="pin">The pin.</param>
         /// <returns></returns>
-        public Task<MojioResponse<Mojio>> ClaimAsync (Mojio entity, int? pin)
+        public Task<MojioResponse<Mojio>> ClaimAsync (Mojio entity) //, int? pin)
         {
-            return ClaimAsync (entity.Imei, pin);
+            return ClaimAsync (entity.Imei); //, pin);
         }
 
         /// <summary>
@@ -712,13 +712,13 @@ namespace Mojio.Client
         /// <param name="imei">The imei.</param>
         /// <param name="pin">The pin.</param>
         /// <returns></returns>
-        public Task<MojioResponse<Mojio>> ClaimAsync (String imei, int? pin)
+        public Task<MojioResponse<Mojio>> ClaimAsync (String imei) //, int? pin)
         {
             string controller = Map [typeof(Mojio)];
 
             var request = GetRequest (Request (controller, imei, "user"), Method.PUT);
             request.AddBody ("");
-            request.AddParameter ("pin", pin);
+            //request.AddParameter ("pin", pin);
 
             return RequestAsync<Mojio> (request);
         }
