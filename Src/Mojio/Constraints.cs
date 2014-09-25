@@ -12,12 +12,12 @@ namespace Mojio
         public const string UsernameRegEx = @"^[a-zA-Z0-9_\-]*$";
         
         /// <summary>
-        /// The user name minimum length
+        /// The username minimum length
         /// </summary>
         public const int UserNameMinLength = 6;
         
         /// <summary>
-        /// The user name maximum length
+        /// The username maximum length
         /// </summary>
         public const int UserNameMaxLength = 32;
 
@@ -33,6 +33,12 @@ namespace Mojio
         /// The maximum length error
         /// </summary>
         public const string MaxLengthError = "Username must be not more than 32 characters in length.";
+
+        /// <summary>The password reg ex</summary>
+        public const string EmailRegEx = @"^[a-zA-Z0-9_@&\.?!()\-]*$";
+
+        /// <summary>The username error</summary>
+        public const string EmailError = "Emails may only contain letters, numbers, dashes and certain special characters.";
 
         /// <summary>The password reg ex</summary>
         public const string PasswordRegEx = @"(?=^[^\s]{0,1000}$)((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[\d]))^.*";
