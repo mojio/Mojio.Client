@@ -43,6 +43,7 @@ namespace Mojio
 		SimCard,
         MojioConfiguration,
         MojioUpdate,
-        Firmware
+        Firmware,
+        Operation
     }
 }
