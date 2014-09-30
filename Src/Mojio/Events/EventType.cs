@@ -211,6 +211,11 @@ namespace Mojio.Events
         DeviceDiagnostic = 100022,
 
         /// <summary>
+        /// Vehicle Idle Event
+        /// </summary>
+        IdleEvent = 100023,
+
+        /// <summary>
         /// Unknown
         /// </summary>
         Unknown = -1

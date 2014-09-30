@@ -74,6 +74,7 @@
     <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\HeadingChangeEvent.cs" />
     <Compile Include="Events\HeartBeatEvent.cs" />
+    <Compile Include="Events\IdleEvent.cs" />
     <Compile Include="Events\IgnitionEvent.cs" />
     <Compile Include="Events\MileageEvent.cs" />
     <Compile Include="Events\MovementEvent.cs" />
