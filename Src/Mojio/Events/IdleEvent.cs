@@ -9,7 +9,7 @@ namespace Mojio.Events
     /// 
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class IdleEvent : Event
+    public class IdleEvent : TripEvent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ParkEvent"/> class.
