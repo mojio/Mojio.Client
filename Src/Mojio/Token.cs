@@ -9,6 +9,11 @@ namespace Mojio
     /// </summary>
     public class Token : GuidEntity
     {
+        public Token()
+            : base()
+        {
+            Deprecated = false;
+        }
         public override EntityType Type
         {
             get { return EntityType.Token; }
@@ -47,6 +52,11 @@ namespace Mojio
         /// Whether this token will attempt to access the sandboxed databases.
         /// </summary>
         public Boolean Sandboxed { get; set; }
+
+        /// <summary>
+        /// Whether this token will attempt to access the sandboxed databases.
+        /// </summary>
+        public Boolean Deprecated { get; set; }
     }
 
     [Flags]
