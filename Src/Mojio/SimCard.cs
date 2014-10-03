@@ -17,6 +17,8 @@ namespace Mojio
         }
 
         public Guid? MojioId { get; set; }
+
+        [DefaultSort]
         public string Iccid
         {
             get
