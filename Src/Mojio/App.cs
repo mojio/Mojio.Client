@@ -14,8 +14,7 @@ namespace Mojio
     [Observable]
     public partial class App : GuidEntity
     {
-        public override EntityType Type
-        {
+        public override EntityType Type {
             get { return EntityType.App; }
         }
 
@@ -51,7 +50,8 @@ namespace Mojio
         public AppTypes ApplicationType { get; set; }
     }
 
-    public enum AppTypes { 
+    public enum AppTypes
+    {
         web,
         installed
     }

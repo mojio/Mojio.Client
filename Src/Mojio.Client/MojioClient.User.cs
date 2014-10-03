@@ -17,7 +17,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="access_token">Facebook access_token</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Token FacebookLogin (string access_token)
         {
             string message;
@@ -32,7 +32,7 @@ namespace Mojio.Client
         /// <param name="access_token">Facebook access_token</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Token FacebookLogin (string access_token, out HttpStatusCode code)
         {
             string message;
@@ -46,7 +46,7 @@ namespace Mojio.Client
         /// <param name="access_token">Facebook access_token</param>
         /// <param name="message">Http response content</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Token FacebookLogin (string access_token, out string message)
         {
             HttpStatusCode code;
@@ -61,10 +61,10 @@ namespace Mojio.Client
         /// <param name="message">Http response content</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Token FacebookLogin (string access_token, out HttpStatusCode code, out string message)
         {
-            var task = AvoidAsyncDeadlock(() => FacebookLoginAsync(access_token));
+            var task = AvoidAsyncDeadlock (() => FacebookLoginAsync (access_token));
             var response = task.Result;
 
             message = response.Content;
@@ -110,7 +110,7 @@ namespace Mojio.Client
         /// <param name="email">Email address</param>
         /// <param name="password">Password</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public User RegisterUser (string username, string email, string password)
         {
             string message;
@@ -127,7 +127,7 @@ namespace Mojio.Client
         /// <param name="password">Password</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public User RegisterUser (string username, string email, string password, out HttpStatusCode code)
         {
             string message;
@@ -142,7 +142,7 @@ namespace Mojio.Client
         /// <param name="password">Password</param>
         /// <param name="message">Http response content</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public User RegisterUser (string username, string email, string password, out string message)
         {
             HttpStatusCode code;
@@ -158,10 +158,10 @@ namespace Mojio.Client
         /// <param name="message">Http response content</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public User RegisterUser (string username, string email, string password, out HttpStatusCode code, out string message)
         {
-            var task = AvoidAsyncDeadlock(() => RegisterUserAsync(username, email, password));
+            var task = AvoidAsyncDeadlock (() => RegisterUserAsync (username, email, password));
 
             var response = task.Result;
 
@@ -198,7 +198,7 @@ namespace Mojio.Client
 
         User _currentUser;
 
-        [Obsolete("Property has been deprecated because request is performed synchronously, please use GetCurrentUserAsync() instead.")]
+        [Obsolete ("Property has been deprecated because request is performed synchronously, please use GetCurrentUserAsync() instead.")]
         public User CurrentUser {
             get {
                 if (_currentUser != null)
@@ -211,14 +211,16 @@ namespace Mojio.Client
             }
         }
 
-        public async Task<User> GetCurrentUserAsync()
+        public async Task<User> GetCurrentUserAsync ()
         {
-            if (Token == null || !Token.UserId.HasValue)
-                return null;
+            if ((Token == null || !Token.UserId.HasValue) && BeginTask == null) {
+                if (TokenId == null)
+                    return null;
+                await BeginAsync (AppId, Secret, TokenId);
+            }
 
-            if (_currentUser == null)
-            {
-                var response = await GetAsync<User>(Token.UserId.Value);
+            if (_currentUser == null) {
+                var response = await GetAsync<User> (Token.UserId.Value);
                 _currentUser = response.Data;
             }
 
@@ -247,10 +249,10 @@ namespace Mojio.Client
         /// <param name="message">Http response content</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ChangePassword (string oldPassword, string newPassword, out HttpStatusCode code, out string message)
         {
-            var response = AvoidAsyncDeadlock(() => ChangePasswordAsync(oldPassword, newPassword)).Result;
+            var response = AvoidAsyncDeadlock (() => ChangePasswordAsync (oldPassword, newPassword)).Result;
 
             code = response.StatusCode;
             message = response.Content;
@@ -266,7 +268,7 @@ namespace Mojio.Client
         /// <param name="oldPassword">Old password</param>
         /// <param name="newPassword">New password</param>
         /// <returns></returns>
-        public Task<MojioResponse<bool>> ChangePasswordAsync(string oldPassword, string newPassword)
+        public Task<MojioResponse<bool>> ChangePasswordAsync (string oldPassword, string newPassword)
         {
             string action = Map [typeof(User)];
             var request = GetRequest (Request (action, Token.UserId, "Password"), Method.PUT);
@@ -285,13 +287,13 @@ namespace Mojio.Client
         /// <param name="oldPassword">Old password</param>
         /// <param name="newPassword">New password</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ChangePassword (string oldPassword, string newPassword)
         {
             HttpStatusCode code;
             string message;
 #pragma warning disable 0618
-            return ChangePassword(oldPassword, newPassword, out code, out message);
+            return ChangePassword (oldPassword, newPassword, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -302,12 +304,12 @@ namespace Mojio.Client
         /// <param name="newPassword">New password</param>
         /// <param name="message">Http response content</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ChangePassword (string oldPassword, string newPassword, out string message)
         {
             HttpStatusCode code;
 #pragma warning disable 0618
-            return ChangePassword(oldPassword, newPassword, out code, out message);
+            return ChangePassword (oldPassword, newPassword, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -318,12 +320,12 @@ namespace Mojio.Client
         /// <param name="newPassword">New password</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ChangePassword (string oldPassword, string newPassword, out HttpStatusCode code)
         {
             string message;
 #pragma warning disable 0618
-            return ChangePassword(oldPassword, newPassword, out code, out message);
+            return ChangePassword (oldPassword, newPassword, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -344,10 +346,10 @@ namespace Mojio.Client
         /// <param name="message">Http response content</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out HttpStatusCode code, out string message)
         {
-            var task = AvoidAsyncDeadlock(() => RequestPasswordResetAsync (userNameOrEmail, returnUrl));
+            var task = AvoidAsyncDeadlock (() => RequestPasswordResetAsync (userNameOrEmail, returnUrl));
             var response = task.Result;
 
             if (response != null) {
@@ -373,13 +375,13 @@ namespace Mojio.Client
         /// <param name="oldPassword">User's name or email</param>
         /// <param name="newPassword">Return URL</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool RequestPasswordReset (string userNameOrEmail, string returnUrl)
         {
             HttpStatusCode code;
             string message;
 #pragma warning disable 0618
-            return RequestPasswordReset(userNameOrEmail, returnUrl, out code, out message);
+            return RequestPasswordReset (userNameOrEmail, returnUrl, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -390,12 +392,12 @@ namespace Mojio.Client
         /// <param name="newPassword">Return URL</param>
         /// <param name="message">Http response content</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out string message)
         {
             HttpStatusCode code;
 #pragma warning disable 0618
-            return RequestPasswordReset(userNameOrEmail, returnUrl, out code, out message);
+            return RequestPasswordReset (userNameOrEmail, returnUrl, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -406,12 +408,12 @@ namespace Mojio.Client
         /// <param name="newPassword">Return URL</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool RequestPasswordReset (string userNameOrEmail, string returnUrl, out HttpStatusCode code)
         {
             string message;
 #pragma warning disable 0618
-            return RequestPasswordReset(userNameOrEmail, returnUrl, out code, out message);
+            return RequestPasswordReset (userNameOrEmail, returnUrl, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -420,13 +422,13 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="reset">Reset request</param>
         /// <returns></returns>
-        public Task<MojioResponse<bool>> PasswordResetAsync(ResetPassword reset)
+        public Task<MojioResponse<bool>> PasswordResetAsync (ResetPassword reset)
         {
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, reset.UserNameOrEmail, "Password"), Method.POST);
-            request.AddBody(reset);
+            string action = Map [typeof(User)];
+            var request = GetRequest (Request (action, reset.UserNameOrEmail, "Password"), Method.POST);
+            request.AddBody (reset);
 
-            return RequestAsync<bool>(request);
+            return RequestAsync<bool> (request);
         }
 
         /// <summary>
@@ -436,10 +438,10 @@ namespace Mojio.Client
         /// <param name="message">Http response content</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool PasswordReset (ResetPassword reset, out HttpStatusCode code, out string message)
         {
-            var response = AvoidAsyncDeadlock(() => PasswordResetAsync(reset)).Result;
+            var response = AvoidAsyncDeadlock (() => PasswordResetAsync (reset)).Result;
 
             code = response.StatusCode;
             message = response.Content;
@@ -455,13 +457,13 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="reset">Reset request</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool PasswordReset (ResetPassword reset)
         {
             HttpStatusCode code;
             string message;
 #pragma warning disable 0618
-            return PasswordReset(reset, out code, out message);
+            return PasswordReset (reset, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -471,12 +473,12 @@ namespace Mojio.Client
         /// <param name="reset">Reset request</param>
         /// <param name="message">Http response content</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool PasswordReset (ResetPassword reset, out string message)
         {
             HttpStatusCode code;
 #pragma warning disable 0618
-            return PasswordReset(reset, out code, out message);
+            return PasswordReset (reset, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -486,12 +488,12 @@ namespace Mojio.Client
         /// <param name="reset">Reset request</param>
         /// <param name="code">Http response status code</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool PasswordReset (ResetPassword reset, out HttpStatusCode code)
         {
             string message;
 #pragma warning disable 0618
-            return PasswordReset(reset, out code, out message);
+            return PasswordReset (reset, out code, out message);
 #pragma warning restore 0618
         }
 
@@ -500,7 +502,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<App> UserApps (Guid userId, int page = 1)
         {
             return GetBy<App, User> (userId, page);
@@ -511,9 +513,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<App>>> UserAppsAsnc(Guid userId, int page = 1)
+        public Task<MojioResponse<Results<App>>> UserAppsAsnc (Guid userId, int page = 1)
         {
-            return GetByAsync<App, User>(userId, page);
+            return GetByAsync<App, User> (userId, page);
         }
 
         /// <summary>
@@ -521,7 +523,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<Mojio> UserMojios (Guid userId, int page = 1)
         {
             return GetBy<Mojio, User> (userId, page);
@@ -532,9 +534,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<Mojio>>> UserMojiosAsync(Guid userId, int page = 1)
+        public Task<MojioResponse<Results<Mojio>>> UserMojiosAsync (Guid userId, int page = 1)
         {
-            return GetByAsync<Mojio, User>(userId, page);
+            return GetByAsync<Mojio, User> (userId, page);
         }
 
         /// <summary>
@@ -542,7 +544,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<Vehicle> UserVehicles (Guid userId, int page = 1)
         {
             return GetBy<Vehicle, User> (userId, page);
@@ -553,9 +555,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<Vehicle>>> UserVehiclesAsync(Guid userId, int page = 1)
+        public Task<MojioResponse<Results<Vehicle>>> UserVehiclesAsync (Guid userId, int page = 1)
         {
-            return GetByAsync<Vehicle, User>(userId, page);
+            return GetByAsync<Vehicle, User> (userId, page);
         }
 
         /// <summary>
@@ -563,7 +565,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<Trip> UserTrips (Guid userId, int page = 1)
         {
             return GetBy<Trip, User> (userId, page);
@@ -574,9 +576,9 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<Trip>>> UserTripsAsync(Guid userId, int page = 1)
+        public Task<MojioResponse<Results<Trip>>> UserTripsAsync (Guid userId, int page = 1)
         {
-            return GetByAsync<Trip, User>(userId, page);
+            return GetByAsync<Trip, User> (userId, page);
         }
 
         /// <summary>
@@ -584,7 +586,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Results<Event> UserEvents (Guid userId, int page = 1)
         {
             return GetBy<Event, User> (userId, page);
@@ -595,63 +597,63 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<Event>>> UserEventsAsync(Guid userId, int page = 1)
+        public Task<MojioResponse<Results<Event>>> UserEventsAsync (Guid userId, int page = 1)
         {
-            return GetByAsync<Event, User>(userId, page);
+            return GetByAsync<Event, User> (userId, page);
         }
 
-        public Task<MojioResponse<Address>> GetShippingAsync(Guid? userId = null)
+        public Task<MojioResponse<Address>> GetShippingAsync (Guid? userId = null)
         {
             if (userId == null)
                 userId = Token.UserId;
 
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "shipping"), Method.GET);
+            string action = Map [typeof(User)];
+            var request = GetRequest (Request (action, userId, "shipping"), Method.GET);
 
-            return RequestAsync<Address>(request);
+            return RequestAsync<Address> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public Address GetShipping (Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => GetShippingAsync(userId)).Result;
+            var response = AvoidAsyncDeadlock (() => GetShippingAsync (userId)).Result;
             return response.Data;
         }
 
-        public Task<MojioResponse<bool>> SaveShippingAsync(Address shipping, Guid? userId = null)
+        public Task<MojioResponse<bool>> SaveShippingAsync (Address shipping, Guid? userId = null)
         {
             if (userId == null)
                 userId = Token.UserId;
 
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "shipping"), Method.POST);
-            request.AddBody(shipping);
+            string action = Map [typeof(User)];
+            var request = GetRequest (Request (action, userId, "shipping"), Method.POST);
+            request.AddBody (shipping);
 
-            return RequestAsync<bool>(request);
+            return RequestAsync<bool> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SaveShipping (Address shipping, Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => SaveShippingAsync(shipping, userId)).Result;
+            var response = AvoidAsyncDeadlock (() => SaveShippingAsync (shipping, userId)).Result;
             return response.StatusCode == HttpStatusCode.OK;
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public CreditCard GetCreditCard (out string message, Guid? userId = null)
         {
             HttpStatusCode code;
             return GetCreditCard (out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public CreditCard GetCreditCard (out HttpStatusCode code, Guid? userId = null)
         {
             string message;
             return GetCreditCard (out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public CreditCard GetCreditCard (Guid? userId = null)
         {
             HttpStatusCode code;
@@ -659,10 +661,10 @@ namespace Mojio.Client
             return GetCreditCard (out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public CreditCard GetCreditCard (out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => GetCreditCardAsync(userId)).Result;
+            var response = AvoidAsyncDeadlock (() => GetCreditCardAsync (userId)).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -680,21 +682,21 @@ namespace Mojio.Client
             return RequestAsync<CreditCard> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SaveCreditCard (CreditCard creditCard, out string message, Guid? userId = null)
         {
             HttpStatusCode code;
             return SaveCreditCard (creditCard, out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SaveCreditCard (CreditCard creditCard, out HttpStatusCode code, Guid? userId = null)
         {
             string message;
             return SaveCreditCard (creditCard, out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SaveCreditCard (CreditCard creditCard, Guid? userId = null)
         {
             HttpStatusCode code;
@@ -702,22 +704,22 @@ namespace Mojio.Client
             return SaveCreditCard (creditCard, out code, out message, userId);
         }
 
-        public Task<MojioResponse<bool>> SaveCreditCardAsync(CreditCard creditCard, Guid? userId = null)
+        public Task<MojioResponse<bool>> SaveCreditCardAsync (CreditCard creditCard, Guid? userId = null)
         {
             if (userId == null)
                 userId = Token.UserId;
 
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "creditcard"), Method.POST);
-            request.AddBody(creditCard);
+            string action = Map [typeof(User)];
+            var request = GetRequest (Request (action, userId, "creditcard"), Method.POST);
+            request.AddBody (creditCard);
 
-            return RequestAsync<bool>(request);
+            return RequestAsync<bool> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SaveCreditCard (CreditCard creditCard, out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => SaveCreditCardAsync(creditCard, userId)).Result;
+            var response = AvoidAsyncDeadlock (() => SaveCreditCardAsync (creditCard, userId)).Result;
 
             code = response.StatusCode;
             message = response.Content;
@@ -725,21 +727,21 @@ namespace Mojio.Client
             return response.Data;
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteCreditCard (out string message, Guid? userId = null)
         {
             HttpStatusCode code;
             return DeleteCreditCard (out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteCreditCard (out HttpStatusCode code, Guid? userId = null)
         {
             string message;
             return DeleteCreditCard (out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteCreditCard (Guid? userId = null)
         {
             HttpStatusCode code;
@@ -747,10 +749,10 @@ namespace Mojio.Client
             return DeleteCreditCard (out code, out message, userId);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteCreditCard (out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => DeleteCreditCardAsync(userId)).Result;
+            var response = AvoidAsyncDeadlock (() => DeleteCreditCardAsync (userId)).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -768,10 +770,10 @@ namespace Mojio.Client
             return RequestAsync<bool> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool SetImage (byte[] data, string mimetype, out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            var result = AvoidAsyncDeadlock(() => SetImageAsync(data, mimetype, userId)).Result;
+            var result = AvoidAsyncDeadlock (() => SetImageAsync (data, mimetype, userId)).Result;
             code = result.StatusCode;
             message = result.Content;
             return result.Data;
@@ -789,31 +791,31 @@ namespace Mojio.Client
             return RequestAsync<bool> (request);
         }
 
-        public Task<MojioResponse<bool>> DeleteImageAsync(Guid? userId = null)
+        public Task<MojioResponse<bool>> DeleteImageAsync (Guid? userId = null)
         {
             if (userId == null)
                 userId = Token.UserId;
 
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "image"), Method.DELETE);
+            string action = Map [typeof(User)];
+            var request = GetRequest (Request (action, userId, "image"), Method.DELETE);
 
-            return RequestAsync<bool>(request);
+            return RequestAsync<bool> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool DeleteImage (out HttpStatusCode code, out string message, Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => DeleteImageAsync(userId)).Result;
+            var response = AvoidAsyncDeadlock (() => DeleteImageAsync (userId)).Result;
             code = response.StatusCode;
             message = response.Content;
 
             return response.Data;
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public byte[] GetImage (ImageSize size = ImageSize.Small, Guid? userId = null)
         {
-            var task = AvoidAsyncDeadlock(() => GetImageAsync(size, userId));
+            var task = AvoidAsyncDeadlock (() => GetImageAsync (size, userId));
             return task.Result;
         }
 
@@ -828,7 +830,7 @@ namespace Mojio.Client
 
             var tcs = new TaskCompletionSource<byte[]> ();
             try {
-                RestClient.ExecuteAsync (request).ContinueWith( t => {
+                RestClient.ExecuteAsync (request).ContinueWith (t => {
                     var response = t.Result;
 
                     if (response.StatusCode == HttpStatusCode.OK)
@@ -842,21 +844,21 @@ namespace Mojio.Client
             return tcs.Task;
         }
 
-        public Task<MojioResponse<Roles?>> GetRoleAsync(Guid? userId = null)
+        public Task<MojioResponse<Roles?>> GetRoleAsync (Guid? userId = null)
         {
             if (userId == null)
                 userId = Token.UserId;
 
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "role"), Method.GET);
+            string action = Map [typeof(User)];
+            var request = GetRequest (Request (action, userId, "role"), Method.GET);
 
-            return RequestAsync<Roles?>(request);
+            return RequestAsync<Roles?> (request);
         }
 
-        [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Roles? GetRole(Guid? userId = null)
+        [Obsolete ("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
+        public Roles? GetRole (Guid? userId = null)
         {
-            var response = AvoidAsyncDeadlock(() => GetRoleAsync(userId)).Result;
+            var response = AvoidAsyncDeadlock (() => GetRoleAsync (userId)).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
                 return response.Data;

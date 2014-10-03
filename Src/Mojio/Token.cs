@@ -9,8 +9,7 @@ namespace Mojio
     /// </summary>
     public class Token : GuidEntity
     {
-        public override EntityType Type
-        {
+        public override EntityType Type {
             get { return EntityType.Token; }
         }
 
@@ -50,7 +49,8 @@ namespace Mojio
     }
 
     [Flags]
-    public enum Scope { 
+    public enum Scope
+    {
         Basic = 0,
         Full = 1 << 0
     }
