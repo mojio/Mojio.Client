@@ -127,6 +127,12 @@ namespace Mojio
             Line(ex.Message);
             Line(ex.StackTrace);
 
+            if (ex is AggregateException) {
+                foreach (var inner in ((AggregateException) ex).InnerExceptions) {
+                    WithException (inner);
+                }
+            }
+
             return this;
         }
 
