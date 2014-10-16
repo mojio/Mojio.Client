@@ -17,6 +17,8 @@ namespace Mojio
         }
 
         public Guid? MojioId { get; set; }
+
+        [DefaultSort]
         public string Iccid
         {
             get
@@ -25,8 +27,7 @@ namespace Mojio
             }
             set
             {
-                if (iccid != null)
-                    iccid = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
+                iccid = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
             }
         }
 

@@ -21,13 +21,41 @@ namespace Mojio
         /// <summary>An unexpected situation that the app or process cannot recover from and has to exit</summary>
         Fatal
     }
-    public class Log : GuidEntity, IOwner
-    {
-        public override EntityType Type
-        {
-            get { return EntityType.Log; }
-        }
 
+            public interface ILog
+            {
+                LogLevels Level { get; set; }
+                DateTime Time { get; set; }
+
+                Guid? AppId { get; set; }
+
+                Guid? OwnerId { get; set; }
+
+                string Message { get; set; }
+                string Environment { get; set; }
+                List<object> Entities { get; set; }
+                List<string> Tags { get; set; }
+
+                Log AsWarning();
+
+                Log AsError();
+
+                Log AsFatal();
+
+                Log AsDebug();
+                Log WithException(Exception ex);
+
+                Log ForEntity(object entity);
+
+                Log Tag(string tag);
+                Log AtTime(DateTime time);
+                Log Line(string line);
+                Log Token(Token token);
+                Log User(User user);
+            }
+
+    public class Log : GuidEntity, IOwner, ILog
+    {
         public LogLevels Level { get; set; }
         public DateTime Time { get; set; }
 
@@ -42,12 +70,16 @@ namespace Mojio
         public List<object> Entities { get; set; }
         public List<string> Tags { get; set; }
 
+        public override EntityType Type
+        {
+            get { return EntityType.Log; }
+        }
+
         public Log()
         {
             Level = LogLevels.Info;
             Time = DateTime.UtcNow;
         }
-
         
         public static Log Create(string message)
         {
@@ -94,6 +126,12 @@ namespace Mojio
 
             Line(ex.Message);
             Line(ex.StackTrace);
+
+            if (ex is AggregateException) {
+                foreach (var inner in ((AggregateException) ex).InnerExceptions) {
+                    WithException (inner);
+                }
+            }
 
             return this;
         }

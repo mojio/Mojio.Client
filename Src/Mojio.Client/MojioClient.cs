@@ -710,7 +710,6 @@ namespace Mojio.Client
         /// Claims a new Mojio device asynchronously.
         /// </summary>
         /// <param name="imei">The imei.</param>
-        /// <param name="pin">The pin.</param>
         /// <returns></returns>
         public Task<MojioResponse<Mojio>> ClaimAsync(String imei)
         {
