@@ -44,6 +44,7 @@ namespace Mojio
         MojioConfiguration,
         MojioUpdate,
         Firmware,
-        Operation
+        Operation,
+        OperationData
     }
 }
