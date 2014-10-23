@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Mojio
@@ -54,6 +55,11 @@ namespace Mojio
         public const int PasswordMaxLength = 32;
         
         /// <summary>The password error</summary>
-        public const string PasswordError = "Password must be upper and lower case and include a number";
+        public const string PasswordError = "Password must be upper and lower case and include a number.";
+
+        public const string IsNumberRegEx = @"^\d+$";
+
+        public const string IsNumberError = "Value must be a number.";
+
     }
 }
