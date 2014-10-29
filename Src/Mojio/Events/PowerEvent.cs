@@ -9,7 +9,7 @@ namespace Mojio.Events
     /// 
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class PowerEvent : Event
+    public class PowerEvent : HeartBeatEvent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PowerEvent"/> class.
