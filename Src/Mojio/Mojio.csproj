@@ -96,6 +96,7 @@
     <Compile Include="MojioReport.cs" />
     <Compile Include="ObserverScope.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
+    <Compile Include="Observers\ConditionalObserverBase.cs" />
     <Compile Include="Observers\EventObserver.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
     <Compile Include="Observers\Observer.cs" />
