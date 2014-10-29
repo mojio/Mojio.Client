@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Mojio
 {
     [CollectionNameAttribute("Observer")]   
-    public partial class EventObserver : ConditionalObserver
+    public partial class EventObserver : ConditionalObserverBase
     {
         public EventObserver()
             : base(ObserverType.Event)

@@ -6,7 +6,7 @@ using System.Text;
 namespace Mojio
 {
 	[CollectionNameAttribute("Observer")]
-    public partial class GeoFenceObserver : ConditionalObserver
+    public partial class GeoFenceObserver : ConditionalObserverBase
     {
 		/// <summary>
 		/// Centerpoint of GeoFence

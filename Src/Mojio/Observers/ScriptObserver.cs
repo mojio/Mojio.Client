@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Mojio
 {
     [CollectionNameAttribute("Observer")]
-    public partial class ScriptObserver : ConditionalObserver
+    public partial class ScriptObserver : ConditionalObserverBase
     {
         public ScriptObserver()
             : base(ObserverType.Script)

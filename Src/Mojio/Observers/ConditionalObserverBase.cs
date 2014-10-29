@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Mojio
 {
-    public abstract partial class ConditionalObserver : Observer
+    public abstract partial class ConditionalObserverBase : Observer
     {
-        public ConditionalObserver(ObserverType type)
+        public ConditionalObserverBase(ObserverType type)
             : base(type)
         {
 
         }
 
-        public ConditionalObserver(ObserverType type, Type subject = null, Type parent = null)
+        public ConditionalObserverBase(ObserverType type, Type subject = null, Type parent = null)
             : base(type, subject, parent)
         {
 
