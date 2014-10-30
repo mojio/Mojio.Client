@@ -9,8 +9,10 @@ namespace Mojio
     public enum ObserverType
     {
         Generic     = 0,
-        Script      = 1, 
-        Event       = 2,
-        GeoFence,
+        Script      = 1, // not implemented
+        Event       = 2, // not implemented
+        GeoFence    = 3,
+        Conditional = 4
+
     }
 }
