@@ -49,10 +49,22 @@ namespace Mojio
 
         }
 
-        public ConditionalObserver(ObserverType type, 
-            string field, string operator1, double threshold1, 
-            string operator2=null, double? threshold2=null, string conjunction=null,
-            Type subject = null, Type parent = null)
+        /// <summary>
+        /// The operators can be <, > , <=, >=, ==, !=
+        /// <param name="type"></param>
+        /// <param name="subject">The</param>
+        /// <param name="parent"></param>
+        /// <param name="field">The name of the field on the entity where the condition will be applied</param>
+        /// <param name="operator1">Comparitor against the threshold</param>
+        /// <param name="threshold1">The threshold</param>
+        /// <param name="operator2">Optional second operator for a second threshold</param>
+        /// <param name="threshold2">Optional second threshold</param>
+        /// <param name="conjunction">Logical operator to combine the two thresholds.</param>
+        /// </summary>
+        public ConditionalObserver(ObserverType type, Type subject = null, Type parent = null,
+            string field="Speed", string operator1=">", double threshold1=80.0, 
+            string operator2=null, double? threshold2=null, string conjunction=null
+            )
             : base(type, subject, parent)
         {
             SetCondition(field, operator1, threshold1, operator2, threshold2, conjunction);

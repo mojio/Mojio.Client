@@ -103,6 +103,7 @@
     <Compile Include="Observers\ObserverToken.cs" />
     <Compile Include="Observers\ObserverType.cs" />
     <Compile Include="Observers\ScriptObserver.cs" />
+    <Compile Include="Observers\SpeedObserver.cs" />
     <Compile Include="ParentAttribute.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
