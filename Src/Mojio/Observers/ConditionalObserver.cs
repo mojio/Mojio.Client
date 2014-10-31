@@ -43,8 +43,8 @@ namespace Mojio
 		/// </summary>
         public bool? ConditionValue { get; set; }
 
-        public ConditionalObserver(ObserverType type)
-            : base(ObserverType.Conditional)
+        public ConditionalObserver()
+            : base(ObserverType.Conditional, ObserverTiming.edge)
         {
 
         }

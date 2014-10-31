@@ -10,7 +10,7 @@ namespace Mojio
     public partial class ScriptObserver : ConditionalObserverBase
     {
         public ScriptObserver()
-            : base(ObserverType.Script)
+            : base(ObserverType.Script, ObserverTiming.edge)
         {
 
         }

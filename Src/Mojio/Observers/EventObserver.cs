@@ -11,7 +11,7 @@ namespace Mojio
     public partial class EventObserver : ConditionalObserverBase
     {
         public EventObserver()
-            : base(ObserverType.Event)
+            : base(ObserverType.Event, ObserverTiming.edge)
         {
 
         }
