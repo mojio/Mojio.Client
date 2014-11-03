@@ -611,7 +611,7 @@ namespace Mojio.Client
                         try
                         {
                             var error = Deserialize<String>(response.Content);
-                            r.ErrorMessage = error;
+                            r.ErrorMessage = error ?? response.Content;
                         }
                         catch (Exception)
                         {
