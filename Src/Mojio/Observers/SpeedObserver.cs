@@ -20,13 +20,13 @@ namespace Mojio
         public double? SpeedHigh { get; set; }
 
         public SpeedObserver()
-            : base(ObserverType.Speed, typeof(Event), null, ObserverTiming.edge)
+            : base(ObserverType.Speed, typeof(Vehicle), null, ObserverTiming.edge)
         {
 
         }
 
         public SpeedObserver(ObserverTiming timing = ObserverTiming.edge)
-            : base(ObserverType.Speed, typeof(Event), null, timing)
+            : base(ObserverType.Speed, typeof(Vehicle), null, timing)
         {
 
         }
@@ -53,8 +53,9 @@ namespace Mojio
         /// <param name="speedLow">Lower bound for the speed, any speed above this threshold fires an observation event</param>
         /// <param name="speedHigh">Optional Upper bound, any speed below this threshold and above LowSpeed, fires an observe event</param>
         /// </summary>
-        public SpeedObserver(Guid vehicleId, double speedLow = 80.0, double? speedHigh = null, ObserverTiming timing = ObserverTiming.edge)
-            : base(ObserverType.Speed, typeof(Event), typeof(Vehicle), timing)
+        public SpeedObserver(Guid vehicleId, double speedLow = 80.0, double? speedHigh = null, 
+            ObserverTiming timing = ObserverTiming.edge)
+            : base(ObserverType.Speed, typeof(Vehicle), null, timing)
         {
             ParentId = vehicleId;
             SetCondition(speedLow, speedHigh);
