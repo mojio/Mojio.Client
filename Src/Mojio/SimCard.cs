@@ -8,8 +8,8 @@ namespace Mojio
 {
     public class SimCard : GuidEntity
     {
-        private string iccid;
-        private string msisdn;
+        private string iccid = "";
+        private string msisdn = "";
 
         public override EntityType Type
         {
@@ -39,7 +39,9 @@ namespace Mojio
             }
             set
             {
-                msisdn = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
+                // Check if value is null to avoid exception from JSON serializer.
+                if (value != null)
+                    msisdn = value.Replace("-", "").Replace(".", "").Replace(" ", "").Trim();
             }
         
         }
