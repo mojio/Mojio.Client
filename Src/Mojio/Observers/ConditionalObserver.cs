@@ -61,12 +61,48 @@ namespace Mojio
         /// <param name="threshold2">Optional second threshold</param>
         /// <param name="conjunction">Logical operator to combine the two thresholds.</param>
         /// </summary>
-        public ConditionalObserver(ObserverType type, Type subject = null, Type parent = null,
-            string field="Speed", string operator1=">", double threshold1=80.0, 
-            string operator2=null, double? threshold2=null, string conjunction=null
+        public ConditionalObserver(Type subject = null, Guid subjectId = new Guid(),
+            string field="Speed", string operator1=">", double threshold1=80.0,
+            ObserverTiming timing = ObserverTiming.edge
             )
-            : base(type, subject, parent)
+            : this( subject,  subjectId, parent, parentId, 
+                field,  operator1,  threshold1,
+                null, null,  null, timing)
         {
+        }
+
+        public ConditionalObserver(Type subject = null, Guid subjectId = new Guid(),
+            string field = "Speed", string operator1 = ">", double threshold1 = 80.0,
+            string operator2 = "<", double? threshold2 = 100.0, string conjunction = "and",
+            ObserverTiming timing = ObserverTiming.edge
+            )
+            : base(ObserverType.Conditional, subject, parent, timing)
+        {
+            SubjectId = subjectId;
+            ParentId = parentId;
+            SetCondition(field, operator1, threshold1, operator2, threshold2, conjunction);
+        }
+        public ConditionalObserver(Type subject = null, Guid subjectId = new Guid(),
+            Type parent = null, Guid parentId = new Guid(),
+            string field="Speed", string operator1=">", double threshold1=80.0,
+            ObserverTiming timing = ObserverTiming.edge
+            )
+            : this( subject,  subjectId, parent, parentId, 
+                field,  operator1,  threshold1,
+                null, null,  null, timing)
+        {
+        }
+
+        public ConditionalObserver(Type subject = null, Guid subjectId = new Guid(),
+            Type parent = null, Guid parentId = new Guid(),
+            string field = "Speed", string operator1 = ">", double threshold1 = 80.0,
+            string operator2 = "<", double? threshold2 = 100.0, string conjunction = "and",
+            ObserverTiming timing = ObserverTiming.edge
+            )
+            : base(ObserverType.Conditional, subject, parent, timing)
+        {
+            SubjectId = subjectId;
+            ParentId = parentId;
             SetCondition(field, operator1, threshold1, operator2, threshold2, conjunction);
         }
 
@@ -80,14 +116,6 @@ namespace Mojio
             Operator2 = operator2;
             Conjunction = conjunction;
         }
-        double? GetTestValue(BaseEntity entity)
-        {
-            return null; // not used yet.
-        }
 
-        bool TestCondition(double? value)
-        {
-            return false; // not used yet.
-        }
     }
 }
