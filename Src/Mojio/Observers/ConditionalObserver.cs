@@ -65,7 +65,7 @@ namespace Mojio
             string field="Speed", string operator1=">", double threshold1=80.0,
             ObserverTiming timing = ObserverTiming.edge
             )
-            : this( subject,  subjectId, parent, parentId, 
+            : this( subject,  subjectId, null, new Guid(), 
                 field,  operator1,  threshold1,
                 null, null,  null, timing)
         {
