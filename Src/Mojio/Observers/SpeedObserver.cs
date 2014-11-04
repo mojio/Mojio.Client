@@ -22,40 +22,18 @@ namespace Mojio
         public SpeedObserver()
             : base(ObserverType.Speed, typeof(Vehicle), null, ObserverTiming.edge)
         {
-
-        }
-
-        public SpeedObserver(ObserverTiming timing = ObserverTiming.edge)
-            : base(ObserverType.Speed, typeof(Vehicle), null, timing)
-        {
-
         }
 
         /// <summary>
-        /// SpeedLow LessThan Value [LessThan SpeedHigh]  []=>optional
-        /// <param name="type"></param>
-        /// <param name="subject"></param>
-        /// <param name="parent"></param>
-        /// <param name="speedLow">Lower bound for the speed, any speed above this threshold fires an observation event</param>
-        /// <param name="speedHigh">Optional Upper bound, any speed below this threshold and above LowSpeed, fires an observe event</param>
-        /// </summary>
-        public SpeedObserver(double? speedLow = 80.0, double? speedHigh = null, ObserverTiming timing = ObserverTiming.edge)
-            : this(timing)
-        {
-            SetCondition(speedLow.GetValueOrDefault(), speedHigh);
-        }
-
-        /// <summary>
-        /// SpeedLow LessThan Value [LessThan SpeedHigh]  []=>optional
-        /// <param name="type"></param>
-        /// <param name="subject"></param>
-        /// <param name="parent"></param>
         /// <param name="speedLow">Lower bound for the speed, any speed above this threshold fires an observation event</param>
         /// <param name="speedHigh">Optional Upper bound, any speed below this threshold and above LowSpeed, fires an observe event</param>
         /// </summary>
         public SpeedObserver(Guid vehicleId, double speedLow = 80.0, double? speedHigh = null, 
-            ObserverTiming timing = ObserverTiming.edge)
-            : base(ObserverType.Speed, typeof(Vehicle), null, timing)
+            ObserverTiming timing = ObserverTiming.edge, bool events = false)
+            : base(ObserverType.Speed,
+                    events == true ? typeof(Event) : typeof(Vehicle),  // events == true means observe events for a vehicle
+                    events == true ? typeof(Vehicle) : null,  // events == false means observe a vehicle
+                    timing)
         {
             ParentId = vehicleId;
             SetCondition(speedLow, speedHigh);
@@ -66,6 +44,5 @@ namespace Mojio
             SpeedLow = speedLow;
             SpeedHigh = speedHigh;
         }
-
     }
 }

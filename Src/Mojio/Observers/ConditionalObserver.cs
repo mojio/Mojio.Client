@@ -80,5 +80,14 @@ namespace Mojio
             Operator2 = operator2;
             Conjunction = conjunction;
         }
+        double? GetTestValue(BaseEntity entity)
+        {
+            return null; // not used yet.
+        }
+
+        bool TestCondition(double? value)
+        {
+            return false; // not used yet.
+        }
     }
 }
