@@ -18,11 +18,11 @@ namespace Mojio
 		/// </summary>
         public double Radius { get; set; }
 
-		/// <summary>
-		/// When true, this is an exit fence, if false, this is an entry fence.
-        /// If null, this is both an exit and entry fence
-		/// </summary>
-        public bool? ExitFence { get; set; }
+        ///// <summary>
+        ///// When true, this is an exit fence, if false, this is an entry fence.
+        ///// If null, this is both an exit and entry fence
+        ///// </summary>
+        //public bool? ExitFence { get; set; }
 
 		public GeoFenceObserver()
             : base(ObserverType.GeoFence, typeof(Vehicle))
