@@ -65,9 +65,10 @@ namespace Mojio
             string field="Speed", string operator1=">", double threshold1=80.0,
             ObserverTiming timing = ObserverTiming.edge
             )
-            : this( subject,  subjectId, null, new Guid(), 
-                field,  operator1,  threshold1,
-                null, null,  null, timing)
+            : this(subject, subjectId, null, new Guid(),
+                field, operator1, threshold1,
+                null, null, null, 
+                timing)
         {
         }
 
@@ -76,11 +77,11 @@ namespace Mojio
             string operator2 = "<", double? threshold2 = 100.0, string conjunction = "and",
             ObserverTiming timing = ObserverTiming.edge
             )
-            : base(ObserverType.Conditional, subject, parent, timing)
+            : this(subject, subjectId, null, new Guid(),
+                field, operator1, threshold1,
+                operator2, threshold2, conjunction, 
+                timing)
         {
-            SubjectId = subjectId;
-            ParentId = parentId;
-            SetCondition(field, operator1, threshold1, operator2, threshold2, conjunction);
         }
         public ConditionalObserver(Type subject = null, Guid subjectId = new Guid(),
             Type parent = null, Guid parentId = new Guid(),
@@ -89,7 +90,8 @@ namespace Mojio
             )
             : this( subject,  subjectId, parent, parentId, 
                 field,  operator1,  threshold1,
-                null, null,  null, timing)
+                null, null,  null, 
+                timing)
         {
         }
 

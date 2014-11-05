@@ -10,12 +10,19 @@ namespace Mojio
     [CollectionNameAttribute("Observer")]   
     public partial class EventObserver : ConditionalObserverBase
     {
-        public EventObserver()
-            : base(ObserverType.Event, ObserverTiming.edge)
-        {
+        public EventType[] EventTypes { get; set; }
 
+        public EventObserver()
+            : base(ObserverType.Event, typeof(Vehicle), null, ObserverTiming.edge)
+        {
+            EventTypes = new[] { EventType.TripStatus, EventType.IgnitionOff, EventType.IgnitionOn };
         }
 
-        public EventType[] EventTypes { get; set; }
+        public EventObserver(Guid vehicleId, EventType[] eventTypes, ObserverTiming timing = ObserverTiming.edge)
+            : base(ObserverType.Event,  typeof(Event), typeof(Vehicle), timing)
+        {
+            ParentId = vehicleId;
+            EventTypes = eventTypes;
+        }
     }
 }

@@ -35,7 +35,6 @@ namespace Mojio
             Timing = timing;
         }
 
-
         public ConditionalObserverBase(ObserverType type, Type subject = null, 
             Type parent = null, ObserverTiming timing = ObserverTiming.edge)
             : base(type, subject, parent)
