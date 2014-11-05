@@ -101,6 +101,7 @@
     <Compile Include="Observers\BatteryVoltageObserver.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\ConditionalObserverBase.cs" />
+    <Compile Include="Observers\DiagnosticCodeObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
     <Compile Include="Observers\FuelObserver.cs" />
     <Compile Include="Observers\HeadingObserver.cs" />
