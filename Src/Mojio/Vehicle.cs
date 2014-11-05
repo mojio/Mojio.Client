@@ -140,7 +140,7 @@ namespace Mojio
         /// </summary>
         public bool? MilStatus { get; set; }
 
-        public DTC[] DiagnosticCodes { get; set; }
+        public DTCStatus DiagnosticCodes { get; set; }
 
         /// <summary>
         /// Public boolean flag to indicate DTC faults have been detected
