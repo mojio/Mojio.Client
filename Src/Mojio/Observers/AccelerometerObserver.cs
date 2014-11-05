@@ -28,13 +28,15 @@ namespace Mojio
         /// <param name="accelerometerLow">Lower bound for the accelerometer, any accelerometer above this threshold fires an observation event</param>
         /// <param name="accelerometerHigh">Optional Upper bound, any accelerometer below this threshold and above LowAccelerometer, fires an observe event</param>
         /// </summary>
-        public AccelerometerObserver(Guid vehicleId, double accelerometerLow = 80.0, double? accelerometerHigh = null,
+        public AccelerometerObserver(Guid vehicleId, Accelerometer accelerometerLow = null, Accelerometer accelerometerHigh = null,
             ObserverTiming timing = ObserverTiming.edge)
             : base(ObserverType.Accelerometer,
                     typeof(Vehicle),  // events == true means observe events for a vehicle
                     null,  // events == false means observe a vehicle
                     timing)
         {
+            if (accelerometerLow == null)
+                accelerometerLow = new Accelerometer { X = 2.0, Y = 2.0, Z = 2.0 };
             ParentId = vehicleId;
             SetCondition(accelerometerLow, accelerometerHigh);
         }

@@ -1,3 +1,4 @@
+using Mojio.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,8 +79,45 @@ namespace Mojio
         public double? FuelLevel { get; set; }
 
         /// <summary>
-        /// Last mileage
+        /// Last known acceleration/deceleration
         /// </summary>
+        public double? LastAcceleration { get; set; }
+
+        /// <summary>Last Accelerometer Value 
+        /// </summary>
+        public Accelerometer LastAccelerometer { get; set; }
+
+        /// <summary>
+        /// Last known Altitude
+        /// </summary>
+        public double? LastAltitude { get; set; }
+
+        /// <summary>
+        /// Last known Battery Voltage
+        /// </summary>
+        public double? LastBatteryVoltage { get; set; }
+
+        /// <summary>
+        /// Last known Distance
+        /// </summary>
+        public double? LastDistance { get; set; }
+
+        /// <summary>
+        /// Last known Heading
+        /// </summary>
+        public double? LastHeading { get; set; }
+
+        /// <summary>
+        /// Last known Odometer
+        /// </summary>
+        public double? LastOdometer { get; set; }
+
+        /// <summary>
+        /// Last known RPM
+        /// </summary>
+        public double? LastRpm { get; set; }
+
+        /// 
         public double LastFuelEfficiency { get; set; }
 
         /// <summary>
