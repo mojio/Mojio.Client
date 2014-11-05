@@ -103,7 +103,7 @@
     <Compile Include="Observers\ConditionalObserverBase.cs" />
     <Compile Include="Observers\DiagnosticCodeObserver.cs" />
     <Compile Include="Observers\EventObserver.cs" />
-    <Compile Include="Observers\FuelObserver.cs" />
+    <Compile Include="Observers\FuelLevelObserver.cs" />
     <Compile Include="Observers\HeadingObserver.cs" />
     <Compile Include="Observers\DistanceObserver.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
