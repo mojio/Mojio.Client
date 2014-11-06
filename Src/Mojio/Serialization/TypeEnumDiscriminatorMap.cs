@@ -34,6 +34,7 @@ namespace Mojio.Serialization
                .Contains<OdometerObserver>(ObserverType.Odometer)
                .Contains<AltitudeObserver>(ObserverType.Altitude)
                .Contains<HeadingObserver>(ObserverType.Heading)
+               .Contains<DiagnosticCodeObserver>(ObserverType.Diagnostic)
                ;
 
             Map<GuidEntity, EntityType>(e => e.Type)

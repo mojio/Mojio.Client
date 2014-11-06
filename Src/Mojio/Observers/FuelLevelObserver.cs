@@ -35,7 +35,7 @@ namespace Mojio
                     null,  // events == false means observe a vehicle
                     timing)
         {
-            ParentId = vehicleId;
+            SubjectId = vehicleId;
             SetCondition(fuelLow, fuelHigh);
         }
         /// <summary>
@@ -49,7 +49,11 @@ namespace Mojio
                     events == true ? typeof(Vehicle) : null,  // events == false means observe a vehicle
                     timing)
         {
-            ParentId = vehicleId;
+            if (events)
+                ParentId = vehicleId;
+            else
+                SubjectId = vehicleId;
+
             SetCondition(fuelLow, fuelHigh);
         }
 

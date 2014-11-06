@@ -22,7 +22,8 @@ namespace Mojio
         Distance = 11, 
         Odometer = 12,
         Altitude = 13,
-        Heading = 14
+        Heading = 14,
+        Diagnostic = 15
     }
 
 

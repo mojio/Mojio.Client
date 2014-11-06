@@ -37,7 +37,7 @@ namespace Mojio
         {
             if (accelerometerLow == null)
                 accelerometerLow = new Accelerometer { X = 2.0, Y = 2.0, Z = 2.0 };
-            ParentId = vehicleId;
+            SubjectId = vehicleId;
             SetCondition(accelerometerLow, accelerometerHigh);
         }
         /// <summary>
@@ -53,7 +53,11 @@ namespace Mojio
         {
             if (accelerometerLow == null)
                 accelerometerLow = new Accelerometer { X = 2.0, Y = 2.0, Z = 2.0 };
-            ParentId = vehicleId;
+            if (events)
+                ParentId = vehicleId;
+            else
+                SubjectId = vehicleId;
+
             SetCondition(accelerometerLow, accelerometerHigh);
         }
 

@@ -35,7 +35,7 @@ namespace Mojio
                     null,  // events == false means observe a vehicle
                     timing)
         {
-            ParentId = vehicleId;
+            SubjectId = vehicleId;
             SetCondition(odometerLow, odometerHigh);
         }
         /// <summary>
