@@ -55,7 +55,6 @@ namespace Mojio
                 accelerometerLow = new Accelerometer { X = 2.0, Y = 2.0, Z = 2.0 };
             ParentId = vehicleId;
             SetCondition(accelerometerLow, accelerometerHigh);
-            accelerometerHigh.X = 2.0;
         }
 
         public void SetCondition(Accelerometer accelerometerLow, Accelerometer accelerometerHigh = null)
