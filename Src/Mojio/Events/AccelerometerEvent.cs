@@ -10,7 +10,7 @@ namespace Mojio.Events
     /// 
     /// </summary>
     [CollectionNameAttribute(typeof(Event))]
-    public class AccelerometerEvent : Event
+    public class AccelerometerEvent : TripEvent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccelerometerEvent"/> class.

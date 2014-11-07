@@ -22,7 +22,20 @@ namespace Mojio.Serialization
                .Contains<Observer>(ObserverType.Generic)
                .Contains<EventObserver>(ObserverType.Event)
                .Contains<ScriptObserver>(ObserverType.Script)
-               .Contains<GeoFenceObserver>(ObserverType.GeoFence);
+               .Contains<GeoFenceObserver>(ObserverType.GeoFence)
+               .Contains<ConditionalObserver>(ObserverType.Conditional)
+               .Contains<SpeedObserver>(ObserverType.Speed)
+               .Contains<RPMObserver>(ObserverType.Rpm)
+               .Contains<AccelerationObserver>(ObserverType.Acceleration)
+               .Contains<AccelerometerObserver>(ObserverType.Accelerometer)
+               .Contains<BatteryVoltageObserver>(ObserverType.BatteryVoltage)
+               .Contains<FuelLevelObserver>(ObserverType.FuelLevel)
+               .Contains<DistanceObserver>(ObserverType.Distance)
+               .Contains<OdometerObserver>(ObserverType.Odometer)
+               .Contains<AltitudeObserver>(ObserverType.Altitude)
+               .Contains<HeadingObserver>(ObserverType.Heading)
+               .Contains<DiagnosticCodeObserver>(ObserverType.Diagnostic)
+               ;
 
             Map<GuidEntity, EntityType>(e => e.Type)
                 .Contains<Token>(EntityType.Token)

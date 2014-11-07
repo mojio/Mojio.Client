@@ -8,14 +8,29 @@ using System.Threading.Tasks;
 namespace Mojio
 {
     [CollectionNameAttribute("Observer")]   
-    public partial class EventObserver : ConditionalObserver
+    public partial class EventObserver : ConditionalObserverBase
     {
-        public EventObserver()
-            : base(ObserverType.Event)
-        {
+        public EventType[] EventTypes { get; set; }
 
+        public EventObserver()
+            :  base(ObserverType.Event,
+                    typeof(Event),  
+                    null)
+        {
+            EventTypes = new[] { EventType.TripStatus, EventType.IgnitionOff, EventType.IgnitionOn };
         }
 
-        public EventType[] EventTypes { get; set; }
+        public EventObserver(Guid vehicleId, EventType[] eventTypes = null, ObserverTiming timing = ObserverTiming.edge)
+            : base(ObserverType.Event,
+                    typeof(Event),
+                    typeof(Vehicle),
+                    timing)
+        {
+            if (eventTypes == null)
+                eventTypes = new EventType[] {};
+
+            ParentId = vehicleId;
+            EventTypes = eventTypes;
+        }
     }
 }

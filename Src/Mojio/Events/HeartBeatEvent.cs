@@ -16,8 +16,15 @@ namespace Mojio.Events
         /// Initializes a new instance of the <see cref="HeartBeatEvent"/> class.
         /// </summary>
         public HeartBeatEvent()
+            : this(EventType.HeartBeat)
         {
-            EventType = Events.EventType.HeartBeat;
+            
+        }
+
+        public HeartBeatEvent(EventType type)
+            : base(type)
+        {
+
         }
 
         /// <summary>
