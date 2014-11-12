@@ -13,7 +13,7 @@ Download or checkout the Mojio.Client.  You will then need to include the Mojio 
 Getting Started
 ===============
 
-To begin developing with our client, you will need your very own application ID and secret key.  First you will need to create an account and login to our developer center.  We recommend starting with our sandbox environment (http://sandbox.developer.moj.io/).
+To begin developing with our client, you will need your very own application ID and secret key.  First you will need to create an account and login to our developer center.  We recommend starting with our sandbox environment (https://developer.moj.io/).
 
 Once you have logged in, you can create a new Application.  From here, you will want to copy the Application ID and the Secret Key, these will be required to initialize the Mojio.Client.
 
@@ -21,7 +21,7 @@ Once you have logged in, you can create a new Application.  From here, you will 
 Initializing the Client
 -----------------------
 
-To get started using the client, you must first create a new instance of the MojioClient object.  This is where you will need to pass in the Application ID and Secret Key, as well as the developer environment you are using (Sandbox, or Live).
+To get started using the client, you must first create a new instance of the MojioClient object.  This is where you will need to pass in the Application ID and Secret Key, as well as the Mojio server you wish to connect to (optional).
 
 ```csharp
 using Mojio.Client;
@@ -32,7 +32,7 @@ Guid secretKey = new Guid("{SecretKey}");
 MojioClient client = new MojioClient(
                         appID, 
                         secretKey,
-                        MojioClient.Sandbox // or MojioClient.Live
+                        MojioClient.Live
                     );
 ```
 
@@ -79,7 +79,7 @@ By passing in the ID of an entity (often a GUID), you can fetch just that single
 
 ```csharp
 // ...
-string mojioId = "123451234512345"; // Mojio IMEI
+var mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200"); // Mojio ID
 	
 // Fetch mojio from API
 Device mojio = client.Get<Device>(mojioId);
@@ -95,7 +95,7 @@ If you want to update and save an entity, you need to first load the entity from
 
 ```csharp
 // ...
-Device mojio = client.Get<Device>("123451234512345");
+Device mojio = client.Get<Device>(new Guid("015151a1-7e70-16d1-a2w6-28dl98c10200"));
 
 // Make a change
 mojio.Name = "New Name";
@@ -111,7 +111,7 @@ If you want to fetch all the entities associated with another entity, you can ca
 
 ```csharp
 // ...
-string mojioId = "123451234512345";
+var mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 
 // Fetch all events by mojio ID
 Results<Event> events = client.GetBy<Event,Device>(mojioId);
@@ -150,7 +150,7 @@ Instead of continuously polling the API to see if any new events have come in, o
 ```csharp
     // ...
     // The Mojio ID you wish to listen to
-    Guid mojioId = "123451234512345";
+    Guid mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 	
     // An array of event types you wish to be notified about
     EventType[] types = new EventType[] { EventType.GPS, EventType.Tow };

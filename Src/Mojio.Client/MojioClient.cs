@@ -46,7 +46,9 @@ namespace Mojio.Client
 
     public partial class MojioClient : IMojioClient
     {
-        public const string Sandbox = "https://sandbox.api.moj.io/v1";
+        [Obsolete("Sandbox server has been deprecated.  Please use the Live environment, with your sandbox secret key.")]
+        public const string Sandbox = Live;
+
         public const string Live = "https://api.moj.io/v1";
         public const string OAuthAuthorize = "https://api.moj.io/oauth2/authorize";
         public const string OAuthToken = "https://api.moj.io/oauth2/token";
