@@ -33,7 +33,7 @@ MojioClient client = new MojioClient(
                         MojioClient.Live
                     );
 
-await client.Begin(appID, secretKey);
+await client.BeginAsync(appID, secretKey);
 
 
 ```
