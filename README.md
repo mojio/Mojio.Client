@@ -13,7 +13,7 @@ Download or checkout the Mojio.Client.  You will then need to include the Mojio 
 Getting Started
 ===============
 
-To begin developing with our client, you will need your very own application ID and secret key.  First you will need to create an account and login to our developer center.  We recommend starting with our sandbox environment (http://sandbox.developer.moj.io/).
+To begin developing with our client, you will need your very own application ID and secret key.  First you will need to create an account and login to our developer center.  We recommend starting with our sandbox environment (https://developer.moj.io/).
 
 Once you have logged in, you can create a new Application.  From here, you will want to copy the Application ID and the Secret Key, these will be required to initialize the Mojio.Client.
 
@@ -21,7 +21,7 @@ Once you have logged in, you can create a new Application.  From here, you will 
 Initializing the Client
 -----------------------
 
-To get started using the client, you must first create a new instance of the MojioClient object.  This is where you will need to pass in the Application ID and Secret Key, as well as the developer environment you are using (Sandbox, or Live).
+To get started using the client, you must first create a new instance of the MojioClient object.  This is where you will need to pass in the Application ID and Secret Key, as well as the Mojio server you wish to connect to (optional).
 
 ```csharp
 using Mojio.Client;
@@ -30,10 +30,12 @@ Guid appID = new Guid("{APPID}");
 Guid secretKey = new Guid("{SecretKey}");
 
 MojioClient client = new MojioClient(
-                        appID, 
-                        secretKey,
-                        MojioClient.Sandbox // or MojioClient.Live
+                        MojioClient.Live
                     );
+
+await client.Begin(appID, secretKey);
+
+
 ```
 
 Authenticate a Mojio User
@@ -44,11 +46,11 @@ Now that your MojioClient is associated with your app, you can get started makin
 ```csharp
 // ...
 // Authenticate specific user
-client.SetUser( "demo@example.com", "mypassword");
+await client.SetUserAsync( "demo@example.com", "mypassword");
 	
 // ...
 // Logout user.
-client.Logout();
+await client.ClearUserAsync();
 ```
 
 Fetching Data
@@ -62,7 +64,8 @@ To retrieve a set of a particular Mojio entities, you can use the "Get" method. 
 client.PageSize = 15;
 	
 // Fetch first page of 15 trips
-Results<Trip> results = client.Get<Trip>();
+MojioResponse<Results<Trip>> response = await client.GetAsync<Trip>();
+Results<Trip> result = response.Data;
 	
 // Iterate over each trip
 foreach( Trip trip in results.Data )
@@ -79,10 +82,11 @@ By passing in the ID of an entity (often a GUID), you can fetch just that single
 
 ```csharp
 // ...
-string mojioId = "123451234512345"; // Mojio IMEI
+var mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200"); // Mojio ID
 	
 // Fetch mojio from API
-Device mojio = client.Get<Device>(mojioId);
+MojioResponse<Mojio> response = await client.GetAsync<Mojio>(mojioId);
+Mojio mojio = response.Data;
 	
 // Do something with the mojio data
 // ...
@@ -95,13 +99,14 @@ If you want to update and save an entity, you need to first load the entity from
 
 ```csharp
 // ...
-Device mojio = client.Get<Device>("123451234512345");
+MojioResponse<Mojio> response = await client.GetAsync<Mojio>(new Guid("015151a1-7e70-16d1-a2w6-28dl98c10200"));
+Mojio mojio = resonse.Data;
 
 // Make a change
 mojio.Name = "New Name";
 
 // Save the changes
-client.Update(mojio);
+await client.UpdateAsync(mojio);
 ```
 
 Get a list of child entities
@@ -111,14 +116,17 @@ If you want to fetch all the entities associated with another entity, you can ca
 
 ```csharp
 // ...
-string mojioId = "123451234512345";
+var mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 
 // Fetch all events by mojio ID
-Results<Event> events = client.GetBy<Event,Device>(mojioId);
+MojioResponse<Results<Event>> response = await client.GetByAsync <Event,Mojio>(mojioId);
+Results<Event> events = response.Data;
 
 //Or, alternatively
-Device mojio = client.Get<Device>(mojioId);
-Results<Event> events = client.GetBy<Event>(mojio);
+MojioResponse<Mojio> mojioResponse = await client.GetAsync<Mojio>(mojioId);
+Mojio mojio = mojioResponse.Data;
+
+MojioResponse<Results<Event>> eventsResponse= await client.GetBy<Event>(mojio);
 
 // ...
 ```
@@ -135,11 +143,11 @@ string key = "EyeColour";	// Key to store
 string value = "Brown"; 	// Value to store
 
 // Save user's eye colour
-client.SetStored<User>( userId, key , value );
+await client.SetStoredAsync<User>( userId, key , value );
 	
 // ...
 // Retrieve user's eye colour
-String stored = client.GetStore<User>( userId, key );
+String stored = await client.GetStoreAsync<User>( userId, key );
 ```
 
 Using SignalR to listen for events
@@ -150,7 +158,7 @@ Instead of continuously polling the API to see if any new events have come in, o
 ```csharp
     // ...
     // The Mojio ID you wish to listen to
-    Guid mojioId = "123451234512345";
+    Guid mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 	
     // An array of event types you wish to be notified about
     EventType[] types = new EventType[] { EventType.GPS, EventType.Tow };
@@ -167,9 +175,9 @@ Instead of continuously polling the API to see if any new events have come in, o
     }
 
     client.EventHandler += ReceiveEvent;            // Binds the event listener
-    client.Subscribe&lt;Device&gt;(mojioId,types);   // Register subscrition
+    await client.Subscribe&lt;Mojio&gt;(mojioId,types);   // Register subscrition
 
     // ...
     // Unsubscribe
-    client.Unsubscribe&lt;Device&gt;(mojioId,types);
+    client.Unsubscribe&lt;Mojio&gt;(mojioId,types);
 ```
