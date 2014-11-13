@@ -8,9 +8,23 @@ namespace Mojio
 {
     public enum ObserverType
     {
-        Generic     = 0,
-        Script      = 1, 
-        Event       = 2,
-        GeoFence,
+        Generic = 0,
+        Script = 1, // not implemented
+        Event = 2, // not implemented
+        GeoFence = 3,
+        Conditional = 4,
+        Speed = 5,
+        Rpm = 6,
+        Acceleration = 7,
+        Accelerometer = 8,
+        BatteryVoltage = 9,
+        FuelLevel = 10,
+        Distance = 11, 
+        Odometer = 12,
+        Altitude = 13,
+        Heading = 14,
+        Diagnostic = 15
     }
+
+
 }

@@ -51,5 +51,7 @@ namespace Mojio
         /// String array of active DTC's.  
         /// </summary>
         public string[] Codes { get; set; }
+
+        public DTC[] DiagnosticCodes { get; set; }
     }
 }
