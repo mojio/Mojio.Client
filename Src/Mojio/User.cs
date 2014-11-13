@@ -91,6 +91,11 @@ namespace Mojio
         /// The last login date.
         /// </value>
         public DateTime LastLoginDate { get; set; }
+
+        /// <summary>
+        /// specific Locale setting (can be null)
+        /// </summary>
+        public string Locale { get; set; }
     }
 
 
