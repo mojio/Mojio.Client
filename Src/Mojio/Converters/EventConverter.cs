@@ -64,6 +64,8 @@ namespace Mojio.Converters
                 return new BatteryEvent();
             case EventType.Speed:
                 return new SpeedEvent();
+            case EventType.PreSleepWarning:
+                return new SleepEvent();
             case EventType.Park:
                 return new ParkEvent();
             case EventType.Mileage:
