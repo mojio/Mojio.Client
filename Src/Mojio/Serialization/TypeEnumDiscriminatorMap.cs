@@ -94,7 +94,8 @@ namespace Mojio.Serialization
                 .Contains<MovementEvent>(EventType.MovementStop)
                 .Contains<HeartBeatEvent>(EventType.HeartBeat)
                 .Contains<DeviceDiagnosticEvent>(EventType.DeviceDiagnostic)
-                .Contains<RPMEvent>(EventType.RPM);
+                .Contains<RPMEvent>(EventType.RPM)
+                .Contains<SleepEvent>(EventType.PreSleepWarning);
                            
             BuildMap();
             /*Map<Event, EventType>(e => e.EventType)
