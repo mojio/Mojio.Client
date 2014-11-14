@@ -216,6 +216,10 @@ namespace Mojio.Events
         IdleEvent = 100023,
 
         /// <summary>
+        /// Pre Sleep Event
+        /// </summary
+        PreSleepWarning = 100024,
+        /// <summary>
         /// Unknown
         /// </summary>
         Unknown = -1
