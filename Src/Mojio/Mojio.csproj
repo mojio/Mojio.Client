@@ -81,6 +81,7 @@
     <Compile Include="Events\ParkEvent.cs" />
     <Compile Include="Events\PowerEvent.cs" />
     <Compile Include="Events\RPMEvent.cs" />
+    <Compile Include="Events\SleepEvent.cs" />
     <Compile Include="Events\SpeedEvent.cs" />
     <Compile Include="Events\TowEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
