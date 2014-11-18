@@ -76,11 +76,10 @@ namespace Mojio
         public List<ObserverToken> Tokens { get; set; }
 
         public Observer()
-            : this(ObserverType.Generic) { }
+            : this(ObserverType.Generic) {  }
 
         public Observer(Type subject = null, Type parent = null)
             : this(ObserverType.Generic, subject, parent) { }
-
 
         public Observer(ObserverType type, Type subject = null, Type parent = null)
         {

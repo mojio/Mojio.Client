@@ -50,6 +50,7 @@
     <Compile Include="Constraints.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\EventConverter.cs" />
+    <Compile Include="Converters\LocationInterpolator.cs" />
     <Compile Include="Converters\SubscriptionConverter.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="CreditCard.cs" />
@@ -107,6 +108,8 @@
     <Compile Include="Observers\FuelLevelObserver.cs" />
     <Compile Include="Observers\HeadingObserver.cs" />
     <Compile Include="Observers\DistanceObserver.cs" />
+    <Compile Include="Observers\SmoothEventObserver.cs" />
+    <Compile Include="Observers\SmoothObserverBase.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
     <Compile Include="Observers\Observer.cs" />
     <Compile Include="Observers\ObserverToken.cs" />
@@ -114,6 +117,8 @@
     <Compile Include="Observers\OdometerObserver.cs" />
     <Compile Include="Observers\RPMObserver.cs" />
     <Compile Include="Observers\ScriptObserver.cs" />
+    <Compile Include="Observers\SmoothTripObserver.cs" />
+    <Compile Include="Observers\SmoothVehicleObserver.cs" />
     <Compile Include="Observers\SpeedObserver.cs" />
     <Compile Include="ParentAttribute.cs" />
     <Compile Include="Product.cs" />
