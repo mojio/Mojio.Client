@@ -9,6 +9,10 @@ namespace Mojio
     [CollectionNameAttribute("Observer")]
     public partial class SmoothEventObserver : SmoothObserverBase
     {
+        public SmoothEventObserver()
+            : base(ObserverType.SmoothEvent, typeof(Event), null, 1.0)
+        {
+        }  
         public SmoothEventObserver(double interpolationRate = 1.0)
             : base(ObserverType.SmoothEvent, typeof(Event), null, interpolationRate)
         {

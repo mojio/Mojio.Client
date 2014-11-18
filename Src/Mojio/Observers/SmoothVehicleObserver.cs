@@ -9,6 +9,10 @@ namespace Mojio
     [CollectionNameAttribute("Observer")]
     public partial class SmoothVehicleObserver : SmoothObserverBase
     {
+        public SmoothVehicleObserver()
+            : base(ObserverType.SmoothVehicle, typeof(Vehicle), null, 1.0)
+        {
+        }
         public SmoothVehicleObserver(double interpolationRate=1.0)
             : base(ObserverType.SmoothVehicle, typeof(Vehicle), null, interpolationRate)
         {

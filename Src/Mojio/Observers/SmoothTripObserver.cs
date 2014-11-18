@@ -8,6 +8,10 @@ namespace Mojio
     [CollectionNameAttribute("Observer")]
     public partial class SmoothTripObserver : SmoothObserverBase
     {
+        public SmoothTripObserver()
+            : base(ObserverType.SmoothTrip, typeof(Trip), null, 1.0)
+        {
+        }       
         public SmoothTripObserver(double interpolationRate = 1.0)
             : base(ObserverType.SmoothTrip, typeof(Trip), null, interpolationRate)
         {
