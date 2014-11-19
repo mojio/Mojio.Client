@@ -2,12 +2,12 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.1</version>
+    <version>1.7.1.1</version>
     <authors>Mojio</authors>
     <owners>Mojio</owners>
     <projectUrl>https://github.com/mojio/Mojio.Client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Mojio C# API SDK</description>
+    <description>Mojio C# SDK</description>
     <releaseNotes>Initial NuGet release.</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Mojio API RestSharp</tags>
