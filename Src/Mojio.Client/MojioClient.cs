@@ -1039,11 +1039,11 @@ namespace Mojio.Client
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Results<M> GetBy<M, T> (T entity, int page = 1)
+        public Results<M> GetBy<M, T>(T entity, int page = 1, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : BaseEntity, new()
         {
             HttpStatusCode ignore;
-            return GetBy<M, T> (entity, out ignore, page);
+            return GetBy<M, T> (entity, out ignore, page, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -1056,11 +1056,11 @@ namespace Mojio.Client
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Results<M> GetBy<M, T> (T entity, out HttpStatusCode code, int page = 1)
+        public Results<M> GetBy<M, T>(T entity, out HttpStatusCode code, int page = 1, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : BaseEntity, new()
         {
             string ignore;
-            return GetBy<M, T> (entity, out code, out ignore, page);
+            return GetBy<M, T> (entity, out code, out ignore, page, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -1074,10 +1074,10 @@ namespace Mojio.Client
         /// <param name="page">Pagenation page</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Results<M> GetBy<M, T> (T entity, out HttpStatusCode code, out string message, int page = 1)
+        public Results<M> GetBy<M, T>(T entity, out HttpStatusCode code, out string message, int page = 1, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : BaseEntity, new()
         {
-            return GetBy<M, T> (entity.IdToString, out code, out message, page);
+            return GetBy<M, T> (entity.IdToString, out code, out message, page, null, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -1090,11 +1090,11 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Results<M> GetBy<M, T> (object id, int page = 1, string action = null)
+        public Results<M> GetBy<M, T>(object id, int page = 1, string action = null, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             HttpStatusCode ignore;
-            return GetBy<M, T> (id, out ignore, page, action);
+            return GetBy<M, T> (id, out ignore, page, action, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -1108,11 +1108,11 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Results<M> GetBy<M, T> (object id, out HttpStatusCode code, int page = 1, string action = null)
+        public Results<M> GetBy<M, T>(object id, out HttpStatusCode code, int page = 1, string action = null, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             string ignore;
-            return GetBy<M, T> (id, out code, out ignore, page, action);
+            return GetBy<M, T> (id, out code, out ignore, page, action, sortBy, desc, criteria);
         }
 
         /// <summary>
@@ -1127,10 +1127,10 @@ namespace Mojio.Client
         /// <param name="action">Specific action name to call</param>
         /// <returns></returns>
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public Results<M> GetBy<M,T> (object id, out HttpStatusCode code, out string message, int page = 1, string action = null)
+        public Results<M> GetBy<M, T>(object id, out HttpStatusCode code, out string message, int page = 1, string action = null, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
-            var response = AvoidAsyncDeadlock(() => GetByAsync<M, T>(id, page, action)).Result;
+            var response = AvoidAsyncDeadlock(() => GetByAsync<M, T>(id, page, action, sortBy, desc, criteria)).Result;
             code = response.StatusCode;
             message = response.Content;
 
@@ -1146,7 +1146,7 @@ namespace Mojio.Client
         /// <param name="page">Pagenation page</param>
         /// <param name="action">Specific action name to call</param>
         /// <returns></returns>
-        public Task<MojioResponse<Results<M>>> GetByAsync<M, T> (object id, int page = 1, string action = null)
+        public Task<MojioResponse<Results<M>>> GetByAsync<M, T>(object id, int page = 1, string action = null, Expression<Func<M, object>> sortBy = null, bool desc = false, string criteria = null)
             where T : new()
         {
             string controller = Map [typeof(T)];
@@ -1158,6 +1158,16 @@ namespace Mojio.Client
 
             request.AddParameter ("offset", Math.Max (0, (page - 1)) * PageSize);
             request.AddParameter ("limit", PageSize);
+
+            if (sortBy != null)
+            {
+                var expr = GetMemberInfo(sortBy);
+                request.AddParameter("sortBy", expr.Member.Name);
+
+            }
+            request.AddParameter("desc", desc);
+            if (!string.IsNullOrWhiteSpace(criteria))
+                request.AddParameter("criteria", criteria);
 
             return RequestAsync<Results<M>> (request);
         }
