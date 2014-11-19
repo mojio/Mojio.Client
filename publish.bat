@@ -3,19 +3,12 @@
 @echo =========================
 @echo NuGet package publishing.
 
-setlocal enabledelayedexpansion
-@for %%g in (Build\Mojio.Client.*.nupkg) do (
+@for %%g in (Build\Mojio.Client.*.nupkg) do @(
   @echo Publishing %%g
-  @%NUGET% Push %%g 
-  @if not errorlevel 0 goto error
+  @%NUGET% Push %%g
 )
-endlocal
 
-@echo Mojio.Client publishing sucessful.
-@goto end
-
-:error
-@echo Error occured during Mojio.Client publishing.
+@echo Mojio.Client publishing completed.
 @goto end
 
 :end
