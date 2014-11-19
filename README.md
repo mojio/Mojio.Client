@@ -7,6 +7,14 @@ In order to create our store and apps, we have built a simple C# client library 
 Installation
 ============
 
+Using NuGet
+-----------
+
+We recommend you use the NuGet package manager to install the **Mojio.Client** NuGet package.
+
+Manually
+--------
+
 Download or checkout the Mojio.Client.  You will then need to include the Mojio (Src/Mojio/Mojio.csproj) and Mojio.Client (Src/Mojio.Client/Mojio.Client.csproj) projects into your solution.  Nuget is also required to get our client working, and you will need to perform a Nuget Restore the first time you import the projects.
 
 
