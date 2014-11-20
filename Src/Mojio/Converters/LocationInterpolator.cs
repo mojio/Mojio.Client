@@ -12,26 +12,20 @@ namespace Mojio.Converters
         {
             var locations = new List<Location>();
             // save on some calculating, just return the given points if two or less points are requested
-            if (resolution <= 2)
+            if (resolution <= 1)
             {
-                locations.Add(previous);
                 locations.Add(now);
                 return locations;
             }
             // something stupid to start out, just interpolate linearly along each axis.
-            for (int i = 0; i <= resolution; i++)
+            for (int i = 1; i <= resolution; i++)
             {
-                if (i == 0)
-                    locations.Add(previous);
-                else if (i == resolution)
-                    locations.Add(now);
-                else
-                {
-                    Location location = new Location();
-                    location.Lat = previous.Lat + ((now.Lat + previous.Lat) * (double)i) / resolution;
-                    location.Lng = previous.Lng + ((now.Lng + previous.Lng) * (double)i) / resolution;
-                    locations.Add(location);
-                }
+                Location location = new Location();
+
+                location.Lat = now.Lat * ((double)i / resolution) + previous.Lat * (((double)resolution - (double)i) / resolution);
+                location.Lng = now.Lng * ((double)i / resolution) + previous.Lng * (((double)resolution - (double)i) / resolution);
+
+                locations.Add(location);
             }
             return locations;
         }

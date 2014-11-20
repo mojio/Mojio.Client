@@ -12,6 +12,7 @@ namespace Mojio
         public SmoothVehicleObserver()
             : base(ObserverType.SmoothVehicle, typeof(Vehicle), null, 1.0)
         {
+            //Mapper.CreateMap<Vehicle, Vehicle>().ForMember(x => x.Id, opt => opt.Ignore());
         }
         public SmoothVehicleObserver(double interpolationRate=1.0)
             : base(ObserverType.SmoothVehicle, typeof(Vehicle), null, interpolationRate)

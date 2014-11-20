@@ -48,6 +48,8 @@ namespace Mojio.Events
         /// accelerometer
         /// </summary>
         Accelerometer Accelerometer { get; set; }
+
+
     }
 
     /// <summary>
@@ -148,9 +150,16 @@ namespace Mojio.Events
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
-        public object Clone ()
+
+        public object Clone()
         {
-            return this.MemberwiseClone ();
+            Event clone = this.MemberwiseClone() as Event;
+            if (clone.Location != null)
+                clone.Location = this.Location.Clone() as Location;
+            if (clone.Accelerometer != null)
+                clone.Accelerometer = this.Accelerometer.Clone() as Accelerometer;
+
+            return clone;
         }
     }
 }

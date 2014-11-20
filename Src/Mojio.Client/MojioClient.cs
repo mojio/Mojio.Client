@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
+using Mojio.Client;
 
 namespace Mojio.Client
 {

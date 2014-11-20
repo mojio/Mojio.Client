@@ -203,5 +203,21 @@ namespace Mojio
         /// The end milage.
         /// </value>
         public double? EndMilage { get; set; }
+
+        public object Clone()
+        {
+            Trip clone = this.MemberwiseClone() as Trip;
+            if (clone.StartLocation != null)
+                clone.StartLocation = this.StartLocation.Clone() as Location;
+            if (clone.LastKnownLocation != null)
+                clone.LastKnownLocation = this.LastKnownLocation.Clone() as Location;
+            if (clone.EndLocation != null)
+                clone.EndLocation = this.EndLocation.Clone() as Location;
+            if (clone.StartAddress != null)
+                clone.StartAddress = this.StartAddress.Clone() as Address;
+            if (clone.EndAddress != null)
+                clone.EndAddress = this.EndAddress.Clone() as Address; 
+            return clone;
+        }
     }
 }

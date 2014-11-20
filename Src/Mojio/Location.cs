@@ -9,7 +9,7 @@ namespace Mojio
     /// <summary>
     /// Location
     /// </summary>
-    public partial class Location
+    public partial class Location 
     {
         /// <summary>
         /// Latitude coordinate

@@ -85,6 +85,11 @@ namespace Mojio.Events
         /// RPM
         /// </summary>
         public int? RPM { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone() as Vehicle;
+        }
     }
 
     /// <summary>
@@ -169,62 +174,10 @@ namespace Mojio.Events
                 return ex.Message;
             }
         }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone() as Vehicle;
+        }
     }
-
-    ///// <summary>
-    ///// trip end event
-    ///// </summary>
-    //[CollectionNameAttribute (typeof(Event))]
-    //public class TripEndEvent : TripStatusEvent
-    //{
-    //    /// <summary>
-    //    /// Initializes a new instance of the <see cref="TripEndEvent"/> class.
-    //    /// </summary>
-    //    public TripEndEvent ()
-    //    {
-    //        EventType = Events.EventType.TripEnd;
-    //    }
-
-    //    /// <summary>
-    //    /// Returns a <see cref="System.String" /> that represents this instance.
-    //    /// </summary>
-    //    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    //    public override string ToString ()
-    //    {
-    //        return "TripEnd:" + base.ToString ();
-    //    }
-    //}
-
-    ///// <summary>
-    ///// trip start event
-    ///// </summary>
-    //[CollectionNameAttribute (typeof(Event))]
-    //public class TripStartEvent : TripStatusEvent
-    //{
-    //    /// <summary>
-    //    /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
-    //    /// </summary>
-    //    public TripStartEvent ()
-    //    {
-    //        EventType = Events.EventType.TripStart;
-    //    }
-
-    //    /// <summary>
-    //    /// Initializes a new instance of the <see cref="TripStartEvent"/> class.
-    //    /// </summary>
-    //    /// <param name="tripEvent">The trip event.</param>
-    //    public TripStartEvent (TripEvent tripEvent)
-    //    {
-    //        EventType = Events.EventType.TripStart;
-    //    }
-
-    //    /// <summary>
-    //    /// Returns a <see cref="System.String" /> that represents this instance.
-    //    /// </summary>
-    //    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    //    public override string ToString ()
-    //    {
-    //        return "TripStart:" + base.ToString ();
-    //    }
-    //}
 }

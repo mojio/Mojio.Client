@@ -88,6 +88,7 @@
     <Compile Include="Events\TripEvent.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
+    <Compile Include="ICLone.cs" />
     <Compile Include="ImageSize.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="IOwner.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="Observers\FuelLevelObserver.cs" />
     <Compile Include="Observers\HeadingObserver.cs" />
     <Compile Include="Observers\DistanceObserver.cs" />
-    <Compile Include="Observers\SmoothEventObserver.cs" />
     <Compile Include="Observers\SmoothObserverBase.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />
     <Compile Include="Observers\Observer.cs" />

@@ -36,7 +36,6 @@ namespace Mojio.Serialization
                .Contains<HeadingObserver>(ObserverType.Heading)
                .Contains<DiagnosticCodeObserver>(ObserverType.Diagnostic)
                .Contains<SmoothVehicleObserver>(ObserverType.SmoothVehicle)
-               .Contains<SmoothEventObserver>(ObserverType.SmoothEvent)
                .Contains<SmoothTripObserver>(ObserverType.SmoothTrip)
                ;
 
