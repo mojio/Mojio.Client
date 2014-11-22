@@ -6,7 +6,7 @@
 @echo =====================
 @echo Building Mojio.Client
 
-@%NUGET% pack %CSPROJ% -IncludeReferencedProjects -Prop Configuration=Release -o .\
+@%NUGET% pack %CSPROJ% -IncludeReferencedProjects -Prop Configuration=Release -o Build
 @if not errorlevel 0 goto error
 
 @echo Mojio.Client build successful.
