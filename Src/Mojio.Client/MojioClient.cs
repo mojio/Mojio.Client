@@ -171,7 +171,7 @@ namespace Mojio.Client
             foreach(var arg in args)
             {
                 if (arg != null)
-                    str += String.Format("{0}/", arg);
+                    str += String.Format("{0}/", Uri.EscapeUriString(arg.ToString()));
             }
 
             return str;
