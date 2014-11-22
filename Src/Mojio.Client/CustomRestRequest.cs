@@ -36,7 +36,7 @@ namespace Mojio.Client
                 return;
 
             Resource += (Resource.Contains("?") ? "&" : "?") +
-                string.Format("{0}={1}", name, value.ToString());
+                string.Format("{0}={1}", Uri.EscapeDataString(name), Uri.EscapeDataString(value.ToString()));
         }
     }
 }
