@@ -169,23 +169,23 @@ Instead of continuously polling the API to see if any new events have come in, o
     Guid mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 	
     // An array of event types you wish to be notified about
-    EventType[] types = new EventType[] { EventType.GPS, EventType.Tow };
+    EventType[] types = new EventType[] { EventType.IgnitionOn, EventType.LowFuel };
 
     // Setup the callback function
     public void ReceiveEvent(Event event)
     {
-        if( event.EventType == EventType.GPS)
-            // A new GPS event was received!
+        if( event.EventType == EventType.IgnitionOn)
+            // Ignition on detected!
             // ...
-        else if( event.EventType == EventType.Tow )
-            // Do something with the new tow alert
+        else if( event.EventType == EventType.LowFuel )
+            // Do something with the low fuel warning
             // ...
     }
 
     client.EventHandler += ReceiveEvent;            // Binds the event listener
-    await client.Subscribe&lt;Mojio&gt;(mojioId,types);   // Register subscrition
+    await client.Subscrib<Mojio>(mojioId,types);   // Register subscrition
 
     // ...
     // Unsubscribe
-    client.Unsubscribe&lt;Mojio&gt;(mojioId,types);
+    client.Unsubscribe<Mojio>(mojioId,types);
 ```
