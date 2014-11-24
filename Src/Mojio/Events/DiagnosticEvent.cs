@@ -22,7 +22,7 @@ namespace Mojio.Events
         }
 
         /// <summary>
-        /// Diagnostic Trouble Code Attribute
+        /// Diagnostic Trouble Code Attribute, External view of DTC codes.
         /// </summary>
         public DTC[] DTCs { get; set; }
 

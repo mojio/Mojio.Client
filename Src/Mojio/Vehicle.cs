@@ -152,5 +152,17 @@ namespace Mojio
         /// List of viewer IDs
         /// </summary>
         public Guid[] Viewers { get; set; }
+
+        public object Clone()
+        {
+            Vehicle clone = this.MemberwiseClone() as Vehicle;
+            if (clone.LastLocation!=null)
+                clone.LastLocation = this.LastLocation.Clone() as Location;
+            if (clone.LastAccelerometer != null)
+                clone.LastAccelerometer = this.LastAccelerometer.Clone() as Accelerometer;
+            if (clone.DiagnosticCodes != null)
+                clone.DiagnosticCodes = this.DiagnosticCodes.Clone() as DTCStatus;
+            return clone;
+        }
     }
 }

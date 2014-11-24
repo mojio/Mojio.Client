@@ -28,12 +28,11 @@ namespace Mojio
             Timing = timing;
         }
 
-        public ConditionalObserverBase(Type subject = null, Type parent = null, 
-            ObserverTiming timing = ObserverTiming.edge)
-            : this(ObserverType.Generic, subject, parent) 
-        {
-            Timing = timing;
-        }
+        //public ConditionalObserverBase(Type subject = null, Type parent = null, 
+        //    ObserverTiming timing = ObserverTiming.edge)
+        //    : this(ObserverType.Generic, subject, parent, timing) 
+        //{
+        //}
 
         public ConditionalObserverBase(ObserverType type, Type subject = null, 
             Type parent = null, ObserverTiming timing = ObserverTiming.edge)

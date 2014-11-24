@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mojio;
 
 namespace Mojio.Events
 {
@@ -28,6 +29,13 @@ namespace Mojio.Events
 
                 return null;
             }
+        }
+
+        /// <summary>Creates a new object that is a copy of the current instance.</summary>
+        /// <returns>A new object that is a copy of this instance.</returns>
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

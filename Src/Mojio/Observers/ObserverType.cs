@@ -23,7 +23,10 @@ namespace Mojio
         Odometer = 12,
         Altitude = 13,
         Heading = 14,
-        Diagnostic = 15
+        Diagnostic = 15,
+        SmoothVehicle = 16,
+        SmoothEvent = 17,
+        SmoothTrip = 18
     }
 
 
