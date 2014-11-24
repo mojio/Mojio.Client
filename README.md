@@ -183,9 +183,9 @@ Instead of continuously polling the API to see if any new events have come in, o
     }
 
     client.EventHandler += ReceiveEvent;            // Binds the event listener
-    await client.Subscribe&lt;Mojio&gt;(mojioId,types);   // Register subscrition
+    await client.Subscrib<Mojio>(mojioId,types);   // Register subscrition
 
     // ...
     // Unsubscribe
-    client.Unsubscribe&lt;Mojio&gt;(mojioId,types);
+    client.Unsubscribe<Mojio>(mojioId,types);
 ```
