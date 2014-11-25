@@ -121,35 +121,35 @@ namespace Mojio.Events
             EventType = Events.EventType.TripStatus;
         }
 
-        /// <summary>
-        /// max speed
-        /// </summary>
-        public double? MaxSpeed { get; set; }
+        ///// <summary>
+        ///// max speed
+        ///// </summary>
+        //public double? MaxSpeed { get; set; }
 
-        /// <summary>
-        /// average speed
-        /// </summary>
-        public double? AverageSpeed { get; set; }
+        ///// <summary>
+        ///// average speed
+        ///// </summary>
+        //public double? AverageSpeed { get; set; }
 
-        /// <summary>
-        /// moving time
-        /// </summary>
-        public double? MovingTime { get; set; }
+        ///// <summary>
+        ///// moving time
+        ///// </summary>
+        //public double? MovingTime { get; set; }
 
-        /// <summary>
-        /// idle time
-        /// </summary>
-        public double? IdleTime { get; set; }
+        ///// <summary>
+        ///// idle time
+        ///// </summary>
+        //public double? IdleTime { get; set; }
 
-        /// <summary>
-        /// stop time
-        /// </summary>
-        public double? StopTime { get; set; }
+        ///// <summary>
+        ///// stop time
+        ///// </summary>
+        //public double? StopTime { get; set; }
 
-        /// <summary>
-        /// Max RPM
-        /// </summary>
-        public int? MaxRPM { get; set; }
+        ///// <summary>
+        ///// Max RPM
+        ///// </summary>
+        //public int? MaxRPM { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -160,13 +160,18 @@ namespace Mojio.Events
             try {
                 string str = base.ToString () + ", TripEvent-> ";
 
-                str += string.Format ("MaxSpeed {0}, AveSpeed {1}, MovingTime {2}, IdleTime {3}, StopTime {4}, MaxRPM {5}",
-                    this.MaxSpeed,
-                    this.AverageSpeed,
-                    this.MovingTime,
-                    this.IdleTime,
-                    this.StopTime,
-                    this.MaxRPM);
+                str += string.Format("Time {0}, Lat {1}, Lng {2}, Speed {3}, RPM {4}, MaxRPM {5}, Heading {6}, Acceleration {7}, Deceleration {8}, Distance {9}, Fuel Level {10}, Fuel Efficiency {11}",
+                    this.Time,
+                    this.Location.Lat,
+                    this.Location.Lng, 
+                    this.Speed,
+                    this.RPM,
+                    this.Heading,
+                    this.Acceleration,
+                    this.Deceleration,
+                    this.Distance,
+                    this.FuelLevel,
+                    this.FuelEfficiency);
 
                 return str;
             } catch (Exception ex) {
