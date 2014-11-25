@@ -122,7 +122,7 @@ namespace Mojio
         /// <value>
         /// The moving time.
         /// </value>
-        public double? MovingTime { get; set; }
+        //public double? MovingTime { get; set; }
 
         /// <summary>
         /// idle time
@@ -130,7 +130,7 @@ namespace Mojio
         /// <value>
         /// The idle time.
         /// </value>
-        public double? IdleTime { get; set; }
+        //public double? IdleTime { get; set; }
 
         /// <summary>
         /// time stopped
@@ -138,7 +138,7 @@ namespace Mojio
         /// <value>
         /// The stop time.
         /// </value>
-        public double? StopTime { get; set; }
+        //public double? StopTime { get; set; }
 
         /// <summary>
         /// start location
