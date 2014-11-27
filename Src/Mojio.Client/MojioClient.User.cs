@@ -824,7 +824,7 @@ namespace Mojio.Client
 
             string action = Map [typeof(User)];
             var request = GetRequest (Request (action, userId, "image"), Method.GET);
-            request.AddParameter ("size", size);
+            request.AddParameter ("size", (int)size);
 
             var tcs = new TaskCompletionSource<byte[]> ();
             try {
