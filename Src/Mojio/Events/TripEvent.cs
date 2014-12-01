@@ -77,7 +77,7 @@ namespace Mojio.Events
         public double? Deceleration { get; set; }
 
         /// <summary>
-        /// stop time
+        /// Current virtual odometer
         /// </summary>
         public double? Odometer { get; set; }
 
