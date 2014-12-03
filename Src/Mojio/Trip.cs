@@ -210,7 +210,7 @@ namespace Mojio
         /// <value>
         /// The start real odometer.
         /// </value>
-        public double? StartRealOdometer { get; set; }
+        public double? StartOdometer { get; set; }
 
         public object Clone()
         {

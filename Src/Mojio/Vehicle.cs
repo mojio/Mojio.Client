@@ -115,7 +115,7 @@ namespace Mojio
         /// <summary>
         /// Last known Real Odometer Value
         /// </summary>
-        public double? LastRealOdometer { get; set; }
+        public double? LastOdometer { get; set; }
 
         /// <summary>
         /// Last known RPM
