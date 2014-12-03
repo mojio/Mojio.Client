@@ -189,20 +189,28 @@ namespace Mojio
         public bool? ForcefullyEnded { get; set; }
 
         /// <summary>
-        /// Address where the trip started
+        /// Virtual odometer at trip start
         /// </summary>
         /// <value>
-        /// The start milage.
+        /// The start virtual odometer.
         /// </value>
         public double? StartMilage { get; set; }
 
         /// <summary>
-        /// Milage where the trip ended
+        /// Virtual odometer at trip end
         /// </summary>
         /// <value>
-        /// The end milage.
+        /// The end virtual odometer.
         /// </value>
         public double? EndMilage { get; set; }
+
+        /// <summary>
+        /// Real odometer at trip start
+        /// </summary>
+        /// <value>
+        /// The start real odometer.
+        /// </value>
+        public double? StartOdometer { get; set; }
 
         public object Clone()
         {

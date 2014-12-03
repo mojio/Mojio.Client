@@ -108,7 +108,12 @@ namespace Mojio
         public double? LastHeading { get; set; }
 
         /// <summary>
-        /// Last known Odometer
+        /// Last known Virtual Odometer Value
+        /// </summary>
+        public double? LastVirtualOdometer { get; set; }
+
+        /// <summary>
+        /// Last known Real Odometer Value
         /// </summary>
         public double? LastOdometer { get; set; }
 
