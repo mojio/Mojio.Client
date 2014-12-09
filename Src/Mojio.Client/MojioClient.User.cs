@@ -811,13 +811,13 @@ namespace Mojio.Client
         }
 
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
-        public byte[] GetImage (ImageSize size = ImageSize.Small, Guid? userId = null)
+        public byte[] GetImage(ImageSize size = ImageSize.Small, Guid? userId = null)
         {
             var task = AvoidAsyncDeadlock(() => GetImageAsync(size, userId));
             return task.Result;
         }
 
-        public Task<byte[]> GetImageAsync (ImageSize size = ImageSize.Small, Guid? userId = null)
+        public Task<byte[]> GetImageAsync(ImageSize size = ImageSize.Small, Guid? userId = null)
         {
             if (userId == null)
                 userId = Token.UserId;
