@@ -69,6 +69,43 @@ namespace Mojio
         public Location LastLocation { get; set; }
 
         /// <summary>
+        /// Last several known times, set by the chunking observers
+        /// </summary>
+        private List<DateTime?> _lastLocationTimes;
+        public List<DateTime?> LastLocationTimes
+        {
+            get
+            {
+                if (_lastLocationTimes == null)
+                    _lastLocationTimes = new List<DateTime?>();
+                return this._lastLocationTimes;
+            }
+            set
+            {
+                this._lastLocationTimes = value;
+            }
+        } 
+
+        /// <summary>
+        /// Last several known locations, set by the chunking observers
+        /// </summary>
+        private List<Location> _lastLocations;
+
+        public List<Location> LastLocations
+        {
+            get
+            {
+                if (_lastLocations == null)
+                    _lastLocations = new List<Location>();
+                return this._lastLocations;
+            }
+            set
+            {
+                this._lastLocations = value;
+            }
+        } 
+
+        /// <summary>
         /// Last known speed
         /// </summary>
         public double LastSpeed { get; set; }
