@@ -219,6 +219,12 @@ namespace Mojio.Events
         /// Pre Sleep Event
         /// </summary
         PreSleepWarning = 100024,
+
+        /// <summary>
+        /// Harsh Movement Event
+        /// </summary
+        HarshMovement = 100025,
+
         /// <summary>
         /// Unknown
         /// </summary>

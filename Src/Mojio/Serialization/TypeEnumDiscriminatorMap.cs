@@ -100,11 +100,9 @@ namespace Mojio.Serialization
                 .Contains<DeviceDiagnosticEvent>(EventType.DeviceDiagnostic)
                 .Contains<RPMEvent>(EventType.RPM)
                 .Contains<SleepEvent>(EventType.PreSleepWarning);
+                .Contains<HarshMovementEvent>(EventType.HarshMovement);
                            
             BuildMap();
-            /*Map<Event, EventType>(e => e.EventType)
-                .Contains<AccelerationEvent>(EventType.Acceleration)
-                .Contains<AccelerometerEvent>(EventType.Accelerometer);*/
 
         }
     }

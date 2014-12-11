@@ -73,6 +73,7 @@
     <Compile Include="Events\FenceEvent.cs" />
     <Compile Include="Events\FuelEvent.cs" />
     <Compile Include="Events\HardEvent.cs" />
+    <Compile Include="Events\HarshMovementEvent.cs" />
     <Compile Include="Events\HeadingChangeEvent.cs" />
     <Compile Include="Events\HeartBeatEvent.cs" />
     <Compile Include="Events\IdleEvent.cs" />

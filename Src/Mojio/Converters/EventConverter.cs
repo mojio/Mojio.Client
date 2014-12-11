@@ -89,6 +89,8 @@ namespace Mojio.Converters
                 return new HeartBeatEvent();
             case EventType.DeviceDiagnostic:
                 return new DeviceDiagnosticEvent();
+            case EventType.HarshMovement:
+                return new HarshMovementEvent();
             default:
                 return new Event ();
             }
