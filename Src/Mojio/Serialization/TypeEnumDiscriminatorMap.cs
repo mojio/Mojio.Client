@@ -99,7 +99,7 @@ namespace Mojio.Serialization
                 .Contains<HeartBeatEvent>(EventType.HeartBeat)
                 .Contains<DeviceDiagnosticEvent>(EventType.DeviceDiagnostic)
                 .Contains<RPMEvent>(EventType.RPM)
-                .Contains<SleepEvent>(EventType.PreSleepWarning);
+                .Contains<SleepEvent>(EventType.PreSleepWarning)
                 .Contains<HarshMovementEvent>(EventType.HarshMovement);
                            
             BuildMap();
