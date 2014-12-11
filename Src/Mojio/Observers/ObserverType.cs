@@ -27,7 +27,8 @@ namespace Mojio
         SmoothVehicle = 16,
         SmoothEvent = 17,
         SmoothTrip = 18,
-        SmoothMojio = 19
+        SmoothMojio = 19,
+        SmoothChunkingMojio = 20
     }
 
 
