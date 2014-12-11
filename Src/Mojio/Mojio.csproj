@@ -109,6 +109,7 @@
     <Compile Include="Observers\FuelLevelObserver.cs" />
     <Compile Include="Observers\HeadingObserver.cs" />
     <Compile Include="Observers\DistanceObserver.cs" />
+    <Compile Include="Observers\SmoothChunkingMojioObserver.cs" />
     <Compile Include="Observers\SmoothMojioObserver.cs" />
     <Compile Include="Observers\SmoothObserverBase.cs" />
     <Compile Include="Observers\ObservableAttribute.cs" />

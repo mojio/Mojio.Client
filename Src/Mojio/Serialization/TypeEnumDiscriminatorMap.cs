@@ -38,6 +38,7 @@ namespace Mojio.Serialization
                .Contains<SmoothVehicleObserver>(ObserverType.SmoothVehicle)
                .Contains<SmoothTripObserver>(ObserverType.SmoothTrip)
                .Contains<SmoothMojioObserver>(ObserverType.SmoothMojio)
+               .Contains<SmoothChunkingMojioObserver>(ObserverType.SmoothChunkingMojio)
                ;
 
             Map<GuidEntity, EntityType>(e => e.Type)
