@@ -34,7 +34,7 @@ namespace Mojio.Converters
             for (int i = 1; i <= resolution; i++)
             {
                 Location location = new Location();
-                location.Lat = InterpolateValue(previous.Lat, now.Lat, (double)i , resolution);
+                location.Lat = InterpolateValue(previous.Lat, now.Lat, (double)i, resolution);
                 location.Lng = InterpolateValue(previous.Lng, now.Lng, (double)i, resolution);
 
                 locations.Add(location);
