@@ -54,6 +54,11 @@ namespace Mojio
         public bool? IgnitionOn { get; set; }
 
         /// <summary>
+        /// Vehicle time, time data came from the vehicle, most of the time this is the LastLocationTime too.
+        /// </summary>
+        public DateTime? VehicleTime { get; set; }
+
+        /// <summary>
         /// Most recent trip event
         /// </summary>
         public Guid? LastTripEvent { get; set; }
@@ -194,6 +199,11 @@ namespace Mojio
         /// List of viewer IDs
         /// </summary>
         public Guid[] Viewers { get; set; }
+
+        public override bool RepresentsRecentChange(TimeSpan timeWindow)
+        {
+            return ((TimeSpan)(DateTime.UtcNow - VehicleTime)).TotalSeconds < timeWindow.TotalSeconds;
+        }
 
         public object Clone()
         {

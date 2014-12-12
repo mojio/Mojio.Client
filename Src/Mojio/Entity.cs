@@ -80,6 +80,10 @@ namespace Mojio
                 Id = Guid.NewGuid();
         }
 
+        public virtual bool RepresentsRecentChange(TimeSpan timeWindow)
+        {
+            return true;
+        }
         public abstract EntityType Type { get; }
     }
 
