@@ -69,43 +69,6 @@ namespace Mojio
         public Location LastLocation { get; set; }
 
         /// <summary>
-        /// Last several known times, set by the chunking observers
-        /// </summary>
-        private List<DateTime?> _lastLocationTimes;
-        public List<DateTime?> LastLocationTimes
-        {
-            get
-            {
-                if (_lastLocationTimes == null)
-                    _lastLocationTimes = new List<DateTime?>();
-                return this._lastLocationTimes;
-            }
-            set
-            {
-                this._lastLocationTimes = value;
-            }
-        } 
-
-        /// <summary>
-        /// Last several known locations, set by the chunking observers
-        /// </summary>
-        private List<Location> _lastLocations;
-
-        public List<Location> LastLocations
-        {
-            get
-            {
-                if (_lastLocations == null)
-                    _lastLocations = new List<Location>();
-                return this._lastLocations;
-            }
-            set
-            {
-                this._lastLocations = value;
-            }
-        } 
-
-        /// <summary>
         /// Last known speed
         /// </summary>
         public double LastSpeed { get; set; }
@@ -184,6 +147,97 @@ namespace Mojio
         /// </summary>
         public bool FaultsDetected { get; set; }
 
+        /// <summary>
+        /// Last several known times, set by the chunking observers
+        /// </summary>
+        private List<DateTime?> _lastLocationTimes;
+        public List<DateTime?> LastLocationTimes
+        {
+            get
+            {
+                if (_lastLocationTimes == null)
+                    _lastLocationTimes = new List<DateTime?>();
+                return this._lastLocationTimes;
+            }
+            set
+            {
+                this._lastLocationTimes = value;
+            }
+        }
+
+        /// <summary>
+        /// Last several known locations, set by the chunking observers
+        /// </summary>
+        private List<Location> _lastLocations;
+
+        public List<Location> LastLocations
+        {
+            get
+            {
+                if (_lastLocations == null)
+                    _lastLocations = new List<Location>();
+                return this._lastLocations;
+            }
+            set
+            {
+                this._lastLocations = value;
+            }
+        }
+
+        /// <summary>
+        /// Last several known speeds, set by the chunking observers
+        /// </summary>
+        private List<double> _lastSpeeds;
+
+        public List<double> LastSpeeds
+        {
+            get
+            {
+                if (_lastSpeeds == null)
+                    _lastSpeeds = new List<double>();
+                return this._lastSpeeds;
+            }
+            set
+            {
+                this._lastSpeeds = value;
+            }
+        }
+        /// <summary>
+        /// Last several known headings, set by the chunking observers
+        /// </summary>
+        private List<double> _lastHeading;
+
+        public List<double> LastHeadings
+        {
+            get
+            {
+                if (_lastHeading == null)
+                    _lastHeading = new List<double>();
+                return this._lastHeading;
+            }
+            set
+            {
+                this._lastHeading = value;
+            }
+        }
+        /// <summary>
+        /// Last several known altitudes, set by the chunking observers
+        /// </summary>
+        private List<double> _lastAltitudes;
+
+        public List<double> LastAltitudes
+        {
+            get
+            {
+                if (_lastAltitudes == null)
+                    _lastAltitudes = new List<double>();
+                return this._lastAltitudes;
+            }
+            set
+            {
+                this._lastAltitudes = value;
+            }
+        } 
         // TODO: Maybe Viewers should be in private?
         /// <summary>
         /// List of viewer IDs
