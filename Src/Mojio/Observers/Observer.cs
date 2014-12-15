@@ -88,9 +88,9 @@ namespace Mojio
         public bool? BroadcastOnlyRecent { get; set; } 
 
         public Observer()
-            //: this(ObserverType.Generic)
+            : this(ObserverType.Generic)
         {
-            ObserverType = ObserverType.Generic;
+           // ObserverType = ObserverType.Generic;
         }
 
         public Observer(Type subject = null, Type parent = null)
