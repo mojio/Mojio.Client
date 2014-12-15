@@ -200,9 +200,9 @@ namespace Mojio
         /// </summary>
         public Guid[] Viewers { get; set; }
 
-        public override bool RepresentsRecentChange(TimeSpan timeWindow)
+        public override bool RepresentsRecentChange(TimeSpan? timeWindow)
         {
-            return ((TimeSpan)(DateTime.UtcNow - VehicleTime)).TotalSeconds < timeWindow.TotalSeconds;
+            return ((TimeSpan)(DateTime.UtcNow - VehicleTime)).TotalSeconds < timeWindow.GetValueOrDefault().TotalSeconds;
         }
 
         public object Clone()

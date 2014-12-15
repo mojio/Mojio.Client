@@ -79,16 +79,19 @@ namespace Mojio
         /// Time Window.  Used with BroadcastOnlyRecent flag to determine how far back changes based on vehicle time
         /// are broadcast forward to the outside world.  Default is 15 minutes.
         /// </summary>
-        public TimeSpan TimeWindow { get; set; }
+        public TimeSpan? TimeWindow { get; set; }
 
         /// <summary>
-        /// BroadcastOnlyRecent. Used with TimeWindow time span to determine if changes are broadcast if that change is based
+        /// BroadcastOnlyRecent when the time window is set. Used with TimeWindow time span to determine if changes are broadcast if that change is based
         /// on something that happened in the vehicle a long time ago and is only recently being updated.
         /// </summary>
-        public bool BroadcastOnlyRecent { get; set; }
+        public bool? BroadcastOnlyRecent { get; set; } 
 
         public Observer()
-            : this(ObserverType.Generic) { }
+            //: this(ObserverType.Generic)
+        {
+            ObserverType = ObserverType.Generic;
+        }
 
         public Observer(Type subject = null, Type parent = null)
             : this(ObserverType.Generic, subject, parent) { }
@@ -102,7 +105,7 @@ namespace Mojio
 
             if (parent != null)
                 Parent = parent.Name;
-
+            
             TimeWindow = new TimeSpan(0, 15, 0); // 15 minutes.
             BroadcastOnlyRecent = true;
         }

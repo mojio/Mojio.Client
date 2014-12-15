@@ -80,7 +80,7 @@ namespace Mojio
                 Id = Guid.NewGuid();
         }
 
-        public virtual bool RepresentsRecentChange(TimeSpan timeWindow)
+        public virtual bool RepresentsRecentChange(TimeSpan? timeWindow)
         {
             return true;
         }

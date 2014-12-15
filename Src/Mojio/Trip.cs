@@ -212,9 +212,9 @@ namespace Mojio
         /// </value>
         public double? StartOdometer { get; set; }
 
-        public override bool RepresentsRecentChange(TimeSpan timeWindow)
+        public override bool RepresentsRecentChange(TimeSpan? timeWindow)
         {
-            return ((TimeSpan)(DateTime.UtcNow - LastUpdatedTime)).TotalSeconds < timeWindow.TotalSeconds;
+            return ((TimeSpan)(DateTime.UtcNow - LastUpdatedTime)).TotalSeconds < timeWindow.GetValueOrDefault().TotalSeconds;
         }
         public object Clone()
         {
