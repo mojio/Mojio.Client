@@ -148,9 +148,13 @@ namespace Mojio.Events
         ///// </summary>
         //public GpsState? GpsState { get; set; }
 
+        public override bool RepresentsRecentChange(TimeSpan? timeWindow)
+        {
+            return ((TimeSpan)(DateTime.UtcNow - Time)).TotalSeconds < timeWindow.GetValueOrDefault().TotalSeconds;
+        }
+
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
-
         public object Clone()
         {
             Event clone = this.MemberwiseClone() as Event;
