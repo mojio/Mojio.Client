@@ -17,7 +17,7 @@ namespace Mojio
         }
 
         /// <summary>
-        /// mojio id
+        /// Mojio id
         /// </summary>
         /// <value>
         /// The mojio identifier.
@@ -26,7 +26,7 @@ namespace Mojio
         public Guid MojioId { get; set; }
 
         /// <summary>
-        /// vehicle id
+        /// Vehicle id
         /// </summary>
         /// <value>
         /// The vehicle identifier.
@@ -37,7 +37,7 @@ namespace Mojio
 
         [DefaultSort]
         /// <summary>
-        /// start timestamp
+        /// Start timestamp
         /// </summary>
         /// <value>
         /// The start time.
@@ -45,7 +45,7 @@ namespace Mojio
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// end timestamp
+        /// End timestamp
         /// </summary>
         /// <value>
         /// The last updated time.
@@ -53,7 +53,7 @@ namespace Mojio
         public DateTime? LastUpdatedTime { get; set; }
 
         /// <summary>
-        /// end timestamp
+        /// End timestamp
         /// </summary>
         /// <value>
         /// The end time.
@@ -61,7 +61,7 @@ namespace Mojio
         public DateTime? EndTime { get; set; }
 
         /// <summary>
-        /// maximum speed
+        /// Maximum speed
         /// </summary>
         /// <value>
         /// The maximum speed.
@@ -69,7 +69,7 @@ namespace Mojio
         public double? MaxSpeed { get; set; }
 
         /// <summary>
-        /// maximum acceleration
+        /// Maximum acceleration
         /// </summary>
         /// <value>
         /// The maximum acceleration.
@@ -77,7 +77,7 @@ namespace Mojio
         public double? MaxAcceleration { get; set; }
 
         /// <summary>
-        /// maximum acceleration
+        /// Maximum acceleration
         /// </summary>
         /// <value>
         /// The maximum acceleration.
@@ -85,7 +85,7 @@ namespace Mojio
         public double? MaxDeceleration { get; set; }
 
         /// <summary>
-        /// maximum rpm
+        /// Maximum rpm
         /// </summary>
         /// <value>
         /// The maximum RPM.
@@ -93,7 +93,7 @@ namespace Mojio
         public int? MaxRPM { get; set; }
 
         /// <summary>
-        /// fuel level (percent 0 - 100)
+        /// Fuel level (percent 0 - 100)
         /// </summary>
         /// <value>
         /// The fuel level.
@@ -101,7 +101,7 @@ namespace Mojio
         public double? FuelLevel { get; set; }
 
         /// <summary>
-        /// fuel efficiency (liters per 100km)
+        /// Fuel efficiency (liters per 100km)
         /// </summary>
         /// <value>
         /// The fuel efficiency.
@@ -109,7 +109,7 @@ namespace Mojio
         public double? FuelEfficiency { get; set; }
 
         /// <summary>
-        /// distance travelled
+        /// Distance travelled
         /// </summary>
         /// <value>
         /// The distance.
@@ -117,7 +117,7 @@ namespace Mojio
         public double? Distance { get; set; }
 
         /// <summary>
-        /// time moving
+        /// Time moving
         /// </summary>
         /// <value>
         /// The moving time.
@@ -125,7 +125,7 @@ namespace Mojio
         //public double? MovingTime { get; set; }
 
         /// <summary>
-        /// idle time
+        /// Idle time
         /// </summary>
         /// <value>
         /// The idle time.
@@ -133,7 +133,7 @@ namespace Mojio
         //public double? IdleTime { get; set; }
 
         /// <summary>
-        /// time stopped
+        /// Time stopped
         /// </summary>
         /// <value>
         /// The stop time.
@@ -141,7 +141,7 @@ namespace Mojio
         //public double? StopTime { get; set; }
 
         /// <summary>
-        /// start location
+        /// Start location
         /// </summary>
         /// <value>
         /// The start location.
@@ -157,7 +157,7 @@ namespace Mojio
         public Location LastKnownLocation { get; set; }
 
         /// <summary>
-        /// end location
+        /// ESnd location
         /// </summary>
         /// <value>
         /// The end location.
@@ -189,21 +189,33 @@ namespace Mojio
         public bool? ForcefullyEnded { get; set; }
 
         /// <summary>
-        /// Address where the trip started
+        /// Virtual odometer at trip start
         /// </summary>
         /// <value>
-        /// The start milage.
+        /// The start virtual odometer.
         /// </value>
         public double? StartMilage { get; set; }
 
         /// <summary>
-        /// Milage where the trip ended
+        /// Virtual odometer at trip end
         /// </summary>
         /// <value>
-        /// The end milage.
+        /// The end virtual odometer.
         /// </value>
         public double? EndMilage { get; set; }
 
+        /// <summary>
+        /// Real odometer at trip start
+        /// </summary>
+        /// <value>
+        /// The start real odometer.
+        /// </value>
+        public double? StartOdometer { get; set; }
+
+        public override bool RepresentsRecentChange(TimeSpan? timeWindow)
+        {
+            return ((TimeSpan)(DateTime.UtcNow - LastUpdatedTime)).TotalSeconds < timeWindow.GetValueOrDefault().TotalSeconds;
+        }
         public object Clone()
         {
             Trip clone = this.MemberwiseClone() as Trip;
