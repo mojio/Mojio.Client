@@ -517,7 +517,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get a collection of mojio devices owned by a user.
+        /// Get a collection of mojios owned by a user.
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
@@ -528,7 +528,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get a collection of mojio devices owned by a user.
+        /// Get a collection of mojios owned by a user.
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
@@ -538,7 +538,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get a collection of mojio devices owned by a user.
+        /// Get a collection of mojios owned by a user.
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>
@@ -549,7 +549,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get a collection of mojio devices owned by a user.
+        /// Get a collection of mojios owned by a user.
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns></returns>

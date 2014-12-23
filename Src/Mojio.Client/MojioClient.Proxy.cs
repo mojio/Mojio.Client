@@ -10,7 +10,7 @@ namespace Mojio.Client
     partial class MojioClient
     {
         /// <summary>
-        /// Gets the proxy servers for this Mojio device.
+        /// Gets the proxy servers for this Mojio.
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <returns></returns>
@@ -22,7 +22,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Gets the proxy servers for this Mojio device (asynchronous).
+        /// Gets the proxy servers for this Mojio (asynchronous).
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <returns></returns>
@@ -35,7 +35,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Adds a proxy server to this Mojio device.
+        /// Adds a proxy server to this Mojio.
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="address">The address.</param>
@@ -48,7 +48,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Adds a proxy server to this Mojio device.
+        /// Adds a proxy server to this Mojio.
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="address">The address.</param>
@@ -62,7 +62,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Adds a proxy server to this Mojio device.
+        /// Adds a proxy server to this Mojio.
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="address">The address.</param>
@@ -74,7 +74,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Adds a proxy server to this Mojio device (asynchronous).
+        /// Adds a proxy server to this Mojio (asynchronous).
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="address">The address.</param>
@@ -89,7 +89,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Sets the proxy servers of this Mojio device.
+        /// Sets the proxy servers of this Mojio.
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="servers">The servers.</param>
@@ -102,7 +102,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Sets the proxy servers of this Mojio device (asynchronous).
+        /// Sets the proxy servers of this Mojio (asynchronous).
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <param name="servers">The servers.</param>
@@ -117,7 +117,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Clears the proxy servers of this Mojio device
+        /// Clears the proxy servers of this Mojio
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <returns></returns>
@@ -129,7 +129,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Clears the proxy servers of this Mojio device (asynchronous).
+        /// Clears the proxy servers of this Mojio (asynchronous).
         /// </summary>
         /// <param name="mojioId">The mojio identifier.</param>
         /// <returns></returns>

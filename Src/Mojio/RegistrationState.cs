@@ -8,7 +8,7 @@ namespace Mojio
 {
     /// <summary>
     /// Xirgo Specific Cellular Registration State.
-    /// For different devices, use a switch/case statement to map values to enums...
+    /// For different Mojios, use a switch/case statement to map values to enums...
     /// </summary>
     public enum RegistrationState
     {

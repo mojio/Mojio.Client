@@ -29,7 +29,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get a collection of events associated with a mojio device.
+        /// Get a collection of events associated with a Mojio.
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <param name="page">The page.</param>
@@ -41,7 +41,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Get a collection of trips associated with a mojio device.
+        /// Get a collection of trips associated with a Mojio.
         /// </summary>
         /// <param name="id">Mojio ID</param>
         /// <param name="page">The page.</param>
