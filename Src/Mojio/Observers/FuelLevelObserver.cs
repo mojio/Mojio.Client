@@ -22,6 +22,7 @@ namespace Mojio
         public FuelLevelObserver()
             : base(ObserverType.FuelLevel, typeof(Vehicle), null, ObserverTiming.edge)
         {
+            SetDefaultThrottle();
         }
 
         /// <summary>
@@ -37,7 +38,8 @@ namespace Mojio
         {
             SubjectId = vehicleId;
             SetCondition(fuelLow, fuelHigh);
-        }
+            SetDefaultThrottle();
+       }
         /// <summary>
         /// <param name="fuelLow">Lower bound for the fuel, any fuel above this threshold fires an observation event</param>
         /// <param name="fuelHigh">Optional Upper bound, any fuel below this threshold and above LowFuel, fires an observe event</param>
@@ -55,12 +57,17 @@ namespace Mojio
                 SubjectId = vehicleId;
 
             SetCondition(fuelLow, fuelHigh);
+            SetDefaultThrottle();
         }
 
         public void SetCondition(double fuelLow, double? fuelHigh = null)
         {
             FuelLow = fuelLow;
             FuelHigh = fuelHigh;
+        }
+        private void SetDefaultThrottle() 
+        {
+            Throttle = new TimeSpan(24,0,0);
         }
     }
 }
