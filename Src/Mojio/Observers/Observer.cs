@@ -95,7 +95,7 @@ namespace Mojio
         /// Set when a notfication is broadcast.  Used in combination with Throttle to determine if a notifcation
         /// should be sent.
         /// </summary>
-        private DateTime? NextBroadcast { get; set; }
+        public DateTime? NextAllowedBroadcast { get; set; }
 
         public Observer()
             : this(ObserverType.Generic)

@@ -68,6 +68,7 @@ namespace Mojio
         private void SetDefaultThrottle() 
         {
             Throttle = new TimeSpan(24,0,0);
+            NextAllowedBroadcast = DateTime.UtcNow;
         }
     }
 }
