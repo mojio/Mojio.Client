@@ -85,7 +85,17 @@ namespace Mojio
         /// BroadcastOnlyRecent when the time window is set. Used with TimeWindow time span to determine if changes are broadcast if that change is based
         /// on something that happened in the vehicle a long time ago and is only recently being updated.
         /// </summary>
-        public bool? BroadcastOnlyRecent { get; set; } 
+        public bool? BroadcastOnlyRecent { get; set; }
+
+        /// <summary>Don't broadcast each change, wait a given amount of time before sending again.</summary>
+        /// <value>Time to wait between notifications.</value>
+        public TimeSpan? Throttle { get; set; }
+
+        /// <summary>
+        /// Set when a notfication is broadcast.  Used in combination with Throttle to determine if a notifcation
+        /// should be sent.
+        /// </summary>
+        public DateTime? NextAllowedBroadcast { get; set; }
 
         public Observer()
             : this(ObserverType.Generic)
@@ -108,6 +118,7 @@ namespace Mojio
             
             TimeWindow = new TimeSpan(0, 15, 0); // 15 minutes.
             BroadcastOnlyRecent = true;
+            Throttle = null;
         }
     }
 }
