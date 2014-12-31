@@ -61,7 +61,7 @@ namespace Mojio.Client
             get {
                 if (_mojioProxy == null) {
                     _mojioProxy = HubConnection.CreateHubProxy ("hub");
-
+                    _mojioProxy.JsonSerializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
                     // Register callback events
                     _mojioProxy.On<Event> ("event", m => {
                         if (EventHandler != null)
@@ -93,6 +93,7 @@ namespace Mojio.Client
                 if (_mojioProxy == null)
                 {
                     _mojioProxy = HubConnection.CreateHubProxy("ObserverHub");
+                    _mojioProxy.JsonSerializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
 
                     // Register callback events
                     _mojioProxy.On<GuidEntity>("UpdateEntity", m =>
