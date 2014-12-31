@@ -91,6 +91,19 @@ namespace Mojio
         /// <value>Time to wait between notifications.</value>
         public TimeSpan? Throttle { get; set; }
 
+        public virtual bool isThrottled(GuidEntity entity)
+        {
+            // Now earlier than the next broadcast.
+            return (Throttle != null &&
+                NextAllowedBroadcast != null &&
+                DateTime.Compare(DateTime.UtcNow,
+                                 NextAllowedBroadcast.GetValueOrDefault()) < 0); 
+        }
+
+        public virtual bool UpdateThrottle(GuidEntity entity)
+        {
+            return Throttle != null;
+        }
         /// <summary>
         /// Set when a notfication is broadcast.  Used in combination with Throttle to determine if a notifcation
         /// should be sent.
@@ -119,6 +132,7 @@ namespace Mojio
             TimeWindow = new TimeSpan(0, 15, 0); // 15 minutes.
             BroadcastOnlyRecent = true;
             Throttle = null;
+            NextAllowedBroadcast = null;
         }
     }
 }
