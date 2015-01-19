@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using Mojio.Client;
+using System.Text.RegularExpressions;
 
 namespace Mojio.Client
 {
@@ -1380,6 +1381,64 @@ namespace Mojio.Client
                 throw new ArgumentException("method");
 
             return memberExpr;
+        }
+
+
+        /// <summary>
+        /// Create uri to direct to Mojio Login page for OAuth. 
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="redirectUri">Redirect Uri</param>
+        /// <returns>Uri of Mojio login with redirect uri being the uri to return to.</returns>
+        public Uri getAuthorizeUri(String appId, String redirectUri)
+        {
+            String baseUrl = RestClient.BaseUrl;
+            Regex regex = new Regex(@"/v([0-9]{1})");
+            string result = regex.Replace(baseUrl, string.Empty);
+            string authURL = string.Format(
+                     "{0}/OAuth2/authorize?response_type=token&client_id={1}&redirect_uri={2}",
+                     result,
+                     appId,
+                     redirectUri);
+
+            return new Uri(authURL);
+        }
+
+        /// <summary>
+        /// Set token on the client. 
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="token">Oauth token</param>
+        /// <returns></returns>
+        public async Task<bool> TokenAsync(String appID, String token)
+        {
+            // Set the token on Mojio Client 
+            Guid tokenguid = new Guid(token);
+            return await BeginAsync(new Guid(appID),
+                                    Guid.Empty,
+                                    tokenguid);
+
+        }
+
+        /// <summary>
+        /// Create a uri to redirect to the Mojio logout page. 
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="redirectUri">Redirect Uri</param>
+        /// <returns>Uri of Mojio logout page.</returns>
+        public Uri getUnauthorizeUri(String appId, String redirectUri)
+        {
+            string baseUrl = RestClient.BaseUrl;
+            Regex regex = new Regex(@"/v([0-9]{1})");
+            string result = regex.Replace(baseUrl, string.Empty);
+            string authURL = string.Format(
+                    "{0}/account/logout?Guid={1}&client_id={2}&redirect_uri={3}",
+                    result,
+                    Token,
+                    appId,
+                    redirectUri);
+
+            return new Uri(authURL);
         }
     }
 }
