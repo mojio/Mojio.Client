@@ -34,7 +34,7 @@ namespace Mojio
         public string Operator2 { get; set; }
 
         /// <summary>
-        /// Second operator (<, > , <=, >=, ==, !=) used in the conditional, optional.
+        /// conjunction between (and, or) used in the conditional, optional.
         /// </summary>
         public string Conjunction { get; set; }   
 
