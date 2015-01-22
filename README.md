@@ -21,9 +21,9 @@ Download or checkout the Mojio.Client.  You will then need to include the Mojio 
 Getting Started
 ===============
 
-To begin developing with our client, you will need your very own application ID.  First you will need to create an account and login to our developer center.  We recommend starting with our sandbox environment (https://developer.moj.io/).
+To begin developing with our client, you will need your very own application ID.  First you will need to create an account and login to our developer center.  We recommend starting with our sandbox environment (https://developer.moj.io/). The enviroment will need to be set when authenticating a user (See **Authenticate a Mojio User** for more details)
 
-Once you have logged in, you can create a new Application.  From here, you will want to copy the Application ID, this will be required to initialize the Mojio.Client.
+Once you have logged in, you can create a new Application.  From here, you will want to copy the Application ID, this will be required to initialize the Mojio.Client. 
 
 
 Initializing the Client
@@ -44,10 +44,15 @@ MojioClient client = new MojioClient(MojioClient.Live);
 Authenticate a Mojio User
 -------------------------
 
-Now that your MojioClient is associated with your app, you can get started making some calls.  However, many of our API calls also require an authorized user to be associated with the client session.  Mojio now uses OAuth2 for authentication.  In order to authenticate a user, you must navigate to the Mojio authentication server.  The redirectUri parameter is an URL where the authentication server will return with an token once the user has logged in.  IMPORTANT: You must register your redirectUri value in your application's management area (http://developer.moj.io/account/apps -> Manage, the redirect URIs field).  The redirect URI that you've set in your app settings and the URI you are using in your source code must match exactly (i.e. exact case) and include the scheme, url, port, and query parameters.  You can list more than one URI in your app settings by putting them on separate lines. 
+Now that your MojioClient is associated with your app, you can get started making some calls.  However, many of our API calls also require an authorized user to be associated with the client session.  
+
+Mojio now uses OAuth2 for authentication.  In order to authenticate a user, you must navigate to either the Live or Sandbox Mojio authentication server. The default is the Live Server, to connect to the Sandbox server simply specify 'false' for the live parameter of getAuthorizeUri(). 
+
+The redirectUri parameter is an URL where the authentication server will return with an token once the user has logged in.  IMPORTANT: You must register your redirectUri value in your application's management area (http://developer.moj.io/account/apps -> Manage, the redirect URIs field).  The redirect URI that you've set in your app settings and the URI you are using in your source code must match exactly (i.e. exact case) and include the scheme, url, port, and query parameters.  You can list more than one URI in your app settings by putting them on separate lines. 
 
 ```csharp
-Uri loginUri = client.getAuthorizeUri(appId, redirectUri);
+// This will connect to the Sandbox enviroment
+Uri loginUri = client.getAuthorizeUri(appId, redirectUri, false);
 
 webBrowser.Navigate(loginUri);
 ```
