@@ -519,6 +519,25 @@ namespace Mojio.Client
             }
         }
 
+		/// <summary>
+		/// Changes the API endpoint (develop - staging and production
+		/// </summary>
+		public async Task<string> ChangeApiEndpoint (string apiEndpoint) {
+			if (apiEndpoint.Equals ("https://api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://api.moj.io/v1";
+			} else if (apiEndpoint.Equals ("https://staging.api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://staging.api.moj.io/v1";
+			} else if (apiEndpoint.Equals ("https://develop.api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://develop.api.moj.io/v1";
+			} 
+
+			ResetCurrentUser ();
+			Token = null;
+
+			return RestClient.BaseUrl;
+		}
+
+
         /// <summary>
         /// Changes the environment.
         /// </summary>
