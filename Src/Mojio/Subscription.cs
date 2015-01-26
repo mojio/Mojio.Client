@@ -45,6 +45,7 @@ namespace Mojio
         /// </summary>
         public Subscription ()
         {
+            Throttle = null;
         }
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace Mojio
         public Subscription (EventType type)
         {
             Event = type;
+            Throttle = null;
         }
 
         /// <summary>Gets or sets the type of the channel.</summary>
@@ -90,6 +92,16 @@ namespace Mojio
         /// <summary>Gets or sets the last message.</summary>
         /// <value>The last message.</value>
         public DateTime? LastMessage { get; set; }
+
+        /// <summary>Don't broadcast each change, wait a given amount of time before sending again.</summary>
+        /// <value>Time to wait between notifications.</value>
+        public TimeSpan? Throttle { get; set; }
+
+        /// <summary>
+        /// Set when a notfication is broadcast.  Used in combination with Throttle to determine if a notifcation
+        /// should be sent.
+        /// </summary>
+        public DateTime? NextAllowedBroadcast { get; set; }
     }
 
     /// <summary>
@@ -176,6 +188,7 @@ namespace Mojio
                 fuelThreshold = 15; //double.Parse(ConfigurationSettings.AppSettings["LowFuelThreshold"], CultureInfo.InvariantCulture);
             LowFuelPercentageThreshold = fuelThreshold;
             Interval = interval;
+            Throttle = new TimeSpan(24, 0, 0); // 24 Hours
         }
 
         /// <summary>Gets or sets the low fuel threshold percentage.</summary>

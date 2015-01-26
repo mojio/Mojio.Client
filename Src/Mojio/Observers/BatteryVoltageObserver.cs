@@ -22,6 +22,7 @@ namespace Mojio
         public BatteryVoltageObserver()
             : base(ObserverType.BatteryVoltage, typeof(Vehicle), null, ObserverTiming.edge)
         {
+            SetDefaultThrottle();
         }
 
         /// <summary>
@@ -37,6 +38,7 @@ namespace Mojio
         {
             SubjectId = vehicleId;
             SetCondition(batteryVoltageLow, batteryVoltageHigh);
+            SetDefaultThrottle();
         }
         /// <summary>
         /// <param name="batteryVoltageLow">Lower bound for the batteryVoltage, any batteryVoltage above this threshold fires an observation event</param>
@@ -55,12 +57,19 @@ namespace Mojio
                 SubjectId = vehicleId;
 
             SetCondition(batteryVoltageLow, batteryVoltageHigh);
+            SetDefaultThrottle();
         }
 
         public void SetCondition(double batteryVoltageLow, double? batteryVoltageHigh = null)
         {
             BatteryVoltageLow = batteryVoltageLow;
             BatteryVoltageHigh = batteryVoltageHigh;
+        }
+
+        private void SetDefaultThrottle()
+        {
+            Throttle = new TimeSpan(24, 0, 0);
+            NextAllowedBroadcast = DateTime.UtcNow;
         }
     }
 }

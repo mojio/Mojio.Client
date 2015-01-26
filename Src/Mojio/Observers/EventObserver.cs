@@ -27,10 +27,34 @@ namespace Mojio
                     timing)
         {
             if (eventTypes == null)
-                eventTypes = new EventType[] {};
+                eventTypes = new EventType[] { };
 
             ParentId = vehicleId;
             EventTypes = eventTypes;
         }
+
+        //TODO:: allow end users to add more events to the throttle than the default
+        // battery and fuel events.
+        public bool hasThrottle(GuidEntity entity)
+        {
+            return  (EventTypes.Contains(EventType.LowBattery) &&
+                    ((Event)entity).EventType == EventType.LowBattery) 
+                    ||
+                    (EventTypes.Contains(EventType.LowFuel) &&
+                    ((Event)entity).EventType == EventType.LowFuel);
+        }
+
+        public override bool isThrottled(GuidEntity entity)
+        {
+            return hasThrottle(entity) &&
+                base.isThrottled(entity);
+        }
+
+        public override bool UpdateThrottle(GuidEntity entity)
+        {
+            return hasThrottle(entity) && 
+                Throttle != null;
+        }
+
     }
 }

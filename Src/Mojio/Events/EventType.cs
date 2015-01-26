@@ -16,7 +16,7 @@ namespace Mojio.Events
         Log = 1,
 
         /// <summary>
-        /// for device communication session.
+        /// for Mojio communication session.
         /// </summary>
         Message = 2,
 
@@ -26,57 +26,57 @@ namespace Mojio.Events
         Information = 100,
 
         /// <summary>
-        /// mojio on (device)
+        /// mojio on (Mojio)
         /// </summary>
         MojioOn = 101,
 
         /// <summary>
-        /// mojio idle (device)
+        /// mojio idle (Mojio)
         /// </summary>
         MojioIdle = 102,
 
         /// <summary>
-        /// mojio awake (device)
+        /// mojio awake (Mojio)
         /// </summary>
         MojioWake = 103,
 
         /// <summary>
-        /// ignition on (device)
+        /// ignition on (Mojio)
         /// </summary>
         IgnitionOn = 104,
 
         /// <summary>
-        /// ignition off (device)
+        /// ignition off (Mojio)
         /// </summary>
         IgnitionOff = 105,
 
         /// <summary>
-        /// mojio off (device)
+        /// mojio off (Mojio)
         /// </summary>
         MojioOff = 106,
 
         /// <summary>
-        /// low battery (device)
+        /// low battery (Mojio)
         /// </summary>
         LowBattery = 107,
 
         /// <summary>
-        /// GPS update (device)
+        /// GPS update (Mojio)
         /// </summary>
         TripEvent = 1005,
 
         /// <summary>
-        /// fence enter (device)
+        /// fence enter (Mojio)
         /// </summary>
         FenceEntered = 1006,
 
         /// <summary>
-        /// fence exit (device)
+        /// fence exit (Mojio)
         /// </summary>
         FenceExited = 1007,
 
         /// <summary>
-        /// trip status (device)
+        /// trip status (Mojio)
         /// </summary>
         TripStatus = 1010,
 
@@ -86,7 +86,7 @@ namespace Mojio.Events
         Warning = 30000,
 
         /// <summary>
-        /// malfunction indicator light warning (device)
+        /// malfunction indicator light warning (Mojio)
         /// </summary>
         MILWarning = 30001,
 
@@ -101,52 +101,52 @@ namespace Mojio.Events
         Alert = 100000,
 
         /// <summary>
-        /// accident (device)
+        /// accident (Mojio)
         /// </summary>
         Accident = 100001,
 
         /// <summary>
-        /// tow start (device)
+        /// tow start (Mojio)
         /// </summary>
         TowStart = 100002,
 
         /// <summary>
-        /// tow stop (device)
+        /// tow stop (Mojio)
         /// </summary>
         TowStop = 100003,
 
         /// <summary>
-        /// hard acceleration (device)
+        /// hard acceleration (Mojio)
         /// </summary>
         HardAcceleration = 100004,
 
         /// <summary>
-        /// hard brake (device)
+        /// hard brake (Mojio)
         /// </summary>
         HardBrake = 100005,
 
         /// <summary>
-        /// hard right (device)
+        /// hard right (Mojio)
         /// </summary>
         HardRight = 100006,
 
         /// <summary>
-        /// hard left (device)
+        /// hard left (Mojio)
         /// </summary>
         HardLeft = 100007,
         
         /// <summary>
-        /// device-defined excessive speed (device)
+        /// Mojio-defined excessive speed (Mojio)
         /// </summary>
         Speed = 100008,
 
         /// <summary>
-        /// device-defined diagnostics event
+        /// Mojio-defined diagnostics event
         /// </summary>
         Diagnostic = 100009,
 
         /// <summary>
-        /// trip status (device)
+        /// trip status (Mojio)
         /// </summary>
         OffStatus = 100010,
 
@@ -206,7 +206,7 @@ namespace Mojio.Events
         HeartBeat = 100021,
 
         /// <summary>
-        /// Device Diagnostic Data
+        /// Mojio Diagnostic Data
         /// </summary>
         DeviceDiagnostic = 100022,
 

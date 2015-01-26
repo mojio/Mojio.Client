@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Mojio
 {
     /// <summary>
-    /// Device
+    /// Mojio
     /// </summary>
     [Observable]
     public partial class Mojio : GuidEntity, IOwner
@@ -26,12 +26,12 @@ namespace Mojio
         public Guid? OwnerId { get; set; }
 
         /// <summary>
-        /// Device name
+        /// Mojio name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Device IMEI number
+        /// Mojio IMEI number
         /// </summary>
         public string Imei { get; set; }
 

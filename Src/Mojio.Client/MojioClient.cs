@@ -699,7 +699,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Claims a new Mojio device asynchronously.
+        /// Claims a new Mojio asynchronously.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <param name="pin">The pin.</param>
@@ -710,7 +710,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Claims a new Mojio device asynchronously.
+        /// Claims a new Mojio asynchronously.
         /// </summary>
         /// <param name="imei">The imei.</param>
         /// <returns></returns>
@@ -725,7 +725,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Unclaims a Mojio device.
+        /// Unclaim a Mojio.
         /// </summary>
         /// <param name="id">The Mojio identifier.</param>
         /// <returns></returns>
@@ -738,7 +738,7 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Unclaims a Mojio device asynchronously.
+        /// Unclais a Mojio asynchronously.
         /// </summary>
         /// <param name="id">The Mojio identifier.</param>
         /// <returns></returns>
