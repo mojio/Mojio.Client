@@ -46,6 +46,7 @@
     <Compile Include="Attributes\DefaultSortAttribute.cs" />
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CarState.cs" />
+    <Compile Include="Developer.cs" />
     <Compile Include="CollectionNameAttribute.cs" />
     <Compile Include="Constraints.cs" />
     <Compile Include="Converters\Converter.cs" />
