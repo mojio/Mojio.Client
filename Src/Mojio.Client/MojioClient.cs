@@ -1390,16 +1390,22 @@ namespace Mojio.Client
         /// <param name="appId">Application Id</param>
         /// <param name="redirectUri">Redirect Uri</param>
         /// <returns>Uri of Mojio login with redirect uri being the uri to return to.</returns>
-        public Uri getAuthorizeUri(String appId, String redirectUri)
+        public Uri getAuthorizeUri(String appId, String redirectUri, bool live = true)
         {
             String baseUrl = RestClient.BaseUrl;
             Regex regex = new Regex(@"/v([0-9]{1})");
             string result = regex.Replace(baseUrl, string.Empty);
+            string oauth = "OAuth2";
+            if (!live)
+            {
+                oauth = "OAuth2Sandbox";
+            }
             string authURL = string.Format(
-                     "{0}/OAuth2/authorize?response_type=token&client_id={1}&redirect_uri={2}",
-                     result,
-                     appId,
-                     redirectUri);
+                         "{0}/{1}/authorize?response_type=token&client_id={2}&redirect_uri={3}",
+                         result,
+                         oauth,
+                         appId,
+                         redirectUri);
 
             return new Uri(authURL);
         }
