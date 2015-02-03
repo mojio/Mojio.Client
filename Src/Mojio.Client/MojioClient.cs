@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using Mojio.Client;
+using System.Text.RegularExpressions;
 
 namespace Mojio.Client
 {
@@ -518,6 +519,25 @@ namespace Mojio.Client
                 return true;
             }
         }
+
+		/// <summary>
+		/// Changes the API endpoint (develop - staging and production
+		/// </summary>
+		public async Task<string> ChangeApiEndpoint (string apiEndpoint) {
+			if (apiEndpoint.Equals ("https://api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://api.moj.io/v1";
+			} else if (apiEndpoint.Equals ("https://staging.api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://staging.api.moj.io/v1";
+			} else if (apiEndpoint.Equals ("https://develop.api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://develop.api.moj.io/v1";
+			} 
+
+			ResetCurrentUser ();
+			Token = null;
+
+			return RestClient.BaseUrl;
+		}
+
 
         /// <summary>
         /// Changes the environment.
@@ -1380,6 +1400,70 @@ namespace Mojio.Client
                 throw new ArgumentException("method");
 
             return memberExpr;
+        }
+
+
+        /// <summary>
+        /// Create uri to direct to Mojio Login page for OAuth. 
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="redirectUri">Redirect Uri</param>
+        /// <returns>Uri of Mojio login with redirect uri being the uri to return to.</returns>
+        public Uri getAuthorizeUri(String appId, String redirectUri, bool live = true)
+        {
+            String baseUrl = RestClient.BaseUrl;
+            Regex regex = new Regex(@"/v([0-9]{1})");
+            string result = regex.Replace(baseUrl, string.Empty);
+            string oauth = "OAuth2";
+            if (!live)
+            {
+                oauth = "OAuth2Sandbox";
+            }
+            string authURL = string.Format(
+                         "{0}/{1}/authorize?response_type=token&client_id={2}&redirect_uri={3}",
+                         result,
+                         oauth,
+                         appId,
+                         redirectUri);
+
+            return new Uri(authURL);
+        }
+
+        /// <summary>
+        /// Set token on the client. 
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="token">Oauth token</param>
+        /// <returns></returns>
+        public async Task<bool> TokenAsync(String appID, String token)
+        {
+            // Set the token on Mojio Client 
+            Guid tokenguid = new Guid(token);
+            return await BeginAsync(new Guid(appID),
+                                    Guid.Empty,
+                                    tokenguid);
+
+        }
+
+        /// <summary>
+        /// Create a uri to redirect to the Mojio logout page. 
+        /// </summary>
+        /// <param name="appId">Application Id</param>
+        /// <param name="redirectUri">Redirect Uri</param>
+        /// <returns>Uri of Mojio logout page.</returns>
+        public Uri getUnauthorizeUri(String appId, String redirectUri)
+        {
+            string baseUrl = RestClient.BaseUrl;
+            Regex regex = new Regex(@"/v([0-9]{1})");
+            string result = regex.Replace(baseUrl, string.Empty);
+            string authURL = string.Format(
+                    "{0}/account/logout?Guid={1}&client_id={2}&redirect_uri={3}",
+                    result,
+                    Token,
+                    appId,
+                    redirectUri);
+
+            return new Uri(authURL);
         }
     }
 }

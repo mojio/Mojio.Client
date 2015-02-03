@@ -96,6 +96,8 @@ namespace Mojio
         /// specific Locale setting (can be null)
         /// </summary>
         public string Locale { get; set; }
+
+        public Developer DeveloperDetails { get; set; }
     }
 
 

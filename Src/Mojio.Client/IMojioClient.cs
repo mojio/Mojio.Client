@@ -17,6 +17,7 @@ namespace Mojio.Client
         System.Threading.Tasks.Task<bool> BeginAsync(Guid appId, Guid secretKey, Guid? tokenId);
         bool ChangeEnvironment(bool sandboxed);
         System.Threading.Tasks.Task<bool> ChangeEnvironmentAsync(bool sandboxed);
+		System.Threading.Tasks.Task<string> ChangeApiEndpoint (string apiEndpoint);
         bool ChangePassword(string oldPassword, string newPassword);
         bool ChangePassword(string oldPassword, string newPassword, out System.Net.HttpStatusCode code);
         bool ChangePassword(string oldPassword, string newPassword, out System.Net.HttpStatusCode code, out string message);
