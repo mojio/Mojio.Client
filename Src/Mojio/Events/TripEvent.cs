@@ -163,15 +163,15 @@ namespace Mojio.Events
                 str += string.Format("Time {0}, Lat {1}, Lng {2}, Speed {3}, RPM {4}, MaxRPM {5}, Heading {6}, Acceleration {7}, Deceleration {8}, Distance {9}, Fuel Level {10}, Fuel Efficiency {11}",
                     this.Time,
                     this.Location.Lat,
-                    this.Location.Lng, 
-                    this.Speed,
-                    this.RPM,
-                    this.Heading,
-                    this.Acceleration,
-                    this.Deceleration,
-                    this.Distance,
-                    this.FuelLevel,
-                    this.FuelEfficiency);
+                    this.Location.Lng,
+                    this.Speed.Value,
+                    this.RPM.Value,
+                    this.Heading == null ? "Invalid" : this.Heading.Value(),
+                    this.Acceleration.Value,
+                    this.Deceleration.Value,
+                    this.Distance.Value,
+                    this.FuelLevel.Value,
+                    this.FuelEfficiency.Value);
 
                 return str;
             } catch (Exception ex) {
