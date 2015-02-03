@@ -166,7 +166,7 @@ namespace Mojio.Events
                     this.Location.Lng,
                     this.Speed.Value,
                     this.RPM.Value,
-                    this.Heading == null ? "Invalid" : this.Heading.Value(),
+                    this.Heading == null ? "Invalid" : string.Format("{0}",this.Heading.Value),
                     this.Acceleration.Value,
                     this.Deceleration.Value,
                     this.Distance.Value,
