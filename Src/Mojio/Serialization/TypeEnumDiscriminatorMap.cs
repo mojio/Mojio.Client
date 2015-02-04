@@ -72,7 +72,7 @@ namespace Mojio.Serialization
                 .Contains<OffStatusEvent>(EventType.OffStatus)
                 .Contains<HeartBeatEvent>(EventType.HeartBeat)
                 .MapUnmappedTo(typeof(Event));
-                           
+
             BuildMap();
             /*Map<Event, EventType>(e => e.EventType)
                 .Contains<AccelerationEvent>(EventType.Acceleration)

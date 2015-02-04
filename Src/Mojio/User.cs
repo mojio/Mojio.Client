@@ -50,7 +50,39 @@ namespace Mojio
         /// <value>
         /// The email.
         /// </value>
-        public string Email { get; set; }
+        public string Email { 
+            get {
+                if(Emails == null) return null;
+
+                return (from e in Emails
+                        where e.Verified
+                        select e.Address).FirstOrDefault();
+            }
+            set {
+                if (Emails == null) Emails = new List<Email>();
+
+                if (!Emails.Any(e => e.Address.Equals(value))) {
+                    Emails.Add(new Email { Address = value, Verified = true });
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Gets or sets the emails.
+        /// </summary>
+        /// <value>
+        /// The emails.
+        /// </value>
+        public List<Email> Emails { get;  set; }
+
+        /// <summary>
+        /// Gets or sets the phones.
+        /// </summary>
+        /// <value>
+        /// The phones.
+        /// </value>
+        public List<PhoneNumber> Phones { get; set; }
 
         /// <summary>
         /// Gets or sets the user count.

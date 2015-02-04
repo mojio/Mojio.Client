@@ -54,6 +54,7 @@
     <Compile Include="CreditCard.cs" />
     <Compile Include="DeviceLog.cs" />
     <Compile Include="DTC.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityType.cs" />
     <Compile Include="EventBroadcast.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Observers\ObserverType.cs" />
     <Compile Include="Observers\ScriptObserver.cs" />
     <Compile Include="ParentAttribute.cs" />
+    <Compile Include="PhoneNumber.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions.cs" />
