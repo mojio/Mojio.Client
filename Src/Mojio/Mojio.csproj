@@ -141,6 +141,7 @@
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
