@@ -69,6 +69,7 @@ namespace Mojio.Client
             Map.Add (typeof(User), "users");
             Map.Add (typeof(Mojio), "mojios");
             Map.Add (typeof(Vehicle), "vehicles");
+            Map.Add (typeof(VehicleDetails), "details");
             Map.Add (typeof(Event), "events");
             Map.Add(typeof(Access), "access");
 

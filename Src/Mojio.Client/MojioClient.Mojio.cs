@@ -160,5 +160,28 @@ namespace Mojio.Client
                     return null;
             });
         }
+
+        /// <summary>
+        /// Gets the vehicle details asynchronously.
+        /// </summary>
+        /// <param name="id">The vehicle identifier.</param>
+        /// <param name="size">The image size.</param>
+        /// <returns></returns>
+        public async Task<MojioResponse<VehicleDetails>> GetVehicleDetailsAsync(Guid id)
+        {
+
+            if (id == Guid.Empty)
+                throw new ArgumentException("Vehicle ID is required");
+
+            string controller = Map[typeof(Vehicle)];
+            string action = Map[typeof(VehicleDetails)];
+            var request = GetRequest(Request(controller, id, action), Method.GET);
+
+            var response = await RequestAsync<VehicleDetails>(request);
+
+            return response;
+
+        }
     }
 }
+
