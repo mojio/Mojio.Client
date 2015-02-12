@@ -33,7 +33,8 @@ namespace Mojio
         public string CountryOfManufacture { get; set; }
         public string Plant { get; set; }
         public Engine InstalledEngine { get; set; }
-        public Transmission InstalledTransmission { get; set; }
+        public Transmission DefaultTransmission { get; set; }
+        public String FuelTankSize { get; set; }
         public List<Engine> Engines { get; set; }
         public List<Transmission> Transmissions { get; set; }
         public List<Warranty> Warranties { get; set; }
