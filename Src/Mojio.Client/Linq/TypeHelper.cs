@@ -13,7 +13,7 @@ namespace Mojio.Client.Linq
         {
             Type ienum = FindIEnumerable(seqType);
             if (ienum == null) return seqType;
-            return ienum.GetGenericArguments()[0];
+            return ienum.GetTypeInfo().GenericTypeArguments[0];
         }
 
         private static Type FindIEnumerable(Type seqType)
@@ -22,18 +22,18 @@ namespace Mojio.Client.Linq
                 return null;
             if (seqType.IsArray)
                 return typeof(IEnumerable<>).MakeGenericType(seqType.GetElementType());
-            if (seqType.IsGenericType)
+            if (seqType.GetTypeInfo().IsGenericType)
             {
-                foreach (Type arg in seqType.GetGenericArguments())
+                foreach (Type arg in seqType.GetTypeInfo().GenericTypeArguments)
                 {
                     Type ienum = typeof(IEnumerable<>).MakeGenericType(arg);
-                    if (ienum.IsAssignableFrom(seqType))
+                    if (ienum.GetTypeInfo().IsAssignableFrom(seqType.GetTypeInfo()))
                     {
                         return ienum;
                     }
                 }
             }
-            var ifaces = seqType.GetInterfaces();
+            var ifaces = seqType.GetTypeInfo().ImplementedInterfaces;
             if (ifaces != null && ifaces.Count() > 0)
             {
                 foreach (Type iface in ifaces)
@@ -42,9 +42,9 @@ namespace Mojio.Client.Linq
                     if (ienum != null) return ienum;
                 }
             }
-            if (seqType.BaseType != null && seqType.BaseType != typeof(object))
+            if (seqType.GetTypeInfo().BaseType != null && seqType.GetTypeInfo().BaseType != typeof(object))
             {
-                return FindIEnumerable(seqType.BaseType);
+                return FindIEnumerable(seqType.GetTypeInfo().BaseType);
             }
             return null;
         }
