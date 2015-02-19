@@ -22,6 +22,10 @@ namespace Mojio
         public void SetToUnknown()
         {
             this.Description = "Unknown DTC";
+            this.Details = "No details available";
+            this.Category = "Unknown";
+            this.Severity = SeverityLevel.Unknown;
+
         }
 
         /// <summary>Gets or sets the code.</summary>
@@ -31,10 +35,22 @@ namespace Mojio
         /// <summary>Gets or sets the description.</summary>
         /// <value>The description.</value>
         public string Description { get; set; }
+
+        /// <summary>Gets or sets the details.</summary>
+        /// <value>The details.</value>
+        public string Details { get; set; }
         
         /// <summary>Gets or sets the source.</summary>
         /// <value>The source.</value>
         public string Source { get; set; }
+
+        /// <summary>Gets or sets the category.</summary>
+        /// <value>The category.</value>
+        public string Category { get; set; }
+
+        /// <summary>Gets or sets the Severity Level.</summary>
+        /// <value>The Severity.</value>
+        public SeverityLevel Severity { get; set; }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
@@ -76,5 +92,12 @@ namespace Mojio
             }
             return dtcStatus;
         }
+    }
+        public enum SeverityLevel { 
+            Unknown, 
+            Notice, 
+            Warning, 
+            Alert, 
+            Emergency
     }
 }
