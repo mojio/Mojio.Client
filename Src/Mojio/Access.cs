@@ -10,29 +10,20 @@ namespace Mojio
     public enum Permissions
     {
         None = 0,
-        View = 1 << 0,
-        Share = 1 << 1,
-        Delete = 1 << 2,
-        Modify = 1 << 3,
-        Inherit = 1 << 4,
-
-        // Common permission combinations
-        Editor = Permissions.View | Permissions.Modify,
-        Author = Permissions.View | Permissions.Modify | Permissions.Delete,
-        Sharer = Permissions.View | Permissions.Share,
-        Owner = Permissions.View | Permissions.Share | Permissions.Delete | Permissions.Modify | Permissions.Inherit,
-
-        Wrecker = Permissions.Delete | Permissions.Inherit,
+        Read = 1 << 0,
+        Write = 1 << 1,
+        Share = 1 << 2,
+        Owner = ~None,
     }
 
-    public class Access : GuidEntity
+    public class AccessRule : GuidEntity
     {
         /// <summary>
         /// Type of entity. This is only really needed for double checking?
         /// </summary>
-        public IList<UserAccess> Users { get; set; }
+        public Guid Group { get; set; }
 
-        public Permissions Everyone { get; set; }
+        public IEnumerable<string> Permissions { get; set; }
 
         public override EntityType Type
         {

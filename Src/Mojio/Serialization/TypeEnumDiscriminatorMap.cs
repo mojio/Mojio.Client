@@ -37,7 +37,7 @@ namespace Mojio.Serialization
                 .Contains<Event>(EntityType.Event)
                 .Contains<Mojio>(EntityType.Mojio)
                 .Contains<App>(EntityType.App)
-                .Contains<Access>(EntityType.Access)
+                .Contains<AccessRule>(EntityType.Access)
                 .Contains<SimCard>(EntityType.SimCard)
                 ;
 
