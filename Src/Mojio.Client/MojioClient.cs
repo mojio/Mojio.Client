@@ -389,7 +389,7 @@ namespace Mojio.Client
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ClearUser ()
         {
-            var response = AvoidAsyncDeadlock(() => ClearUserAsync()).Result;
+            var response = AvoidAsyncDeadlock(ClearUserAsync).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
                 return true;
@@ -402,23 +402,20 @@ namespace Mojio.Client
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.Exception">Valid session must be initialized first.</exception>
-        public Task<MojioResponse<Token>> ClearUserAsync ()
+        public async Task<MojioResponse<Token>> ClearUserAsync ()
         {
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first.");
 
             var request = GetRequest (Request ("login", Token.Id, "user"), HttpMethod.Delete);
 
-            var task = RequestAsync<Token> (request);
-            return task.ContinueWith<MojioResponse<Token>> (r => {
-                var response = r.Result;
-                if (response.StatusCode == HttpStatusCode.OK) {
-                    Token = response.Data;
-                    ResetCurrentUser ();
-                }
+            var response = await RequestAsync<Token>(request);
+            if (response.StatusCode == HttpStatusCode.OK) {
+                Token = response.Data;
+                ResetCurrentUser ();
+            }
 
-                return response;
-            });
+            return response;
         }
 
         /// <summary>
@@ -575,37 +572,35 @@ namespace Mojio.Client
         /// <returns></returns>
         public async Task<MojioResponse> RequestAsync (RestRequest request)
         {
-            return await RestClient.Execute (request).ContinueWith(t => {
-                try {
-                    var response = t.Result;
-                    if (response.StatusCode == 0)
-                    {
-                        return new MojioResponse
-                        {
-                            ErrorMessage = response.StatusDescription,
-                            Content = ToContent(response.RawBytes),
-                            StatusCode = HttpStatusCode.InternalServerError
-                        };
-                    }
-                    else
-                    {
-                        return new MojioResponse
-                        {
-                            Content = ToContent(response.RawBytes),
-                            StatusCode = response.StatusCode
-                        };
-                    }
-                }
-                catch (Exception e)
+            try {
+                var response = await RestClient.Execute (request);
+                if (response.StatusCode == 0)
                 {
                     return new MojioResponse
                     {
-                        Content = "",
-                        ErrorMessage = e.Message,
+                        ErrorMessage = response.StatusDescription,
+                        Content = ToContent(response.RawBytes),
                         StatusCode = HttpStatusCode.InternalServerError
                     };
                 }
-            }).ConfigureAwait(continueOnCapturedContext: false);
+                else
+                {
+                    return new MojioResponse
+                    {
+                        Content = ToContent(response.RawBytes),
+                        StatusCode = response.StatusCode
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new MojioResponse
+                {
+                    Content = "",
+                    ErrorMessage = e.Message,
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
         }
 
         /// <summary>
@@ -617,59 +612,56 @@ namespace Mojio.Client
         public async Task<MojioResponse<T>> RequestAsync<T> (RestRequest request)
             where T : new()
         {
-            return await RestClient.Execute<T>(request).ContinueWith(t =>
+            try
             {
-                try
+                var response = await RestClient.Execute<T>(request);
+
+                MojioResponse<T> r;
+                if (response.StatusCode == 0)
                 {
-                    var response = t.Result;
-
-                    MojioResponse<T> r;
-                    if (response.StatusCode == 0)
+                    r = new MojioResponse<T>
                     {
-                        r = new MojioResponse<T>
-                        {
-                            ErrorMessage = response.StatusDescription,
-                            Content = ToContent(response.RawBytes),
-                            StatusCode = HttpStatusCode.InternalServerError
-                        };
-                    }
-                    else
-                    {
-                        r = new MojioResponse<T>
-                        {
-                            Data = response.Data,
-                            Content = ToContent(response.RawBytes),
-                            StatusCode = response.StatusCode
-                        };
-
-                        if (response.Data == null)
-                        {
-                            try
-                            {
-                                var error = Deserialize<String>(response.RawBytes);
-                                r.ErrorMessage = error ?? ToContent(response.RawBytes);
-                            }
-                            catch (Exception)
-                            {
-                                // Exception thrown.  I don't think we need to do anything with it though.
-                                r.ErrorMessage = ToContent(response.RawBytes);
-                            }
-                        }
-                    }
-                    return r;
-
-                }
-                catch (Exception e)
-                {
-                    return new MojioResponse<T>
-                    {
-                        Data = default(T),
-                        Content = "",
-                        ErrorMessage = e.Message,
+                        ErrorMessage = response.StatusDescription,
+                        Content = ToContent(response.RawBytes),
                         StatusCode = HttpStatusCode.InternalServerError
                     };
                 }
-            }).ConfigureAwait(continueOnCapturedContext: false);
+                else
+                {
+                    r = new MojioResponse<T>
+                    {
+                        Data = response.Data,
+                        Content = ToContent(response.RawBytes),
+                        StatusCode = response.StatusCode
+                    };
+
+                    if (response.Data == null)
+                    {
+                        try
+                        {
+                            var error = Deserialize<String>(response.RawBytes);
+                            r.ErrorMessage = error ?? ToContent(response.RawBytes);
+                        }
+                        catch (Exception)
+                        {
+                            // Exception thrown.  I don't think we need to do anything with it though.
+                            r.ErrorMessage = ToContent(response.RawBytes);
+                        }
+                    }
+                }
+                return r;
+
+            }
+            catch (Exception e)
+            {
+                return new MojioResponse<T>
+                {
+                    Data = default(T),
+                    Content = "",
+                    ErrorMessage = e.Message,
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
         }
 
         static string ToContent(byte[] bytes)
@@ -1037,11 +1029,11 @@ namespace Mojio.Client
         public static async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
         {
             return await Task.Factory.StartNew(
-                () => func().Result, 
-                CancellationToken.None, 
-                TaskCreationOptions.None, 
+                () => func().Result,
+                CancellationToken.None,
+                TaskCreationOptions.None,
                 TaskScheduler.Default
-            ).ConfigureAwait(continueOnCapturedContext: false);
+            ).ConfigureAwait(false);
         }
 
         /// <summary>
