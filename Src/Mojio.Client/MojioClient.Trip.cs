@@ -1,10 +1,9 @@
 using Mojio.Events;
-using RestSharp.Portable;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,7 +47,7 @@ namespace Mojio.Client
         public Task<MojioResponse<Trip>> MergeTripsAsync(Guid intoId, Guid fromId)
         {
             string action = Map[typeof(Trip)];
-            var request = GetRequest(Request(action, intoId, "trip"), HttpMethod.Post);
+            var request = GetRequest(Request(action, intoId, "trip"), Method.POST);
             request.AddBody(fromId);
 
             return RequestAsync<Trip>(request);
@@ -63,7 +62,7 @@ namespace Mojio.Client
         public Task<MojioResponse<Trip>> MergeTripsAsync(Guid intoId, Guid[] fromIds)
         {
             string action = Map[typeof(Trip)];
-            var request = GetRequest(Request(action, intoId, "trips"), HttpMethod.Post);
+            var request = GetRequest(Request(action, intoId, "trips"), Method.POST);
             request.AddBody(fromIds);
 
             return RequestAsync<Trip>(request);

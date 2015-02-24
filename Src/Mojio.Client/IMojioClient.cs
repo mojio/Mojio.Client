@@ -1,6 +1,5 @@
 using System;
 using Mojio;
-using System.Net.Http;
 
 namespace Mojio.Client
 {
@@ -94,7 +93,7 @@ namespace Mojio.Client
         System.Threading.Tasks.Task<byte[]> GetImageAsync(ImageSize size = ImageSize.Small, Guid? userId = null);
         System.Collections.Generic.IList<ServerAddress> GetProxyServers(Guid mojioId);
         System.Threading.Tasks.Task<MojioResponse<System.Collections.Generic.List<ServerAddress>>> GetProxyServersAsync(Guid mojioId);
-        CustomRestRequest GetRequest(string resource, HttpMethod method);
+        CustomRestRequest GetRequest(string resource, RestSharp.Method method);
         Roles? GetRole(Guid? userId = null);
         System.Threading.Tasks.Task<MojioResponse<Roles?>> GetRoleAsync(Guid? userId = null);
         Address GetShipping(Guid? userId = null);

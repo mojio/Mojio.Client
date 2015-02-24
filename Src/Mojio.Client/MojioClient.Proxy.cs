@@ -1,8 +1,7 @@
-﻿using RestSharp.Portable;
+﻿using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,7 +29,7 @@ namespace Mojio.Client
         public Task<MojioResponse<List<ServerAddress>>> GetProxyServersAsync(Guid mojioId)
         {
             var controller = Map[typeof(Mojio)];
-            var request = GetRequest(Request(controller, mojioId, "proxy"), HttpMethod.Get);
+            var request = GetRequest(Request(controller, mojioId, "proxy"), Method.GET);
 
             return RequestAsync<List<ServerAddress>>(request);
         }
@@ -83,7 +82,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> AddProxyServerAsync(Guid mojioId, ServerAddress address)
         {
             var controller = Map[typeof(Mojio)];
-            var request = GetRequest(Request(controller, mojioId, "proxy"), HttpMethod.Put);
+            var request = GetRequest(Request(controller, mojioId, "proxy"), Method.PUT);
             request.AddBody(address);
 
             return RequestAsync<bool>(request);
@@ -111,7 +110,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> SetProxyServerAsync(Guid mojioId, IList<ServerAddress> servers)
         {
             var controller = Map[typeof(Mojio)];
-            var request = GetRequest(Request(controller, mojioId, "proxy"), HttpMethod.Post);
+            var request = GetRequest(Request(controller, mojioId, "proxy"), Method.POST);
             request.AddBody(servers);
 
             return RequestAsync<bool>(request);
@@ -137,7 +136,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> ClearProxyServersAsync(Guid mojioId)
         {
             var controller = Map[typeof(Mojio)];
-            var request = GetRequest(Request(controller, mojioId, "proxy"), HttpMethod.Delete);
+            var request = GetRequest(Request(controller, mojioId, "proxy"), Method.DELETE);
 
             return RequestAsync<bool>(request);
         }

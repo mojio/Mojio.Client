@@ -1,10 +1,9 @@
 using Mojio.Events;
-using RestSharp.Portable;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,7 +23,7 @@ namespace Mojio.Client
 
             string controller = Map[typeof(Mojio)];
             string action = Map[typeof(SimCard)];
-            var request = GetRequest(Request(controller, id, action), HttpMethod.Get);
+            var request = GetRequest(Request(controller, id, action), Method.GET);
 
             return RequestAsync<SimCard>(request);
         }
@@ -84,7 +83,7 @@ namespace Mojio.Client
                 throw new ArgumentException ("Vehicle Id is required");
 
             string action = Map [typeof(Vehicle)];
-            var request = GetRequest (Request (action, id, "image"), HttpMethod.Post);
+            var request = GetRequest (Request (action, id, "image"), Method.POST);
             request.AddBody (data);
 
             return RequestAsync<bool> (request);
@@ -118,7 +117,7 @@ namespace Mojio.Client
                 throw new ArgumentException ("Vehicle Id is required");
 
             string action = Map [typeof(Vehicle)];
-            var request = GetRequest(Request(action, id, "image"), HttpMethod.Delete);
+            var request = GetRequest (Request (action, id, "image"), Method.DELETE);
 
             return RequestAsync<bool> (request);
         }
@@ -148,10 +147,10 @@ namespace Mojio.Client
                 throw new ArgumentException ("Vehicle ID is required");
 
             string action = Map [typeof(Vehicle)];
-            var request = GetRequest(Request(action, id, "image"), HttpMethod.Get);
+            var request = GetRequest (Request (action, id, "image"), Method.GET);
             request.AddParameter ("size", size);
 
-            return RestClient.Execute(request).ContinueWith(t =>
+            return RestClient.ExecuteAsync(request).ContinueWith(t =>
             {
                 var response = t.Result;
 
@@ -176,7 +175,7 @@ namespace Mojio.Client
 
             string controller = Map[typeof(Vehicle)];
             string action = Map[typeof(VehicleDetails)];
-            var request = GetRequest(Request(controller, id, action), HttpMethod.Get);
+            var request = GetRequest(Request(controller, id, action), Method.GET);
 
             var response = await RequestAsync<VehicleDetails>(request);
 

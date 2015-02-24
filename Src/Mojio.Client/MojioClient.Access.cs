@@ -1,9 +1,8 @@
-﻿using RestSharp.Portable;
+﻿using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,7 +51,7 @@ namespace Mojio.Client
         public Task<MojioResponse<Access>> GetAccessAsync(GuidEntity entity)
         {
             string controller = Map[typeof(Access)];
-            var request = GetRequest(Request(controller, entity.Type, entity.Id), HttpMethod.Get);
+            var request = GetRequest(Request(controller, entity.Type, entity.Id), Method.GET);
 
             return RequestAsync<Access>(request);
         }
@@ -107,7 +106,7 @@ namespace Mojio.Client
         public Task<MojioResponse> GrantUserAccessAsync(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
         {
             string action = Map[typeof(Access)];
-            var request = GetRequest(Request(action, entity.Type, entity.Id, "users"), HttpMethod.Put);
+            var request = GetRequest(Request(action, entity.Type, entity.Id, "users"), Method.PUT);
 
             var access = new UserAccess()
             {
@@ -146,7 +145,7 @@ namespace Mojio.Client
         public Task<MojioResponse> SetUserAccessAsync(GuidEntity entity, Guid userId, Permissions flags = Permissions.View)
         {
             string action = Map[typeof(Access)];
-            var request = GetRequest(Request(action, entity.Type, entity.Id, "users"), HttpMethod.Post);
+            var request = GetRequest(Request(action, entity.Type, entity.Id, "users"), Method.POST);
             var access = new UserAccess()
             {
                 UserId = userId,
@@ -182,7 +181,7 @@ namespace Mojio.Client
         public Task<MojioResponse> RevokeUserAccessAsync(GuidEntity entity, Guid groupId)
         {
             string action = Map[typeof(Access)];
-            var request = GetRequest(Request(action, entity.Type, entity.Id, "users"), HttpMethod.Delete);
+            var request = GetRequest(Request(action, entity.Type, entity.Id, "users"), Method.DELETE);
             request.AddParameter("userId", groupId);
 
             return RequestAsync(request);

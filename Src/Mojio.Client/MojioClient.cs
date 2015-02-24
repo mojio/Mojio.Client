@@ -1,6 +1,6 @@
 using Mojio.Client.Linq;
 using Mojio.Events;
-using RestSharp.Portable;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,6 @@ using System.Reflection;
 using System.Threading;
 using Mojio.Client;
 using System.Text.RegularExpressions;
-using System.Net.Http;
 
 namespace Mojio.Client
 {
@@ -158,8 +157,7 @@ namespace Mojio.Client
             PageSize = 10;
             SessionTime = 24 * 60;
 
-            RestClient = new RestClient(Url);
-            RestClient.IgnoreResponseStatusCode = true;
+            RestClient = new RestClient (Url);
             RestClient.ClearHandlers ();
             RestClient.AddHandler ("application/json", new RSJsonSerializer ());
             RestClient.AddHandler ("*", new RSJsonSerializer ());
@@ -190,7 +188,7 @@ namespace Mojio.Client
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool Begin(Guid tokenId)
         {
-            var request = GetRequest(Request("login", tokenId), HttpMethod.Get);
+            var request = GetRequest(Request("login", tokenId), Method.GET);
             var response = AvoidAsyncDeadlock(() => RequestAsync<Token>(request)).Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -226,7 +224,7 @@ namespace Mojio.Client
         {
             try {
                 if (tokenId != null && tokenId != Guid.Empty) {
-                    var request = GetRequest (Request ("login", tokenId.Value), HttpMethod.Get);
+                    var request = GetRequest (Request ("login", tokenId.Value), Method.GET);
                     var response = await RequestAsync<Token>(request);
 
                     if (response.StatusCode == HttpStatusCode.OK && response.Data.AppId == appId)
@@ -265,7 +263,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public async Task<bool> BeginAsync (Guid appId, Guid secretKey)
         {
-            var request = GetRequest(Request("login", appId), HttpMethod.Post);
+            var request = GetRequest (Request ("login", appId), Method.POST);
             request.AddBody ("");
             request.AddParameter ("secretKey", secretKey);
             var response = await RequestAsync<Token> (request);
@@ -289,7 +287,7 @@ namespace Mojio.Client
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool Begin (Guid appId, Guid secretKey, string userOrEmail, string password)
         {
-            var request = GetRequest (Request ("login", appId), HttpMethod.Post);
+            var request = GetRequest (Request ("login", appId), Method.POST);
             request.AddBody ("");
             request.AddParameter ("secretKey", secretKey);
             request.AddParameter ("userOrEmail", userOrEmail);
@@ -363,7 +361,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
 
-            var request = GetRequest(Request("login", userOrEmail, "user"), HttpMethod.Post);
+            var request = GetRequest (Request ("login", userOrEmail, "user"), Method.POST);
             request.AddBody ("");
             request.AddParameter ("userOrEmail", userOrEmail);
             request.AddParameter ("password", password);
@@ -389,7 +387,7 @@ namespace Mojio.Client
         [Obsolete("All synchronous methods have been deprecated, please use the asynchronous method instead.")]
         public bool ClearUser ()
         {
-            var response = AvoidAsyncDeadlock(ClearUserAsync).Result;
+            var response = AvoidAsyncDeadlock(() => ClearUserAsync()).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
                 return true;
@@ -402,20 +400,23 @@ namespace Mojio.Client
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.Exception">Valid session must be initialized first.</exception>
-        public async Task<MojioResponse<Token>> ClearUserAsync ()
+        public Task<MojioResponse<Token>> ClearUserAsync ()
         {
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first.");
 
-            var request = GetRequest (Request ("login", Token.Id, "user"), HttpMethod.Delete);
+            var request = GetRequest (Request ("login", Token.Id, "user"), Method.DELETE);
 
-            var response = await RequestAsync<Token>(request);
-            if (response.StatusCode == HttpStatusCode.OK) {
-                Token = response.Data;
-                ResetCurrentUser ();
-            }
+            var task = RequestAsync<Token> (request);
+            return task.ContinueWith<MojioResponse<Token>> (r => {
+                var response = r.Result;
+                if (response.StatusCode == HttpStatusCode.OK) {
+                    Token = response.Data;
+                    ResetCurrentUser ();
+                }
 
-            return response;
+                return response;
+            });
         }
 
         /// <summary>
@@ -471,7 +472,7 @@ namespace Mojio.Client
             if (Token == null)
                 throw new Exception ("No session to extend."); // Can only "Extend" if already authenticated app.
 
-            var request = GetRequest (Request ("login", Token.Id, "Session"), HttpMethod.Post);
+            var request = GetRequest (Request ("login", Token.Id, "Session"), Method.POST);
             request.AddBody ("");
             request.AddParameter ("minutes", minutes);
 
@@ -494,7 +495,7 @@ namespace Mojio.Client
         public async Task<bool> ChangeEnvironmentAsync(bool sandboxed)
         {
             if (Token.Sandboxed != sandboxed) {
-                var request = GetRequest(Request("login", Token.Id, "Sandboxed"), HttpMethod.Put);
+                var request = GetRequest(Request("login", Token.Id, "Sandboxed"), Method.PUT);
                 request.AddBody ("");
                 request.AddParameter("sandboxed", sandboxed);
                 try
@@ -524,16 +525,18 @@ namespace Mojio.Client
 		/// Changes the API endpoint (develop - staging and production
 		/// </summary>
 		public async Task<string> ChangeApiEndpoint (string apiEndpoint) {
-            Uri uri;
-            if (Uri.TryCreate(apiEndpoint, UriKind.Absolute, out uri))
-            {
-                RestClient.BaseUrl = new Uri(apiEndpoint);
+			if (apiEndpoint.Equals ("https://api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://api.moj.io/v1";
+			} else if (apiEndpoint.Equals ("https://staging.api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://staging.api.moj.io/v1";
+			} else if (apiEndpoint.Equals ("https://develop.api.moj.io/v1")) {
+				RestClient.BaseUrl = "https://develop.api.moj.io/v1";
+			} 
 
-                ResetCurrentUser();
-                Token = null;
-            }
+			ResetCurrentUser ();
+			Token = null;
 
-			return RestClient.BaseUrl.AbsoluteUri;
+			return RestClient.BaseUrl;
 		}
 
 
@@ -555,10 +558,11 @@ namespace Mojio.Client
         /// <param name="resource">Resource URL</param>
         /// <param name="method">Request method</param>
         /// <returns></returns>
-        public CustomRestRequest GetRequest (string resource, HttpMethod method)
+        public CustomRestRequest GetRequest (string resource, Method method)
         {
             var request = new CustomRestRequest (resource, method);
-            request.Serializer = new RSJsonSerializer();
+            request.RequestFormat = DataFormat.Json;
+            request.JsonSerializer = new RSJsonSerializer ();
 
             if (Token != null)
                 request.AddHeader (Headers.MojioAPITokenHeader, Token.Id.ToString ());
@@ -572,14 +576,14 @@ namespace Mojio.Client
         /// <returns></returns>
         public async Task<MojioResponse> RequestAsync (RestRequest request)
         {
-            try {
-                var response = await RestClient.Execute (request);
+            return await RestClient.ExecuteAsync (request).ContinueWith(t => {
+                var response = t.Result;
                 if (response.StatusCode == 0)
                 {
                     return new MojioResponse
                     {
-                        ErrorMessage = response.StatusDescription,
-                        Content = ToContent(response.RawBytes),
+                        ErrorMessage = response.ErrorMessage,
+                        Content = response.Content,
                         StatusCode = HttpStatusCode.InternalServerError
                     };
                 }
@@ -587,20 +591,11 @@ namespace Mojio.Client
                 {
                     return new MojioResponse
                     {
-                        Content = ToContent(response.RawBytes),
+                        Content = response.Content,
                         StatusCode = response.StatusCode
                     };
                 }
-            }
-            catch (Exception e)
-            {
-                return new MojioResponse
-                {
-                    Content = "",
-                    ErrorMessage = e.Message,
-                    StatusCode = HttpStatusCode.InternalServerError
-                };
-            }
+            }).ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -612,17 +607,17 @@ namespace Mojio.Client
         public async Task<MojioResponse<T>> RequestAsync<T> (RestRequest request)
             where T : new()
         {
-            try
+            return await RestClient.ExecuteAsync<T>(request).ContinueWith(t =>
             {
-                var response = await RestClient.Execute<T>(request);
+                var response = t.Result;
 
                 MojioResponse<T> r;
                 if (response.StatusCode == 0)
                 {
                     r = new MojioResponse<T>
                     {
-                        ErrorMessage = response.StatusDescription,
-                        Content = ToContent(response.RawBytes),
+                        ErrorMessage = response.ErrorMessage,
+                        Content = response.Content,
                         StatusCode = HttpStatusCode.InternalServerError
                     };
                 }
@@ -631,7 +626,7 @@ namespace Mojio.Client
                     r = new MojioResponse<T>
                     {
                         Data = response.Data,
-                        Content = ToContent(response.RawBytes),
+                        Content = response.Content,
                         StatusCode = response.StatusCode
                     };
 
@@ -639,34 +634,18 @@ namespace Mojio.Client
                     {
                         try
                         {
-                            var error = Deserialize<String>(response.RawBytes);
-                            r.ErrorMessage = error ?? ToContent(response.RawBytes);
+                            var error = Deserialize<String>(response.Content);
+                            r.ErrorMessage = error ?? response.Content;
                         }
                         catch (Exception)
                         {
                             // Exception thrown.  I don't think we need to do anything with it though.
-                            r.ErrorMessage = ToContent(response.RawBytes);
+                            r.ErrorMessage = response.Content;
                         }
                     }
                 }
                 return r;
-
-            }
-            catch (Exception e)
-            {
-                return new MojioResponse<T>
-                {
-                    Data = default(T),
-                    Content = "",
-                    ErrorMessage = e.Message,
-                    StatusCode = HttpStatusCode.InternalServerError
-                };
-            }
-        }
-
-        static string ToContent(byte[] bytes)
-        {
-            return System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            }).ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -733,7 +712,7 @@ namespace Mojio.Client
 
             string action = Map [typeof(T)];
 
-            var request = GetRequest (Request (action), HttpMethod.Post);
+            var request = GetRequest (Request (action), Method.POST);
 
             request.AddBody (entity);
 
@@ -760,7 +739,7 @@ namespace Mojio.Client
         {
             string controller = Map [typeof(Mojio)];
 
-            var request = GetRequest (Request (controller, imei, "user"), HttpMethod.Put);
+            var request = GetRequest (Request (controller, imei, "user"), Method.PUT);
             request.AddBody ("");
 
             return RequestAsync<Mojio> (request);
@@ -788,7 +767,7 @@ namespace Mojio.Client
         {
             string controller = Map[typeof(Mojio)];
 
-            var request = GetRequest(Request(controller, id, "user"), HttpMethod.Delete);
+            var request = GetRequest(Request(controller, id, "user"), Method.DELETE);
 
             return RequestAsync<bool>(request);
         }
@@ -817,7 +796,7 @@ namespace Mojio.Client
         {
             string controller = Map[typeof(Mojio)];
 
-            var request = GetRequest(Request(controller, id, "pin"), HttpMethod.Put);
+            var request = GetRequest(Request(controller, id, "pin"), Method.PUT);
             request.AddBody ("");
             request.AddParameter("pin", pin);
 
@@ -922,7 +901,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> DeleteAsync<T> (object id)
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id), HttpMethod.Delete);
+            var request = GetRequest (Request (action, id), Method.DELETE);
 
             return RequestAsync<bool> (request);
         }
@@ -985,7 +964,7 @@ namespace Mojio.Client
             where T : BaseEntity, new()
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, entity.IdToString), HttpMethod.Put);
+            var request = GetRequest (Request (action, entity.IdToString), Method.PUT);
             request.AddBody (entity);
 
             return RequestAsync<T> (request);
@@ -1029,11 +1008,11 @@ namespace Mojio.Client
         public static async Task<T> AvoidAsyncDeadlock<T> (Func<Task<T>> func)
         {
             return await Task.Factory.StartNew(
-                () => func().Result,
-                CancellationToken.None,
-                TaskCreationOptions.None,
+                () => func().Result, 
+                CancellationToken.None, 
+                TaskCreationOptions.None, 
                 TaskScheduler.Default
-            ).ConfigureAwait(false);
+            ).ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -1068,7 +1047,7 @@ namespace Mojio.Client
             where T : new()
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action, id), HttpMethod.Get);
+            var request = GetRequest (Request (action, id), Method.GET);
 
             return RequestAsync<T> (request);
         }
@@ -1197,7 +1176,7 @@ namespace Mojio.Client
             if (action == null)
                 action = Map [typeof(M)];
 
-            var request = GetRequest (Request (controller, id, action), HttpMethod.Get);
+            var request = GetRequest (Request (controller, id, action), Method.GET);
 
             request.AddParameter ("offset", Math.Max (0, (page - 1)) * PageSize);
             request.AddParameter ("limit", PageSize);
@@ -1285,7 +1264,7 @@ namespace Mojio.Client
             where T : new()
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action), HttpMethod.Get);
+            var request = GetRequest (Request (action), Method.GET);
 
             request.AddParameter("offset", Math.Max (0, (page - 1)) * PageSize);
             request.AddParameter("limit", PageSize);
@@ -1325,18 +1304,6 @@ namespace Mojio.Client
         }
 
         /// <summary>
-        /// Deserializes the specified content.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="content">The content.</param>
-        /// <returns></returns>
-        public static T Deserialize<T>(byte[] content)
-        {
-            var serializer = new RSJsonSerializer();
-            return serializer.Deserialize<T>(content);
-        }
-
-        /// <summary>
         /// Get an IMojioQueryable for the specific entity type.
         /// </summary>
         /// <typeparam name="T">Entity type to query</typeparam>
@@ -1345,7 +1312,7 @@ namespace Mojio.Client
             where T : BaseEntity, new()
         {
             string action = Map [typeof(T)];
-            var request = GetRequest (Request (action), HttpMethod.Get);
+            var request = GetRequest (Request (action), Method.GET);
 
             var provider = new MojioQueryProvider<T> (this, Request (action));
             return new MojioQueryable<T> (provider);
@@ -1405,7 +1372,7 @@ namespace Mojio.Client
         public Task<MojioResponse> ClearSubscriptionsAsync (ChannelType channel, String target)
         {
             string action = Map [typeof(Subscription)];
-            var request = GetRequest (Request (action), HttpMethod.Delete);
+            var request = GetRequest (Request (action), Method.DELETE);
             request.AddParameter ("channel", channel);
             request.AddParameter ("target", target);
 
@@ -1445,7 +1412,7 @@ namespace Mojio.Client
         /// <returns>Uri of Mojio login with redirect uri being the uri to return to.</returns>
         public Uri getAuthorizeUri(String appId, String redirectUri, bool live = true)
         {
-            String baseUrl = RestClient.BaseUrl.AbsoluteUri;
+            String baseUrl = RestClient.BaseUrl;
             Regex regex = new Regex(@"/v([0-9]{1})");
             string result = regex.Replace(baseUrl, string.Empty);
             string oauth = "OAuth2";
@@ -1487,7 +1454,7 @@ namespace Mojio.Client
         /// <returns>Uri of Mojio logout page.</returns>
         public Uri getUnauthorizeUri(String appId, String redirectUri)
         {
-            string baseUrl = RestClient.BaseUrl.AbsoluteUri;
+            string baseUrl = RestClient.BaseUrl;
             Regex regex = new Regex(@"/v([0-9]{1})");
             string result = regex.Replace(baseUrl, string.Empty);
             string authURL = string.Format(

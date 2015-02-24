@@ -1,10 +1,9 @@
 ﻿using Mojio.Events;
-using RestSharp.Portable;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +34,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public Task<bool> SetStoredAsync (Type type, Guid id, string key, string value) {
             string action = Map[type];
-            var request = GetRequest(Request(action, id, "store", key), HttpMethod.Put);
+            var request = GetRequest(Request(action, id, "store", key), Method.PUT);
             request.AddBody(value);
 
             return RequestAsync (request).ContinueWith (t => {
@@ -66,7 +65,7 @@ namespace Mojio.Client
         /// <returns></returns>
         public Task<String> GetStoredAsync (Type type, Guid id, string key) {
             string action = Map[type];
-            var request = GetRequest(Request(action, id, "store", key), HttpMethod.Get);
+            var request = GetRequest(Request(action, id, "store", key), Method.GET);
 
             return RequestAsync (request).ContinueWith (t => {
                 var response = t.Result;
@@ -135,7 +134,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> DeleteStoredAsync(Type type, Guid id, string key) 
         {
             string action = Map[type];
-            var request = GetRequest(Request(action, id, "store", key), HttpMethod.Delete);
+            var request = GetRequest(Request(action, id, "store", key), Method.DELETE);
 
             return RequestAsync<bool>(request);
         }

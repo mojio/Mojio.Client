@@ -1,5 +1,6 @@
 ﻿using Mojio.Client.Linq;
 using Mojio.Events;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;

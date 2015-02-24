@@ -1,7 +1,7 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,7 +53,7 @@ namespace Mojio.Client
         public Task<MojioResponse<Guid>> SecretKeyAsync(Guid appId, bool sandboxed = true)
         {
             string action = Map[typeof(App)];
-            var request = GetRequest(Request(action, appId, "secret"), HttpMethod.Get);
+            var request = GetRequest(Request(action, appId, "secret"), Method.GET);
 
             request.AddParameter("sandboxed", sandboxed);
 
