@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq.Expressions;
-using RestSharp;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Net.Http;

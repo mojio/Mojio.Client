@@ -2,7 +2,6 @@
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Mojio.Events;
 using Mojio.Serialization;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
