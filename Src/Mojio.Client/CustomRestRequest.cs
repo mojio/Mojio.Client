@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RestSharp;
+using RestSharp.Portable;
+using System.Net.Http;
 
 namespace Mojio.Client
 {
@@ -19,7 +20,7 @@ namespace Mojio.Client
         /// </summary>
         /// <param name="url"></param>
         /// <param name="method"></param>
-        public CustomRestRequest(string url, Method method)
+        public CustomRestRequest(string url, HttpMethod method)
             : base(url, method)
         {
             // nothing to do here
