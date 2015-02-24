@@ -21,10 +21,9 @@ namespace Mojio
         /// </summary>
         public void SetToUnknown()
         {
-            this.Description = "Unknown DTC";
+            this.Description = "Unknown diagnostic trouble code.";
             this.Category = "Unknown";
             this.Severity = SeverityLevel.Unknown;
-
         }
 
         /// <summary>Gets or sets the code.</summary>
@@ -49,7 +48,7 @@ namespace Mojio
 
         /// <summary>Gets or sets the Severity Level.</summary>
         /// <value>The Severity.</value>
-        public SeverityLevel Severity { get; set; }
+        public SeverityLevel? Severity { get; set; }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
