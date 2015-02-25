@@ -52,6 +52,11 @@ namespace Mojio
         /// Optional is ignition on?
         /// </summary>
         public bool? IgnitionOn { get; set; }
+        
+        /// <summary>
+        /// The time of an ignition event, either Ignition on or off.
+        /// </summary>
+        public DateTime? IgnitionEventTime { get; set; }
 
         /// <summary>
         /// Vehicle time, time data came from the vehicle, most of the time this is the LastLocationTime too.
