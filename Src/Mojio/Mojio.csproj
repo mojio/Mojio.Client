@@ -65,6 +65,7 @@
     <Compile Include="Events\HardEvent.cs" />
     <Compile Include="Events\HeartBeatEvent.cs" />
     <Compile Include="Events\TripEvent.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="Headers.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ImageSize.cs" />

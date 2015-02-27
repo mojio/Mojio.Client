@@ -42,6 +42,7 @@ namespace Mojio
         Location,
 		SimCard,
         MojioConfiguration,
-        MojioUpdate
+        MojioUpdate,
+        Group,
     }
 }
