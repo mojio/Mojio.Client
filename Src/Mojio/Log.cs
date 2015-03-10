@@ -31,6 +31,8 @@ namespace Mojio
 
                 Guid? OwnerId { get; set; }
 
+                bool LogLocal { get; set; }
+
                 string Message { get; set; }
                 string Environment { get; set; }
                 List<object> Entities { get; set; }
@@ -65,6 +67,8 @@ namespace Mojio
         [Observable(typeof(User))]
         public Guid? OwnerId { get; set; }
 
+        public bool LogLocal { get; set; }
+
         public string Message { get; set; }
         public string Environment { get; set; }
         public List<object> Entities { get; set; }
@@ -79,6 +83,7 @@ namespace Mojio
         {
             Level = LogLevels.Info;
             Time = DateTime.UtcNow;
+            LogLocal = false;
         }
         
         public static Log Create(string message)

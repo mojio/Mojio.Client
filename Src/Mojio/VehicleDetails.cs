@@ -33,22 +33,21 @@ namespace Mojio
         public string CountryOfManufacture { get; set; }
         public string Plant { get; set; }
         public Engine InstalledEngine { get; set; }
-        public Transmission InstalledTransmission { get; set; }
         public List<Engine> Engines { get; set; }
         public List<Transmission> Transmissions { get; set; }
         public List<Warranty> Warranties { get; set; }
+        public double? FuelTankSize { get; set; }
 
         public class Warranty
         {
             public string Name { get; set; }
             public string Type { get; set; }
             public string Months { get; set; }
-            public string Miles { get; set; }
+            public double? Km { get; set; }
         }
 
         public class Engine
         {
-
             public string Name { get; set; }
             public string Brand { get; set; }
             public string MarketingName { get; set; }
@@ -60,7 +59,7 @@ namespace Mojio
             public string CamType { get; set; }
             public string Compression { get; set; }
             public string Cylinders { get; set; }
-            public string Displacement { get; set; }
+            public double? Displacement { get; set; }
             public string FuelInduction { get; set; }
             public string FuelQuality { get; set; }
             public string FuelType { get; set; }
