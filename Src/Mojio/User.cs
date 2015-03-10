@@ -98,6 +98,8 @@ namespace Mojio
         public string Locale { get; set; }
 
         public Developer DeveloperDetails { get; set; }
+
+        public String PhoneNumber { get; set; }
     }
 
 
