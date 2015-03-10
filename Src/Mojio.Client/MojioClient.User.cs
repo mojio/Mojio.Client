@@ -863,19 +863,5 @@ namespace Mojio.Client
 
             return null;
         }
-
-        public Task<MojioResponse<User>> SearchUsersAsync(string criteria)
-        {
-            if (criteria == null)
-                return null; 
-
-            string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, "search"), Method.GET);
-
-            if (!string.IsNullOrWhiteSpace(criteria))
-                request.AddParameter("criteria", criteria);
-
-            return RequestAsync<User>(request);
-        }
     }
 }
