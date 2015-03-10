@@ -31,5 +31,30 @@ namespace Mojio.Client.Linq
         {
             return source.Contains(value);
         }
+
+        public static async Task<int> CountAsync<T>(this IQueryable<T> query)
+        {
+            if(query is IMojioQueryable<T>)
+            {
+                return await ((IMojioQueryable<T>)query).CountAsync();
+            }
+            else
+            {
+                return query.Count();
+            }
+        }
+
+        public static async Task<T[]> ToArrayAsync<T>(this IQueryable<T> query)
+        {
+            if (query is IMojioQueryable<T>)
+            {
+                var result = await ((IMojioQueryable<T>)query).FetchAsync();
+                return result.ToArray();
+            }
+            else
+            {
+                return query.ToArray();
+            }
+        }
     }
 }
