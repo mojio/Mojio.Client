@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq.Expressions;
-using RestSharp;
 using System.Threading.Tasks;
 
 namespace Mojio.Client.Linq

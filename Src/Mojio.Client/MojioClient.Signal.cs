@@ -2,7 +2,6 @@
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Mojio.Events;
 using Mojio.Serialization;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +46,7 @@ namespace Mojio.Client
             get {
                 if (_hubConnection == null)
                 {
-                    _hubConnection = new HubConnection(RestClient.BaseUrl, true);
+                    _hubConnection = new HubConnection(RestClient.BaseUrl.AbsoluteUri, true);
 
                     var s = new RSJsonSerializer();
                     _hubConnection.JsonSerializer = s.Serializer;

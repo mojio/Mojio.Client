@@ -1,10 +1,11 @@
 using Mojio;
 using Mojio.Events;
-using RestSharp;
+using RestSharp.Portable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -85,8 +86,8 @@ namespace Mojio.Client
         {
             if (Token == null)
                 throw new Exception ("Valid session must be initialized first."); // Can only "Login" if already authenticated app.
-                
-            var request = GetRequest (Request ("login", "facebook", "externaluser"), Method.POST);
+
+            var request = GetRequest(Request("login", "facebook", "externaluser"), HttpMethod.Post);
             request.AddBody ("");
             //request.AddParameter("userOrEmail", userOrEmail);
             request.AddParameter ("accessToken", access_token);
@@ -184,7 +185,7 @@ namespace Mojio.Client
         public Task<MojioResponse<User>> RegisterUserAsync (string username, string email, string password)
         {
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action), Method.POST);
+            var request = GetRequest (Request (action), HttpMethod.Post);
             request.AddBody (new
 				{
 					UserName = username,
@@ -269,7 +270,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> ChangePasswordAsync(string oldPassword, string newPassword)
         {
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, Token.UserId, "Password"), Method.PUT);
+            var request = GetRequest(Request(action, Token.UserId, "Password"), HttpMethod.Put);
             request.AddBody (new
                 {
                     oldPassword = oldPassword,
@@ -330,7 +331,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> RequestPasswordResetAsync (string userNameOrEmail, string returnUrl = null)
         {
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, userNameOrEmail, "PasswordEmail"), Method.POST);
+            var request = GetRequest(Request(action, userNameOrEmail, "PasswordEmail"), HttpMethod.Post);
             request.AddBody (returnUrl);
 
             return RequestAsync<bool> (request);
@@ -423,7 +424,7 @@ namespace Mojio.Client
         public Task<MojioResponse<bool>> PasswordResetAsync(ResetPassword reset)
         {
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, reset.UserNameOrEmail, "Password"), Method.POST);
+            var request = GetRequest(Request(action, reset.UserNameOrEmail, "Password"), HttpMethod.Post);
             request.AddBody(reset);
 
             return RequestAsync<bool>(request);
@@ -606,7 +607,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "shipping"), Method.GET);
+            var request = GetRequest(Request(action, userId, "shipping"), HttpMethod.Get);
 
             return RequestAsync<Address>(request);
         }
@@ -624,7 +625,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "shipping"), Method.POST);
+            var request = GetRequest(Request(action, userId, "shipping"), HttpMethod.Post);
             request.AddBody(shipping);
 
             return RequestAsync<bool>(request);
@@ -675,7 +676,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, userId, "creditcard"), Method.GET);
+            var request = GetRequest (Request (action, userId, "creditcard"), HttpMethod.Get);
 
             return RequestAsync<CreditCard> (request);
         }
@@ -708,7 +709,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "creditcard"), Method.POST);
+            var request = GetRequest(Request(action, userId, "creditcard"), HttpMethod.Post);
             request.AddBody(creditCard);
 
             return RequestAsync<bool>(request);
@@ -763,7 +764,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, userId, "creditcard"), Method.DELETE);
+            var request = GetRequest (Request (action, userId, "creditcard"), HttpMethod.Delete);
 
             return RequestAsync<bool> (request);
         }
@@ -783,7 +784,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, userId, "image"), Method.POST);
+            var request = GetRequest (Request (action, userId, "image"), HttpMethod.Post);
             request.AddBody (data);
 
             return RequestAsync<bool> (request);
@@ -795,7 +796,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "image"), Method.DELETE);
+            var request = GetRequest(Request(action, userId, "image"), HttpMethod.Delete);
 
             return RequestAsync<bool>(request);
         }
@@ -823,12 +824,12 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map [typeof(User)];
-            var request = GetRequest (Request (action, userId, "image"), Method.GET);
+            var request = GetRequest (Request (action, userId, "image"), HttpMethod.Get);
             request.AddParameter ("size", (int)size);
 
             var tcs = new TaskCompletionSource<byte[]> ();
             try {
-                RestClient.ExecuteAsync (request).ContinueWith( t => {
+                RestClient.Execute (request).ContinueWith( t => {
                     var response = t.Result;
 
                     if (response.StatusCode == HttpStatusCode.OK)
@@ -848,7 +849,7 @@ namespace Mojio.Client
                 userId = Token.UserId;
 
             string action = Map[typeof(User)];
-            var request = GetRequest(Request(action, userId, "role"), Method.GET);
+            var request = GetRequest(Request(action, userId, "role"), HttpMethod.Get);
 
             return RequestAsync<Roles?>(request);
         }

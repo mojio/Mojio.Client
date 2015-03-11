@@ -3,9 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq.Expressions;
-using RestSharp;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Mojio.Client.Linq
 {
@@ -125,7 +125,7 @@ namespace Mojio.Client.Linq
 				Execute (expression);
 			}
 
-            var request = _client.GetRequest(_action, Method.GET);
+            var request = _client.GetRequest(_action, HttpMethod.Get);
 
             request.AddParameter("offset", 0);
             request.AddParameter("limit", 0);
@@ -158,7 +158,7 @@ namespace Mojio.Client.Linq
 				Execute (expression);
 			}
 
-            var request = _client.GetRequest(_action, Method.GET);
+            var request = _client.GetRequest(_action, HttpMethod.Get);
 
             request.AddParameter("offset", _offset);
             request.AddParameter("limit", _limit);
