@@ -39,7 +39,7 @@ namespace Mojio
         public double? FuelTankSize { get; set; }
 
         public List<Recall> Recalls { get; set; }
-        public List<ServiceBulletin> ServiceBulletings { get; set; }
+        public List<ServiceBulletin> ServiceBulletins { get; set; }
 
         public class Warranty
         {
