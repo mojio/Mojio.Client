@@ -30,7 +30,7 @@ namespace Mojio.Client
                     return Map [type];
 
                 foreach (var pair in Map) {
-                    if (type.IsSubclassOf(pair.Key))
+                    if (type.GetTypeInfo().IsSubclassOf(pair.Key))
                     {
                         // Lets add it now... might be faster?
                         Add (type, pair.Value);
@@ -69,7 +69,7 @@ namespace Mojio.Client
             Map.Add (typeof(User), "users");
             Map.Add (typeof(Mojio), "mojios");
             Map.Add (typeof(Vehicle), "vehicles");
-            Map.Add (typeof(VehicleDetails), "details");
+            Map.Add (typeof(VehicleDetails), "vins");
             Map.Add (typeof(Event), "events");
             Map.Add(typeof(Access), "access");
 

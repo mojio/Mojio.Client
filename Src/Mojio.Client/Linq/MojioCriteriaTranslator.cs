@@ -76,7 +76,7 @@ namespace Mojio.Client.Linq
                 return value;
             }
 
-            if (type.IsSubclassOf(typeof(Enum)))
+            if (type.GetTypeInfo().IsSubclassOf(typeof(Enum)))
                 return Enum.GetName(type, constant.Value);
             else //if (constant.Type == type)
                 return constant.Value.ToString();
@@ -111,12 +111,12 @@ namespace Mojio.Client.Linq
             if (constantExpression != null)
             {
                 var constantType = constantExpression.Type;
-                if (constantType.IsGenericType)
+                if (constantType.GetTypeInfo().IsGenericType)
                 {
                     var genericTypeDefinition = constantType.GetGenericTypeDefinition();
                     if (genericTypeDefinition == typeof(MojioQueryable<>))
                     {
-                        return constantType.GetGenericArguments()[0];
+                        return constantType.GetTypeInfo().GenericTypeArguments[0];
                     }
                 }
             }

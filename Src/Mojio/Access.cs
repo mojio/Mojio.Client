@@ -17,6 +17,8 @@ namespace Mojio
         Inherit = 1 << 4,
 
         // Common permission combinations
+        Viewer = Permissions.View | Permissions.Inherit,
+
         Editor = Permissions.View | Permissions.Modify,
         Author = Permissions.View | Permissions.Modify | Permissions.Delete,
         Sharer = Permissions.View | Permissions.Share,

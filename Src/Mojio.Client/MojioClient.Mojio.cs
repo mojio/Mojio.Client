@@ -174,7 +174,7 @@ namespace Mojio.Client
                 throw new ArgumentException("Vehicle ID is required");
 
             string controller = Map[typeof(Vehicle)];
-            string action = Map[typeof(VehicleDetails)];
+            string action ="details";
             var request = GetRequest(Request(controller, id, action), Method.GET);
 
             var response = await RequestAsync<VehicleDetails>(request);
