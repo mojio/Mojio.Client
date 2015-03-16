@@ -21,7 +21,9 @@ namespace Mojio.Serialization
         /// </returns>
         public override bool CanConvert(Type objectType)
         {
-            return typeof(T).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
+            return typeof(T).IsAssignableFrom(objectType);
+
+// 4.5 framework:            return typeof(T).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
 
         /// <summary>Reads the JSON representation of the object.</summary>
