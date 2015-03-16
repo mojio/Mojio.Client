@@ -97,7 +97,8 @@ namespace Mojio
             try
             {
                 // use introspection to write out the fields.
-                var fields = this.GetType().GetTypeInfo().DeclaredProperties;
+                PropertyInfo[] fields = this.GetType().GetProperties();
+// 4.5 framework:                var fields = this.GetType().GetTypeInfo().DeclaredProperties;
                 foreach (PropertyInfo field in fields)
                 {
                     var value = field.GetValue(this, null);
