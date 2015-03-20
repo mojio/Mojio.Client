@@ -82,6 +82,11 @@ namespace Mojio.Events
         public double? Odometer { get; set; }
 
         /// <summary>
+        /// roll over of the virtual odometer if the odometer is virtual.  0 means the odometer is real
+        /// </summary>
+        public double? OdometerRollover { get; set; }
+
+        /// <summary>
         /// RPM
         /// </summary>
         public int? RPM { get; set; }
