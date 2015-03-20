@@ -123,19 +123,24 @@ namespace Mojio
         public double? LastVirtualOdometer { get; set; }
 
         /// <summary>
-        /// Last known Virtual Odometer Value
+        /// Odometer at the start of a trip.
         /// </summary>
-        public double? VirtualOdometerBase { get; set; }
+        public double? EstimatedOdometerBase { get; set; }
         
         /// <summary>
-        /// Last known Real Odometer Value
+        /// Odometer at the start of a trip.
         /// </summary>
-        public double? StartOdometer { get; set; }
+        public double? EstimatedOdometerAtTripStart { get; set; }
 
                 /// <summary>
         /// Last known Real Odometer Value
         /// </summary>
         public double? LastOdometer { get; set; }
+
+        /// <summary>
+        /// Estimated Odometer based on the virtual odometer and trip start/stop.
+        /// </summary>
+        public double? EstimatedOdometer { get; set; }
 
         /// <summary>
         /// Last known RPM
