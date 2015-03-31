@@ -32,14 +32,15 @@ namespace Mojio
         public string RestraintType { get; set; }
         public string CountryOfManufacture { get; set; }
         public string Plant { get; set; }
+        public double? FuelTankSize { get; set; }
+        public double? EPAFuelEfficiency { get; set; }
         public Engine InstalledEngine { get; set; }
         public List<Engine> Engines { get; set; }
         public List<Transmission> Transmissions { get; set; }
         public List<Warranty> Warranties { get; set; }
-        public double? FuelTankSize { get; set; }
-
         public List<Recall> Recalls { get; set; }
         public List<ServiceBulletin> ServiceBulletins { get; set; }
+        
 
         public class Warranty
         {
