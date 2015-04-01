@@ -20,9 +20,9 @@ namespace Mojio
         public string ComputerCode { get; set; }
         public string ServiceEvent { get; set; }
         public string IntervalType { get; set; }
-        public decimal? Value { get; set; }
+        public double Value { get; set; }
         public string Units { get; set; }
-        public decimal? InitialValue { get; set; }
+        public double InitialValue { get; set; }
 
     }
 }
