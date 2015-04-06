@@ -7,6 +7,8 @@ namespace Mojio
 {
     public partial class VehicleService
     {
+        public EntityType Type { get { return EntityType.VehicleService; } }
+
         public int DOVehicleId { get; set; }
         public int DOEngineId { get; set; }
         public string TransNotes { get; set; }

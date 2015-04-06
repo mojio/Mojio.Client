@@ -46,6 +46,7 @@ namespace Mojio
         Firmware,
         Operation,
         OperationData,
-        VehicleDetails
+        VehicleDetails,
+        VehicleService,
     }
 }
