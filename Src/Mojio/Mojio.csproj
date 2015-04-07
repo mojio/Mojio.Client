@@ -134,6 +134,7 @@
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.cs" />
     <Compile Include="Serialization\TypeEnumDiscriminatorMap.GoryBits.cs" />
     <Compile Include="ServerAddress.cs" />
+    <Compile Include="VehicleService.cs" />
     <Compile Include="SimCard.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Subscription.cs" />
