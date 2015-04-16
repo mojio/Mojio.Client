@@ -40,16 +40,39 @@ namespace Mojio
     /// <summary>
     /// A APN observer token
     /// </summary>
-    public class ApnObserverToken : ObserverToken
+    public class ApplePushObserverToken : ObserverToken
     {
         /// <summary>
         /// Provided if using APN
         /// </summary>
         public string DeviceToken { get; set; }
 
-        public ApnObserverToken()
+        public string AlertBody { get; set; }
+
+        public string AlertCategory { get; set; }
+
+        public string AlertSound { get; set; }
+
+        public ApplePushObserverToken()
         {
             Transport = global::Mojio.Transport.ApplePush;
+        }
+
+    }
+
+    /// <summary>
+    /// A Google GCM observer token
+    /// </summary>
+    public class AndroidPushObserverToken : ObserverToken
+    {
+        /// <summary>
+        /// Provided if using GCM
+        /// </summary>
+        public string DeviceRegistrationId { get; set; }
+
+        public AndroidPushObserverToken()
+        {
+            Transport = global::Mojio.Transport.AndroidPush;
         }
 
     }

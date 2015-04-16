@@ -16,7 +16,10 @@ namespace Mojio.Serialization
             Maps = new Dictionary<Type, TypeEnumDiscriminatorMap>();
 
             Map<ObserverToken, Transport>(o => o.Transport)
-                .Contains<PubnubObserverToken>(Transport.Pubnub);
+                .Contains<PubnubObserverToken>(Transport.Pubnub)
+                .Contains<ApplePushObserverToken>(Transport.ApplePush)
+                .Contains<AndroidPushObserverToken>(Transport.AndroidPush)
+                ;
 
             Map<Observer, ObserverType>(o => o.ObserverType)
                .Contains<Observer>(ObserverType.Generic)
