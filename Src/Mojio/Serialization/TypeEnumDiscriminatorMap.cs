@@ -19,6 +19,7 @@ namespace Mojio.Serialization
                 .Contains<PubnubObserverToken>(Transport.Pubnub)
                 .Contains<ApplePushObserverToken>(Transport.ApplePush)
                 .Contains<AndroidPushObserverToken>(Transport.AndroidPush)
+                .Contains<HttpPostObserverToken>(Transport.HttpPost)
                 ;
 
             Map<Observer, ObserverType>(o => o.ObserverType)

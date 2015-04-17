@@ -76,4 +76,14 @@ namespace Mojio
         }
 
     }
+
+    public class HttpPostObserverToken : ObserverToken
+    {
+        public string Address { get; set; }
+
+        public HttpPostObserverToken()
+        {
+            Transport = Transport.HttpPost;
+        }
+    }
 }
