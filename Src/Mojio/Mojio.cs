@@ -46,5 +46,15 @@ namespace Mojio
         /// </summary>
         [Observable(typeof(Vehicle))]
         public Guid? VehicleId { get; set; }
+
+        /// <summary>
+        /// For WIFI enabled devices, the SSID
+        /// </summary>
+        virtual public string SSID { get; set; }
+
+        /// <summary>
+        /// For WIFI enabled devices, the SSID Password
+        /// </summary>
+        virtual public string SSIDPassword { get; set; }
     }
 }
