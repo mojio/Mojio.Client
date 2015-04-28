@@ -61,6 +61,14 @@ namespace Mojio
         public DateTime? EndTime { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [time is approx].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [time is approx]; otherwise, <c>false</c>.
+        /// </value>
+        public bool TimeIsApprox { get; set; }
+
+        /// <summary>
         /// Maximum speed
         /// </summary>
         /// <value>
