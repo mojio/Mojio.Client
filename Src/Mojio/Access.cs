@@ -75,8 +75,8 @@ namespace Mojio
             : this()
         {
             Actions = action;
-            Resource = entity;
-            Property = property;
+            if (entity != null) Resource = entity.ToLower();
+            if (property != null) Property = property.ToLower();
         }
 
         public Action Actions { get; set; }

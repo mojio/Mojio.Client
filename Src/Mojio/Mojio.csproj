@@ -43,6 +43,7 @@
     <Compile Include="Access.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="AppUpdateRequest.cs" />
     <Compile Include="Attributes\DefaultSortAttribute.cs" />
     <Compile Include="AuthenticationProvider.cs" />
     <Compile Include="CarState.cs" />
@@ -67,10 +68,13 @@
     <Compile Include="Events\TripEvent.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Headers.cs" />
+    <Compile Include="IAppUpdateRequest.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="ImageSize.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="IOwner.cs" />
+    <Compile Include="IUserUpdateRequest.cs" />
+    <Compile Include="IVehicleUpdateRequest.cs" />
     <Compile Include="IViewers.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Mojio.cs" />
@@ -100,7 +104,9 @@
     <Compile Include="Token.cs" />
     <Compile Include="Trip.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserUpdateRequest.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleUpdateRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
