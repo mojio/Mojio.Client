@@ -118,14 +118,6 @@ namespace Mojio.Events
         public bool? TimeIsApprox { get; set; }
 
         /// <summary>
-        /// The time the Mojio servers received the event.
-        /// </summary>
-        /// <value>
-        /// The server time.
-        /// </value>
-        public DateTime? ServerTime { get; set; }
-
-        /// <summary>
         /// Battery Voltage
         /// </summary>
         public double? BatteryVoltage { get; set; }
