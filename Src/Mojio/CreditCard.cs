@@ -34,7 +34,7 @@ namespace Mojio
         /// <summary>
         /// CVV code
         /// </summary>
-        public int CVV { get; set; }
+        public string CVV { get; set; }
 
         /// <summary>
         /// expiry month
