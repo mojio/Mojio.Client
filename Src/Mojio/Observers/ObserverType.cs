@@ -28,7 +28,8 @@ namespace Mojio
         SmoothEvent = 17,
         SmoothTrip = 18,
         SmoothMojio = 19,
-        SmoothChunkingMojio = 20
+        SmoothChunkingMojio = 20,
+        BooleanField = 21
     }
 
 

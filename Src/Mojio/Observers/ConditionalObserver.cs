@@ -46,7 +46,6 @@ namespace Mojio
         public ConditionalObserver()
             : base(ObserverType.Conditional, ObserverTiming.edge)
         {
-
         }
 
         /// <summary>
