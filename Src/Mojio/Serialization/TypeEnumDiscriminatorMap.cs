@@ -43,6 +43,7 @@ namespace Mojio.Serialization
                .Contains<SmoothTripObserver>(ObserverType.SmoothTrip)
                .Contains<SmoothMojioObserver>(ObserverType.SmoothMojio)
                .Contains<SmoothChunkingMojioObserver>(ObserverType.SmoothChunkingMojio)
+               .Contains<BooleanFieldObserver>(ObserverType.BooleanField)
                ;
 
             Map<GuidEntity, EntityType>(e => e.Type)
