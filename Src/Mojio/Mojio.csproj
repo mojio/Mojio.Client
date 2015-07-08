@@ -103,6 +103,7 @@
     <Compile Include="Observers\AccelerometerObserver.cs" />
     <Compile Include="Observers\AltitudeObserver.cs" />
     <Compile Include="Observers\BatteryVoltageObserver.cs" />
+    <Compile Include="Observers\BooleanFieldObserver.cs" />
     <Compile Include="Observers\ConditionalObserver.cs" />
     <Compile Include="Observers\ConditionalObserverBase.cs" />
     <Compile Include="Observers\DiagnosticCodeObserver.cs" />
