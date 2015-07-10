@@ -19,7 +19,7 @@ namespace Mojio
         public bool? ConditionValue { get; set; }
 
         public BooleanFieldObserver()
-            : base(ObserverType.Conditional, ObserverTiming.edge)
+            : base(ObserverType.BooleanField, ObserverTiming.edge)
         {
         }
 
@@ -44,7 +44,7 @@ namespace Mojio
             string field = "Speed", 
             ObserverTiming timing = ObserverTiming.edge
             )
-            : base(ObserverType.Conditional, subject, parent, timing)
+            : base(ObserverType.BooleanField, subject, parent, timing)
         {
             SubjectId = subjectId;
             ParentId = parentId;
