@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace Mojio.Serialization
 {
-
     public partial class TypeEnumDiscriminatorMap
     {
         static partial void BuildMap();
