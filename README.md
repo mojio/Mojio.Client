@@ -169,26 +169,37 @@ Instead of continuously polling the API to see if any new events have come in, o
 ```csharp
     // ...
     // The Mojio ID you wish to listen to
-    Guid mojioId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
+    Guid vehicleId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 	
     // An array of event types you wish to be notified about
     EventType[] types = new EventType[] { EventType.IgnitionOn, EventType.LowFuel };
 
     // Setup the callback function
-    public void ReceiveEvent(Event event)
+    public void ReceiveEvent(GuidEntity guidEntity)
     {
-        if( event.EventType == EventType.IgnitionOn)
-            // Ignition on detected!
-            // ...
-        else if( event.EventType == EventType.LowFuel )
-            // Do something with the low fuel warning
-            // ...
+    	if(guidEntity.GetType() == typeof(Event))
+    	{
+    		// ...
+    	}
+    	else if(guidEntity.GetType() == typeof(Vehicle))
+    	{
+    		// ...
+    	}
+    	else
+    	{
+    		// ...
+    	}
     }
-
-    client.EventHandler += ReceiveEvent;            // Binds the event listener
-    await client.Subscribe<Mojio>(mojioId,types);   // Register subscription
+    
+    var ignitionEvent = new EventObserver(vehicleId, types, ObserverTiming.leading) { Transports = Transport.SignalR });
+    
+    var observer = await client.CreateAsync(ignitionEvent);
+    
+    await client.Observe(observer.Id); // Observe the observer
+    
+    await client.ObserverHandler += ReceiveEvent; // Bind the event listener
 
     // ...
     // Unsubscribe
-    client.Unsubscribe<Mojio>(mojioId,types);
+    client.Unobserve(observer.Id);
 ```
