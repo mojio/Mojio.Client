@@ -168,7 +168,7 @@ Instead of continuously polling the API to see if any new events have come in, o
 
 ```csharp
     // ...
-    // The Mojio ID you wish to listen to
+    // The Vehicle ID you wish to listen to
     Guid vehicleId = new Guid("0a5453a0-7e70-16d1-a2w6-28dl98c10200");
 	
     // An array of event types you wish to be notified about
