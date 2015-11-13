@@ -940,6 +940,17 @@ namespace Mojio.Client
         }
 
         /// <summary>
+        /// Delete an entity asynchronously.
+        /// </summary>
+        /// <param name="action">The action to perfrom</param>
+        /// <returns></returns>
+        public Task<MojioResponse<bool>> DeleteAsync(string action)
+        {
+            var request = GetRequest(Request(action), Method.DELETE);
+            return RequestAsync<bool>(request);
+        }
+
+        /// <summary>
         /// Update/save an entity.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1083,6 +1094,17 @@ namespace Mojio.Client
             var request = GetRequest(Request(action, id), Method.GET);
 
             return RequestAsync<T>(request);
+        }
+
+        /// <summary>
+        /// Gets entity asynchronously.
+        /// </summary>
+        /// <param name="action">The action to perform</param>
+        /// <returns></returns>
+        public Task<MojioResponse> GetAsync(string action)
+        {
+            var request = GetRequest(Request(action), Method.GET);
+            return RequestAsync(request);
         }
 
         /// <summary>
