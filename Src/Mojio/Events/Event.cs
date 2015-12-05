@@ -127,6 +127,14 @@ namespace Mojio.Events
         /// </summary>
         public bool? ConnectionLost { get; set; }
 
+        public Versions Duplicated { get; set; }
+
+        public enum Versions
+        {
+            P1,
+            P2
+        }
+
         //TODO:: add GSM and GPS status to events.
         ///// <summary>
         ///// GSM Strength
