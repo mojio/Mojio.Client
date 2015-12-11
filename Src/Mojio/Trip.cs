@@ -220,14 +220,6 @@ namespace Mojio
         /// </value>
         public double? StartOdometer { get; set; }
 
-        public Versions Duplicated { get; set; }
-
-        public enum Versions
-        {
-            P1,
-            P2
-        }
-
         public override bool RepresentsRecentChange(TimeSpan? timeWindow)
         {
             return ((TimeSpan)(DateTime.UtcNow - LastUpdatedTime)).TotalSeconds < timeWindow.GetValueOrDefault().TotalSeconds;
